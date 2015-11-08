@@ -1,15 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
-    }
-}
+apply plugin: 'com.jfrog.bintray'
 
 group = 'com.uploadcare.android.library'
 version = '1.0.0'
@@ -39,11 +30,112 @@ android {
     }
 }
 
+def siteUrl = 'https://github.com/uploadcare/uploadcare-android'      // Homepage URL of the library
+def gitUrl = 'https://github.com/uploadcare/uploadcare-android.git'   // Git repository URL
+group = "<maven group id>"
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+
+                // Add your description here
+                name 'Android client library for the Uploadcare API.'
+                url siteUrl
+
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'raphaelnew'
+                        name 'Raphael Gilyazitdinov'
+                        email 'rafa@irafa.ru'
+                    }
+                    developer {
+                        id 'dimituri'
+                        name 'Dimitry Solovyov'
+                        email 'dimituri@gmail.com'
+                    }
+                    developer {
+                        id 'alchernin'
+                        name 'Alexander Tchernin'
+                        email 'alexander.tchernin@googlemail.com'
+                    }
+                    developer {
+                        id 'dnavre'
+                        name 'Yervand Aghababyan'
+                        email 'yervand.aghababyan@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+
+                }
+            }
+        }
+    }
+}
+
 dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.fasterxml.jackson.core:jackson-core:2.6.3'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.6.3'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
     compile 'com.android.support:support-annotations:23.1.0'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    failOnError false
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+task findConventions << {
+    println project.getConvention()
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.containsKey('bintray.user') ? properties.getProperty("bintray.user") : System.getenv('BINTRAY_USER')
+    key = properties.containsKey('bintray.key') ? properties.getProperty("bintray.key") : System.getenv('BINTRAY_KEY')
+
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "uploadcare-android"
+        desc = 'Android client library for the Uploadcare API.'
+        issueTrackerUrl = 'https://github.com/uploadcare/uploadcare-android/issues'
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publicDownloadNumbers = true
+        publish = true
+    }
 }
