@@ -261,7 +261,7 @@ public class CdnPathBuilder {
      * Performs sharpening on result image. This can be useful after scaling down.
      */
     public CdnPathBuilder sharp() {
-        sb.append("/-/blur");
+        sb.append("/-/sharp");
         return this;
     }
 
