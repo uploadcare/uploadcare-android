@@ -20,7 +20,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class UploadcareFileAdapter extends RecyclerView.Adapter<UploadcareFileAdapter.UploadcareFileViewHolder> {
+/**
+ * Adapter
+ */
+public class UploadcareFileAdapter
+        extends RecyclerView.Adapter<UploadcareFileAdapter.UploadcareFileViewHolder> {
+
     private List<UploadcareFile> mDataset = Collections.emptyList();
 
     private final Context mContext;
@@ -46,7 +51,7 @@ public class UploadcareFileAdapter extends RecyclerView.Adapter<UploadcareFileAd
 
         public FrameLayout itemRoot;
 
-        public UploadcareFileViewHolder(View v){
+        public UploadcareFileViewHolder(View v) {
             super(v);
             itemRoot = (FrameLayout) v.findViewById(R.id.item_root);
             title = (TextView) v.findViewById(R.id.title);
@@ -55,7 +60,8 @@ public class UploadcareFileAdapter extends RecyclerView.Adapter<UploadcareFileAd
     }
 
     @Override
-    public UploadcareFileAdapter.UploadcareFileViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public UploadcareFileAdapter.UploadcareFileViewHolder onCreateViewHolder(ViewGroup parent,
+            int viewType) {
         final View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.file_item, parent, false);
         view.setClickable(true);
@@ -63,6 +69,11 @@ public class UploadcareFileAdapter extends RecyclerView.Adapter<UploadcareFileAd
         return new UploadcareFileViewHolder(view);
     }
 
+    /**
+     * Populate view with data.
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final UploadcareFileAdapter.UploadcareFileViewHolder holder,
             final int position) {
@@ -73,7 +84,7 @@ public class UploadcareFileAdapter extends RecyclerView.Adapter<UploadcareFileAd
         builder.cropCenter(250, 250);
         URI url = Urls.cdn(builder);
         Picasso.with(mContext).load(url.toString()).into(
-               holder.image);
+                holder.image);
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +107,7 @@ public class UploadcareFileAdapter extends RecyclerView.Adapter<UploadcareFileAd
     }
 
     /**
-     * Add List of Image objects to the end of existing Dataset.
+     * Add List of UploadcareFile objects to the end of existing Dataset.
      */
     public void addFiles(List<UploadcareFile> nDataset) {
         mDataset.addAll(nDataset);

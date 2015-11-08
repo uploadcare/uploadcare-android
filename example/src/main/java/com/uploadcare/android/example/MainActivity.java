@@ -28,6 +28,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main example activity.
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final int ACTIVITY_CHOOSE_FILE = 0;
@@ -40,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     UploadcareClient client;
 
+    /**
+     * Initialize variables and creates {@link UploadcareClient}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonsHolder = findViewById(R.id.buttons_holder);
         urlEditText = (EditText) findViewById(R.id.from_url_edit_text);
         statusTextView = (TextView) findViewById(R.id.status);
-        client = new UploadcareClient("0e9e279333e12535f844","3f06f5068b47f7591dea");//UploadcareClient.demoClient();
+        client = UploadcareClient.demoClient();
         findViewById(R.id.button_get_files).setOnClickListener(this);
         Button uploadFileButton = (Button) findViewById(R.id.button_upload_file);
         uploadFileButton.setOnClickListener(this);
@@ -59,6 +65,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.button_upload_url).setOnClickListener(this);
     }
 
+    /**
+     * Uploads file from {@link Uri} using UploadcareClient.
+     *
+     * @param context Application context {@link Context}
+     * @param client  {@link UploadcareClient}
+     * @param fileUri file {@link Uri}
+     */
     private void uploadFile(Context context, UploadcareClient client, Uri fileUri) {
         showProgressOrResult(true,
                 getResources().getString(R.string.activity_main_status_uploading));
@@ -79,6 +92,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    /**
+     * Uploads files from list of {@link Uri} using UploadcareClient.
+     *
+     * @param context      Application context {@link Context}
+     * @param client       {@link UploadcareClient}
+     * @param filesUriList list of files {@link Uri}
+     */
     private void uploadFiles(Context context, UploadcareClient client, List<Uri> filesUriList) {
         showProgressOrResult(true,
                 getResources().getString(R.string.activity_main_status_uploading));
@@ -94,9 +114,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onSuccess(List<UploadcareFile> files) {
                 StringBuilder resultStringBuilder = new StringBuilder();
-                for(UploadcareFile file:files){
+                for (UploadcareFile file : files) {
                     resultStringBuilder.append(file.toString()).append(
-                            System.getProperty("line.separator")).append(System.getProperty("line.separator"));
+                            System.getProperty("line.separator"))
+                            .append(System.getProperty("line.separator"));
                 }
                 showProgressOrResult(false,
                         resultStringBuilder.toString());
@@ -104,6 +125,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    /**
+     * Uploads file from url using UploadcareClient.
+     *
+     * @param client    {@link UploadcareClient}
+     * @param sourceUrl url of the original file.
+     */
     private void uploadFromUrl(UploadcareClient client, String sourceUrl) {
         showProgressOrResult(true,
                 getResources().getString(R.string.activity_main_status_uploading));
@@ -141,10 +168,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Launches {@link FilesActivity}
+     */
     private void startGetFilesActivity() {
         startActivity(new Intent(this, FilesActivity.class));
     }
 
+    /**
+     * Launches file/files pick intent.
+     */
     private void selectFileForUpload() {
         Intent chooseFile;
         Intent intent;
@@ -159,6 +192,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
     }
 
+    /**
+     * Handles result from file/files pick intent.
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ACTIVITY_CHOOSE_FILE && resultCode == Activity.RESULT_OK) {
@@ -181,6 +217,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Shows current status message.
+     *
+     * @param progress {@code true} if request is in progress.
+     * @param message  message to show.
+     */
     private void showProgressOrResult(boolean progress, String message) {
         if (progress) {
             buttonsHolder.setVisibility(View.GONE);
@@ -193,6 +235,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Checks if user entered valid url.
+     *
+     * @return {@code true} if entered url is valid, {@code false} otherwise.
+     */
     private boolean checkUrl() {
         if (urlEditText.getText() != null && urlEditText.getText().length() > 0) {
             urlEditText.setError(null);

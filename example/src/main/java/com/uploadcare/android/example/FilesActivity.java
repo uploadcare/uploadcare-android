@@ -15,7 +15,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
@@ -31,8 +30,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class FilesActivity extends AppCompatActivity implements UploadcareFileAdapter.ItemTapListener,
-        View.OnClickListener, CheckBox.OnCheckedChangeListener{
+/**
+ * Activity with RecycleView dynamically populated with a list of Uploadcarefile files.
+ */
+public class FilesActivity extends AppCompatActivity
+        implements UploadcareFileAdapter.ItemTapListener,
+        View.OnClickListener, CheckBox.OnCheckedChangeListener {
 
     private final int ITEMS_PER_PAGE = 30;
 
@@ -68,6 +71,9 @@ public class FilesActivity extends AppCompatActivity implements UploadcareFileAd
 
     private Date filterToDate = null;
 
+    /**
+     * Initialize variables and creates {@link UploadcareClient}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +81,7 @@ public class FilesActivity extends AppCompatActivity implements UploadcareFileAd
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         setContentView(R.layout.activity_files);
-        client = new UploadcareClient("0e9e279333e12535f844","3f06f5068b47f7591dea");// UploadcareClient.demoClient();
+        client = UploadcareClient.demoClient();
         findViewById(R.id.btn_from).setOnClickListener(this);
         findViewById(R.id.btn_to).setOnClickListener(this);
         findViewById(R.id.btn_apply).setOnClickListener(this);
@@ -85,14 +91,14 @@ public class FilesActivity extends AppCompatActivity implements UploadcareFileAd
         storedCheckBox = (CheckBox) findViewById(R.id.stored);
         removedCheckBox = (CheckBox) findViewById(R.id.removed);
         dateFilterTextView = (TextView) findViewById(R.id.date_filter);
-        mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mUploadcareFileAdapter = new UploadcareFileAdapter(this,this);
+        mUploadcareFileAdapter = new UploadcareFileAdapter(this, this);
         mRecyclerView.setAdapter(mUploadcareFileAdapter);
         mRecyclerViewOnScrollListener = new RecyclerViewOnScrollListener(mLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
-                if(next !=null) {
+                if (next != null) {
                     getFiles(next);
                 }
             }
@@ -115,19 +121,20 @@ public class FilesActivity extends AppCompatActivity implements UploadcareFileAd
     }
 
     /**
-     * Starts @link CdnActivity when user clicks on item.
-     * @param uploadcareFile @link UploadcareFile which user clicked.
+     * Launches {@link CdnActivity} when user clicks on item.
+     *
+     * @param uploadcareFile {@link UploadcareFile} which user clicked.
      */
     @Override
     public void itemTap(UploadcareFile uploadcareFile) {
-        Intent intent =new Intent(this, CdnActivity.class);
-        intent.putExtra("fileId",uploadcareFile.getFileId());
+        Intent intent = new Intent(this, CdnActivity.class);
+        intent.putExtra("fileId", uploadcareFile.getFileId());
         startActivity(intent);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_from:
                 showDateDialog(FROM_DATE_PICK);
                 break;
@@ -142,7 +149,7 @@ public class FilesActivity extends AppCompatActivity implements UploadcareFileAd
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()){
+        switch (buttonView.getId()) {
             case R.id.stored:
                 filterStored = isChecked;
                 break;
@@ -153,53 +160,45 @@ public class FilesActivity extends AppCompatActivity implements UploadcareFileAd
     }
 
     /**
-     * Get Uploadcare files data from Uploadcare
+     * Get Uploadcare files data with {@link UploadcareClient}.
      *
-     * @param nextItems page offset
+     * @param nextItems page offset.
      */
     private void getFiles(final URI nextItems) {
-        Log.d("Files","getFiles page:"+nextItems);
         if (nextItems == null) {
             mUploadcareFileAdapter.clear();
             mRecyclerViewOnScrollListener.clear();
             showStatus(getString(R.string.activity_files_status_loading), false);
         }
         FilesQueryBuilder filesQueryBuilder = client.getFiles();
-        if(filterStored){
-            filesQueryBuilder.stored(filterStored);
-        }else if(filterRemoved){
-            filesQueryBuilder.removed(filterRemoved);
+        if (filterStored) {
+            filesQueryBuilder.stored(true);
+        } else if (filterRemoved) {
+            filesQueryBuilder.removed(true);
         }
 
-        if(filterFromDate!=null){
-            Log.d("Files","filterFromDate:"+filterFromDate.toString());
+        if (filterFromDate != null) {
             filesQueryBuilder.from(filterFromDate);
-        }else if(filterToDate!=null){
-            Log.d("Files","filterToDate:"+filterToDate.toString());
+        } else if (filterToDate != null) {
             filesQueryBuilder.to(filterToDate);
         }
 
-        filesQueryBuilder.asListAsync(this,ITEMS_PER_PAGE, nextItems,
+        filesQueryBuilder.asListAsync(this, ITEMS_PER_PAGE, nextItems,
                 new UploadcareFilesCallback() {
                     @Override
                     public void onFailure(UploadcareApiException e) {
-                        Log.d("Files","getFiles onFailure:"+e.getLocalizedMessage());
                         hideStatus();
                         showErrorMessage(e.getLocalizedMessage());
                     }
 
                     @Override
                     public void onSuccess(List<UploadcareFile> files, URI next) {
-                        Log.d("Files","getFiles onSuccess size:"+files.size());
                         hideStatus();
-                        if (nextItems!=null) {
-                            Log.d("Files","getFiles addFiles:");
+                        if (nextItems != null) {
                             mUploadcareFileAdapter.addFiles(files);
                         } else {
                             mUploadcareFileAdapter.updateFiles(files);
-                            Log.d("Files", "getFiles updateFiles:");
                             if (mUploadcareFileAdapter.isEmpty()) {
-                                System.out.println("trying next");
                                 showStatus(getString(R.string.activity_files_no_items), true);
                             }
                         }
@@ -211,8 +210,8 @@ public class FilesActivity extends AppCompatActivity implements UploadcareFileAd
     /**
      * Shows status info when Adapter is empty
      *
-     * @param message to show
-     * @param error   if set shows Retry button
+     * @param message to show.
+     * @param error   if set shows Retry button.
      */
     private void showStatus(String message, boolean error) {
         if (!error && !mUploadcareFileAdapter.isEmpty()) {
@@ -222,17 +221,19 @@ public class FilesActivity extends AppCompatActivity implements UploadcareFileAd
         mStatusTextView.setText(message);
         mStatusTextView.setVisibility(View.VISIBLE);
     }
+
     /**
      * Hides status View
      */
     private void hideStatus() {
         mStatusTextView.setVisibility(View.GONE);
     }
+
     /**
      * Shows Snackbar with message if Adapter has data,
-     * activates Status views if Adapter has no data
+     * activates Status views if Adapter has no data.
      *
-     * @param message to show
+     * @param message to show.
      */
     private void showErrorMessage(String message) {
         if (!mUploadcareFileAdapter.isEmpty()) {
@@ -243,7 +244,12 @@ public class FilesActivity extends AppCompatActivity implements UploadcareFileAd
         }
     }
 
-    private void showDateDialog(final int type){
+    /**
+     * Launches date picker dialog for filters.
+     *
+     * @param type type of filter to choose date for.
+     */
+    private void showDateDialog(final int type) {
         Calendar c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
@@ -254,22 +260,28 @@ public class FilesActivity extends AppCompatActivity implements UploadcareFileAd
                     public void onDateSet(DatePicker view, int year, int monthOfYear,
                             int dayOfMonth) {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-                        if(type==FROM_DATE_PICK){
+                        if (type == FROM_DATE_PICK) {
                             try {
-                                filterFromDate = dateFormat.parse(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+                                filterFromDate = dateFormat
+                                        .parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            dateFilterTextView.setText(getResources().getString(R.string.activity_files_btn_from)+":"+filterFromDate.toString());
-                            filterToDate=null;
-                        }else if(type==TO_DATE_PICK){
+                            dateFilterTextView.setText(
+                                    getResources().getString(R.string.activity_files_btn_from) + ":"
+                                            + filterFromDate.toString());
+                            filterToDate = null;
+                        } else if (type == TO_DATE_PICK) {
                             try {
-                                filterToDate = dateFormat.parse(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+                                filterToDate = dateFormat
+                                        .parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            dateFilterTextView.setText(getResources().getString(R.string.activity_files_btn_to)+":"+filterToDate.toString());
-                            filterFromDate=null;
+                            dateFilterTextView.setText(
+                                    getResources().getString(R.string.activity_files_btn_to) + ":"
+                                            + filterToDate.toString());
+                            filterFromDate = null;
                         }
                     }
                 }, mYear, mMonth, mDay);

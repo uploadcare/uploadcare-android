@@ -61,8 +61,8 @@ public abstract class RecyclerViewOnScrollListener extends RecyclerView.OnScroll
         super.onScrollStateChanged(recyclerView, newState);
     }
 
-    public void clear(){
-        previousTotal=0;
-        current_page=0;
+    public void clear() {
+        previousTotal = 0;
+        current_page = 0;
     }
 }
