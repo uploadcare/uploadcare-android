@@ -81,7 +81,7 @@ public class FilesActivity extends AppCompatActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         setContentView(R.layout.activity_files);
-        client = UploadcareClient.demoClient();
+        client = UploadcareClient.demoClient(); //new UploadcareClient("publickey", "privatekey"); Use your public and private keys from Uploadcare.com account dashboard.
         findViewById(R.id.btn_from).setOnClickListener(this);
         findViewById(R.id.btn_to).setOnClickListener(this);
         findViewById(R.id.btn_apply).setOnClickListener(this);
@@ -162,7 +162,7 @@ public class FilesActivity extends AppCompatActivity
     /**
      * Get Uploadcare files data with {@link UploadcareClient}.
      *
-     * @param nextItems page offset.
+     * @param nextItems page offset. if {@code null} will fetch data without offset.
      */
     private void getFiles(final URI nextItems) {
         if (nextItems == null) {

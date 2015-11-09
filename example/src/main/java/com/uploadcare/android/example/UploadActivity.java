@@ -29,9 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Main example activity.
+ * Example activity with showcase of uploading file/files and file from url.
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class UploadActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final int ACTIVITY_CHOOSE_FILE = 0;
 
@@ -53,16 +53,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonsHolder = findViewById(R.id.buttons_holder);
         urlEditText = (EditText) findViewById(R.id.from_url_edit_text);
         statusTextView = (TextView) findViewById(R.id.status);
-        client = UploadcareClient.demoClient();
+        client = UploadcareClient.demoClient(); //new UploadcareClient("publickey", "privatekey"); Use your public and private keys from Uploadcare.com account dashboard.
         findViewById(R.id.button_get_files).setOnClickListener(this);
+        findViewById(R.id.button_upload_url).setOnClickListener(this);
         Button uploadFileButton = (Button) findViewById(R.id.button_upload_file);
         uploadFileButton.setOnClickListener(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             uploadFileButton
                     .setText(getResources().getString(R.string.activity_main_btn_upload_files));
         }
-
-        findViewById(R.id.button_upload_url).setOnClickListener(this);
     }
 
     /**

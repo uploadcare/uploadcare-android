@@ -41,7 +41,7 @@ public class CdnActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_cdn);
         mRootView = findViewById(R.id.root);
-        client = UploadcareClient.demoClient();
+        client = UploadcareClient.demoClient(); //new UploadcareClient("publickey", "privatekey"); Use your public and private keys from Uploadcare.com account dashboard.
         fileId = getIntent().getExtras().getString("fileId");
 
         client.getFileAsync(this, fileId, new UploadcareFileCallback() {
