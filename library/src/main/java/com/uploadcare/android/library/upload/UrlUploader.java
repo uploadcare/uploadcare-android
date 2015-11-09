@@ -60,7 +60,7 @@ public class UrlUploader implements Uploader {
      * @param pollingInterval Progress polling interval in ms
      * @return An Uploadcare file
      *
-     * @throws {@link UploadFailureException}
+     * @throws UploadFailureException
      */
     public UploadcareFile upload(int pollingInterval) throws UploadFailureException {
 

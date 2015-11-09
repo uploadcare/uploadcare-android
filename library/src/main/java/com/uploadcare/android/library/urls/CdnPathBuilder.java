@@ -297,7 +297,7 @@ public class CdnPathBuilder {
     /**
      * Turn an image to one of the following formats: FORMAT_JPEG or FORMAT_PNG.
      *
-     * @param format @link ImageFormat either FORMAT_JPEG or FORMAT_PNG.
+     * @param format {@link ImageFormat} either FORMAT_JPEG or FORMAT_PNG.
      */
     public CdnPathBuilder format(@ImageFormat String format) {
         sb.append("/-/format/")

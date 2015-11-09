@@ -97,7 +97,7 @@ public class UploadcareFile {
     /**
      * Saves this file on Uploadcare (marks it to be kept).
      *
-     * This does not mutate the current {@class UploadcareFile} instance,
+     * This does not mutate the current {@link UploadcareFile} instance,
      * but creates a new one.
      *
      * @return New file resource instance

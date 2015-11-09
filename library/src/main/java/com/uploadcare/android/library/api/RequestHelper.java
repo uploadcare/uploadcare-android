@@ -436,7 +436,6 @@ public class RequestHelper {
      * @param apiHeaders  TRUE if the default API headers should be set
      * @param callback    callback  {@link RequestCallback}
      * @param requestBody body of POST request, used only with request type REQUEST_POST.
-     * @return HTTP Response object
      */
     public void executeCommandAsync(final Context context, String requestType, String url,
             boolean apiHeaders, final RequestCallback callback, RequestBody requestBody) {
