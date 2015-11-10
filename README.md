@@ -6,18 +6,19 @@ This is an Android library for Uploadcare.
 Supported features:
 
 - Complete file and project API v0.4
-- Paginated resources fetched.
+- Paginated resources fetching.
 - CDN path builder.
-- File uploads from disk, byte array, Uri, and URL.
+- File uploads from file, byte array, Uri, and URL.
+- All operations available in synchronous and asynchronous modes.
 
-## Maven
+## jCenter
 
-Latest stable version is available from Maven Central.
+Latest stable version is available from jCenter.
 
 To include it in your Android project, add this to the gradle.build file:
 
 ```
-compile 'com.uploadcare.android.library:1.0.0'
+compile 'com.uploadcare.android.library:uploadcare-android:1.0.1'
 
 ```
 
@@ -25,24 +26,40 @@ compile 'com.uploadcare.android.library:1.0.0'
 
 ### Basic API Usage
 
+Asynchronous fetch all files.
 ```java
-Client client = new Client("publickey", "privatekey");
+UploadcareClient client = new UploadcareClient("publickey", "privatekey");
 Project project = client.getProject();
 Project.Collaborator owner = project.getOwner();
 
-List<URI> published = new ArrayList<URI>();
-Iterable<File> files = client.getFiles().asIterable();
-for (File file : files) {
-    if (file.isMadePublic()) {
-        published.add(file.getOriginalFileUrl());
-    }
+client.getFiles().asListAsync(new UploadcareAllFilesCallback() {
+            @Override
+            public void onFailure(UploadcareApiException e) {
+                //handle errors.
+            }
+
+            @Override
+            public void onSuccess(List<UploadcareFile> files) {
+                //successfully fetched list of all UploadcareFile files.
+            }
+        });
+```
+Synchronous fetch all files.
+```java
+UploadcareClient client = new UploadcareClient("publickey", "privatekey");
+Project project = client.getProject();
+Project.Collaborator owner = project.getOwner();
+
+Iterable<UploadcareFile> files = client.getFiles().asIterable();
+for (UploadcareFile file : files) {
+    System.out.println(file.toString());
 }
 ```
 
 ### Building CDN URLs
 
 ```java
-File file = client.getFile("85b5644f-e692-4855-9db0-8c5a83096e25");
+UploadcareFile file = client.getFile("85b5644f-e692-4855-9db0-8c5a83096e25");
 CdnPathBuilder builder = file.cdnPath()
         .resizeWidth(200)
         .cropCenter(200, 200)
@@ -52,14 +69,37 @@ URI url = Urls.cdn(builder);
 
 ### File uploads
 
+Asynchronous upload file from Uri.
 ```java
-Client client = Client.demoClient();
-java.io.File file = new java.io.File("olympia.jpg");
-Uploader uploader = new FileUploader(client, sourceFile);
+UploadcareClient client = UploadcareClient.demoClient();
+Context context = getApplicationContext();
+Uri fileUri = ...//resource representing file.
+Uploader uploader = new FileUploader(client, fileUri, context)
+                .store(true);
+        uploader.uploadAsync(new UploadcareFileCallback() {
+            @Override
+            public void onFailure(UploadcareApiException e) {
+                //handle errors.
+            }
+
+            @Override
+            public void onSuccess(UploadcareFile file) {
+                //successfully uploaded file to Uploadcare.
+            }
+        });
+```
+
+Synchronous upload file from Uri.
+```java
+UploadcareClient client = UploadcareClient.demoClient();
+Context context = getApplicationContext();
+Uri fileUri = ...//resource representing file.
+Uploader uploader = new FileUploader(client, fileUri, context)
+                .store(true);
 try {
-    File file = uploader.upload().save();
-    System.out.println(file.getOriginalFileUrl());
+    UploadcareFile file = uploader.upload();
+    //successfully uploaded file to Uploadcare.
 } catch (UploadFailureException e) {
-    System.out.println("Upload failed :(");
+    //handle errors.
 }
 ```
