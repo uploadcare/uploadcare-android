@@ -11,6 +11,8 @@ Supported features:
 - File uploads from file, byte array, Uri, and URL.
 - All operations available in synchronous and asynchronous modes.
 
+[Documentation](http://uploadcare.github.io/uploadcare-android/index.html)
+
 ## jCenter
 
 Latest stable version is available from jCenter.
@@ -56,6 +58,12 @@ for (UploadcareFile file : files) {
 }
 ```
 
+See documentation for details:
+
+* [UploadcareClient](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/library/api/UploadcareClient.html)
+* [UploadcareFile](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/library/api/UploadcareFile.html)
+* [Project](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/library/api/Project.html)
+
 ### Building CDN URLs
 
 ```java
@@ -66,6 +74,11 @@ CdnPathBuilder builder = file.cdnPath()
         .grayscale();
 URI url = Urls.cdn(builder);
 ```
+
+See documentation for details:
+
+* [CdnPathBuilder](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/library/urls/CdnPathBuilder.html)
+* [Urls](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/library/urls/Urls.html)
 
 ### File uploads
 
@@ -103,3 +116,10 @@ try {
     //handle errors.
 }
 ```
+
+See documentation for details:
+
+* [FileUploader](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/library/upload/FileUploader.html)
+* [MultipleFilesUploader](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/library/upload/MultipleFilesUploader.html)
+* [UrlUploader](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/library/upload/UrlUploader.html)
+* [MultipleUrlsUploader](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/library/upload/MultipleUrlsUploader.html)
