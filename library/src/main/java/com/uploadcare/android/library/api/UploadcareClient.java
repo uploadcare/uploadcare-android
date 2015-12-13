@@ -112,7 +112,7 @@ public class UploadcareClient {
         return simpleAuth;
     }
 
-    OkHttpClient getHttpClient() {
+    public OkHttpClient getHttpClient() {
         return httpClient;
     }
 
