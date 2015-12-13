@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="?attr/uploadcareColorAccent">
+    <selector android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+        <item android:state_pressed="false" android:state_focused="true"
+              android:drawable="@drawable/ucw_item_border_thin"/>
+        <item android:state_pressed="true" android:drawable="?attr/uploadcareColorAccent"/>
+        <item android:drawable="@android:color/transparent"/>
+    </selector>
+</ripple>

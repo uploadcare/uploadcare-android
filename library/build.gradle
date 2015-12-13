@@ -46,7 +46,7 @@ publish {
     autoPublish = true
     bintrayUser = properties.containsKey('bintray.user') ? properties.getProperty("bintray.user") : System.getenv('BINTRAY_USER')
     bintrayKey = properties.containsKey('bintray.key') ? properties.getProperty("bintray.key") : System.getenv('BINTRAY_KEY')
-    dryRun = false
+    dryRun = true
 }
 
 dependencies {

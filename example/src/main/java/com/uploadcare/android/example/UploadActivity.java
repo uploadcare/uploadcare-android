@@ -10,6 +10,7 @@ import com.uploadcare.android.library.upload.MultipleFilesUploader;
 import com.uploadcare.android.library.upload.MultipleUploader;
 import com.uploadcare.android.library.upload.Uploader;
 import com.uploadcare.android.library.upload.UrlUploader;
+import com.uploadcare.android.widget.controller.UploadcareWidget;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -56,6 +57,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         client = UploadcareClient.demoClient(); //new UploadcareClient("publickey", "privatekey"); Use your public and private keys from Uploadcare.com account dashboard.
         findViewById(R.id.button_get_files).setOnClickListener(this);
         findViewById(R.id.button_upload_url).setOnClickListener(this);
+        findViewById(R.id.button_uploadcare_widget).setOnClickListener(this);
+        findViewById(R.id.button_uploadcare_widget_instagram).setOnClickListener(this);
+        findViewById(R.id.button_uploadcare_widget_facebook).setOnClickListener(this);
+        findViewById(R.id.button_uploadcare_widget_dropbox).setOnClickListener(this);
         Button uploadFileButton = (Button) findViewById(R.id.button_upload_file);
         uploadFileButton.setOnClickListener(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
@@ -164,6 +169,72 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                     uploadFromUrl(client, urlEditText.getText().toString());
                 }
                 break;
+            case R.id.button_uploadcare_widget:
+                UploadcareWidget.getInstance().init("demopublickey", "demoprivatekey");
+                UploadcareWidget.getInstance().selectFile(this, true,new UploadcareFileCallback() {
+                    @Override
+                    public void onFailure(UploadcareApiException e) {
+                        showProgressOrResult(false,
+                                e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onSuccess(UploadcareFile file) {
+                        showProgressOrResult(false,
+                                file.toString());
+                    }
+                });
+                break;
+            case R.id.button_uploadcare_widget_instagram:
+                UploadcareWidget.getInstance().init("demopublickey", "demoprivatekey",
+                        R.style.CustomUploadCareIndigoPink);
+                UploadcareWidget.getInstance().selectFileFrom(this,
+                        UploadcareWidget.SOCIAL_NETWORK_INSTAGRAM, UploadcareWidget.FILE_TYPE_VIDEO, true, new UploadcareFileCallback() {
+                            @Override
+                            public void onFailure(UploadcareApiException e) {
+                                showProgressOrResult(false,
+                                        e.getLocalizedMessage());
+                            }
+
+                            @Override
+                            public void onSuccess(UploadcareFile file) {
+                                showProgressOrResult(false,
+                                        file.toString());
+                            }
+                        });
+                break;
+            case R.id.button_uploadcare_widget_facebook:
+                UploadcareWidget.getInstance().init("demopublickey", "demoprivatekey",R.style.CustomUploadCareGreenRed);
+                UploadcareWidget.getInstance().selectFileFrom(this,UploadcareWidget.SOCIAL_NETWORK_FACEBOOK, true, new UploadcareFileCallback() {
+                    @Override
+                    public void onFailure(UploadcareApiException e) {
+                        showProgressOrResult(false,
+                                e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onSuccess(UploadcareFile file) {
+                        showProgressOrResult(false,
+                                file.toString());
+                    }
+                });
+                break;
+            case R.id.button_uploadcare_widget_dropbox:
+                UploadcareWidget.getInstance().init("demopublickey", "demoprivatekey");
+                UploadcareWidget.getInstance().selectFileFrom(this,UploadcareWidget.SOCIAL_NETWORK_DROPBOX, UploadcareWidget.FILE_TYPE_IMAGE, true, new UploadcareFileCallback() {
+                    @Override
+                    public void onFailure(UploadcareApiException e) {
+                        showProgressOrResult(false,
+                                e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onSuccess(UploadcareFile file) {
+                        showProgressOrResult(false,
+                                file.toString());
+                    }
+                });
+                break;
         }
     }
 
@@ -248,5 +319,4 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             return false;
         }
     }
-
 }

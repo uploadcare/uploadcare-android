@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Uploadcare Android Widget</string>
+    <string name="ucw_uploadcare_activity_title">Uploadcare Android Widget</string>
+    <string name="ucw_social_instagram">Instagram</string>
+    <string name="ucw_social_facebook">Facebook</string>
+    <string name="ucw_social_vk">Vk</string>
+    <string name="ucw_social_box">Box</string>
+    <string name="ucw_social_huddle">Huddle</string>
+    <string name="ucw_social_flickr">Flickr</string>
+    <string name="ucw_social_evernote">Evernote</string>
+    <string name="ucw_social_skydrive">Sky drive</string>
+    <string name="ucw_social_dropbox">Dropbox</string>
+    <string name="ucw_social_gdrive">Google Drive</string>
+    <string name="ucw_social_unknown">Unknown network</string>
+    <string name="ucw_authorization_acitivity_title">Authorization</string>
+    <string name="ucw_files_acitivity_title">Files</string>
+    <string name="ucw_loading">Loading…</string>
+    <string name="ucw_cancel">Cancel</string>
+    <string name="ucw_error_auth">Authorization error, try again later</string>
+    <string name="ucw_action_signout">Sign out</string>
+    <string name="ucw_action_select_network">Select network</string>
+    <string name="ucw_action_loading_image">Uploading file…</string>
+    <string name="ucw_action_loading_networks">Loading available networks</string>
+    <string name="ucw_empty_content">No content here</string>
+    <string name="ucw_search_hint">Enter your search query</string>
+</resources>

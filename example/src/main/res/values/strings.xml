@@ -8,6 +8,10 @@
     <string name="activity_main_btn_upload_files">Upload file/files</string>
     <string name="activity_main_hint_upload_url">Enter Url to upload from</string>
     <string name="activity_main_btn_upload_url">Upload from url</string>
+    <string name="activity_main_btn_upload_widget">Upload any file from Any network (default Style)</string>
+    <string name="activity_main_btn_upload_widget_in">Upload video from Instagram (custom Style)</string>
+    <string name="activity_main_btn_upload_widget_fa">Upload any file from Facebook (custom Style)</string>
+    <string name="activity_main_btn_upload_widget_dropbox">Upload image from Dropbox </string>
     <string name="activity_main_choose_file">Choose file for upload</string>
     <string name="activity_main_status_uploading">Uploading…</string>
     <string name="activity_files_status_loading">Loading…</string>
@@ -25,4 +29,6 @@
     <string name="activity_cdn_mirror">Mirror</string>
     <string name="activity_cdn_blur">Blur</string>
     <string name="activity_cdn_sharp">Sharp</string>
+    <string name="activity_main_title_library">Library demos</string>
+    <string name="activity_main_title_widget">Widget demos</string>
 </resources>
