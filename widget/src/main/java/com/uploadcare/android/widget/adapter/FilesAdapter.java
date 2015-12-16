@@ -22,17 +22,17 @@ public class FilesAdapter<T extends RecyclerView.ViewHolder> extends RecyclerVie
 
     final Context mContext;
 
-    Path nextPath;
+    private Path nextPath;
 
-    ItemTapListener mItemTapListener;
+    final ItemTapListener mItemTapListener;
 
     @UploadcareWidget.FileType
-    String mFileType;
+    private final String mFileType;
 
-    public FilesAdapter(Context context, ItemTapListener listener, @UploadcareWidget.FileType String fileType) {
+    FilesAdapter(Context context, ItemTapListener listener, @UploadcareWidget.FileType String fileType) {
         mContext = context;
         mItemTapListener = listener;
-        mDataset = new ArrayList<Thing>();
+        mDataset = new ArrayList<>();
         mFileType=fileType;
     }
 

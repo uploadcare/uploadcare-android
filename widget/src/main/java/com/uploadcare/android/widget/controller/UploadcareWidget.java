@@ -106,7 +106,7 @@ public class UploadcareWidget {
      * Initialize UploadcareWidget instance.
      * @param publicKey from Uploadcare dashboard.
      * @param privateKey from Uploadcare dashboard.
-     * @param style
+     * @param style Custom style for Uploadcare widget.
      */
     public void init(String publicKey, String privateKey, int style) {
         this.publicKey = publicKey;
@@ -117,7 +117,7 @@ public class UploadcareWidget {
 
     /**
      *
-     * @param context
+     * @param context Context of the Activity that started file picker.
      * @param callback UploadcareFileCallback will be called to notify about result or error.
      * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
      *              is set false - do not store file upon uploading.
@@ -126,6 +126,7 @@ public class UploadcareWidget {
         checkInit();
         this.mCallback = callback;
         this.fileType=FILE_TYPE_ANY;
+        this.store=storeUponUpload;
         Intent intent = new Intent(context,
                 UploadcareActivity.class);
         context.startActivity(intent);
@@ -133,7 +134,7 @@ public class UploadcareWidget {
 
     /**
      *
-     * @param context
+     * @param context Context of the Activity that started file picker.
      * @param callback UploadcareFileCallback will be called to notify about result or error.
      * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
      *              is set false - do not store file upon uploading.
@@ -143,6 +144,7 @@ public class UploadcareWidget {
         checkInit();
         this.mCallback = callback;
         this.fileType=fileType;
+        this.store=storeUponUpload;
         Intent intent = new Intent(context,
                 UploadcareActivity.class);
         context.startActivity(intent);
@@ -150,7 +152,7 @@ public class UploadcareWidget {
 
     /**
      *
-     * @param context
+     * @param context Context of the Activity that started file picker.
      * @param network @SocialNetwork
      * @param callback UploadcareFileCallback will be called to notify about result or error.
      * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
@@ -160,6 +162,7 @@ public class UploadcareWidget {
         checkInit();
         this.mCallback = callback;
         this.fileType=FILE_TYPE_ANY;
+        this.store=storeUponUpload;
         Intent intent = new Intent(context,
                 UploadcareActivity.class);
         intent.putExtra("network", network);
@@ -168,7 +171,7 @@ public class UploadcareWidget {
 
     /**
      *
-     * @param context
+     * @param context Context of the Activity that started file picker.
      * @param network @SocialNetwork
      * @param callback UploadcareFileCallback will be called to notify about result or error.
      * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
@@ -179,6 +182,7 @@ public class UploadcareWidget {
         checkInit();
         this.mCallback = callback;
         this.fileType=fileType;
+        this.store=storeUponUpload;
         Intent intent = new Intent(context,
                 UploadcareActivity.class);
         intent.putExtra("network", network);

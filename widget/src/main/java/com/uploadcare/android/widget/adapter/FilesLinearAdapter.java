@@ -47,11 +47,6 @@ public static class ThingViewHolder extends RecyclerView.ViewHolder {
         return new ThingViewHolder(view);
     }
 
-    /**
-     * Populates item view with data
-     * @param holder
-     * @param position
-     */
     @Override
     public void onBindViewHolder(final FilesLinearAdapter.ThingViewHolder holder,
             final int position) {
@@ -76,7 +71,7 @@ public static class ThingViewHolder extends RecyclerView.ViewHolder {
         if (thing.title != null && !thing.title.isEmpty()) {
             holder.title.setText(thing.title);
         } else {
-
+            holder.title.setText(null);
         }
 
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {

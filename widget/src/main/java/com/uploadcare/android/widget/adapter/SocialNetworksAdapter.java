@@ -19,7 +19,7 @@ public class SocialNetworksAdapter extends ArrayAdapter<SocialSource> {
 
     private List<SocialSource> mItems = new ArrayList<>();
 
-    LayoutInflater inflater;
+    private final LayoutInflater inflater;
 
     public SocialNetworksAdapter(Context context, List<SocialSource> objects) {
         super(context, R.layout.ucw_dialog_network_item);

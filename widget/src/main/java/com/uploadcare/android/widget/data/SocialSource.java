@@ -81,7 +81,7 @@ public class SocialSource implements Parcelable {
         // reconstruct from the parcel
         this.name = source.readString();
         this.urls = source.readParcelable(Urls.class.getClassLoader());
-        this.rootChunks = new ArrayList<Chunk>();
+        this.rootChunks = new ArrayList<>();
         source.readList(rootChunks, Chunk.class.getClassLoader());
     }
 

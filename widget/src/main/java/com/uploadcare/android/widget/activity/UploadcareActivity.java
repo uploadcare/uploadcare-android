@@ -134,7 +134,7 @@ public class UploadcareActivity extends AppCompatActivity {
             for (SocialSource source : mSocialSources.sources) {
                 if (source.name.equalsIgnoreCase(network)) {
                     socialSource = source;
-                    continue;
+                    break;
                 }
             }
             Intent intent = new Intent(UploadcareActivity.this,

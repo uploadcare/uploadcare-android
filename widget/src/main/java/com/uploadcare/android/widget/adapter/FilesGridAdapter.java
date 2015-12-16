@@ -48,11 +48,6 @@ public class FilesGridAdapter extends FilesAdapter<FilesGridAdapter.ThingViewHol
         return new ThingViewHolder(view);
     }
 
-    /**
-     * Populates item view with data
-     * @param holder
-     * @param position
-     */
     @Override
     public void onBindViewHolder(final FilesGridAdapter.ThingViewHolder holder,
             final int position) {
@@ -65,7 +60,7 @@ public class FilesGridAdapter extends FilesAdapter<FilesGridAdapter.ThingViewHol
             if(!url.startsWith("http")||!url.startsWith("https")){
                 url= BuildConfig.SOCIAL_API_ENDPOINT+url;
             }
-            Picasso.with(mContext).load(thing.thumbnail)
+            Picasso.with(mContext).load(url)
                     .placeholder(placeHolderResource)
                     .into(holder.tb);
         } else {

@@ -35,7 +35,6 @@ import java.util.List;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
-import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -44,15 +43,15 @@ public class UploadcareFilesFragment extends Fragment implements ItemTapListener
 
     public interface OnFileActionsListener {
 
-        public void onError(String message);
+        void onError(String message);
 
-        public void onFileSelected(String fileUrl);
+        void onFileSelected(String fileUrl);
 
-        public void onAuthorizationNeeded(ChunkResponse chunkResponse);
+        void onAuthorizationNeeded(ChunkResponse chunkResponse);
 
-        public void onChunkSelected(List<Chunk> chunks, String title);
+        void onChunkSelected(List<Chunk> chunks, String title);
 
-        public int currentRootChunk();
+        int currentRootChunk();
     }
 
     private SocialSource mSocialSource;
@@ -129,7 +128,7 @@ public class UploadcareFilesFragment extends Fragment implements ItemTapListener
         mSearchView = (SearchView) rootView.findViewById(R.id.ucw_search_view);
         mSearchView.setOnQueryTextListener(this);
         mCircularProgressBar = (CircularProgressBar) rootView.findViewById(R.id.ucw_progress);
-        RecyclerView.LayoutManager layoutManager = null;
+        RecyclerView.LayoutManager layoutManager;
         if(mSocialSource.name.equalsIgnoreCase(UploadcareWidget.SOCIAL_NETWORK_BOX)||
                 mSocialSource.name.equalsIgnoreCase(UploadcareWidget.SOCIAL_NETWORK_DROPBOX)||
                 mSocialSource.name.equalsIgnoreCase(UploadcareWidget.SOCIAL_NETWORK_EVERNOTE)||
@@ -149,8 +148,7 @@ public class UploadcareFilesFragment extends Fragment implements ItemTapListener
                     getResources().getInteger(R.integer.columns));
             mRecyclerView.setLayoutManager(layoutManager);
             mFilesAdapter = new FilesGridAdapter(getActivity(), this, UploadcareWidget.getInstance().getFileType());
-            AnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(
-                    new ScaleInAnimationAdapter(mFilesAdapter));
+            AnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(mFilesAdapter);
             alphaAdapter.setDuration(
                     getResources().getInteger(android.R.integer.config_shortAnimTime));
             alphaAdapter.setInterpolator(new DecelerateInterpolator());
@@ -170,7 +168,7 @@ public class UploadcareFilesFragment extends Fragment implements ItemTapListener
         };
 
 
-        getChunkData(false,null);
+        getChunkData(false, null);
         return rootView;
     }
 
@@ -274,7 +272,11 @@ public class UploadcareFilesFragment extends Fragment implements ItemTapListener
                         Log.d("Files", chunkResponse.toString());
                         mLoadingMoreView.setVisibility(View.GONE);
                         if (chunkResponse.error != null) {
-                            mOnFileActionsListener.onAuthorizationNeeded(chunkResponse);
+                            if(chunkResponse.loginLink!=null) {
+                                mOnFileActionsListener.onAuthorizationNeeded(chunkResponse);
+                            }else {
+                                //no items
+                            }
                         } else {
                             if (!loadMore) {
                                 mCircularProgressBar.setVisibility(View.GONE);
@@ -343,11 +345,10 @@ public class UploadcareFilesFragment extends Fragment implements ItemTapListener
      * @param context Context to get resources and device specific display metrics
      * @return A float value to represent px equivalent to dp depending on device density
      */
-    public static float convertDpToPixel(float dp, Context context){
+    private static float convertDpToPixel(float dp, Context context){
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * (metrics.densityDpi / 160f);
-        return px;
+        return dp * (metrics.densityDpi / 160f);
     }
 
     @Override

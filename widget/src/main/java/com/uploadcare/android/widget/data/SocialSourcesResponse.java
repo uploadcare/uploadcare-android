@@ -47,7 +47,7 @@ public class SocialSourcesResponse implements Parcelable {
      */
     public SocialSourcesResponse(@NonNull Parcel source) {
         // reconstruct from the parcel
-        this.sources = new ArrayList<SocialSource>();
+        this.sources = new ArrayList<>();
         source.readList(sources, SocialSource.class.getClassLoader());
     }
 

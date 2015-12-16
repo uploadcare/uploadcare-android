@@ -17,7 +17,7 @@ public class ToolbarSpinnerAdapter extends ArrayAdapter<Chunk> {
 
     private List<Chunk> mItems = new ArrayList<>();
 
-    LayoutInflater inflater;
+    private final LayoutInflater inflater;
 
     public ToolbarSpinnerAdapter(Context context, List<Chunk> objects) {
         super(context, R.layout.ucw_spinner_row, objects);
