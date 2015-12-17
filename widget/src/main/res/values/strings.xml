@@ -11,6 +11,9 @@
     <string name="ucw_social_skydrive">Sky drive</string>
     <string name="ucw_social_dropbox">Dropbox</string>
     <string name="ucw_social_gdrive">Google Drive</string>
+    <string name="ucw_social_image">Take photo</string>
+    <string name="ucw_social_video">Take video</string>
+    <string name="ucw_social_file">Choose local file</string>
     <string name="ucw_social_unknown">Unknown network</string>
     <string name="ucw_authorization_acitivity_title">Authorization</string>
     <string name="ucw_files_acitivity_title">Files</string>
@@ -23,4 +26,5 @@
     <string name="ucw_action_loading_networks">Loading available networks</string>
     <string name="ucw_empty_content">No content here</string>
     <string name="ucw_search_hint">Enter your search query</string>
+    <string name="ucw_choose_file">Choose file for upload</string>
 </resources>

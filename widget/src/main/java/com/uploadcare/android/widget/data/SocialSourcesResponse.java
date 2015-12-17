@@ -80,6 +80,12 @@ public class SocialSourcesResponse implements Parcelable {
                 return R.string.ucw_social_dropbox;
             case "gdrive":
                 return R.string.ucw_social_gdrive;
+            case "video":
+                return R.string.ucw_social_video;
+            case "image":
+                return R.string.ucw_social_image;
+            case "file":
+                return R.string.ucw_social_file;
             default:
                 return R.string.ucw_social_unknown;
         }
@@ -107,6 +113,12 @@ public class SocialSourcesResponse implements Parcelable {
                 return R.drawable.ucw_dropbox_icon;
             case "gdrive":
                 return R.drawable.ucw_googledrive_icon;
+            case "video":
+                return R.drawable.ic_videocam_white_24dp;
+            case "image":
+                return R.drawable.ic_photo_camera_white_24dp;
+            case "file":
+                return R.drawable.ic_insert_photo_white_24dp;
             default:
                 return -1;
         }

@@ -70,6 +70,12 @@ public class UploadcareWidget {
 
     public static final String SOCIAL_NETWORK_GDRIVE = "gdrive";
 
+    public static final String SOCIAL_NETWORK_VIDEOCAM = "video";
+
+    public static final String SOCIAL_NETWORK_CAMERA = "image";
+
+    public static final String SOCIAL_NETWORK_FILE = "file";
+
     @StringDef({FILE_TYPE_IMAGE, FILE_TYPE_VIDEO, FILE_TYPE_ANY})
 
     //Declare the NavigationMode annotation
