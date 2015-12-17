@@ -83,6 +83,10 @@ public class UploadcareWidget {
 
     }
 
+    /**
+     * Get instance of UploadcareWidget.
+     * @return instance of UploadcareWidget
+     */
     public static UploadcareWidget getInstance() {
         if (mInstance == null) {
             mInstance = new UploadcareWidget();
@@ -103,7 +107,7 @@ public class UploadcareWidget {
     }
 
     /**
-     * Initialize UploadcareWidget instance.
+     * Initialize UploadcareWidget instance with custom Style.
      * @param publicKey from Uploadcare dashboard.
      * @param privateKey from Uploadcare dashboard.
      * @param style Custom style for Uploadcare widget.
@@ -116,9 +120,10 @@ public class UploadcareWidget {
     }
 
     /**
+     * Select and upload file to Uploadcare from any social network.
      *
      * @param context Context of the Activity that started file picker.
-     * @param callback UploadcareFileCallback will be called to notify about result or error.
+     * @param callback {@link UploadcareFileCallback} will be called to notify about result or error.
      * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
      *              is set false - do not store file upon uploading.
      */
@@ -133,12 +138,13 @@ public class UploadcareWidget {
     }
 
     /**
+     * Select and upload specific file type to Uploadcare from any social network.
      *
      * @param context Context of the Activity that started file picker.
-     * @param callback UploadcareFileCallback will be called to notify about result or error.
+     * @param callback {@link UploadcareFileCallback} will be called to notify about result or error.
      * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
      *              is set false - do not store file upon uploading.
-     * @param fileType @FileType
+     * @param fileType FileType
      */
     public void selectFile(Context context, boolean storeUponUpload, @FileType String fileType, UploadcareFileCallback callback){
         checkInit();
@@ -151,10 +157,11 @@ public class UploadcareWidget {
     }
 
     /**
+     *Select and upload file to Uploadcare from specified network.
      *
      * @param context Context of the Activity that started file picker.
-     * @param network @SocialNetwork
-     * @param callback UploadcareFileCallback will be called to notify about result or error.
+     * @param network SocialNetwork
+     * @param callback {@link UploadcareFileCallback} will be called to notify about result or error.
      * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
      *              is set false - do not store file upon uploading.
      */
@@ -170,13 +177,14 @@ public class UploadcareWidget {
     }
 
     /**
+     * Select and upload specific file type to Uploadcare from specified network.
      *
      * @param context Context of the Activity that started file picker.
-     * @param network @SocialNetwork
-     * @param callback UploadcareFileCallback will be called to notify about result or error.
+     * @param network SocialNetwork
+     * @param callback {@link UploadcareFileCallback} will be called to notify about result or error.
      * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
      *              is set false - do not store file upon uploading.
-     * @param fileType @FileType
+     * @param fileType FileType
      */
     public void selectFileFrom(Context context,@SocialNetwork String network, @FileType String fileType, boolean storeUponUpload, UploadcareFileCallback callback){
         checkInit();
@@ -228,6 +236,10 @@ public class UploadcareWidget {
         return style;
     }
 
+    /**
+     * Get {@link UploadcareClient} for direct access to Uploadcare API.
+     * @return UploadcareClient.
+     */
     public UploadcareClient getUploadcareClient(){
         return mUploadcareClient;
     }
