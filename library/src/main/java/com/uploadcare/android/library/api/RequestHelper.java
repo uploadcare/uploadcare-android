@@ -11,6 +11,8 @@ import com.uploadcare.android.library.callbacks.RequestCallback;
 import com.uploadcare.android.library.data.DataWrapper;
 import com.uploadcare.android.library.data.FileData;
 import com.uploadcare.android.library.data.FilePageData;
+import com.uploadcare.android.library.data.GroupData;
+import com.uploadcare.android.library.data.GroupPageData;
 import com.uploadcare.android.library.data.PageData;
 import com.uploadcare.android.library.exceptions.UploadcareApiException;
 import com.uploadcare.android.library.exceptions.UploadcareAuthenticationException;
@@ -55,6 +57,8 @@ public class RequestHelper {
     public static final String REQUEST_POST = "POST";
 
     public static final String REQUEST_DELETE = "DELETE";
+
+    public static final String REQUEST_PUT = "PUT";
 
     public static final String DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss Z";
 
@@ -381,6 +385,86 @@ public class RequestHelper {
 
     }
 
+    public void executeGroupsPaginatedQueryWithOffsetLimitAsync(final Context context,
+            final URI url,
+            final List<UrlParameter> urlParameters,
+            final boolean apiHeaders,
+            final GroupDataWrapper dataWrapper,
+            final BasePaginationCallback callback) {
+
+        Uri.Builder builder = Uri.parse(url.toString())
+                .buildUpon();
+
+        setQueryParameters(builder, urlParameters);
+        URI pageUrl = trustedBuild(builder);
+
+        final Request.Builder requestBuilder = new Request.Builder()
+                .url(pageUrl.toString());
+
+        requestBuilder.get();
+        if (apiHeaders) {
+            try {
+                setApiHeaders(requestBuilder, pageUrl.toString(), REQUEST_GET, null);
+            } catch (Exception e) {
+                e.printStackTrace();
+                callback.onFailure(new UploadcareApiException(e));
+                return;
+            }
+        }
+        client.getHttpClient().newCall(requestBuilder.build()).enqueue(new Callback() {
+            Handler mainHandler = new Handler(context.getMainLooper());
+
+            @Override
+            public void onFailure(Request request, final IOException e) {
+                e.printStackTrace();
+                mainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onFailure(new UploadcareApiException(e));
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(final Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.onFailure(
+                                    new UploadcareApiException("Unexpected code " + response));
+                        }
+                    });
+                }
+                try {
+                    checkResponseStatus(response);
+                    final PageData<GroupData> pageData = client.getObjectMapper()
+                            .readValue(response.body().string(), GroupPageData.class);
+                    final boolean hasMore = pageData.hasMore();
+                    final List<UploadcareGroup> files = new ArrayList<>();
+                    for (GroupData fileData : pageData.getResults()) {
+                        files.add(dataWrapper.wrap(fileData));
+                    }
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.onSuccess(files, pageData.getNext());
+                        }
+                    });
+                } catch (final Exception e) {
+                    e.printStackTrace();
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.onFailure(new UploadcareApiException(e));
+                        }
+                    });
+                }
+            }
+        });
+
+    }
+
     /**
      * Executes the request et the Uploadcare API and return the HTTP Response object.
      *
@@ -408,6 +492,9 @@ public class RequestHelper {
                 break;
             case REQUEST_DELETE:
                 requestBuilder.delete();
+                break;
+            case REQUEST_PUT:
+                requestBuilder.put(requestBody);
                 break;
         }
         if (apiHeaders) {
@@ -451,6 +538,9 @@ public class RequestHelper {
                 break;
             case REQUEST_DELETE:
                 requestBuilder.delete();
+                break;
+            case REQUEST_PUT:
+                requestBuilder.put(requestBody);
                 break;
         }
         if (apiHeaders) {

@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.uploadcare.android.widget">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <application android:allowBackup="true"
+                 android:label="@string/app_name"
+                 android:supportsRtl="true">
+        <activity android:name=".activity.UploadcareActivity"
+                  android:theme="@style/UploadcareWidget.Translucent"
+                  android:label="@string/ucw_uploadcare_activity_title"/>
+        <activity android:name=".activity.UploadcareAuthActivity"
+                  android:theme="@style/UploadcareWidget"
+                  android:label="@string/ucw_authorization_acitivity_title"/>
+        <activity android:name=".activity.UploadcareFilesActivity"
+                  android:theme="@style/UploadcareWidget.NoActionBar"
+                  android:label="@string/ucw_files_acitivity_title"/>
+    </application>
+
+</manifest>

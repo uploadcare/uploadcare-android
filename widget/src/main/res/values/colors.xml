@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ucw_solid_white">#fff</color>
+    <color name="ucw_solid_black">#000</color>
+    <color name="ucw_white_text_87">#D9FFFFFF</color>
+    <color name="ucw_white_text_56">#8CFFFFFF</color>
+    <color name="ucw_black_text_56">#8C000000</color>
+    <color name="ucw_black_text_87">#D9000000</color>
+    <color name="ucw_item_title_bg">#80000000</color>
+
+    <color name="ucw_primary_500">#607D8B</color>
+    <color name="ucw_primary_700">#455A64</color>
+    <color name="ucw_accent_400">#FF9100</color>
+    <color name="ucw_transparent">#00FFFFFF</color>
+</resources>

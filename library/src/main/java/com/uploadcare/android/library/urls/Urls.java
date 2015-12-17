@@ -36,6 +36,17 @@ public class Urls {
     }
 
     /**
+     * Creates a URL to a group resource.
+     *
+     * @param groupId Group ID
+     *
+     * @see com.uploadcare.android.library.api.UploadcareClient
+     */
+    public static URI apiGroup(String groupId) {
+        return URI.create(API_BASE + "/groups/" + groupId + "/");
+    }
+
+    /**
      * Creates a URL to the storage action for a file (saving the file).
      *
      * @param fileId File UUID
@@ -47,12 +58,32 @@ public class Urls {
     }
 
     /**
+     * Creates a URL to the storage action for a group (available on CDN).
+     *
+     * @param groupId Group ID
+     *
+     * @see com.uploadcare.android.library.api.UploadcareClient
+     */
+    public static URI apiGroupStorage(String groupId) {
+        return URI.create(API_BASE + "/groups/" + groupId + "/storage/");
+    }
+
+    /**
      * Creates a URL to the file collection resource.
      *
      * @see com.uploadcare.android.library.api.UploadcareClient
      */
     public static URI apiFiles() {
         return URI.create(API_BASE + "/files/");
+    }
+
+    /**
+     * Creates a URL to the group collection resource.
+     *
+     * @see com.uploadcare.android.library.api.UploadcareClient
+     */
+    public static URI apiGroups() {
+        return URI.create(API_BASE + "/groups/");
     }
 
     /**

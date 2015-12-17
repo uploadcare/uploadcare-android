@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="UploadcareWidget.NoActionBar"> 
+        <item name="windowActionBar">false</item> 
+        <item name="windowNoTitle">true</item> 
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+         <item name="android:statusBarColor">?attr/uploadcareColorPrimaryDark</item> 
+        <item name="colorPrimary">?attr/uploadcareColorPrimary</item>
+        <item name="colorPrimaryDark">?attr/uploadcareColorPrimaryDark</item>
+        <item name="colorAccent">?attr/uploadcareColorAccent</item>
+    </style>
+    <style name="UploadcareWidget.Spinner"
+           parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:dropDownSelector">?attr/selectableItemBackground</item>
+        <item name="android:divider">@null</item>
+        <item name="android:overlapAnchor">true</item>
+        <item name="android:popupBackground">@color/ucw_solid_white</item>
+    </style>
+    <style name="UploadcareWidget.AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">?attr/uploadcareColorAccent</item>
+        <item name="colorPrimary">?attr/uploadcareColorPrimary</item>
+        <item name="android:colorAccent">?attr/uploadcareColorAccent</item>
+        <item name="android:colorPrimary">?attr/uploadcareColorPrimary</item>
+        <item name="android:textColorPrimary">@color/ucw_solid_black</item>
+        <item name="android:textColorLink">?attr/uploadcareColorAccent</item>
+        <item name="android:background">@color/ucw_solid_white</item>
+    </style>
+    <style name="UploadcareWidget.Translucent" parent="android:Theme.Translucent.NoTitleBar">
+        <item name="windowActionBar">false</item> 
+        <item name="windowNoTitle">true</item> 
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+         <item name="android:statusBarColor">@android:color/transparent</item> 
+        <item name="colorPrimary">?attr/uploadcareColorPrimary</item>
+        <item name="colorPrimaryDark">?attr/uploadcareColorPrimaryDark</item>
+        <item name="colorAccent">?attr/uploadcareColorAccent</item>
+    </style>
+
+    <style name="UploadcareStyle" >
+        <item name="uploadcareColorAccent">@color/ucw_accent_400</item>
+        <item name="uploadcareColorPrimary">@color/ucw_primary_500</item>
+        <item name="uploadcareColorPrimaryDark">@color/ucw_primary_700</item>
+    </style>
+</resources>

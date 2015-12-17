@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="uploadcareColorAccent" format="color|reference"/>
+    <attr name="uploadcareColorPrimary" format="color|reference"/>
+    <attr name="uploadcareColorPrimaryDark" format="color|reference"/>
+</resources>

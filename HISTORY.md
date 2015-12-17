@@ -1,4 +1,8 @@
 # History
+## 1.0.3
+- Library: Added group API.
+- Widget: Initial release.
+
 ## 1.0.1
 - Updated documentation.
 
