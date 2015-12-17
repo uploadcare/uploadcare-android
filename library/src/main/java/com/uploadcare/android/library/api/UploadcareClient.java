@@ -4,14 +4,17 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.RequestBody;
 import com.uploadcare.android.library.callbacks.CopyFileCallback;
 import com.uploadcare.android.library.callbacks.ProjectCallback;
 import com.uploadcare.android.library.callbacks.RequestCallback;
 import com.uploadcare.android.library.callbacks.UploadcareFileCallback;
+import com.uploadcare.android.library.callbacks.UploadcareGroupCallback;
 import com.uploadcare.android.library.data.CopyFileData;
 import com.uploadcare.android.library.data.FileData;
+import com.uploadcare.android.library.data.GroupData;
 import com.uploadcare.android.library.data.ProjectData;
 import com.uploadcare.android.library.urls.Urls;
 
@@ -186,12 +189,82 @@ public class UploadcareClient {
     }
 
     /**
+     * Requests group data.
+     *
+     * @param groupId Group ID
+     * @return UploadcareGroup resource
+     */
+    public UploadcareGroup getGroup(String groupId) {
+        URI url = Urls.apiGroup(groupId);
+        RequestHelper requestHelper = getRequestHelper();
+        GroupData groupData = requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(),
+                true, GroupData.class, null);
+        return new UploadcareGroup(this, groupData);
+    }
+
+    /**
+     * Requests file data Asynchronously.
+     *
+     * @param context  Application context. {@link android.content.Context }
+     * @param groupId  Group ID
+     * @param callback callback  {@link UploadcareGroupCallback} with either
+     *                 an UploadcareFile response or a failure exception.
+     */
+    public void getGroupAsync(Context context, String groupId, UploadcareGroupCallback callback) {
+        URI url = Urls.apiGroup(groupId);
+        RequestHelper requestHelper = getRequestHelper();
+        GroupDataWrapper dataWrapper = new GroupDataWrapper(this);
+        requestHelper
+                .executeQueryAsync(context, RequestHelper.REQUEST_GET, url.toString(), true,
+                        GroupData.class,
+                        dataWrapper, callback, null);
+    }
+
+    /**
+     * Mark all files in a group as stored (available on CDN).
+     *
+     * @param groupId Group ID
+     */
+    public void storeGroup(String groupId) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse(""), groupId);
+        URI url = Urls.apiGroupStorage(groupId);
+        RequestHelper requestHelper = getRequestHelper();
+        requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, requestBody);
+    }
+
+    /**
+     * Mark all files in a group as stored (available on CDN). Asynchronously.
+     *
+     * @param context  Application context. {@link android.content.Context }
+     * @param groupId  Group ID
+     * @param callback callback  {@link RequestCallback} with either
+     *                 an HTTP response or a failure exception.
+     */
+    public void storeGroupAsync(Context context, String groupId, RequestCallback callback) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse(""), groupId);
+        URI url = Urls.apiGroupStorage(groupId);
+        RequestHelper requestHelper = getRequestHelper();
+        requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
+                true, callback,
+                requestBody);
+    }
+
+    /**
      * Begins to build a request for uploaded files for the current account.
      *
      * @return UploadcareFile resource request builder
      */
     public FilesQueryBuilder getFiles() {
         return new FilesQueryBuilder(this);
+    }
+
+    /**
+     * Begins to build a request for groups for the current account.
+     *
+     * @return Group resource request builder
+     */
+    public GroupsQueryBuilder getGroups() {
+        return new GroupsQueryBuilder(this);
     }
 
     /**

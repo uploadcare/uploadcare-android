@@ -1,6 +1,6 @@
 # History
-## 1.0.2
--
+## 1.0.3
+- Library: Added group API.
 
 ## 1.0.1
 - Updated documentation.
