@@ -10,7 +10,6 @@ import com.uploadcare.android.widget.view.SquaredImageView;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +56,6 @@ public static class ThingViewHolder extends RecyclerView.ViewHolder {
         if (thing.thumbnail != null) {
             String url= thing.thumbnail;
             if(!url.startsWith("http")||!url.startsWith("https")){
-                Log.d("adapter","changed image url");
                 url= BuildConfig.SOCIAL_API_ENDPOINT+url;
             }
             Picasso.with(mContext).load(url)
