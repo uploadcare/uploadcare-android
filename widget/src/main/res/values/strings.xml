@@ -23,7 +23,7 @@
     <string name="ucw_action_signout">Sign out</string>
     <string name="ucw_action_select_network">Select network</string>
     <string name="ucw_action_loading_image">Uploading file…</string>
-    <string name="ucw_action_loading_networks">Loading available networks</string>
+    <string name="ucw_action_loading_networks">Loading…</string>
     <string name="ucw_empty_content">No content here</string>
     <string name="ucw_search_hint">Enter your search query</string>
     <string name="ucw_choose_file">Choose file for upload</string>

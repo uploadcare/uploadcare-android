@@ -7,10 +7,10 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 14
         targetSdkVersion 23
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.4"
     }
     buildTypes {
         release {
@@ -37,7 +37,7 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 publish {
     groupId = 'com.uploadcare.android.library'
     artifactId = 'uploadcare-android'
-    publishVersion = '1.0.3'
+    publishVersion = '1.0.4'
     desc = 'Android client library for the Uploadcare API.'
     licences = ["Apache-2.0"]
     website = 'https://github.com/uploadcare/uploadcare-android'

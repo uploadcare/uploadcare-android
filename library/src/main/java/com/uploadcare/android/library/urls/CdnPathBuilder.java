@@ -49,16 +49,16 @@ public class CdnPathBuilder {
     }
 
     private void dimensionGuard(int dim) {
-        if (dim < 1 || dim > 2048) {
-            throw new IllegalArgumentException("Dimensions must be in the range 1-2048");
+        if (dim < 1 || dim > 7680) {
+            throw new IllegalArgumentException("Dimensions must be in the range 1-7680");
         }
     }
 
     private void dimensionsGuard(int width, int height) {
         dimensionGuard(width);
         dimensionGuard(height);
-        if (width > 634 && height > 634) {
-            throw new IllegalArgumentException("At least one dimension must be less than 634");
+        if (width > 7680 && height > 7680) {
+            throw new IllegalArgumentException("At least one dimension must be less than 7680");
         }
     }
 

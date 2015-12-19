@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Uploadcare Android Widget</string>
+    <string name="ucw_uploadcare_activity_title">Uploadcare Android Widget</string>
+    <string name="ucw_social_instagram">Instagram</string>
+    <string name="ucw_social_facebook">Facebook</string>
+    <string name="ucw_social_vk">Vk</string>
+    <string name="ucw_social_box">Box</string>
+    <string name="ucw_social_huddle">Huddle</string>
+    <string name="ucw_social_flickr">Flickr</string>
+    <string name="ucw_social_evernote">Evernote</string>
+    <string name="ucw_social_skydrive">Sky drive</string>
+    <string name="ucw_social_dropbox">Dropbox</string>
+    <string name="ucw_social_gdrive">Google Drive</string>
+    <string name="ucw_social_image">Сделать фото</string>
+    <string name="ucw_social_video">Снять видео</string>
+    <string name="ucw_social_file">Выбрать файл на устройстве</string>
+    <string name="ucw_social_unknown">Unknown network</string>
+    <string name="ucw_authorization_acitivity_title">Авторизация</string>
+    <string name="ucw_files_acitivity_title">Файлы</string>
+    <string name="ucw_loading">Загрузка…</string>
+    <string name="ucw_cancel">Отмена</string>
+    <string name="ucw_error_auth">Ошибка авторизации, попробуйте позже</string>
+    <string name="ucw_action_signout">Выход</string>
+    <string name="ucw_action_select_network">Выбрать источник</string>
+    <string name="ucw_action_loading_image">Загрузка файла…</string>
+    <string name="ucw_action_loading_networks">Загрузка…</string>
+    <string name="ucw_empty_content">Нет файлов</string>
+    <string name="ucw_search_hint">Ввведите поисковый запрос</string>
+    <string name="ucw_choose_file">Выберите файл для загрузки</string>
+</resources>
