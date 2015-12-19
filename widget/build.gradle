@@ -49,7 +49,7 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 publish {
     groupId = 'com.uploadcare.android.widget'
     artifactId = 'uploadcare-android-widget'
-    publishVersion = '1.0.3'
+    publishVersion = '1.0.4'
     desc = 'Android client library for the Uploadcare API.'
     licences = ["Apache-2.0"]
     website = 'https://github.com/uploadcare/uploadcare-android'
@@ -65,7 +65,7 @@ publish {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.uploadcare.android.library:uploadcare-android:1.0.3'
+    compile 'com.uploadcare.android.library:uploadcare-android:1.0.4'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:support-annotations:23.1.1'
