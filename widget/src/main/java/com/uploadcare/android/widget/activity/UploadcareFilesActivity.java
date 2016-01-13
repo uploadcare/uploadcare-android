@@ -57,6 +57,7 @@ public class UploadcareFilesActivity extends AppCompatActivity implements Upload
             getTheme().applyStyle(R.style.UploadcareStyle, true);
         }
         super.onCreate(savedInstanceState);
+        if(!UploadcareWidget.getInstance().isInited())finish();
         setContentView(R.layout.ucw_activity_files);
         if (savedInstanceState != null) {
             mSocialSource = savedInstanceState.getParcelable("socialsource");
@@ -173,6 +174,7 @@ public class UploadcareFilesActivity extends AppCompatActivity implements Upload
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_AUTH) {
+            if(!UploadcareWidget.getInstance().isInited())finish();
             if (resultCode == RESULT_OK) {
                 // The Intent's data contains cookie.
                 Bundle extras = data.getExtras();

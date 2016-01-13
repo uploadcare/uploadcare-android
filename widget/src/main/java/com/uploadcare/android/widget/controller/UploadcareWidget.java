@@ -232,6 +232,10 @@ public class UploadcareWidget {
         return mSocialApi;
     }
 
+    public boolean isInited(){
+        return (publicKey!=null);
+    }
+
     private void checkInit(){
         if(publicKey==null){
             throw new UploadcareWidgetException("UploadcareWidget is not initialized. call init() before other methods.");

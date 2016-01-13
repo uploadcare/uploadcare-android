@@ -40,6 +40,7 @@ public class UploadcareAuthActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        if(!UploadcareWidget.getInstance().isInited())finish();
         setContentView(R.layout.ucw_activity_auth);
         mWebView = (WebView) findViewById(R.id.ucw_webview);
         mCircularProgressBar = (CircularProgressBar) findViewById(R.id.ucw_progress);

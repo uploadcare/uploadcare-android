@@ -56,6 +56,7 @@ public class UploadcareActivity extends AppCompatActivity {
             getTheme().applyStyle(R.style.UploadcareStyle, true);
         }
         super.onCreate(savedInstanceState);
+        if(!UploadcareWidget.getInstance().isInited())finish();
         setContentView(R.layout.ucw_activity_uploadcare);
 
         if (savedInstanceState != null) {
@@ -251,6 +252,7 @@ public class UploadcareActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(!UploadcareWidget.getInstance().isInited())finish();
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
