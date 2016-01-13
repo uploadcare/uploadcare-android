@@ -174,6 +174,7 @@ public class UploadcareFilesActivity extends AppCompatActivity implements Upload
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_AUTH) {
+            if(!UploadcareWidget.getInstance().isInited())finish();
             if (resultCode == RESULT_OK) {
                 // The Intent's data contains cookie.
                 Bundle extras = data.getExtras();
