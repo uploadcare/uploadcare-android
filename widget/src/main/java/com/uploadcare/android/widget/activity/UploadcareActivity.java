@@ -56,6 +56,7 @@ public class UploadcareActivity extends AppCompatActivity {
             getTheme().applyStyle(R.style.UploadcareStyle, true);
         }
         super.onCreate(savedInstanceState);
+        if(!UploadcareWidget.getInstance().isInited())finish();
         setContentView(R.layout.ucw_activity_uploadcare);
 
         if (savedInstanceState != null) {

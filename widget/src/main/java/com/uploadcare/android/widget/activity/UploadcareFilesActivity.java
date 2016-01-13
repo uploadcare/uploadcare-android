@@ -57,6 +57,7 @@ public class UploadcareFilesActivity extends AppCompatActivity implements Upload
             getTheme().applyStyle(R.style.UploadcareStyle, true);
         }
         super.onCreate(savedInstanceState);
+        if(!UploadcareWidget.getInstance().isInited())finish();
         setContentView(R.layout.ucw_activity_files);
         if (savedInstanceState != null) {
             mSocialSource = savedInstanceState.getParcelable("socialsource");
