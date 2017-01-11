@@ -1,0 +1,4 @@
+# git log --format='%aN <%aE>' | sort -u
+
+Elijah <ilya@uploadcare.com>
+Raphael Gilyazitdinov <iraphaele@gmail.com>
