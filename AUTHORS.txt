@@ -1,4 +1,7 @@
 # git log --format='%aN <%aE>' | sort -u
 
+Alexander Tchernin <alexander.tchernin@googlemail.com>
+Dimitry Solovyov <dimituri@gmail.com>
 Elijah <ilya@uploadcare.com>
 Raphael Gilyazitdinov <iraphaele@gmail.com>
+Yervand Aghababyan <yervand.aghababyan@gmail.com>
