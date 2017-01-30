@@ -31,10 +31,10 @@ android {
     }
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
 publish {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
     groupId = 'com.uploadcare.android.library'
     artifactId = 'uploadcare-android'
     publishVersion = '1.0.4'
