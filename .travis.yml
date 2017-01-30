@@ -1,0 +1,19 @@
+language: android
+jdk: oraclejdk7
+
+branches:
+  only:
+    - master
+
+android:
+  components:
+    - platform-tools
+    - tools
+    - build-tools-23.0.2
+    - android-23
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - extra-android-support
+
+script:
+  - ./gradlew :library:build
