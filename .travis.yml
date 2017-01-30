@@ -16,4 +16,4 @@ android:
     - extra-android-support
 
 script:
-  - ./gradlew :library:assembleDebug
+  - ./gradlew :library:build
