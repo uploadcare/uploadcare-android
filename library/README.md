@@ -1,7 +1,7 @@
 uploadcare-android-library
 ===============
 
-[![Build Status](https://travis-ci.org/uploadcare/uploadcare-android.png?branch=ft.travis_build)](https://travis-ci.org/uploadcare/uploadcare-android)
+[![Build Status](https://travis-ci.org/uploadcare/uploadcare-android.png?branch=master)](https://travis-ci.org/uploadcare/uploadcare-android)
 
 This is an Android library for Uploadcare.
 
