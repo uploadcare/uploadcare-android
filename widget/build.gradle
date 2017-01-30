@@ -43,10 +43,10 @@ android {
     }
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
 publish {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
     groupId = 'com.uploadcare.android.widget'
     artifactId = 'uploadcare-android-widget'
     publishVersion = '1.0.5'
