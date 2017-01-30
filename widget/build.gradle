@@ -45,7 +45,9 @@ android {
 
 publish {
     Properties properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    if (project.rootProject.file('local.properties').exists()) {
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    }
 
     groupId = 'com.uploadcare.android.widget'
     artifactId = 'uploadcare-android-widget'
