@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -56,7 +57,7 @@ public class UploadcareActivity extends AppCompatActivity {
             getTheme().applyStyle(R.style.UploadcareStyle, true);
         }
         super.onCreate(savedInstanceState);
-        if(!UploadcareWidget.getInstance().isInited())finish();
+        if (!UploadcareWidget.getInstance().isInited()) finish();
         setContentView(R.layout.ucw_activity_uploadcare);
 
         if (savedInstanceState != null) {
@@ -102,7 +103,7 @@ public class UploadcareActivity extends AppCompatActivity {
                 new Callback<SocialSourcesResponse>() {
                     @Override
                     public void success(SocialSourcesResponse socialSourcesResponse,
-                            Response response) {
+                                        Response response) {
                         mSocialSources = socialSourcesResponse;
                         dialog.dismiss();
                         showNetworks();
@@ -220,12 +221,22 @@ public class UploadcareActivity extends AppCompatActivity {
         }
     }
 
-    /** Create a file Uri for saving an image or video */
+    /**
+     * Create a file Uri for saving an image or video
+     */
     private Uri getOutputMediaFileUri(int type) {
-        return Uri.fromFile(getOutputMediaFile(type));
+        String authority = getApplicationContext().getPackageName()
+                + ".com.uploadcare.android.widget.provider";
+        return FileProvider.getUriForFile(
+                this,
+                authority,
+                getOutputMediaFile(type)
+        );
     }
 
-    /** Create a File for saving an image or video */
+    /**
+     * Create a File for saving an image or video
+     */
     private File getOutputMediaFile(int type) {
         File mediaStorageDir = new File(this.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
                 "Cache");
@@ -252,7 +263,7 @@ public class UploadcareActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(!UploadcareWidget.getInstance().isInited())finish();
+        if (!UploadcareWidget.getInstance().isInited()) finish();
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent

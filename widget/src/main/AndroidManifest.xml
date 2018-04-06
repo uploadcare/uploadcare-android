@@ -5,6 +5,15 @@
     <application android:allowBackup="true"
                  android:label="@string/app_name"
                  android:supportsRtl="true">
+        <provider
+            android:name=".GenericFileProvider"
+            android:authorities="${applicationId}.com.uploadcare.android.widget.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
         <activity android:name=".activity.UploadcareActivity"
                   android:theme="@style/UploadcareWidget.Translucent"
                   android:label="@string/ucw_uploadcare_activity_title"/>
