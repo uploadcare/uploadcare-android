@@ -1,9 +1,5 @@
 package com.uploadcare.android.widget.activity;
 
-import com.uploadcare.android.widget.BuildConfig;
-import com.uploadcare.android.widget.R;
-import com.uploadcare.android.widget.controller.UploadcareWidget;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +12,10 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.uploadcare.android.widget.BuildConfig;
+import com.uploadcare.android.widget.R;
+import com.uploadcare.android.widget.controller.UploadcareWidget;
 
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 
@@ -53,6 +53,7 @@ public class UploadcareAuthActivity extends AppCompatActivity {
         setResult(RESULT_CANCELED);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setUserAgentString("Chrome/56.0.0.0 Mobile");
         mWebView.setWebViewClient(new UploadcareWebViewClient());
         mWebView.loadUrl(loginUrl);
     }
