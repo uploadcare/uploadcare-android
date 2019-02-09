@@ -3,12 +3,11 @@ apply plugin: 'com.novoda.bintray-release'
 
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion versions.compile_sdk
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 23
+        minSdkVersion versions.min_sdk
+        targetSdkVersion versions.target_sdk
         versionCode 5
         versionName "1.0.4"
     }
@@ -52,11 +51,11 @@ publish {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.6.3'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.6.3'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
-    compile 'com.android.support:support-annotations:23.1.1'
-    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.6.3'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.6.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
+    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'com.squareup.okhttp:okhttp:2.5.0'
 }
