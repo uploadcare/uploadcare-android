@@ -1,5 +1,9 @@
 package com.uploadcare.android.library.upload;
 
+import android.content.Context;
+import android.net.Uri;
+import android.os.AsyncTask;
+
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.RequestBody;
 import com.uploadcare.android.library.api.RequestHelper;
@@ -9,10 +13,6 @@ import com.uploadcare.android.library.callbacks.UploadcareFileCallback;
 import com.uploadcare.android.library.data.UploadBaseData;
 import com.uploadcare.android.library.exceptions.UploadFailureException;
 import com.uploadcare.android.library.urls.Urls;
-
-import android.content.Context;
-import android.net.Uri;
-import android.os.AsyncTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +27,8 @@ public class FileUploader implements Uploader {
     private final UploadcareClient client;
 
     private final File file;
+
+    private final InputStream stream;
 
     private final byte[] bytes;
 
@@ -50,6 +52,7 @@ public class FileUploader implements Uploader {
     public FileUploader(UploadcareClient client, File file) {
         this.client = client;
         this.file = file;
+        this.stream = null;
         this.bytes = null;
         this.filename = null;
         this.uri = null;
@@ -68,10 +71,29 @@ public class FileUploader implements Uploader {
     public FileUploader(UploadcareClient client, Uri uri, Context context) {
         this.client = client;
         this.file = null;
+        this.stream = null;
         this.bytes = null;
         this.filename = null;
         this.uri = uri;
         this.context = context;
+        this.content = null;
+    }
+
+    /**
+     * Creates a new uploader from InputStream.
+     *
+     * @param client   Uploadcare client
+     * @param stream   InputStream
+     * @param filename Original filename
+     */
+    public FileUploader(UploadcareClient client, InputStream stream, String filename) {
+        this.client = client;
+        this.file = null;
+        this.stream = stream;
+        this.bytes = null;
+        this.filename = filename;
+        this.uri = null;
+        this.context = null;
         this.content = null;
     }
 
@@ -85,6 +107,7 @@ public class FileUploader implements Uploader {
     public FileUploader(UploadcareClient client, byte[] bytes, String filename) {
         this.client = client;
         this.file = null;
+        this.stream = null;
         this.bytes = bytes;
         this.filename = filename;
         this.uri = null;
@@ -101,6 +124,7 @@ public class FileUploader implements Uploader {
     public FileUploader(UploadcareClient client, String content) {
         this.client = client;
         this.file = null;
+        this.stream = null;
         this.bytes = null;
         this.filename = null;
         this.uri = null;
@@ -139,6 +163,14 @@ public class FileUploader implements Uploader {
             }
         } else if (content != null) {
             multipartBuilder.addFormDataPart("file", content);
+        } else if (stream != null) {
+            try {
+                byte[] inputData = UploadUtils.getBytes(stream);
+                multipartBuilder.addFormDataPart("file", filename,
+                        RequestBody.create(UploadUtils.MEDIA_TYPE_TEXT_PLAIN, inputData));
+            } catch (IOException e) {
+                throw new UploadFailureException(e);
+            }
         } else {
             multipartBuilder.addFormDataPart("file", filename,
                     RequestBody.create(UploadUtils.MEDIA_TYPE_TEXT_PLAIN, bytes));
