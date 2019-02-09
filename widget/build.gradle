@@ -66,13 +66,14 @@ publish {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'com.uploadcare.android.library:uploadcare-android:1.0.4'
+    implementation project (':library')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:support-annotations:28.0.0'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.squareup.retrofit:retrofit:1.9.0'
+    implementation 'com.squareup.okhttp:okhttp:2.5.0'
     implementation 'com.github.castorflex.smoothprogressbar:library-circular:1.1.0'
     implementation 'jp.wasabeef:recyclerview-animators:2.1.0'
 }
