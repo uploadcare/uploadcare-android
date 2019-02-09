@@ -14,6 +14,8 @@
     <string name="ucw_social_image">Take photo</string>
     <string name="ucw_social_video">Take video</string>
     <string name="ucw_social_file">Choose local file</string>
+    <string name="ucw_social_onedrive">One Drive</string>
+    <string name="ucw_social_gphotos">Google Photos</string>
     <string name="ucw_social_unknown">Unknown network</string>
     <string name="ucw_authorization_acitivity_title">Authorization</string>
     <string name="ucw_files_acitivity_title">Files</string>

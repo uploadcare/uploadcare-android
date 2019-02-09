@@ -1,10 +1,10 @@
 package com.uploadcare.android.widget.data;
 
-import com.uploadcare.android.widget.R;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+
+import com.uploadcare.android.widget.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +86,10 @@ public class SocialSourcesResponse implements Parcelable {
                 return R.string.ucw_social_image;
             case "file":
                 return R.string.ucw_social_file;
+            case "onedrive":
+                return R.string.ucw_social_onedrive;
+            case "gphotos":
+                return R.string.ucw_social_gphotos;
             default:
                 return R.string.ucw_social_unknown;
         }
@@ -119,6 +123,10 @@ public class SocialSourcesResponse implements Parcelable {
                 return R.drawable.ic_photo_camera_white_24dp;
             case "file":
                 return R.drawable.ic_insert_photo_white_24dp;
+            case "onedrive":
+                return R.drawable.ucw_onedrive_icon;
+            case "gphotos":
+                return R.drawable.ucw_gphotos_icon;
             default:
                 return -1;
         }

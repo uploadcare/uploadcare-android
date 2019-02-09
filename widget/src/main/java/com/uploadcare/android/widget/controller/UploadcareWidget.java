@@ -40,8 +40,10 @@ public class UploadcareWidget {
     private UploadcareFileCallback mCallback;
     //
     //Define the list of accepted constants
-    @StringDef({SOCIAL_NETWORK_FACEBOOK, SOCIAL_NETWORK_INSTAGRAM, SOCIAL_NETWORK_VK,SOCIAL_NETWORK_BOX,
-            SOCIAL_NETWORK_HUDDLE,SOCIAL_NETWORK_FLICKR,SOCIAL_NETWORK_EVERNOTE,SOCIAL_NETWORK_SKYDRIVE,SOCIAL_NETWORK_DROPBOX,SOCIAL_NETWORK_GDRIVE})
+    @StringDef({SOCIAL_NETWORK_FACEBOOK, SOCIAL_NETWORK_INSTAGRAM, SOCIAL_NETWORK_VK,
+            SOCIAL_NETWORK_BOX, SOCIAL_NETWORK_HUDDLE, SOCIAL_NETWORK_FLICKR,
+            SOCIAL_NETWORK_EVERNOTE, SOCIAL_NETWORK_SKYDRIVE, SOCIAL_NETWORK_ONEDRIVE,
+            SOCIAL_NETWORK_DROPBOX, SOCIAL_NETWORK_GDRIVE, SOCIAL_NETWORK_GPHOTOS})
 
     //Tell the compiler not to store annotation data in the .class file
     @Retention(RetentionPolicy.SOURCE)
@@ -66,9 +68,13 @@ public class UploadcareWidget {
 
     public static final String SOCIAL_NETWORK_SKYDRIVE = "skydrive";
 
+    public static final String SOCIAL_NETWORK_ONEDRIVE = "onedrive";
+
     public static final String SOCIAL_NETWORK_DROPBOX = "dropbox";
 
     public static final String SOCIAL_NETWORK_GDRIVE = "gdrive";
+
+    public static final String SOCIAL_NETWORK_GPHOTOS = "gphotos";
 
     public static final String SOCIAL_NETWORK_VIDEOCAM = "video";
 
