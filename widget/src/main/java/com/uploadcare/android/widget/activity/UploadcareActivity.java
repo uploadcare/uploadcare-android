@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -223,9 +224,13 @@ public class UploadcareActivity extends AppCompatActivity {
         }
     }
 
-    /** Create a file Uri for saving an image or video */
+    /**
+     * Create a file Uri for saving an image or video
+     */
     private Uri getOutputMediaFileUri(int type) {
-        return Uri.fromFile(getOutputMediaFile(type));
+        return FileProvider.getUriForFile(this,
+                getApplicationContext().getPackageName() + ".fileprovider",
+                getOutputMediaFile(type));
     }
 
     /** Create a File for saving an image or video */

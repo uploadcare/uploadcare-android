@@ -14,6 +14,16 @@
         <activity android:name=".activity.UploadcareFilesActivity"
                   android:theme="@style/UploadcareWidget.NoActionBar"
                   android:label="@string/ucw_files_acitivity_title"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
