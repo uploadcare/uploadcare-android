@@ -1,18 +1,5 @@
 package com.uploadcare.android.widget.activity;
 
-import com.uploadcare.android.library.api.UploadcareFile;
-import com.uploadcare.android.library.callbacks.UploadcareFileCallback;
-import com.uploadcare.android.library.exceptions.UploadcareApiException;
-import com.uploadcare.android.library.upload.UrlUploader;
-import com.uploadcare.android.widget.R;
-import com.uploadcare.android.widget.adapter.ToolbarSpinnerAdapter;
-import com.uploadcare.android.widget.controller.UploadcareWidget;
-import com.uploadcare.android.widget.data.Chunk;
-import com.uploadcare.android.widget.data.ChunkResponse;
-import com.uploadcare.android.widget.data.SelectedFile;
-import com.uploadcare.android.widget.data.SocialSource;
-import com.uploadcare.android.widget.fragment.UploadcareFilesFragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -28,11 +15,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import com.uploadcare.android.library.api.UploadcareFile;
+import com.uploadcare.android.library.callbacks.UploadcareFileCallback;
+import com.uploadcare.android.library.exceptions.UploadcareApiException;
+import com.uploadcare.android.library.upload.UrlUploader;
+import com.uploadcare.android.widget.R;
+import com.uploadcare.android.widget.adapter.ToolbarSpinnerAdapter;
+import com.uploadcare.android.widget.controller.UploadcareWidget;
+import com.uploadcare.android.widget.data.Chunk;
+import com.uploadcare.android.widget.data.ChunkResponse;
+import com.uploadcare.android.widget.data.SelectedFile;
+import com.uploadcare.android.widget.data.SocialSource;
+import com.uploadcare.android.widget.fragment.UploadcareFilesFragment;
+
 import java.util.List;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UploadcareFilesActivity extends AppCompatActivity implements UploadcareFilesFragment.OnFileActionsListener,AdapterView.OnItemSelectedListener{
 
@@ -195,50 +195,56 @@ public class UploadcareFilesActivity extends AppCompatActivity implements Upload
         Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_LONG).show();
     }
 
-    private void signOut(){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.UploadcareWidget_AlertDialogStyle);
+    private void signOut() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this,
+                R.style.UploadcareWidget_AlertDialogStyle);
         builder.setView(R.layout.ucw_progress_bar);
         builder.setTitle(R.string.ucw_action_signout);
         builder.setCancelable(false);
         final AlertDialog dialog = builder.create();
         dialog.show();
-        UploadcareWidget.getInstance().getSocialApi().signOut(
-                mSocialSource.getCookie(this), mSocialSource.urls.session,
-                new Callback<Response>() {
+        UploadcareWidget
+                .getInstance()
+                .getSocialApi()
+                .signOut(mSocialSource.getCookie(this), mSocialSource.urls.session)
+                .enqueue(new Callback<Response>() {
                     @Override
-                    public void success(Response response, Response response2) {
+                    public void onResponse(Call<Response> call, Response<Response> response) {
                         dialog.dismiss();
                         mSocialSource.deleteCookie(UploadcareFilesActivity.this);
                         finish();
                     }
 
                     @Override
-                    public void failure(RetrofitError error) {
+                    public void onFailure(Call<Response> call, Throwable t) {
                         dialog.dismiss();
-                        showError(error.getLocalizedMessage());
+                        showError(t.getLocalizedMessage());
                     }
                 });
     }
 
-    private void selectFile(String fileUrl){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.UploadcareWidget_AlertDialogStyle);
+    private void selectFile(String fileUrl) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this,
+                R.style.UploadcareWidget_AlertDialogStyle);
         builder.setView(R.layout.ucw_progress_bar);
         builder.setTitle(R.string.ucw_action_loading_image);
         builder.setCancelable(false);
         final AlertDialog dialog = builder.create();
         dialog.show();
-        UploadcareWidget.getInstance().getSocialApi().selectFile(
-                mSocialSource.getCookie(this), mSocialSource.urls.done, fileUrl,
-                new Callback<SelectedFile>() {
+        UploadcareWidget
+                .getInstance()
+                .getSocialApi()
+                .selectFile(mSocialSource.getCookie(this), mSocialSource.urls.done, fileUrl)
+                .enqueue(new Callback<SelectedFile>() {
                     @Override
-                    public void success(SelectedFile selectedFile, Response response) {
-                        uploadFileFromUrl(dialog,selectedFile);
+                    public void onResponse(Call<SelectedFile> call, Response<SelectedFile> response) {
+                        uploadFileFromUrl(dialog, response.body());
                     }
 
                     @Override
-                    public void failure(RetrofitError error) {
+                    public void onFailure(Call<SelectedFile> call, Throwable t) {
                         dialog.dismiss();
-                        showError(error.getLocalizedMessage());
+                        showError(t.getLocalizedMessage());
                     }
                 });
     }

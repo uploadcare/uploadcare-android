@@ -24,13 +24,18 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project (':widget')
+    implementation project (':library')
     testImplementation 'junit:junit:4.12'
-    implementation 'com.uploadcare.android.library:uploadcare-android:1.0.4'
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:support-annotations:28.0.0'

@@ -1,7 +1,10 @@
 package com.uploadcare.android.library.upload;
 
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.RequestBody;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
+import android.os.AsyncTask;
+
 import com.uploadcare.android.library.api.RequestHelper;
 import com.uploadcare.android.library.api.UploadcareClient;
 import com.uploadcare.android.library.api.UploadcareFile;
@@ -10,10 +13,6 @@ import com.uploadcare.android.library.data.UploadBaseData;
 import com.uploadcare.android.library.exceptions.UploadFailureException;
 import com.uploadcare.android.library.urls.Urls;
 
-import android.content.Context;
-import android.net.Uri;
-import android.os.AsyncTask;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +20,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Uploadcare uploader for multiple files.
@@ -81,8 +82,8 @@ public class MultipleFilesUploader implements MultipleUploader {
         if (files != null) {
             for (File file : files) {
 
-                MultipartBuilder multipartBuilder = new MultipartBuilder()
-                        .type(MultipartBuilder.FORM)
+                MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
                         .addFormDataPart("UPLOADCARE_PUB_KEY", client.getPublicKey())
                         .addFormDataPart("UPLOADCARE_STORE", store);
 
@@ -97,20 +98,23 @@ public class MultipleFilesUploader implements MultipleUploader {
                 results.add(client.getFile(fileId));
             }
         } else {
+            ContentResolver cr = context.getContentResolver();
             for (Uri uri : uris) {
 
-                MultipartBuilder multipartBuilder = new MultipartBuilder()
-                        .type(MultipartBuilder.FORM)
+                MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
                         .addFormDataPart("UPLOADCARE_PUB_KEY", client.getPublicKey())
                         .addFormDataPart("UPLOADCARE_STORE", store);
 
                 InputStream iStream = null;
                 try {
-                    iStream = context.getContentResolver().openInputStream(uri);
+                    iStream = cr.openInputStream(uri);
                     byte[] inputData = UploadUtils.getBytes(iStream);
                     multipartBuilder.addFormDataPart("file", UploadUtils.getFileName(uri, context),
-                            RequestBody.create(UploadUtils.MEDIA_TYPE_TEXT_PLAIN, inputData));
+                            RequestBody.create(UploadUtils.getMimeType(cr, uri), inputData));
                 } catch (IOException e) {
+                    throw new UploadFailureException(e);
+                }catch (NullPointerException e){
                     throw new UploadFailureException(e);
                 }
 

@@ -1,9 +1,9 @@
 package com.uploadcare.android.library.api;
 
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import android.content.Context;
+import android.net.Uri;
+import android.os.Handler;
+
 import com.uploadcare.android.library.BuildConfig;
 import com.uploadcare.android.library.callbacks.BaseCallback;
 import com.uploadcare.android.library.callbacks.BasePaginationCallback;
@@ -18,10 +18,6 @@ import com.uploadcare.android.library.exceptions.UploadcareApiException;
 import com.uploadcare.android.library.exceptions.UploadcareAuthenticationException;
 import com.uploadcare.android.library.exceptions.UploadcareInvalidRequestException;
 import com.uploadcare.android.library.urls.UrlParameter;
-
-import android.content.Context;
-import android.net.Uri;
-import android.os.Handler;
 
 import java.io.IOException;
 import java.net.URI;
@@ -40,6 +36,12 @@ import java.util.TimeZone;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static com.uploadcare.android.library.urls.UrlUtils.trustedBuild;
 
@@ -105,7 +107,7 @@ public class RequestHelper {
     }
 
     public void setApiHeaders(Request.Builder requestBuilder, String url, String requestType,
-            BaseCallback callback) {
+                              BaseCallback callback) {
         Calendar calendar = new GregorianCalendar(UTC);
         String formattedDate = rfc2822(calendar.getTime());
 
@@ -136,7 +138,7 @@ public class RequestHelper {
     }
 
     public <T> T executeQuery(String requestType, String url, boolean apiHeaders,
-            Class<T> dataClass, RequestBody requestBody) {
+                              Class<T> dataClass, RequestBody requestBody) {
         Request.Builder requestBuilder = new Request.Builder()
                 .url(url);
         switch (requestType) {
@@ -165,9 +167,9 @@ public class RequestHelper {
     }
 
     public <T, U> void executeQueryAsync(final Context context, String requestType, String url,
-            boolean apiHeaders, final Class<T> dataClass,
-            final DataWrapper<U, T> dataWrapper,
-            final BaseCallback callback, RequestBody requestBody) {
+                                         boolean apiHeaders, final Class<T> dataClass,
+                                         final DataWrapper<U, T> dataWrapper,
+                                         final BaseCallback callback, RequestBody requestBody) {
         final Request.Builder requestBuilder = new Request.Builder()
                 .url(url);
         switch (requestType) {
@@ -188,7 +190,7 @@ public class RequestHelper {
             Handler mainHandler = new Handler(context.getMainLooper());
 
             @Override
-            public void onFailure(Request request, final IOException e) {
+            public void onFailure(Call call, final IOException e) {
                 e.printStackTrace();
                 mainHandler.post(new Runnable() {
                     @Override
@@ -196,11 +198,10 @@ public class RequestHelper {
                         callback.onFailure(new UploadcareApiException(e));
                     }
                 });
-
             }
 
             @Override
-            public void onResponse(final Response response) throws IOException {
+            public void onResponse(Call call, final Response response) throws IOException {
                 if (!response.isSuccessful()) {
                     mainHandler.post(new Runnable() {
                         @Override
@@ -306,11 +307,11 @@ public class RequestHelper {
     }
 
     public void executePaginatedQueryWithOffsetLimitAsync(final Context context,
-            final URI url,
-            final List<UrlParameter> urlParameters,
-            final boolean apiHeaders,
-            final FileDataWrapper dataWrapper,
-            final BasePaginationCallback callback) {
+                                                          final URI url,
+                                                          final List<UrlParameter> urlParameters,
+                                                          final boolean apiHeaders,
+                                                          final FileDataWrapper dataWrapper,
+                                                          final BasePaginationCallback callback) {
 
         Uri.Builder builder = Uri.parse(url.toString())
                 .buildUpon();
@@ -335,7 +336,7 @@ public class RequestHelper {
             Handler mainHandler = new Handler(context.getMainLooper());
 
             @Override
-            public void onFailure(Request request, final IOException e) {
+            public void onFailure(Call call, final IOException e) {
                 e.printStackTrace();
                 mainHandler.post(new Runnable() {
                     @Override
@@ -346,7 +347,7 @@ public class RequestHelper {
             }
 
             @Override
-            public void onResponse(final Response response) throws IOException {
+            public void onResponse(Call call, final Response response) throws IOException {
                 if (!response.isSuccessful()) {
                     mainHandler.post(new Runnable() {
                         @Override
@@ -386,11 +387,11 @@ public class RequestHelper {
     }
 
     public void executeGroupsPaginatedQueryWithOffsetLimitAsync(final Context context,
-            final URI url,
-            final List<UrlParameter> urlParameters,
-            final boolean apiHeaders,
-            final GroupDataWrapper dataWrapper,
-            final BasePaginationCallback callback) {
+                                                                final URI url,
+                                                                final List<UrlParameter> urlParameters,
+                                                                final boolean apiHeaders,
+                                                                final GroupDataWrapper dataWrapper,
+                                                                final BasePaginationCallback callback) {
 
         Uri.Builder builder = Uri.parse(url.toString())
                 .buildUpon();
@@ -415,7 +416,7 @@ public class RequestHelper {
             Handler mainHandler = new Handler(context.getMainLooper());
 
             @Override
-            public void onFailure(Request request, final IOException e) {
+            public void onFailure(Call call, final IOException e) {
                 e.printStackTrace();
                 mainHandler.post(new Runnable() {
                     @Override
@@ -426,7 +427,7 @@ public class RequestHelper {
             }
 
             @Override
-            public void onResponse(final Response response) throws IOException {
+            public void onResponse(Call call, final Response response) throws IOException {
                 if (!response.isSuccessful()) {
                     mainHandler.post(new Runnable() {
                         @Override
@@ -478,8 +479,10 @@ public class RequestHelper {
      * @param requestBody body of POST request, used only with request type REQUEST_POST.
      * @return HTTP Response object
      */
-    public Response executeCommand(String requestType, String url, boolean apiHeaders,
-            RequestBody requestBody) {
+    public Response executeCommand(String requestType,
+                                   String url,
+                                   boolean apiHeaders,
+                                   RequestBody requestBody) {
         Request.Builder requestBuilder = new Request.Builder()
                 .url(url);
 
@@ -524,8 +527,12 @@ public class RequestHelper {
      * @param callback    callback  {@link RequestCallback}
      * @param requestBody body of POST request, used only with request type REQUEST_POST.
      */
-    public void executeCommandAsync(final Context context, String requestType, String url,
-            boolean apiHeaders, final RequestCallback callback, RequestBody requestBody) {
+    public void executeCommandAsync(final Context context,
+                                    String requestType,
+                                    String url,
+                                    boolean apiHeaders,
+                                    final RequestCallback callback,
+                                    RequestBody requestBody) {
         Request.Builder requestBuilder = new Request.Builder()
                 .url(url);
 
@@ -551,7 +558,7 @@ public class RequestHelper {
             Handler mainHandler = new Handler(context.getMainLooper());
 
             @Override
-            public void onFailure(Request request, final IOException e) {
+            public void onFailure(Call call, final IOException e) {
                 if (callback != null) {
                     mainHandler.post(new Runnable() {
                         @Override
@@ -563,7 +570,7 @@ public class RequestHelper {
             }
 
             @Override
-            public void onResponse(final Response response) throws IOException {
+            public void onResponse(Call call, final Response response) throws IOException {
                 if (!response.isSuccessful()) {
                     if (callback != null) {
                         mainHandler.post(new Runnable() {

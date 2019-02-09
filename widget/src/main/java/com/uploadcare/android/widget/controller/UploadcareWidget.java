@@ -1,5 +1,9 @@
 package com.uploadcare.android.widget.controller;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.StringDef;
+
 import com.uploadcare.android.library.api.UploadcareClient;
 import com.uploadcare.android.library.callbacks.UploadcareFileCallback;
 import com.uploadcare.android.widget.BuildConfig;
@@ -7,16 +11,12 @@ import com.uploadcare.android.widget.activity.UploadcareActivity;
 import com.uploadcare.android.widget.exceptions.UploadcareWidgetException;
 import com.uploadcare.android.widget.interfaces.SocialApi;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.StringDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import retrofit.RequestInterceptor;
-import retrofit.RestAdapter;
-import retrofit.client.OkClient;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class UploadcareWidget {
 
@@ -24,7 +24,7 @@ public class UploadcareWidget {
 
     private String publicKey, privateKey = null;
 
-    private RestAdapter restAdapter;
+    private Retrofit retrofit;
 
     private UploadcareClient mUploadcareClient;
 
@@ -211,22 +211,15 @@ public class UploadcareWidget {
     public synchronized SocialApi getSocialApi() {
         checkInit();
         if (mSocialApi == null) {
-            if (restAdapter == null) {
-                RequestInterceptor requestInterceptor = new RequestInterceptor() {
-                    @Override
-                    public void intercept(RequestFacade request) {
-                        request.addHeader("X-Uploadcare-PublicKey", publicKey);
-                    }
-                };
-                restAdapter = new RestAdapter.Builder()
-                        .setClient(new OkClient(mUploadcareClient.getHttpClient()))
-                        .setEndpoint(BuildConfig.SOCIAL_API_ENDPOINT)
-                        .setRequestInterceptor(requestInterceptor)
+            if (retrofit == null) {
+                retrofit = new Retrofit.Builder()
+                        .baseUrl(BuildConfig.SOCIAL_API_ENDPOINT)
+                        .client(mUploadcareClient.getHttpClient())
+                        .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                restAdapter.setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE);
 
             }
-            mSocialApi = restAdapter.create(SocialApi.class);
+            mSocialApi = retrofit.create(SocialApi.class);
         }
 
         return mSocialApi;

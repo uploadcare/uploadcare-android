@@ -4,28 +4,34 @@ import com.uploadcare.android.widget.data.ChunkResponse;
 import com.uploadcare.android.widget.data.SelectedFile;
 import com.uploadcare.android.widget.data.SocialSourcesResponse;
 
-import retrofit.Callback;
-import retrofit.client.Response;
-import retrofit.http.DELETE;
-import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
-import retrofit.http.GET;
-import retrofit.http.Header;
-import retrofit.http.POST;
-import retrofit.http.Path;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+
 
 public interface SocialApi {
 
-    @GET("/sources")
-    void getSources(Callback<SocialSourcesResponse> cb);
+    @GET("sources")
+    Call<SocialSourcesResponse> getSources();
 
-    @GET("/{base}/{chunk}/{offset}")
-    void getSourceChunk(@Header("Cookie") String authCookie, @Path("base") String sourceBase,@Path("chunk") String chunk,@Path("offset") String loadMore,Callback<ChunkResponse> cb);
+    @GET("{base}/{chunk}/{offset}")
+    Call<ChunkResponse> getSourceChunk(@Header("Cookie") String authCookie,
+                                       @Path("base") String sourceBase,
+                                       @Path("chunk") String chunk,
+                                       @Path("offset") String loadMore);
 
-    @DELETE("/{session}")
-    void signOut(@Header("Cookie") String authCookie, @Path("session") String sourceBase,Callback<Response> cb);
+    @DELETE("{session}")
+    Call<Response> signOut(@Header("Cookie") String authCookie, @Path("session") String sourceBase);
 
     @FormUrlEncoded
-    @POST("/{done}")
-    void selectFile(@Header("Cookie") String authCookie,@Path("done") String done,@Field("file") String fileUrl, Callback<SelectedFile> cb);
+    @POST("{done}")
+    Call<SelectedFile> selectFile(@Header("Cookie") String authCookie,
+                                  @Path("done") String done,
+                                  @Field("file") String fileUrl);
 }

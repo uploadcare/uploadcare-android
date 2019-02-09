@@ -1,11 +1,10 @@
 package com.uploadcare.android.library.upload;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.RequestBody;
 import com.uploadcare.android.library.api.RequestHelper;
 import com.uploadcare.android.library.api.UploadcareClient;
 import com.uploadcare.android.library.api.UploadcareFile;
@@ -18,6 +17,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Uploadcare uploader for files and binary data.
@@ -142,23 +144,25 @@ public class FileUploader implements Uploader {
     public UploadcareFile upload() throws UploadFailureException {
         URI uploadUrl = Urls.uploadBase();
 
-        MultipartBuilder multipartBuilder = new MultipartBuilder()
-                .type(MultipartBuilder.FORM)
+        MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
                 .addFormDataPart("UPLOADCARE_PUB_KEY", client.getPublicKey())
                 .addFormDataPart("UPLOADCARE_STORE", store);
 
         if (file != null) {
             multipartBuilder.addFormDataPart("file", file.getName(),
-                    RequestBody.create(UploadUtils.getMimeType(
-                            file), file));
+                    RequestBody.create(UploadUtils.getMimeType(file), file));
         } else if (uri != null) {
             InputStream iStream = null;
             try {
-                iStream = context.getContentResolver().openInputStream(uri);
+                ContentResolver cr = context.getContentResolver();
+                iStream = cr.openInputStream(uri);
                 byte[] inputData = UploadUtils.getBytes(iStream);
                 multipartBuilder.addFormDataPart("file", UploadUtils.getFileName(uri, context),
-                        RequestBody.create(UploadUtils.MEDIA_TYPE_TEXT_PLAIN, inputData));
+                        RequestBody.create(UploadUtils.getMimeType(cr, uri), inputData));
             } catch (IOException e) {
+                throw new UploadFailureException(e);
+            } catch (NullPointerException e){
                 throw new UploadFailureException(e);
             }
         } else if (content != null) {
@@ -167,13 +171,13 @@ public class FileUploader implements Uploader {
             try {
                 byte[] inputData = UploadUtils.getBytes(stream);
                 multipartBuilder.addFormDataPart("file", filename,
-                        RequestBody.create(UploadUtils.MEDIA_TYPE_TEXT_PLAIN, inputData));
+                        RequestBody.create(UploadUtils.getMimeType(filename), inputData));
             } catch (IOException e) {
                 throw new UploadFailureException(e);
             }
         } else {
             multipartBuilder.addFormDataPart("file", filename,
-                    RequestBody.create(UploadUtils.MEDIA_TYPE_TEXT_PLAIN, bytes));
+                    RequestBody.create(UploadUtils.getMimeType(filename), bytes));
         }
 
         RequestBody requestBody = multipartBuilder.build();

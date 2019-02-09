@@ -1,5 +1,14 @@
 package com.uploadcare.android.widget.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+
 import com.uploadcare.android.library.api.UploadcareFile;
 import com.uploadcare.android.library.callbacks.UploadcareFileCallback;
 import com.uploadcare.android.library.exceptions.UploadcareApiException;
@@ -10,22 +19,13 @@ import com.uploadcare.android.widget.controller.UploadcareWidget;
 import com.uploadcare.android.widget.data.SocialSource;
 import com.uploadcare.android.widget.data.SocialSourcesResponse;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UploadcareActivity extends AppCompatActivity {
 
@@ -98,22 +98,25 @@ public class UploadcareActivity extends AppCompatActivity {
         builder.setCancelable(false);
         final AlertDialog dialog = builder.create();
         dialog.show();
-        UploadcareWidget.getInstance().getSocialApi().getSources(
-                new Callback<SocialSourcesResponse>() {
+        UploadcareWidget
+                .getInstance()
+                .getSocialApi()
+                .getSources()
+                .enqueue(new Callback<SocialSourcesResponse>() {
                     @Override
-                    public void success(SocialSourcesResponse socialSourcesResponse,
-                            Response response) {
-                        mSocialSources = socialSourcesResponse;
+                    public void onResponse(Call<SocialSourcesResponse> call,
+                                           Response<SocialSourcesResponse> response) {
+                        mSocialSources = response.body();
                         dialog.dismiss();
                         showNetworks();
                     }
 
                     @Override
-                    public void failure(RetrofitError error) {
+                    public void onFailure(Call<SocialSourcesResponse> call, Throwable t) {
                         dialog.dismiss();
                         finish();
                         UploadcareWidget.getInstance().getCallback()
-                                .onFailure(new UploadcareApiException(error.getLocalizedMessage()));
+                                .onFailure(new UploadcareApiException(t.getLocalizedMessage()));
                     }
                 });
     }

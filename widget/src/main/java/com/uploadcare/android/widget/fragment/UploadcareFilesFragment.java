@@ -1,18 +1,5 @@
 package com.uploadcare.android.widget.fragment;
 
-import com.uploadcare.android.widget.R;
-import com.uploadcare.android.widget.adapter.FilesAdapter;
-import com.uploadcare.android.widget.adapter.FilesGridAdapter;
-import com.uploadcare.android.widget.adapter.FilesLinearAdapter;
-import com.uploadcare.android.widget.controller.UploadcareWidget;
-import com.uploadcare.android.widget.data.Action;
-import com.uploadcare.android.widget.data.Chunk;
-import com.uploadcare.android.widget.data.ChunkResponse;
-import com.uploadcare.android.widget.data.SocialSource;
-import com.uploadcare.android.widget.data.Thing;
-import com.uploadcare.android.widget.interfaces.ItemTapListener;
-import com.uploadcare.android.widget.utils.RecyclerViewOnScrollListener;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -29,15 +16,28 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.SearchView;
 
+import com.uploadcare.android.widget.R;
+import com.uploadcare.android.widget.adapter.FilesAdapter;
+import com.uploadcare.android.widget.adapter.FilesGridAdapter;
+import com.uploadcare.android.widget.adapter.FilesLinearAdapter;
+import com.uploadcare.android.widget.controller.UploadcareWidget;
+import com.uploadcare.android.widget.data.Action;
+import com.uploadcare.android.widget.data.Chunk;
+import com.uploadcare.android.widget.data.ChunkResponse;
+import com.uploadcare.android.widget.data.SocialSource;
+import com.uploadcare.android.widget.data.Thing;
+import com.uploadcare.android.widget.interfaces.ItemTapListener;
+import com.uploadcare.android.widget.utils.RecyclerViewOnScrollListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.AnimationAdapter;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UploadcareFilesFragment extends Fragment implements ItemTapListener, SearchView.OnQueryTextListener, View.OnClickListener {
 
@@ -242,13 +242,13 @@ public class UploadcareFilesFragment extends Fragment implements ItemTapListener
             mLoadingMoreView.setVisibility(View.VISIBLE);
         }
         StringBuilder stringBuilder = new StringBuilder();
-        if(query!=null){
+        if (query != null) {
             stringBuilder.append(mSocialSource.rootChunks
                     .get(mOnFileActionsListener.currentRootChunk()).pathChunk).append("/");
             stringBuilder.append("-").append("/").append(query);
-        }else if(searchFragment&&loadMore) {
+        } else if (searchFragment && loadMore) {
             stringBuilder.append(mChunks.get(currentChunk).pathChunk);
-        }else if (rootFragment) {
+        } else if (rootFragment) {
             stringBuilder.append(mChunks.get(currentChunk).pathChunk);
         } else {
             stringBuilder.append(mSocialSource.rootChunks
@@ -265,55 +265,54 @@ public class UploadcareFilesFragment extends Fragment implements ItemTapListener
         UploadcareWidget.getInstance().getSocialApi().getSourceChunk(
                 mSocialSource.getCookie(getActivity()), mSocialSource.urls.sourceBase,
                 stringBuilder.toString(),
-                loadMore ? mFilesAdapter.getNext() : "",
-                new Callback<ChunkResponse>() {
-                    @Override
-                    public void success(ChunkResponse chunkResponse, Response response) {
-                        Log.d("Files", chunkResponse.toString());
-                        mLoadingMoreView.setVisibility(View.GONE);
-                        if (chunkResponse.error != null) {
-                            if(chunkResponse.loginLink!=null) {
-                                mOnFileActionsListener.onAuthorizationNeeded(chunkResponse);
-                            }else {
-                                //no items
-                            }
-                        } else {
-                            if (!loadMore) {
-                                mCircularProgressBar.setVisibility(View.GONE);
-                                mFilesAdapter.updateImages(chunkResponse.things,
-                                        chunkResponse.nextPage);
-                            } else {
-                                mFilesAdapter.addImages(chunkResponse.things,
-                                        chunkResponse.nextPage);
-                            }
-                            scroll = (chunkResponse.nextPage != null);
-                            mRecyclerViewOnScrollListener.clear();
-                            if (scroll) {
-                                mRecyclerView.addOnScrollListener(mRecyclerViewOnScrollListener);
-                            }
-                        }
-                        if (chunkResponse.searchPath != null) {
-                            mSearchView.setVisibility(View.VISIBLE);
-                            mSearchView.requestFocus();
-                            searchFragment=true;
-                        } else if (mFilesAdapter.isEmpty()) {
-                            mSearchView.setVisibility(View.GONE);
-                            mEmptyView.setVisibility(View.VISIBLE);
-                        } else {
-                            mSearchView.setVisibility(View.GONE);
-                        }
+                loadMore ? mFilesAdapter.getNext() : "").enqueue(new Callback<ChunkResponse>() {
+            @Override
+            public void onResponse(Call<ChunkResponse> call, Response<ChunkResponse> response) {
+                Log.d("Files", response.body().toString());
+                mLoadingMoreView.setVisibility(View.GONE);
+                if (response.body().error != null) {
+                    if (response.body().loginLink != null) {
+                        mOnFileActionsListener.onAuthorizationNeeded(response.body());
+                    } else {
+                        //no items
                     }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        mLoadingMoreView.setVisibility(View.GONE);
+                } else {
+                    if (!loadMore) {
                         mCircularProgressBar.setVisibility(View.GONE);
-                        mOnFileActionsListener.onError(error.getLocalizedMessage());
-                        if (mFilesAdapter.isEmpty()) {
-                            mEmptyView.setVisibility(View.VISIBLE);
-                        }
+                        mFilesAdapter.updateImages(response.body().things,
+                                response.body().nextPage);
+                    } else {
+                        mFilesAdapter.addImages(response.body().things,
+                                response.body().nextPage);
                     }
-                });
+                    scroll = (response.body().nextPage != null);
+                    mRecyclerViewOnScrollListener.clear();
+                    if (scroll) {
+                        mRecyclerView.addOnScrollListener(mRecyclerViewOnScrollListener);
+                    }
+                }
+                if (response.body().searchPath != null) {
+                    mSearchView.setVisibility(View.VISIBLE);
+                    mSearchView.requestFocus();
+                    searchFragment = true;
+                } else if (mFilesAdapter.isEmpty()) {
+                    mSearchView.setVisibility(View.GONE);
+                    mEmptyView.setVisibility(View.VISIBLE);
+                } else {
+                    mSearchView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChunkResponse> call, Throwable t) {
+                mLoadingMoreView.setVisibility(View.GONE);
+                mCircularProgressBar.setVisibility(View.GONE);
+                mOnFileActionsListener.onError(t.getLocalizedMessage());
+                if (mFilesAdapter.isEmpty()) {
+                    mEmptyView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     public void changeChunk(int position) {

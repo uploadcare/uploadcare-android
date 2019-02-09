@@ -1,12 +1,11 @@
 package com.uploadcare.android.library.api;
 
+import android.content.Context;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.RequestBody;
+import com.uploadcare.android.library.BuildConfig;
 import com.uploadcare.android.library.callbacks.CopyFileCallback;
 import com.uploadcare.android.library.callbacks.ProjectCallback;
 import com.uploadcare.android.library.callbacks.RequestCallback;
@@ -18,10 +17,18 @@ import com.uploadcare.android.library.data.GroupData;
 import com.uploadcare.android.library.data.ProjectData;
 import com.uploadcare.android.library.urls.Urls;
 
-import android.content.Context;
-
+import java.io.IOException;
 import java.net.URI;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.FormBody;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 public class UploadcareClient {
 
@@ -64,10 +71,21 @@ public class UploadcareClient {
         this.simpleAuth = simpleAuth;
 
         this.requestHelperProvider = new DefaultRequestHelperProvider();
-        httpClient = new OkHttpClient();
-        httpClient.setConnectTimeout(10, TimeUnit.SECONDS);
-        httpClient.setWriteTimeout(10, TimeUnit.SECONDS);
-        httpClient.setReadTimeout(30, TimeUnit.SECONDS);
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        if (BuildConfig.DEBUG) {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        } else {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+        }
+
+        httpClient = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .addInterceptor(new PublicKeyInterceptor(publicKey))
+                .callTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build();
 
         objectMapper = new ObjectMapper();
         objectMapper.setPropertyNamingStrategy(
@@ -367,12 +385,12 @@ public class UploadcareClient {
         RequestHelper requestHelper = getRequestHelper();
         URI url = Urls.apiFiles();
 
-        FormEncodingBuilder formEncodingBuilder = new FormEncodingBuilder()
-                .add("source", fileId);
+        FormBody.Builder formBuilder = new FormBody.Builder().add("source", fileId);
+
         if (storage != null && !storage.isEmpty()) {
-            formEncodingBuilder.add("target", storage);
+            formBuilder.add("target", storage);
         }
-        RequestBody formBody = formEncodingBuilder.build();
+        RequestBody formBody = formBuilder.build();
         return requestHelper
                 .executeQuery(RequestHelper.REQUEST_POST, url.toString(), true, CopyFileData.class,
                         formBody);
@@ -386,17 +404,34 @@ public class UploadcareClient {
      *                 an CopyFileData response or a failure exception.
      */
     public void copyFileAsync(Context context, String fileId, String storage,
-            CopyFileCallback callback) {
+                              CopyFileCallback callback) {
         RequestHelper requestHelper = getRequestHelper();
         URI url = Urls.apiFiles();
 
-        FormEncodingBuilder formEncodingBuilder = new FormEncodingBuilder()
-                .add("source", fileId);
+        FormBody.Builder formBuilder = new FormBody.Builder().add("source", fileId);
+
         if (storage != null && !storage.isEmpty()) {
-            formEncodingBuilder.add("target", storage);
+            formBuilder.add("target", storage);
         }
-        RequestBody formBody = formEncodingBuilder.build();
+        RequestBody formBody = formBuilder.build();
         requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_POST, url.toString(), true,
                 CopyFileData.class, null, callback, formBody);
+    }
+
+    private class PublicKeyInterceptor implements Interceptor {
+
+        private final String publicKey;
+
+        public PublicKeyInterceptor(String publicKey) {
+            this.publicKey = publicKey;
+        }
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request.Builder requestBuilder = chain.request().newBuilder();
+            requestBuilder.addHeader("X-Uploadcare-PublicKey", publicKey);
+
+            return chain.proceed(requestBuilder.build());
+        }
     }
 }
