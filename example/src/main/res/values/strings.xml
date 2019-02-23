@@ -18,6 +18,7 @@
     <string name="activity_files_status_start">Select filters and options and click \'Apply\'</string>
     <string name="activity_files_btn_apply">Apply</string>
     <string name="activity_files_btn_from">From date</string>
+    <string name="activity_files_btn_order">Order</string>
     <string name="activity_files_stored">Stored</string>
     <string name="activity_files_removed">Removed</string>
     <string name="activity_files_no_items">No more items</string>
@@ -30,4 +31,14 @@
     <string name="activity_cdn_sharp">Sharp</string>
     <string name="activity_main_title_library">Library demos</string>
     <string name="activity_main_title_widget">Widget demos</string>
+    <string name="activity_files_from_text">From date: %s</string>
+    <string name="activity_files_order_text">Order: %s</string>
+    <string name="order_dialog_title">Select Order</string>
+
+    <array name="orders">
+        <item>Upload time, Ascending (Default)</item>
+        <item>Upload time, Descending</item>
+        <item>File size, Ascending</item>
+        <item>File size, Descending</item>
+    </array>
 </resources>

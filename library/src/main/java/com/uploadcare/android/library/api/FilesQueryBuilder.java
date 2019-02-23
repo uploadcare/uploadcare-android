@@ -9,8 +9,10 @@ import com.uploadcare.android.library.data.FilePageData;
 import com.uploadcare.android.library.exceptions.UploadcareApiException;
 import com.uploadcare.android.library.urls.FilesFromParameter;
 import com.uploadcare.android.library.urls.FilesLimitParameter;
+import com.uploadcare.android.library.urls.FilesOrderParameter;
 import com.uploadcare.android.library.urls.FilesRemovedParameter;
 import com.uploadcare.android.library.urls.FilesStoredParameter;
+import com.uploadcare.android.library.urls.Order;
 import com.uploadcare.android.library.urls.UrlParameter;
 import com.uploadcare.android.library.urls.Urls;
 
@@ -60,6 +62,16 @@ public class FilesQueryBuilder implements PaginatedQueryBuilder<UploadcareFile> 
     }
 
     /**
+     * Specifies the way files are sorted.
+     *
+     * @param order {@link Order}
+     */
+    public FilesQueryBuilder ordering(Order order) {
+        parameters.add(new FilesOrderParameter(order));
+        return this;
+    }
+
+    /**
      * Adds a filter for datetime from objects will be returned.
      *
      * @param from A uploading datetime from which objects will be returned.
@@ -96,7 +108,7 @@ public class FilesQueryBuilder implements PaginatedQueryBuilder<UploadcareFile> 
      * @param callback {@link UploadcareFilesCallback}.
      */
     public void asListAsync(Context context, int limit, URI next,
-            UploadcareFilesCallback callback) {
+                            UploadcareFilesCallback callback) {
         if (next == null) {
             parameters.add(new FilesLimitParameter(limit));
         }

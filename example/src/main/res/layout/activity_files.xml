@@ -32,13 +32,27 @@
                     android:text="@string/activity_files_btn_from"/>
             <Button android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/btn_order"
+                    android:text="@string/activity_files_btn_order"/>
+            <Button android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/btn_apply"
                     android:text="@string/activity_files_btn_apply"/>
         </LinearLayout>
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/date_filter"
-                  style="@style/Base.TextAppearance.AppCompat.Body2"/>
+
+        <TextView
+            android:id="@+id/date_filter"
+            style="@style/Base.TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/order_filter"
+            style="@style/Base.TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
     </LinearLayout>
     <FrameLayout
             android:layout_width="match_parent"

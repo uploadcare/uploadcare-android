@@ -9,6 +9,8 @@ import com.uploadcare.android.library.data.GroupPageData;
 import com.uploadcare.android.library.exceptions.UploadcareApiException;
 import com.uploadcare.android.library.urls.FilesFromParameter;
 import com.uploadcare.android.library.urls.FilesLimitParameter;
+import com.uploadcare.android.library.urls.FilesOrderParameter;
+import com.uploadcare.android.library.urls.Order;
 import com.uploadcare.android.library.urls.UrlParameter;
 import com.uploadcare.android.library.urls.Urls;
 
@@ -47,6 +49,16 @@ public class GroupsQueryBuilder implements PaginatedQueryBuilder<UploadcareGroup
         return this;
     }
 
+    /**
+     * Specifies the way files are sorted.
+     *
+     * @param order {@link Order}
+     */
+    public GroupsQueryBuilder ordering(Order order) {
+        parameters.add(new FilesOrderParameter(order));
+        return this;
+    }
+
     @Override
     public Iterable<UploadcareGroup> asIterable() {
         URI url = Urls.apiGroups();
@@ -74,7 +86,7 @@ public class GroupsQueryBuilder implements PaginatedQueryBuilder<UploadcareGroup
      * @param callback {@link UploadcareGroupsCallback}.
      */
     public void asListAsync(Context context, int limit, URI next,
-            UploadcareGroupsCallback callback) {
+                            UploadcareGroupsCallback callback) {
         if (next == null) {
             parameters.add(new FilesLimitParameter(limit));
         }

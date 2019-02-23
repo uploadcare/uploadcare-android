@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.uploadcare.android.OrderDialogFragment;
 import com.uploadcare.android.example.adapter.UploadcareFileAdapter;
 import com.uploadcare.android.example.util.RecyclerViewOnScrollListener;
 import com.uploadcare.android.library.api.FilesQueryBuilder;
@@ -20,6 +21,7 @@ import com.uploadcare.android.library.api.UploadcareClient;
 import com.uploadcare.android.library.api.UploadcareFile;
 import com.uploadcare.android.library.callbacks.UploadcareFilesCallback;
 import com.uploadcare.android.library.exceptions.UploadcareApiException;
+import com.uploadcare.android.library.urls.Order;
 
 import java.net.URI;
 import java.text.ParseException;
@@ -34,7 +36,8 @@ import java.util.Locale;
  */
 public class FilesActivity extends AppCompatActivity
         implements UploadcareFileAdapter.ItemTapListener,
-        View.OnClickListener, CheckBox.OnCheckedChangeListener {
+        View.OnClickListener, CheckBox.OnCheckedChangeListener,
+        OrderDialogFragment.OrderSelectedListener {
 
     private final int ITEMS_PER_PAGE = 30;
 
@@ -60,11 +63,15 @@ public class FilesActivity extends AppCompatActivity
 
     private TextView dateFilterTextView;
 
+    private TextView orderFilterTextView;
+
     private boolean filterStored = false;
 
     private boolean filterRemoved = false;
 
     private Date filterFromDate = null;
+
+    private Order filterOrder = null;
 
     /**
      * Initialize variables and creates {@link UploadcareClient}
@@ -79,12 +86,14 @@ public class FilesActivity extends AppCompatActivity
         client = UploadcareClient.demoClient(); //new UploadcareClient("publickey", "privatekey"); Use your public and private keys from Uploadcare.com account dashboard.
         findViewById(R.id.btn_from).setOnClickListener(this);
         findViewById(R.id.btn_apply).setOnClickListener(this);
+        findViewById(R.id.btn_order).setOnClickListener(this);
         mRootView = findViewById(R.id.root);
-        mStatusTextView = (TextView) findViewById(R.id.status_text);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        storedCheckBox = (CheckBox) findViewById(R.id.stored);
-        removedCheckBox = (CheckBox) findViewById(R.id.removed);
-        dateFilterTextView = (TextView) findViewById(R.id.date_filter);
+        mStatusTextView = findViewById(R.id.status_text);
+        mRecyclerView = findViewById(R.id.recycler_view);
+        storedCheckBox = findViewById(R.id.stored);
+        removedCheckBox = findViewById(R.id.removed);
+        dateFilterTextView = findViewById(R.id.date_filter);
+        orderFilterTextView = findViewById(R.id.order_filter);
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mUploadcareFileAdapter = new UploadcareFileAdapter(this, this);
@@ -135,6 +144,9 @@ public class FilesActivity extends AppCompatActivity
             case R.id.btn_apply:
                 getFiles(null);
                 break;
+            case R.id.btn_order:
+                showOrderDialog();
+                break;
         }
     }
 
@@ -170,6 +182,10 @@ public class FilesActivity extends AppCompatActivity
 
         if (filterFromDate != null) {
             filesQueryBuilder.from(filterFromDate);
+        }
+
+        if (filterOrder != null) {
+            filesQueryBuilder.ordering(filterOrder);
         }
 
         filesQueryBuilder.asListAsync(this, ITEMS_PER_PAGE, nextItems,
@@ -250,14 +266,35 @@ public class FilesActivity extends AppCompatActivity
                         try {
                             filterFromDate = dateFormat
                                     .parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            dateFilterTextView.setVisibility(View.VISIBLE);
+                            dateFilterTextView.setText(getResources()
+                                    .getString(R.string.activity_files_from_text,
+                                            filterFromDate.toString()));
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        dateFilterTextView.setText(
-                                getResources().getString(R.string.activity_files_btn_from) + ":"
-                                        + filterFromDate.toString());
                     }
                 }, mYear, mMonth, mDay);
         dialog.show();
+    }
+
+    private void showOrderDialog() {
+        OrderDialogFragment dialog = (OrderDialogFragment) getSupportFragmentManager()
+                .findFragmentByTag(OrderDialogFragment.class.getSimpleName());
+
+        if (dialog != null || getSupportFragmentManager().isStateSaved()) {
+            return;
+        }
+
+        dialog = OrderDialogFragment.newInstance();
+        dialog.show(getSupportFragmentManager(), OrderDialogFragment.class.getSimpleName());
+    }
+
+    @Override
+    public void onOrderSelected(Order order) {
+        filterOrder = order;
+
+        orderFilterTextView.setVisibility(View.VISIBLE);
+        orderFilterTextView.setText(getString(R.string.activity_files_order_text, order));
     }
 }
