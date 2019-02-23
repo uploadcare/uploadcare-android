@@ -46,7 +46,7 @@ import okhttp3.Response;
 import static com.uploadcare.android.library.urls.UrlUtils.trustedBuild;
 
 /**
- * A helper class for doing API calls to the Uploadcare API. Supports API version 0.4.
+ * A helper class for doing API calls to the Uploadcare API. Supports API version 0.5.
  *
  * TODO Support of throttled requests needs to be added
  */
@@ -111,7 +111,7 @@ public class RequestHelper {
         Calendar calendar = new GregorianCalendar(UTC);
         String formattedDate = rfc2822(calendar.getTime());
 
-        requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.4+json");
+        requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.5+json");
         requestBuilder.addHeader("Date", formattedDate);
         requestBuilder.addHeader("User-Agent",
                 String.format("javauploadcare-android/%s/%s", BuildConfig.VERSION_NAME,

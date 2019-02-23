@@ -7,7 +7,7 @@ This is an Android library for Uploadcare.
 
 Supported features:
 
-- Complete file, group and project API v0.4
+- Complete file, group and project API v0.5
 - Paginated resources fetching.
 - CDN path builder.
 - File uploads from file, byte array, Uri, and URL.
