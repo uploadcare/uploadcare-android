@@ -32,10 +32,6 @@
                     android:text="@string/activity_files_btn_from"/>
             <Button android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btn_to"
-                    android:text="@string/activity_files_btn_to"/>
-            <Button android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/btn_apply"
                     android:text="@string/activity_files_btn_apply"/>
         </LinearLayout>

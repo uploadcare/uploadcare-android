@@ -1,13 +1,5 @@
 package com.uploadcare.android.example;
 
-import com.uploadcare.android.example.adapter.UploadcareFileAdapter;
-import com.uploadcare.android.example.util.RecyclerViewOnScrollListener;
-import com.uploadcare.android.library.api.FilesQueryBuilder;
-import com.uploadcare.android.library.api.UploadcareClient;
-import com.uploadcare.android.library.api.UploadcareFile;
-import com.uploadcare.android.library.callbacks.UploadcareFilesCallback;
-import com.uploadcare.android.library.exceptions.UploadcareApiException;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,8 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.TextView;
+
+import com.uploadcare.android.example.adapter.UploadcareFileAdapter;
+import com.uploadcare.android.example.util.RecyclerViewOnScrollListener;
+import com.uploadcare.android.library.api.FilesQueryBuilder;
+import com.uploadcare.android.library.api.UploadcareClient;
+import com.uploadcare.android.library.api.UploadcareFile;
+import com.uploadcare.android.library.callbacks.UploadcareFilesCallback;
+import com.uploadcare.android.library.exceptions.UploadcareApiException;
 
 import java.net.URI;
 import java.text.ParseException;
@@ -40,8 +39,6 @@ public class FilesActivity extends AppCompatActivity
     private final int ITEMS_PER_PAGE = 30;
 
     private final int FROM_DATE_PICK = 555;
-
-    private final int TO_DATE_PICK = 666;
 
     UploadcareClient client;
 
@@ -69,8 +66,6 @@ public class FilesActivity extends AppCompatActivity
 
     private Date filterFromDate = null;
 
-    private Date filterToDate = null;
-
     /**
      * Initialize variables and creates {@link UploadcareClient}
      */
@@ -83,7 +78,6 @@ public class FilesActivity extends AppCompatActivity
         setContentView(R.layout.activity_files);
         client = UploadcareClient.demoClient(); //new UploadcareClient("publickey", "privatekey"); Use your public and private keys from Uploadcare.com account dashboard.
         findViewById(R.id.btn_from).setOnClickListener(this);
-        findViewById(R.id.btn_to).setOnClickListener(this);
         findViewById(R.id.btn_apply).setOnClickListener(this);
         mRootView = findViewById(R.id.root);
         mStatusTextView = (TextView) findViewById(R.id.status_text);
@@ -138,9 +132,6 @@ public class FilesActivity extends AppCompatActivity
             case R.id.btn_from:
                 showDateDialog(FROM_DATE_PICK);
                 break;
-            case R.id.btn_to:
-                showDateDialog(TO_DATE_PICK);
-                break;
             case R.id.btn_apply:
                 getFiles(null);
                 break;
@@ -179,8 +170,6 @@ public class FilesActivity extends AppCompatActivity
 
         if (filterFromDate != null) {
             filesQueryBuilder.from(filterFromDate);
-        } else if (filterToDate != null) {
-            filesQueryBuilder.to(filterToDate);
         }
 
         filesQueryBuilder.asListAsync(this, ITEMS_PER_PAGE, nextItems,
@@ -255,34 +244,18 @@ public class FilesActivity extends AppCompatActivity
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog dialog = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear,
-                            int dayOfMonth) {
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-                        if (type == FROM_DATE_PICK) {
-                            try {
-                                filterFromDate = dateFormat
-                                        .parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            dateFilterTextView.setText(
-                                    getResources().getString(R.string.activity_files_btn_from) + ":"
-                                            + filterFromDate.toString());
-                            filterToDate = null;
-                        } else if (type == TO_DATE_PICK) {
-                            try {
-                                filterToDate = dateFormat
-                                        .parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            dateFilterTextView.setText(
-                                    getResources().getString(R.string.activity_files_btn_to) + ":"
-                                            + filterToDate.toString());
-                            filterFromDate = null;
+                (view, year, monthOfYear, dayOfMonth) -> {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                    if (type == FROM_DATE_PICK) {
+                        try {
+                            filterFromDate = dateFormat
+                                    .parse(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
+                        dateFilterTextView.setText(
+                                getResources().getString(R.string.activity_files_btn_from) + ":"
+                                        + filterFromDate.toString());
                     }
                 }, mYear, mMonth, mDay);
         dialog.show();

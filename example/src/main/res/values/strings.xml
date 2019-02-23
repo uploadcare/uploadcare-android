@@ -18,7 +18,6 @@
     <string name="activity_files_status_start">Select filters and options and click \'Apply\'</string>
     <string name="activity_files_btn_apply">Apply</string>
     <string name="activity_files_btn_from">From date</string>
-    <string name="activity_files_btn_to">To date</string>
     <string name="activity_files_stored">Stored</string>
     <string name="activity_files_removed">Removed</string>
     <string name="activity_files_no_items">No more items</string>

@@ -1,5 +1,8 @@
 package com.uploadcare.android.library.api;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
 import com.uploadcare.android.library.callbacks.UploadcareAllFilesCallback;
 import com.uploadcare.android.library.callbacks.UploadcareFilesCallback;
 import com.uploadcare.android.library.data.FilePageData;
@@ -8,12 +11,8 @@ import com.uploadcare.android.library.urls.FilesFromParameter;
 import com.uploadcare.android.library.urls.FilesLimitParameter;
 import com.uploadcare.android.library.urls.FilesRemovedParameter;
 import com.uploadcare.android.library.urls.FilesStoredParameter;
-import com.uploadcare.android.library.urls.FilesToParameter;
 import com.uploadcare.android.library.urls.UrlParameter;
 import com.uploadcare.android.library.urls.Urls;
-
-import android.content.Context;
-import android.os.AsyncTask;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -67,16 +66,6 @@ public class FilesQueryBuilder implements PaginatedQueryBuilder<UploadcareFile> 
      */
     public FilesQueryBuilder from(Date from) {
         parameters.add(new FilesFromParameter(from));
-        return this;
-    }
-
-    /**
-     * Adds a filter for datetime to which objects will be returned.
-     *
-     * @param to A uploading datetime to which objects will be returned.
-     */
-    public FilesQueryBuilder to(Date to) {
-        parameters.add(new FilesToParameter(to));
         return this;
     }
 
