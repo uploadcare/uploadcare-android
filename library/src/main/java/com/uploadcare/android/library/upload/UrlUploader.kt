@@ -3,10 +3,10 @@ package com.uploadcare.android.library.upload
 import android.os.AsyncTask
 import com.uploadcare.android.library.api.RequestHelper
 import com.uploadcare.android.library.api.UploadcareClient
+import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.callbacks.UploadcareFileCallback
 import com.uploadcare.android.library.data.UploadFromUrlData
 import com.uploadcare.android.library.data.UploadFromUrlStatusData
-import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.urls.Urls
 
@@ -57,7 +57,7 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
             sleep(pollingInterval.toLong())
             val (status, fileId) = client.requestHelper.executeQuery(RequestHelper.REQUEST_GET,
                     statusUrl.toString(), false, UploadFromUrlStatusData::class.java)
-            if (status == "success") {
+            if (status == "success" && fileId != null) {
                 println("url upload request status success")
                 return client.getFile(fileId)
             } else if (status == "error" || status == "failed") {

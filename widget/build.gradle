@@ -1,4 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.novoda.bintray-release'
 
 android {
@@ -10,6 +14,17 @@ android {
         versionCode 4
         versionName "1.0.5"
     }
+
+    dataBinding {
+        enabled = true
+    }
+
+    androidExtensions {
+        // Enable experimental Kotlin features in gradle to enable Parcelize
+        // https://github.com/Kotlin/KEEP/blob/master/proposals/extensions/android-parcelable.md
+        experimental = true
+    }
+
     buildTypes {
         debug {
             debuggable true
@@ -67,21 +82,41 @@ publish {
     dryRun = false
 }
 
-
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    implementation project (':library')
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.android.support:support-annotations:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
-    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    kapt "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger_version"
+    implementation project(':library')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin_version"
+
+    implementation "androidx.core:core-ktx:$versions.core"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+
+    implementation "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "com.google.android.material:material:$versions.material"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+
+    implementation "com.squareup.moshi:moshi:$versions.moshi"
+    implementation "com.squareup.moshi:moshi-adapters:$versions.moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$versions.moshi"
+
     implementation "com.squareup.okhttp3:okhttp:$versions.okhttp"
     implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
     testImplementation "com.squareup.okhttp3:mockwebserver:$versions.okhttp"
-    implementation 'com.github.castorflex.smoothprogressbar:library-circular:1.1.0'
-    implementation 'jp.wasabeef:recyclerview-animators:2.1.0'
+
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
+
+    implementation "com.squareup.picasso:picasso:$versions.picasso"
+
+    androidTestImplementation "androidx.test:runner:$versions.test_runner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso_core"
 }

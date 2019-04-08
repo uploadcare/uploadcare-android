@@ -74,7 +74,7 @@ class RequestHelper(private val client: UploadcareClient) {
             } catch (e: GeneralSecurityException) {
                 e.printStackTrace()
                 if (callback == null) {
-                    throw UploadcareApiException("Error when signing the request", e)
+                    throw UploadcareApiException("Error when signing the request")
                 } else {
                     callback.onFailure(UploadcareApiException("Error when signing the request", e))
                 }

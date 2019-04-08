@@ -1,27 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical|start">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/ucw_network_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="24dp"
-        android:tint="@color/ucw_black_text_87"
-        android:visibility="gone"/>
+    <data>
 
-    <TextView
-        android:id="@+id/ucw_network_name"
-        style="@style/TextAppearance.AppCompat.Subhead"
+        <variable
+            name="adapter"
+            type="com.uploadcare.android.widget.adapter.SocialNetworksAdapter"/>
+
+        <variable
+            name="socialSource"
+            type="com.uploadcare.android.widget.data.SocialSource"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginLeft="72dp"
-        android:ellipsize="marquee"
-        android:gravity="center_vertical|start"
-        android:singleLine="true"
-        android:textColor="@color/ucw_black_text_87"/>
-</FrameLayout>
+        android:layout_height="@dimen/ucw_standard_3x"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> adapter.onSocialSourceSelected(socialSource)}"
+        tools:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/ucw_network_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ucw_extra"
+            android:tint="@color/ucw_black_text_87"
+            app:imageDrawable="@{socialSource.getNetworkIconResource()}"
+            app:isVisible="@{socialSource.getNetworkIconResource()!=-1}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"/>
+
+        <TextView
+            android:id="@+id/ucw_network_name"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/ucw_extra_3x"
+            android:background="@android:color/transparent"
+            android:ellipsize="marquee"
+            android:gravity="center_vertical|start"
+            android:singleLine="true"
+            android:text="@{socialSource.getNetworkNameResource()}"
+            android:textColor="@color/ucw_black_text_87"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

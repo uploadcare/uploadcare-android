@@ -1,21 +1,25 @@
 package com.uploadcare.android.library.api
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.uploadcare.android.library.urls.CdnPathBuilder
+import kotlinx.android.parcel.Parcelize
 import java.net.URI
 import java.util.*
 
+@Parcelize
 data class UploadcareFile(val uuid: String,
                           val url: URI,
                           val size: Int,
-                          @Json(name = "mime_type") val mimeType: String,
                           @Json(name = "is_ready") val isReady: Boolean,
-                          @Json(name = "is_image") val isImage: Boolean,
-                          @Json(name = "original_filename") val originalFilename: String,
+                          @Json(name = "is_image") val isImage: Boolean? = false,
+                          @Json(name = "mime_type") val mimeType: String? = null,
+                          @Json(name = "original_filename") val originalFilename: String? = null,
                           @Json(name = "original_file_url") val originalFileUrl: URI? = null,
                           @Json(name = "datetime_uploaded") val datetimeUploaded: Date,
                           @Json(name = "datetime_stored") val datetimeStored: Date? = null,
-                          @Json(name = "datetime_removed") val datetimeRemoved: Date? = null) {
+                          @Json(name = "datetime_removed") val datetimeRemoved: Date? = null)
+    : Parcelable {
 
     fun hasOriginalFileUrl() = originalFileUrl != null
 

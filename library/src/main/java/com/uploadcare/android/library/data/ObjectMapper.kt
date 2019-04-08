@@ -10,7 +10,7 @@ import java.lang.reflect.Type
 import java.util.*
 import kotlin.reflect.KClass
 
-class ObjectMapper(private val moshi: Moshi) {
+class ObjectMapper(val moshi: Moshi) {
 
     fun <T : Any> fromJson(json: String, classOfT: Class<T>): T? {
         val jsonAdapter: JsonAdapter<T> = moshi.adapter(classOfT)

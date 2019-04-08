@@ -43,5 +43,5 @@ enum class Order constructor(val rawValue: String) {
     UPLOAD_TIME_ASC("datetime_uploaded"),
     UPLOAD_TIME_DESC("-datetime_uploaded"),
     SIZE_ASC("size"),
-    SIZE_DESC("-size");
+    SIZE_DESC("-size")
 }
