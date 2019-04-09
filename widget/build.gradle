@@ -74,6 +74,7 @@ publish {
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
     }
 
+    userOrg = properties.containsKey('bintray.user') ? properties.getProperty("bintray.user") : System.getenv('BINTRAY_USER')
     groupId = 'com.uploadcare.android.widget'
     artifactId = 'uploadcare-android-widget'
     publishVersion = '1.0.6'
