@@ -29,6 +29,7 @@ Supported features:
 ## Links
 
 [Library Documentation](http://uploadcare.github.io/uploadcare-android/library/index.html)
+
 [Widget Documentation](http://uploadcare.github.io/uploadcare-android/widget/index.html)
 
 [Changelog](https://github.com/uploadcare/uploadcare-android/blob/master/HISTORY.md)

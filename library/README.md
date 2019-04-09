@@ -31,6 +31,7 @@ implementation 'com.uploadcare.android.library:uploadcare-android:1.0.6'
 ### Basic API Usage
 
 Asynchronous fetch all files.
+
 Java
 ```java
 UploadcareClient client = new UploadcareClient("publickey", "privatekey");
@@ -61,6 +62,7 @@ client.getFiles().asListAsync(object : UploadcareAllFilesCallback {
 ```
 
 Synchronous fetch all files.
+
 Java
 ```java
 UploadcareClient client = new UploadcareClient("publickey", "privatekey");
@@ -85,6 +87,7 @@ See documentation for details:
 * [Project](http://uploadcare.github.io/uploadcare-android/library/com.uploadcare.android.library.api/-project/index.html)
 
 Asynchronous fetch all groups.
+
 Java
 ```java
 UploadcareClient client = new UploadcareClient("publickey", "privatekey");
@@ -115,6 +118,7 @@ client.getGroups().asListAsync(object : UploadcareAllGroupsCallback {
 ```
 
 Synchronous fetch all groups.
+
 Java
 ```java
 UploadcareClient client = new UploadcareClient("publickey", "privatekey");
@@ -166,6 +170,7 @@ See documentation for details:
 ### File uploads
 
 Asynchronous upload file from Uri.
+
 Java
 ```java
 UploadcareClient client = UploadcareClient.demoClient();
@@ -203,6 +208,7 @@ uploader.uploadAsync(object : UploadcareFileCallback {
 ```
 
 Synchronous upload file from Uri.
+
 Java
 ```java
 UploadcareClient client = UploadcareClient.demoClient();

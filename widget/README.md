@@ -28,6 +28,7 @@ implementation 'com.uploadcare.android.widget:uploadcare-android-widget:1.0.6'
 ### Basic API Usage
 
 Place your Uploadcare public/private keys into ../res/strings.xml file (example below):
+
 ```xml
 <resources>
     <!--Replace with your public/private keys to use UploadcareWidget-->
@@ -37,6 +38,7 @@ Place your Uploadcare public/private keys into ../res/strings.xml file (example 
 ```
 
 Select and upload file to Uploadcare from any available social network/camera/local file from Activity/Fragment.
+
 Java
 ```java
 // Launch UploadcareWidget
@@ -76,6 +78,7 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
 ```
 
 Select and upload Video file to Uploadcare from Facebook network.
+
 Java
 ```java
 // Launch UploadcareWidget
@@ -139,6 +142,7 @@ Paste in your /res/values/styles.xml
 ```
 
 Set UploadcareWidget to use your custom style.
+
 Java
 ```java
 UploadcareWidget.getInstance(context).setStyle(R.style.CustomUploadCareStyle);
