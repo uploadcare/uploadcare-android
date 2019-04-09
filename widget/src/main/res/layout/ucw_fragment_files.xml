@@ -1,70 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-    <SearchView android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:id="@+id/ucw_search_view"
-                android:iconifiedByDefault="false"
-                android:visibility="gone"
-                android:queryHint="@string/ucw_search_hint">
-    </SearchView>
-    <FrameLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.uploadcare.android.widget.fragment.UploadcareFilesFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.uploadcare.android.widget.viewmodels.UploadcareFilesViewModel"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ucw_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/ucw_solid_white">
-        <android.support.v7.widget.RecyclerView
-                android:clipToPadding="false"
-                android:id="@+id/ucw_recycler_view"
-                android:scrollbars="none"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/UploadcareWidget.AppBarOverlay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/ucw_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="2dp"/>
-        <fr.castorflex.android.circularprogressbar.CircularProgressBar
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:indeterminate="true"
-                app:cpb_color="?attr/uploadcareColorAccent"
-                app:cpb_rotation_speed="1.0"
-                app:cpb_sweep_speed="1.0"
-                app:cpb_stroke_width="4dp"
-                app:cpb_min_sweep_angle="10"
-                app:cpb_max_sweep_angle="300"
-                android:id="@+id/ucw_progress"
-                android:layout_gravity="center"
-                android:visibility="gone"/>
-        <LinearLayout android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center"
-                      android:orientation="vertical"
-                      android:id="@+id/ucw_empty_view"
-                      android:gravity="center"
-                      android:visibility="gone">
-            <ImageView android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:src="@drawable/ucw_ic_empty_grey_48dp"/>
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      style="@style/TextAppearance.AppCompat.Button"
-                      android:textColor="@color/ucw_black_text_56"
-                      android:padding="8dp"
-                      android:text="@string/ucw_empty_content"/>
-        </LinearLayout>
-        <TextView
-                android:id="@+id/ucw_additional_loading"
-                style="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:background="@color/ucw_item_title_bg"
-                android:gravity="center"
-                android:textColor="@color/ucw_white_text_87"
-                android:padding="8dp"
-                android:text="@string/ucw_loading"
-                android:visibility="gone"/>
-    </FrameLayout>
-</LinearLayout>
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/uploadcareColorPrimary"
+                app:contentInsetStartWithNavigation="0dp"
+                app:popupTheme="@style/UploadcareWidget.PopupOverlay">
+
+                <Spinner
+                    isVisible="@{viewModel.isRoot}"
+                    android:id="@+id/ucw_spinner"
+                    style="@style/UploadcareWidget.Spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/chunkHolder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/ucw_solid_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_bar_layout"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

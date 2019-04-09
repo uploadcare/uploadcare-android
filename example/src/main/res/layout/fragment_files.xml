@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.uploadcare.android.example.fragments.FilesFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.uploadcare.android.example.viewmodels.FilesViewModel"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentInsetStartWithNavigation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@+id/recycler_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
+        <CheckBox
+            android:id="@+id/stored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={viewModel.stored}"
+            android:padding="@dimen/ucw_standard"
+            android:text="@string/activity_files_stored"
+            app:layout_constraintEnd_toStartOf="@+id/removed"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
+        <CheckBox
+            android:id="@+id/removed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={viewModel.removed}"
+            android:padding="@dimen/ucw_standard"
+            android:text="@string/activity_files_removed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/stored"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
+        <Button
+            android:id="@+id/btn_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.launchFromPicker()}"
+            android:text="@string/activity_files_btn_from"
+            app:layout_constraintEnd_toStartOf="@+id/btn_order"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stored"/>
+
+        <Button
+            android:id="@+id/btn_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.launchOrderPicker()}"
+            android:text="@string/activity_files_btn_order"
+            app:layout_constraintEnd_toStartOf="@+id/btn_apply"
+            app:layout_constraintStart_toEndOf="@+id/btn_from"
+            app:layout_constraintTop_toBottomOf="@+id/stored"/>
+
+        <Button
+            android:id="@+id/btn_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.apply()}"
+            android:text="@string/activity_files_btn_apply"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_order"
+            app:layout_constraintTop_toBottomOf="@+id/stored"/>
+
+        <TextView
+            android:id="@+id/date_filter"
+            style="@style/Base.TextAppearance.AppCompat.Body2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/ucw_standard"
+            android:text="@{@string/activity_files_from_text(viewModel.filterFromDate.toString())}"
+            app:isVisible="@{viewModel.filterFromDate!=null}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_from"
+            tools:text="Date"/>
+
+        <TextView
+            android:id="@+id/order_filter"
+            style="@style/Base.TextAppearance.AppCompat.Body2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/ucw_standard"
+            android:text="@{@string/activity_files_order_text(viewModel.filterOrder.toString())}"
+            app:isVisible="@{viewModel.filterOrder!=null}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date_filter"
+            tools:text="Order"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:padding="@dimen/ucw_list_grid_padding"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/order_filter"/>
+
+        <TextView
+            android:id="@+id/status_text"
+            style="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/activity_files_status_start"
+            android:textColor="@android:color/black"
+            android:visibility="visible"
+            app:isVisible="@{!viewModel.loading &amp;&amp; viewModel.isEmpty}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recycler_view"/>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:isVisible="@{viewModel.loading &amp;&amp; viewModel.isEmpty}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

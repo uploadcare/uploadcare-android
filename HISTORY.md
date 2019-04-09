@@ -1,4 +1,9 @@
 # History
+## 1.0.6
+- Example: Update dependencies, rewrite example to Kotlin.
+- Widget: Update dependencies, rewrite widget to Kotlin, Fixes, Add "Google Photos" support.
+- Library: Update dependencies, rewrite library to Kotlin, Fixes, Add support for API v0.5
+
 ## 1.0.4
 - Library: CdnPathBuilder dimensions guard value update to higher values. Updated minSdkVersion 14.
 - Widget: Added Russian localization. Updated minSdkVersion 14.

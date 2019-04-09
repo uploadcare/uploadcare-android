@@ -15,9 +15,10 @@
     <string name="ucw_social_image">Сделать фото</string>
     <string name="ucw_social_video">Снять видео</string>
     <string name="ucw_social_file">Выбрать файл на устройстве</string>
+    <string name="ucw_social_onedrive">One Drive</string>
+    <string name="ucw_social_gphotos">Google Photos</string>
     <string name="ucw_social_unknown">Unknown network</string>
-    <string name="ucw_authorization_acitivity_title">Авторизация</string>
-    <string name="ucw_files_acitivity_title">Файлы</string>
+    <string name="ucw_authorization_fragment_title">Авторизация</string>
     <string name="ucw_loading">Загрузка…</string>
     <string name="ucw_cancel">Отмена</string>
     <string name="ucw_error_auth">Ошибка авторизации, попробуйте позже</string>

@@ -5,7 +5,7 @@
 
 Supported features:
 
-- Complete file, group and project API v0.4
+- Complete file, group and project API v0.5
 - Paginated resources fetching.
 - CDN path builder.
 - File uploads from file, byte array, Uri, and URL.
@@ -28,6 +28,8 @@ Supported features:
 
 ## Links
 
-[Documentation](http://uploadcare.github.io/uploadcare-android/index.html)
+[Library Documentation](http://uploadcare.github.io/uploadcare-android/library/index.html)
+
+[Widget Documentation](http://uploadcare.github.io/uploadcare-android/widget/index.html)
 
 [Changelog](https://github.com/uploadcare/uploadcare-android/blob/master/HISTORY.md)

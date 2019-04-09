@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Uploadcare Android Widget</string>
+    <string name="uploadcare_public_key" translatable="false">demopublickey</string>
+    <string name="uploadcare_private_key" translatable="false">demoprivatekey</string>
     <string name="ucw_uploadcare_activity_title">Uploadcare Android Widget</string>
     <string name="ucw_social_instagram">Instagram</string>
     <string name="ucw_social_facebook">Facebook</string>
@@ -14,9 +16,10 @@
     <string name="ucw_social_image">Take photo</string>
     <string name="ucw_social_video">Take video</string>
     <string name="ucw_social_file">Choose local file</string>
+    <string name="ucw_social_onedrive">One Drive</string>
+    <string name="ucw_social_gphotos">Google Photos</string>
     <string name="ucw_social_unknown">Unknown network</string>
-    <string name="ucw_authorization_acitivity_title">Authorization</string>
-    <string name="ucw_files_acitivity_title">Files</string>
+    <string name="ucw_authorization_fragment_title">Authorization</string>
     <string name="ucw_loading">Loading…</string>
     <string name="ucw_cancel">Cancel</string>
     <string name="ucw_error_auth">Authorization error, try again later</string>

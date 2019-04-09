@@ -1,27 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="48dp"
-             android:focusable="true"
-             android:clickable="true"
-             android:id="@+id/ucw_item_root"
-             android:foreground="@drawable/ucw_item_foreground">
-    <com.uploadcare.android.widget.view.SquaredImageView android:id="@+id/ucw_item_tb"
-                                                         android:layout_width="24dp"
-                                                         android:layout_height="24dp"
-                                                         android:adjustViewBounds="true"
-                                                         android:scaleType="centerCrop"
-                                                         android:layout_marginLeft="16dp"
-                                                         android:layout_gravity="center_vertical|start"/>
-    <TextView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="thing"
+            type="com.uploadcare.android.widget.data.Thing"/>
+
+        <variable
+            name="handler"
+            type="com.uploadcare.android.widget.adapter.ThingLinearViewHolder"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ucw_item_root"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ucw_standard_3x"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> handler.select(thing)}">
+
+        <com.uploadcare.android.widget.view.SquaredImageView
+            android:id="@+id/ucw_item_tb"
+            android:layout_width="@dimen/ucw_extra"
+            android:layout_height="@dimen/ucw_extra"
+            android:layout_marginStart="@dimen/ucw_standard"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
             android:id="@+id/ucw_item_title"
             style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
-            android:layout_marginLeft="72dp"
-            android:layout_marginRight="16dp"
-            android:textColor="@color/ucw_black_text_87"
+            android:layout_marginEnd="@dimen/ucw_standard"
+            android:layout_marginStart="@dimen/ucw_standard"
             android:ellipsize="marquee"
-            android:maxLines="1"/>
-</FrameLayout>
+            android:singleLine="true"
+            android:text="@{thing.title}"
+            android:textAlignment="gravity"
+            android:textColor="@color/ucw_black_text_87"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ucw_item_tb"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Test"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

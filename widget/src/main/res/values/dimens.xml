@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ucw_standard_half">8dp</dimen>
+    <dimen name="ucw_standard">16dp</dimen>
+    <dimen name="ucw_standard_3x">48dp</dimen>
+    <dimen name="ucw_extra">24dp</dimen>
+    <dimen name="ucw_extra_2x">42dp</dimen>
+    <dimen name="ucw_extra_3x">72dp</dimen>
+    <dimen name="ucw_list_linear_padding">8dp</dimen>
+    <dimen name="ucw_list_grid_padding">2dp</dimen>
+</resources>

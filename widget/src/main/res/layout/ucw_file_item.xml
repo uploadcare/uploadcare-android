@@ -1,35 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:padding="2dp"
-             android:focusable="true"
-             android:clickable="true"
-             android:id="@+id/ucw_item_root"
-             android:foreground="@drawable/ucw_item_foreground">
-    <com.uploadcare.android.widget.view.SquaredImageView android:id="@+id/ucw_item_tb"
-                                                         android:layout_width="match_parent"
-                                                         android:layout_height="match_parent"
-                                                         android:adjustViewBounds="true"
-                                                         android:scaleType="centerCrop"
-                                                         android:layout_gravity="top"/>
-    <FrameLayout
-            android:id="@+id/ucw_item_footer"
-            android:layout_width="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.text.TextUtils"/>
+
+        <variable
+            name="thing"
+            type="com.uploadcare.android.widget.data.Thing"/>
+
+        <variable
+            name="handler"
+            type="com.uploadcare.android.widget.adapter.ThingGridViewHolder"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ucw_item_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> handler.select(thing)}"
+        android:padding="2dp">
+
+        <com.uploadcare.android.widget.view.SquaredImageView
+            android:id="@+id/ucw_item_tb"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/ucw_item_title_bg"
-            android:gravity="center"
-            android:visibility="gone">
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <TextView
-                android:id="@+id/ucw_item_title"
-                style="@style/TextAppearance.AppCompat.Subhead"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|center_vertical"
-                android:padding="8dp"
-                android:textColor="@color/ucw_white_text_87"
-                android:ellipsize="marquee"
-                android:maxLines="1"/>
-    </FrameLayout>
-</FrameLayout>
+            android:id="@+id/ucw_item_title"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:background="@color/ucw_item_title_bg"
+            android:ellipsize="marquee"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:text="@{thing.title}"
+            android:textAlignment="gravity"
+            android:textColor="@color/ucw_white_text_87"
+            app:isVisible="@{!TextUtils.isEmpty(thing.title)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Test"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

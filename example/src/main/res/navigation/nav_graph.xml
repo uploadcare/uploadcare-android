@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation android:id="@+id/nav_graph.xml"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            app:startDestination="@id/uploadFragment">
+
+    <fragment
+        android:id="@+id/uploadFragment"
+        android:name="com.uploadcare.android.example.fragments.UploadFragment"
+        android:label="@string/activity_main_title"
+        tools:layout="@layout/fragment_upload">
+
+        <action
+            android:id="@+id/action_uploadFragment_to_filesFragment"
+            app:destination="@id/filesFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/filesFragment"
+        android:name="com.uploadcare.android.example.fragments.FilesFragment"
+        android:label="@string/fragment_files_title"
+        tools:layout="@layout/fragment_files">
+
+        <action
+            android:id="@+id/action_filesFragment_to_cdnFragment"
+            app:destination="@id/cdnFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/cdnFragment"
+        android:name="com.uploadcare.android.example.fragments.CdnFragment"
+        android:label="@string/fragment_cdn_title"
+        tools:layout="@layout/fragment_cdn">
+        <argument
+            android:name="uploadcareFile"
+            app:argType="com.uploadcare.android.library.api.UploadcareFile"/>
+    </fragment>
+
+</navigation>

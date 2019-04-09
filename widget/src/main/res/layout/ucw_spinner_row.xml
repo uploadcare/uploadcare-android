@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="48dp"
-             android:paddingLeft="16dp"
-             android:paddingRight="16dp"
-             android:background="?attr/selectableItemBackground">
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:id="@+id/ucw_spinner_title"
-              style="@style/TextAppearance.AppCompat.Subhead"
-              android:textColor="@color/ucw_solid_black"
-              android:maxLines="3"
-              android:ellipsize="marquee"
-              android:layout_gravity="center_vertical|start"/>
-</FrameLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="text"
+            type="String"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ucw_standard_3x"
+        android:background="?attr/selectableItemBackground"
+        tools:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/ucw_spinner_title"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:gravity="start|center_vertical"
+            android:maxLines="3"
+            android:paddingEnd="@dimen/ucw_standard"
+            android:paddingStart="@dimen/ucw_standard"
+            android:text="@{text}"
+            android:textAlignment="gravity"
+            android:textColor="@color/ucw_solid_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Test"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
