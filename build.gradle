@@ -31,6 +31,8 @@ buildscript {
     versions.test_runner = "1.1.0-beta02"
     versions.espresso_core = "3.1.0-beta02"
 
+    versions.dokka = "0.9.18"
+
     ext.versions = versions
 
     repositories {
@@ -44,6 +46,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.safe_args"
         classpath "com.novoda:bintray-release:$versions.bintray_version"
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:$versions.dokka"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
