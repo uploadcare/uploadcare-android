@@ -230,8 +230,8 @@ data class UploadcareWidgetResult(val uploadcareFile: UploadcareFile? = null,
 
     companion object {
         @JvmStatic
-        fun fromIntent(intent: Intent): UploadcareWidgetResult? {
-            return intent.getParcelableExtra("result") ?: null
+        fun fromIntent(intent: Intent?): UploadcareWidgetResult? {
+            return intent?.getParcelableExtra("result")
         }
     }
 }

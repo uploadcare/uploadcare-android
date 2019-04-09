@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Uploadcare Example</string>
     <string name="activity_main_title">Uploadcare library example</string>
-    <string name="activity_files_title">Get files example</string>
-    <string name="activity_cdn_title">CDN URLs example</string>
+    <string name="fragment_files_title">Get files example</string>
+    <string name="fragment_cdn_title">CDN URLs example</string>
     <string name="activity_main_btn_get_files">Get files/ CDN URLs</string>
     <string name="activity_main_btn_upload_file">Upload file</string>
     <string name="activity_main_btn_upload_files">Upload file/files</string>

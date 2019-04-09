@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import com.google.android.material.textfield.TextInputLayout
 
 @Suppress("unused")
 class BindingAdapters private constructor() {
@@ -30,6 +31,16 @@ class BindingAdapters private constructor() {
                 view.setImageResource(it)
                 view.requestLayout()
             } ?: view.setImageDrawable(null)
+        }
+
+        /**
+         * TextInputLayout
+         */
+
+        @BindingAdapter("errorText")
+        @JvmStatic
+        fun setErrorMessage(view: TextInputLayout, errorMessage: String?) {
+            view.error = errorMessage
         }
     }
 }

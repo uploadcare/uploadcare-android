@@ -84,9 +84,7 @@ publish {
 
 dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
-    kapt "com.google.dagger:dagger-android-processor:$versions.dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$versions.dagger_version"
-    implementation project(':library')
+    api project(':library')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin_version"

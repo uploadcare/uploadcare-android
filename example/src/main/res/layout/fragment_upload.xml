@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.uploadcare.android.example.fragments.UploadFragment">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.uploadcare.android.example.fragments.UploadFragment"/>
+
+        <variable
+            name="viewModel"
+            type="com.uploadcare.android.example.viewmodels.UploadViewModel"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/ucw_standard">
+
+                <TextView
+                    android:id="@+id/library_demos"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/ucw_standard"
+                    android:text="@string/activity_main_title_library"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <Button
+                    android:id="@+id/button_get_files"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.launchGetFiles()}"
+                    android:text="@string/activity_main_btn_get_files"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/library_demos"/>
+
+                <Button
+                    android:id="@+id/button_upload_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.launchFilePicker()}"
+                    android:text="@string/activity_main_btn_upload_files"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_get_files"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/from_url_input_layout"
+                    errorText="@{viewModel.urlError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true"
+                    app:hintAnimationEnabled="false"
+                    app:hintEnabled="false"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_upload_file">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/from_url_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/activity_main_hint_upload_url"
+                        android:inputType="textUri"
+                        android:singleLine="true"
+                        android:text="@={viewModel.url}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/button_upload_file"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/button_upload_url"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.uploadUrl(fromUrlEditText,viewModel.url)}"
+                    android:text="@string/activity_main_btn_upload_url"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/from_url_input_layout"/>
+
+                <TextView
+                    android:id="@+id/widget_demos"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/ucw_standard"
+                    android:text="@string/activity_main_title_widget"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_upload_url"/>
+
+                <Button
+                    android:id="@+id/button_uploadcare_widget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.uploadWidgetAny(fragment)}"
+                    android:text="@string/activity_main_btn_upload_widget"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/widget_demos"/>
+
+                <Button
+                    android:id="@+id/button_uploadcare_widget_instagram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.uploadWidgetInstagram(fragment)}"
+                    android:text="@string/activity_main_btn_upload_widget_in"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_uploadcare_widget"/>
+
+                <Button
+                    android:id="@+id/button_uploadcare_widget_facebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.uploadWidgetFacebook(fragment)}"
+                    android:text="@string/activity_main_btn_upload_widget_fa"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_uploadcare_widget_instagram"/>
+
+                <Button
+                    android:id="@+id/button_uploadcare_widget_dropbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.uploadWidgetDropbox(fragment)}"
+                    android:text="@string/activity_main_btn_upload_widget_dropbox"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_uploadcare_widget_facebook"/>
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="@{viewModel.status}"
+                    android:textAlignment="gravity"
+                    android:textColor="@android:color/black"
+                    app:isVisible="@{viewModel.status!=null}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_uploadcare_widget_dropbox"
+                    tools:text="Test"
+                    tools:visibility="visible"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

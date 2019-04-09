@@ -11,7 +11,6 @@ buildscript {
     versions.gradle_version = '3.3.2'
     versions.bintray_version = '0.5.0'
 
-    versions.dagger_version = '2.21'
     versions.core = "1.1.0-alpha05"
     versions.material = "1.1.0-alpha05"
     versions.navigation = "2.0.0"
