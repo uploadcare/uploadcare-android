@@ -5,14 +5,14 @@
 
 Supported features:
 
-- Complete file, group and project API v0.4
+- Complete file, group and project API v0.5
 - Paginated resources fetching.
 - CDN path builder.
 - File uploads from file, byte array, Uri, and URL.
 - All operations available in synchronous and asynchronous modes.
 - Simple easy to use library without any extra resources or drawables.
 
-[Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/library)
+[Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/library/index.html)
 
 ## Widget
 
@@ -24,10 +24,11 @@ Supported features:
 - Includes Uploadcare Android library for direct access to Uploadcare API's.
 - Follows Material design guideline.
 
-[Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/widget)
+[Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/widget/index.html)
 
 ## Links
 
-[Documentation](http://uploadcare.github.io/uploadcare-android/index.html)
+[Library Documentation](http://uploadcare.github.io/uploadcare-android/library/index.html)
+[Widget Documentation](http://uploadcare.github.io/uploadcare-android/widget/index.html)
 
 [Changelog](https://github.com/uploadcare/uploadcare-android/blob/master/HISTORY.md)

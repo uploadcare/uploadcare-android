@@ -10,7 +10,7 @@ Supported features:
 - Custom appearance of the widget with ability to customize styles.
 - Includes Uploadcare Android library for direct access to Uploadcare API's.
 
-[Documentation](http://uploadcare.github.io/uploadcare-android/index.html)
+[Documentation](https://github.com/uploadcare/uploadcare-android/blob/master/widget/index.html)
 
 ## jCenter
 
@@ -19,7 +19,7 @@ Latest stable version is available from jCenter.
 To include it in your Android project, add this to the gradle.build file:
 
 ```
-compile 'com.uploadcare.android.widget:uploadcare-android-widget:1.0.5'
+implementation 'com.uploadcare.android.widget:uploadcare-android-widget:1.0.6'
 
 ```
 
@@ -27,43 +27,105 @@ compile 'com.uploadcare.android.widget:uploadcare-android-widget:1.0.5'
 
 ### Basic API Usage
 
-Select and upload file to Uploadcare from any available social network/camera/local file.
-```java
-UploadcareWidget.getInstance().init("demopublickey", "demoprivatekey");
-boolean storeUponUpload = true;
-UploadcareWidget.getInstance().selectFile(context, storeUponUpload, new UploadcareFileCallback() {
-                    @Override
-                    public void onFailure(UploadcareApiException e) {
-                        //handle errors.
-                    }
+Place your Uploadcare public/private keys into ../res/strings.xml file (example below):
+```xml
+<resources>
+    <!--Replace with your public/private keys to use UploadcareWidget-->
+    <string name="uploadcare_public_key" translatable="false">place_uploadcare_public_key_here</string>
+    <string name="uploadcare_private_key" translatable="false">place_uploadcare_private_key_here</string>
+</resources>
+```
 
-                    @Override
-                    public void onSuccess(UploadcareFile file) {
-                        //successfully uploaded file to Uploadcare.
-                    }
-                });
+Select and upload file to Uploadcare from any available social network/camera/local file from Activity/Fragment.
+Java
+```java
+// Launch UploadcareWidget
+Context context = ...// Context
+Fragment fragment = this; //or Activity activity = this;
+boolean storeUponUpload = true;
+UploadcareWidget.getInstance(context).selectFile(fragment, storeUponUpload)
+
+// Handle result
+@Override
+public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    UploadcareWidgetResult result = UploadcareWidgetResult.fromIntent(data);
+    if(result!=null){
+        //handle result.
+    }
+}
+```
+Kotlin
+```kotlin
+// Launch UploadcareWidget
+val context = ...// Context
+val fragment = this //or val activity = this;
+val storeUponUpload = true
+UploadcareWidget.getInstance(context).selectFile(fragment, storeUponUpload)
+
+// Handle result
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+
+    val result = UploadcareWidgetResult.fromIntent(data)
+    result?.let {
+        //handle result.
+    }
+}
 ```
 
 Select and upload Video file to Uploadcare from Facebook network.
+Java
 ```java
-UploadcareWidget.getInstance().init("demopublickey", "demoprivatekey");
+// Launch UploadcareWidget
+Context context = ...// Context
+Fragment fragment = this; //or Activity activity = this;
 boolean storeUponUpload = true;
-UploadcareWidget.getInstance().selectFileFrom(context, UploadcareWidget.SOCIAL_NETWORK_FACEBOOK, UploadcareWidget.FILE_TYPE_VIDEO, storeUponUpload, new UploadcareFileCallback() {
-                    @Override
-                    public void onFailure(UploadcareApiException e) {
-                        //handle errors.
-                    }
+UploadcareWidget.getInstance(context).selectFileFrom(
+                fragment,
+                SocialNetwork.SOCIAL_NETWORK_FACEBOOK,
+                FileType.video,
+                storeUponUpload);
 
-                    @Override
-                    public void onSuccess(UploadcareFile file) {
-                        //successfully uploaded file to Uploadcare.
-                    }
-                });
+// Handle result
+@Override
+public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    UploadcareWidgetResult result = UploadcareWidgetResult.fromIntent(data);
+    if(result!=null){
+        //handle result.
+    }
+}
+```
+Kotlin
+```kotlin
+// Launch UploadcareWidget
+val context = ...// Context
+val fragment = this //or val activity = this;
+val storeUponUpload = true
+UploadcareWidget.getInstance(context).selectFileFrom(
+                fragment,
+                SocialNetwork.SOCIAL_NETWORK_FACEBOOK,
+                FileType.video,
+                storeUponUpload)
+
+// Handle result
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+
+    val result = UploadcareWidgetResult.fromIntent(data)
+    result?.let {
+        //handle result.
+    }
+}
 ```
 
 See documentation for details:
 
-* [UploadcareWidget](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/widget/controller/UploadcareWidget.html)
+* [UploadcareWidget](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/widget/com.uploadcare.android.widget.controller/-uploadcare-widget/index.html)
+* [UploadcareWidgetResult](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/widget/com.uploadcare.android.widget.controller/-uploadcare-widget-result/index.html)
 
 Custom appearance of the widget with custom style.
 
@@ -76,7 +138,13 @@ Paste in your /res/values/styles.xml
 </style>
 ```
 
-When initialize UploadcareWidget use your custom style.
+Set UploadcareWidget to use your custom style.
+Java
 ```java
-UploadcareWidget.getInstance().init("demopublickey", "demoprivatekey", R.style.CustomUploadCareStyle);
+UploadcareWidget.getInstance(context).setStyle(R.style.CustomUploadCareStyle);
+```
+
+Kotlin
+```kotlin
+UploadcareWidget.getInstance(context).style = R.style.CustomUploadCareStyle
 ```
