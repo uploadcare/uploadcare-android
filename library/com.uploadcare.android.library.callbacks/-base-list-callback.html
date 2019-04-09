@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>BaseListCallback - library</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">library</a>&nbsp;/&nbsp;<a href="index.html">com.uploadcare.android.library.callbacks</a>&nbsp;/&nbsp;<a href="./-base-list-callback.html">BaseListCallback</a><br/>
+<br/>
+<h1>BaseListCallback</h1>
+<code><span class="keyword">interface </span><span class="identifier">BaseListCallback</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-base-callback/index.html"><span class="identifier">BaseCallback</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="identifier">@JvmSuppressWildcards</span> <a href="-base-list-callback.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-base-callback/on-failure.html">onFailure</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onFailure</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.callbacks.BaseCallback$onFailure(com.uploadcare.android.library.exceptions.UploadcareApiException)/e">e</span><span class="symbol">:</span>&nbsp;<a href="../com.uploadcare.android.library.exceptions/-uploadcare-api-exception/index.html"><span class="identifier">UploadcareApiException</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-base-callback/on-success.html">onSuccess</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onSuccess</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.callbacks.BaseCallback$onSuccess(com.uploadcare.android.library.callbacks.BaseCallback.T)/result">result</span><span class="symbol">:</span>&nbsp;<a href="-base-callback/index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-uploadcare-all-files-callback.html">UploadcareAllFilesCallback</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">UploadcareAllFilesCallback</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-base-list-callback.html"><span class="identifier">BaseListCallback</span></a><span class="symbol">&lt;</span><a href="../com.uploadcare.android.library.api/-uploadcare-file/index.html"><span class="identifier">UploadcareFile</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-uploadcare-all-groups-callback.html">UploadcareAllGroupsCallback</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">UploadcareAllGroupsCallback</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-base-list-callback.html"><span class="identifier">BaseListCallback</span></a><span class="symbol">&lt;</span><a href="../com.uploadcare.android.library.api/-uploadcare-group/index.html"><span class="identifier">UploadcareGroup</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-upload-files-callback.html">UploadFilesCallback</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">UploadFilesCallback</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-base-list-callback.html"><span class="identifier">BaseListCallback</span></a><span class="symbol">&lt;</span><a href="../com.uploadcare.android.library.api/-uploadcare-file/index.html"><span class="identifier">UploadcareFile</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

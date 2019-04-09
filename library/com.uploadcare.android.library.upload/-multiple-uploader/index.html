@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MultipleUploader - library</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">library</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.library.upload</a>&nbsp;/&nbsp;<a href="./index.html">MultipleUploader</a><br/>
+<br/>
+<h1>MultipleUploader</h1>
+<code><span class="keyword">interface </span><span class="identifier">MultipleUploader</span></code>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="store.html">store</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">store</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.upload.MultipleUploader$store(kotlin.Boolean)/store">store</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">MultipleUploader</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="upload.html">upload</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">upload</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.library.api/-uploadcare-file/index.html"><span class="identifier">UploadcareFile</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="upload-async.html">uploadAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">uploadAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.upload.MultipleUploader$uploadAsync(com.uploadcare.android.library.callbacks.UploadFilesCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-upload-files-callback.html"><span class="identifier">UploadFilesCallback</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-multiple-files-uploader/index.html">MultipleFilesUploader</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MultipleFilesUploader</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">MultipleUploader</span></a></code>
+<p>Uploadcare uploader for multiple files.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-multiple-urls-uploader/index.html">MultipleUrlsUploader</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MultipleUrlsUploader</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">MultipleUploader</span></a></code>
+<p>Uploadcare uploader for multiple URLs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,249 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UploadcareClient - library</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">library</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.library.api</a>&nbsp;/&nbsp;<a href="./index.html">UploadcareClient</a><br/>
+<br/>
+<h1>UploadcareClient</h1>
+<code><span class="keyword">class </span><span class="identifier">UploadcareClient</span></code>
+<p>Initializes a client with custom access keys.
+Can use simple or secure authentication.</p>
+<h3>Parameters</h3>
+<p><a name="publicKey"></a>
+<code>publicKey</code> - Public key</p>
+<p><a name="privateKey"></a>
+<code>privateKey</code> - Private key</p>
+<p><a name="simpleAuth"></a>
+<code>simpleAuth</code> - If {@code false}, HMAC-based authentication is used</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">UploadcareClient</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$<init>(kotlin.String, kotlin.String)/publicKey">publicKey</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$<init>(kotlin.String, kotlin.String)/privateKey">privateKey</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code><code><span class="identifier">UploadcareClient</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$<init>(kotlin.String, kotlin.String, kotlin.Boolean)/publicKey">publicKey</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$<init>(kotlin.String, kotlin.String, kotlin.Boolean)/privateKey">privateKey</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$<init>(kotlin.String, kotlin.String, kotlin.Boolean)/simpleAuth">simpleAuth</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a>&nbsp;<span class="symbol">=</span>&nbsp;true<span class="symbol">)</span></code>
+<p>Initializes a client with custom access keys.
+Can use simple or secure authentication.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="http-client.html">httpClient</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">httpClient</span><span class="symbol">: </span><span class="identifier">OkHttpClient</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="object-mapper.html">objectMapper</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">objectMapper</span><span class="symbol">: </span><a href="../../com.uploadcare.android.library.data/-object-mapper/index.html"><span class="identifier">ObjectMapper</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="private-key.html">privateKey</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">privateKey</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Private key</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="public-key.html">publicKey</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">publicKey</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Public key</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="request-helper.html">requestHelper</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">requestHelper</span><span class="symbol">: </span><a href="../-request-helper/index.html"><span class="identifier">RequestHelper</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="simple-auth.html">simpleAuth</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">simpleAuth</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>If {@code false}, HMAC-based authentication is used</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="copy-file.html">copyFile</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">copyFile</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$copyFile(kotlin.String, kotlin.String)/fileId">fileId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$copyFile(kotlin.String, kotlin.String)/storage">storage</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.uploadcare.android.library.data/-copy-file-data/index.html"><span class="identifier">CopyFileData</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="copy-file-async.html">copyFileAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">copyFileAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$copyFileAsync(android.content.Context, kotlin.String, kotlin.String, com.uploadcare.android.library.callbacks.CopyFileCallback)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$copyFileAsync(android.content.Context, kotlin.String, kotlin.String, com.uploadcare.android.library.callbacks.CopyFileCallback)/fileId">fileId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$copyFileAsync(android.content.Context, kotlin.String, kotlin.String, com.uploadcare.android.library.callbacks.CopyFileCallback)/storage">storage</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$copyFileAsync(android.content.Context, kotlin.String, kotlin.String, com.uploadcare.android.library.callbacks.CopyFileCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-copy-file-callback.html"><span class="identifier">CopyFileCallback</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="delete-file.html">deleteFile</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">deleteFile</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$deleteFile(kotlin.String)/fileId">fileId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Marks a file as deleted.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="delete-file-async.html">deleteFileAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">deleteFileAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$deleteFileAsync(android.content.Context, kotlin.String)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$deleteFileAsync(android.content.Context, kotlin.String)/fileId">fileId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">deleteFileAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$deleteFileAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.RequestCallback)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$deleteFileAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.RequestCallback)/fileId">fileId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$deleteFileAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.RequestCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-request-callback.html"><span class="identifier">RequestCallback</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Marks a file as deleted Asynchronously.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-file.html">getFile</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getFile</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$getFile(kotlin.String)/fileId">fileId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-uploadcare-file/index.html"><span class="identifier">UploadcareFile</span></a></code>
+<p>Requests file data.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-file-async.html">getFileAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getFileAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$getFileAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.UploadcareFileCallback)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$getFileAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.UploadcareFileCallback)/fileId">fileId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$getFileAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.UploadcareFileCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-uploadcare-file-callback.html"><span class="identifier">UploadcareFileCallback</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Requests file data Asynchronously.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-files.html">getFiles</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getFiles</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-files-query-builder/index.html"><span class="identifier">FilesQueryBuilder</span></a></code>
+<p>Begins to build a request for uploaded files for the current account.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-group.html">getGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getGroup</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$getGroup(kotlin.String)/groupId">groupId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-uploadcare-group/index.html"><span class="identifier">UploadcareGroup</span></a></code>
+<p>Requests group data.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-group-async.html">getGroupAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getGroupAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$getGroupAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.UploadcareGroupCallback)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$getGroupAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.UploadcareGroupCallback)/groupId">groupId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$getGroupAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.UploadcareGroupCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-uploadcare-group-callback.html"><span class="identifier">UploadcareGroupCallback</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Requests file data Asynchronously.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-groups.html">getGroups</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getGroups</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-groups-query-builder/index.html"><span class="identifier">GroupsQueryBuilder</span></a></code>
+<p>Begins to build a request for groups for the current account.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-project.html">getProject</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getProject</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-project/index.html"><span class="identifier">Project</span></a></code>
+<p>Requests project info from the API.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-project-async.html">getProjectAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getProjectAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$getProjectAsync(android.content.Context, com.uploadcare.android.library.callbacks.ProjectCallback)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$getProjectAsync(android.content.Context, com.uploadcare.android.library.callbacks.ProjectCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-project-callback.html"><span class="identifier">ProjectCallback</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Requests project info from the API Asynchronously.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="save-file.html">saveFile</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">saveFile</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$saveFile(kotlin.String)/fileId">fileId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Marks a file as saved.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="save-file-async.html">saveFileAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">saveFileAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$saveFileAsync(android.content.Context, kotlin.String)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$saveFileAsync(android.content.Context, kotlin.String)/fileId">fileId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">saveFileAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$saveFileAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.RequestCallback)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$saveFileAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.RequestCallback)/fileId">fileId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$saveFileAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.RequestCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-request-callback.html"><span class="identifier">RequestCallback</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Marks a file as saved Asynchronously.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="store-group.html">storeGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">storeGroup</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$storeGroup(kotlin.String)/groupId">groupId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Mark all files in a group as stored (available on CDN).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="store-group-async.html">storeGroupAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">storeGroupAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$storeGroupAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.RequestCallback)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$storeGroupAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.RequestCallback)/groupId">groupId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareClient$storeGroupAsync(android.content.Context, kotlin.String, com.uploadcare.android.library.callbacks.RequestCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-request-callback.html"><span class="identifier">RequestCallback</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Mark all files in a group as stored (available on CDN). Asynchronously.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="demo-client.html">demoClient</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">demoClient</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">UploadcareClient</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>OnFileActionsListener - widget</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">widget</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.widget.fragment</a>&nbsp;/&nbsp;<a href="./index.html">OnFileActionsListener</a><br/>
+<br/>
+<h1>OnFileActionsListener</h1>
+<code><span class="keyword">interface </span><span class="identifier">OnFileActionsListener</span></code>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="on-authorization-needed.html">onAuthorizationNeeded</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onAuthorizationNeeded</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.fragment.OnFileActionsListener$onAuthorizationNeeded(kotlin.String)/loginLink">loginLink</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-chunk-selected.html">onChunkSelected</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onChunkSelected</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.fragment.OnFileActionsListener$onChunkSelected(kotlin.collections.List((com.uploadcare.android.widget.data.Chunk)), kotlin.String)/chunks">chunks</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.widget.data/-chunk/index.html"><span class="identifier">Chunk</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.fragment.OnFileActionsListener$onChunkSelected(kotlin.collections.List((com.uploadcare.android.widget.data.Chunk)), kotlin.String)/title">title</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-error.html">onError</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onError</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.fragment.OnFileActionsListener$onError(com.uploadcare.android.library.exceptions.UploadcareApiException)/exception">exception</span><span class="symbol">:</span>&nbsp;<span class="identifier">UploadcareApiException</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-file-selected.html">onFileSelected</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onFileSelected</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.fragment.OnFileActionsListener$onFileSelected(kotlin.String)/fileUrl">fileUrl</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-uploadcare-files-fragment/index.html">UploadcareFilesFragment</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">UploadcareFilesFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Fragment</span><span class="symbol">, </span><a href="https://developer.android.com/reference/android/widget/AdapterView/OnItemSelectedListener.html"><span class="identifier">OnItemSelectedListener</span></a><span class="symbol">, </span><a href="./index.html"><span class="identifier">OnFileActionsListener</span></a><span class="symbol">, </span><a href="../-on-auth-listener/index.html"><span class="identifier">OnAuthListener</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

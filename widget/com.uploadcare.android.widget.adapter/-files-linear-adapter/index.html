@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FilesLinearAdapter - widget</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">widget</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.widget.adapter</a>&nbsp;/&nbsp;<a href="./index.html">FilesLinearAdapter</a><br/>
+<br/>
+<h1>FilesLinearAdapter</h1>
+<code><span class="keyword">class </span><span class="identifier">FilesLinearAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-files-adapter/index.html"><span class="identifier">FilesAdapter</span></a><span class="symbol">&lt;</span><a href="../-thing-linear-view-holder/index.html"><span class="identifier">ThingLinearViewHolder</span></a><span class="symbol">&gt;</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">FilesLinearAdapter</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.adapter.FilesLinearAdapter$<init>(com.uploadcare.android.widget.controller.FileType, kotlin.Function1((com.uploadcare.android.widget.data.Thing, kotlin.Unit)))/fileType">fileType</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.widget.controller/-file-type/index.html"><span class="identifier">FileType</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.adapter.FilesLinearAdapter$<init>(com.uploadcare.android.widget.controller.FileType, kotlin.Function1((com.uploadcare.android.widget.data.Thing, kotlin.Unit)))/clickObserver">clickObserver</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">(</span><a href="../../com.uploadcare.android.widget.data/-thing/index.html"><span class="identifier">Thing</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="on-create-view-holder.html">onCreateViewHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreateViewHolder</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.adapter.FilesLinearAdapter$onCreateViewHolder(android.view.ViewGroup, kotlin.Int)/parent">parent</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.adapter.FilesLinearAdapter$onCreateViewHolder(android.view.ViewGroup, kotlin.Int)/viewType">viewType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-thing-linear-view-holder/index.html"><span class="identifier">ThingLinearViewHolder</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-files-adapter/clear.html">clear</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">clear</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-files-adapter/get-data.html">getData</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getData</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html"><span class="identifier">MutableList</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.widget.data/-thing/index.html"><span class="identifier">Thing</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-files-adapter/get-item-count.html">getItemCount</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getItemCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-files-adapter/on-bind-view-holder.html">onBindViewHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onBindViewHolder</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.adapter.FilesAdapter$onBindViewHolder(com.uploadcare.android.widget.adapter.FilesAdapter.VH, kotlin.Int)/holder">holder</span><span class="symbol">:</span>&nbsp;<a href="../-files-adapter/index.html#VH"><span class="identifier">VH</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.adapter.FilesAdapter$onBindViewHolder(com.uploadcare.android.widget.adapter.FilesAdapter.VH, kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-files-adapter/update-items.html">updateItems</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">updateItems</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.adapter.FilesAdapter$updateItems(kotlin.collections.List((com.uploadcare.android.widget.data.Thing)))/data">data</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.widget.data/-thing/index.html"><span class="identifier">Thing</span></a><span class="symbol">&gt;</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Update existing Dataset.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

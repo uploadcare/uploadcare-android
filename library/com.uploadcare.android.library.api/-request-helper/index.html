@@ -1,0 +1,202 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RequestHelper - library</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">library</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.library.api</a>&nbsp;/&nbsp;<a href="./index.html">RequestHelper</a><br/>
+<br/>
+<h1>RequestHelper</h1>
+<code><span class="keyword">class </span><span class="identifier">RequestHelper</span></code>
+<p>A helper class for doing API calls to the Uploadcare API. Supports API version 0.5.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">RequestHelper</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$<init>(com.uploadcare.android.library.api.UploadcareClient)/client">client</span><span class="symbol">:</span>&nbsp;<a href="../-uploadcare-client/index.html"><span class="identifier">UploadcareClient</span></a><span class="symbol">)</span></code>
+<p>A helper class for doing API calls to the Uploadcare API. Supports API version 0.5.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="execute-command.html">executeCommand</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">executeCommand</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommand(kotlin.String, kotlin.String, kotlin.Boolean, okhttp3.RequestBody)/requestType">requestType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommand(kotlin.String, kotlin.String, kotlin.Boolean, okhttp3.RequestBody)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommand(kotlin.String, kotlin.String, kotlin.Boolean, okhttp3.RequestBody)/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommand(kotlin.String, kotlin.String, kotlin.Boolean, okhttp3.RequestBody)/requestBody">requestBody</span><span class="symbol">:</span>&nbsp;<span class="identifier">RequestBody</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Response</span></code>
+<p>Executes the request et the Uploadcare API and return the HTTP Response object.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="execute-command-async.html">executeCommandAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">executeCommandAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommandAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, com.uploadcare.android.library.callbacks.RequestCallback, okhttp3.RequestBody)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommandAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, com.uploadcare.android.library.callbacks.RequestCallback, okhttp3.RequestBody)/requestType">requestType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommandAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, com.uploadcare.android.library.callbacks.RequestCallback, okhttp3.RequestBody)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommandAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, com.uploadcare.android.library.callbacks.RequestCallback, okhttp3.RequestBody)/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommandAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, com.uploadcare.android.library.callbacks.RequestCallback, okhttp3.RequestBody)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-request-callback.html"><span class="identifier">RequestCallback</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommandAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, com.uploadcare.android.library.callbacks.RequestCallback, okhttp3.RequestBody)/requestBody">requestBody</span><span class="symbol">:</span>&nbsp;<span class="identifier">RequestBody</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Executes the request et the Uploadcare API and return the HTTP Response object.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="execute-groups-paginated-query-with-offset-limit-async.html">executeGroupsPaginatedQueryWithOffsetLimitAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">executeGroupsPaginatedQueryWithOffsetLimitAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeGroupsPaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeGroupsPaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/net/URI.html"><span class="identifier">URI</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeGroupsPaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/urlParameters">urlParameters</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html"><span class="identifier">UrlParameter</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeGroupsPaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeGroupsPaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-uploadcare-groups-callback.html"><span class="identifier">UploadcareGroupsCallback</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="execute-paginated-query.html">executePaginatedQuery</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">executePaginatedQuery</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQuery(java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.data.PageData((com.uploadcare.android.library.api.RequestHelper.executePaginatedQuery.T)))))/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/net/URI.html"><span class="identifier">URI</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQuery(java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.data.PageData((com.uploadcare.android.library.api.RequestHelper.executePaginatedQuery.T)))))/urlParameters">urlParameters</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html"><span class="identifier">UrlParameter</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQuery(java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.data.PageData((com.uploadcare.android.library.api.RequestHelper.executePaginatedQuery.T)))))/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQuery(java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.data.PageData((com.uploadcare.android.library.api.RequestHelper.executePaginatedQuery.T)))))/dataClass">dataClass</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="../../com.uploadcare.android.library.data/-page-data/index.html"><span class="identifier">PageData</span></a><span class="symbol">&lt;</span><a href="execute-paginated-query.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="execute-paginated-query.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="execute-paginated-query-with-offset-limit-async.html">executePaginatedQueryWithOffsetLimitAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">executePaginatedQueryWithOffsetLimitAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareFilesCallback)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareFilesCallback)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/net/URI.html"><span class="identifier">URI</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareFilesCallback)/urlParameters">urlParameters</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html"><span class="identifier">UrlParameter</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareFilesCallback)/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareFilesCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-uploadcare-files-callback.html"><span class="identifier">UploadcareFilesCallback</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="execute-query.html">executeQuery</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">executeQuery</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQuery(kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQuery.T)), okhttp3.RequestBody)/requestType">requestType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQuery(kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQuery.T)), okhttp3.RequestBody)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQuery(kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQuery.T)), okhttp3.RequestBody)/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQuery(kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQuery.T)), okhttp3.RequestBody)/dataClass">dataClass</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="execute-query.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQuery(kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQuery.T)), okhttp3.RequestBody)/requestBody">requestBody</span><span class="symbol">:</span>&nbsp;<span class="identifier">RequestBody</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="execute-query.html#T"><span class="identifier">T</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="execute-query-async.html">executeQueryAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">executeQueryAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/requestType">requestType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/dataClass">dataClass</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="execute-query-async.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-base-callback/index.html"><span class="identifier">BaseCallback</span></a><span class="symbol">&lt;</span><a href="execute-query-async.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/requestBody">requestBody</span><span class="symbol">:</span>&nbsp;<span class="identifier">RequestBody</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="make-signature.html">makeSignature</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">makeSignature</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$makeSignature(kotlin.String, kotlin.String, kotlin.String)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$makeSignature(kotlin.String, kotlin.String, kotlin.String)/date">date</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$makeSignature(kotlin.String, kotlin.String, kotlin.String)/requestType">requestType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-api-headers.html">setApiHeaders</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setApiHeaders</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$setApiHeaders(okhttp3.Request.Builder, kotlin.String, kotlin.String, com.uploadcare.android.library.callbacks.BaseCallback((kotlin.Any)))/requestBuilder">requestBuilder</span><span class="symbol">:</span>&nbsp;<span class="identifier">Builder</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$setApiHeaders(okhttp3.Request.Builder, kotlin.String, kotlin.String, com.uploadcare.android.library.callbacks.BaseCallback((kotlin.Any)))/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$setApiHeaders(okhttp3.Request.Builder, kotlin.String, kotlin.String, com.uploadcare.android.library.callbacks.BaseCallback((kotlin.Any)))/requestType">requestType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$setApiHeaders(okhttp3.Request.Builder, kotlin.String, kotlin.String, com.uploadcare.android.library.callbacks.BaseCallback((kotlin.Any)))/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-base-callback/index.html"><span class="identifier">BaseCallback</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-d-a-t-e_-f-o-r-m-a-t.html">DATE_FORMAT</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">DATE_FORMAT</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-d-a-t-e_-f-o-r-m-a-t_-i-s-o_8601.html">DATE_FORMAT_ISO_8601</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">DATE_FORMAT_ISO_8601</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-d-i-g-i-t-s_-u-p-p-e-r.html">DIGITS_UPPER</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">DIGITS_UPPER</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/index.html"><span class="identifier">CharArray</span></a></code>
+<p>Used to build output as Hex</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-r-e-q-u-e-s-t_-d-e-l-e-t-e.html">REQUEST_DELETE</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_DELETE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-r-e-q-u-e-s-t_-g-e-t.html">REQUEST_GET</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_GET</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-r-e-q-u-e-s-t_-p-o-s-t.html">REQUEST_POST</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_POST</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-r-e-q-u-e-s-t_-p-u-t.html">REQUEST_PUT</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_PUT</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-u-t-c.html">UTC</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">UTC</span><span class="symbol">: </span><a href="https://developer.android.com/reference/java/util/TimeZone.html"><span class="identifier">TimeZone</span></a><span class="symbol">!</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="encode-hex.html">encodeHex</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">encodeHex</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper.Companion$encodeHex(kotlin.ByteArray)/data">data</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/index.html"><span class="identifier">CharArray</span></a></code><ul><li>Converts an array of bytes into an array of characters representing the hexadecimal values
+of each byte in order.
+The returned array will be double the length of the passed array, as it takes two characters
+to represent any
+given byte.</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="iso8601.html">iso8601</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">iso8601</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper.Companion$iso8601(java.util.Date)/date">date</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/util/Date.html"><span class="identifier">Date</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="rfc2822.html">rfc2822</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">rfc2822</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper.Companion$rfc2822(java.util.Date)/date">date</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/util/Date.html"><span class="identifier">Date</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-query-parameters.html">setQueryParameters</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setQueryParameters</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper.Companion$setQueryParameters(android.net.Uri.Builder, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)))/builder">builder</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/net/Uri/Builder.html"><span class="identifier">Builder</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper.Companion$setQueryParameters(android.net.Uri.Builder, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)))/parameters">parameters</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html"><span class="identifier">UrlParameter</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

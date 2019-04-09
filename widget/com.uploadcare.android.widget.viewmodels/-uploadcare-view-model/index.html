@@ -1,0 +1,119 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UploadcareViewModel - widget</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">widget</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.widget.viewmodels</a>&nbsp;/&nbsp;<a href="./index.html">UploadcareViewModel</a><br/>
+<br/>
+<h1>UploadcareViewModel</h1>
+<code><span class="keyword">class </span><span class="identifier">UploadcareViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AndroidViewModel</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">UploadcareViewModel</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.viewmodels.UploadcareViewModel$<init>(android.app.Application)/application">application</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/app/Application.html"><span class="identifier">Application</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="close-widget-command.html">closeWidgetCommand</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">closeWidgetCommand</span><span class="symbol">: </span><a href="../../com.uploadcare.android.widget.utils/-single-live-event/index.html"><span class="identifier">SingleLiveEvent</span></a><span class="symbol">&lt;</span><span class="identifier">UploadcareApiException</span><span class="symbol">?</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="launch-camera.html">launchCamera</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">launchCamera</span><span class="symbol">: </span><a href="../../com.uploadcare.android.widget.utils/-single-live-event/index.html"><span class="identifier">SingleLiveEvent</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://developer.android.com/reference/android/net/Uri.html"><span class="identifier">Uri</span></a><span class="symbol">,</span>&nbsp;<a href="../-media-type/index.html"><span class="identifier">MediaType</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="launch-file-picker.html">launchFilePicker</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">launchFilePicker</span><span class="symbol">: </span><a href="../../com.uploadcare.android.widget.utils/-single-live-event/index.html"><span class="identifier">SingleLiveEvent</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.widget.controller/-file-type/index.html"><span class="identifier">FileType</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="launch-social-source-command.html">launchSocialSourceCommand</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">launchSocialSourceCommand</span><span class="symbol">: </span><a href="../../com.uploadcare.android.widget.utils/-single-live-event/index.html"><span class="identifier">SingleLiveEvent</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.widget.data/-social-source/index.html"><span class="identifier">SocialSource</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="progress-dialog-command.html">progressDialogCommand</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">progressDialogCommand</span><span class="symbol">: </span><a href="../../com.uploadcare.android.widget.utils/-single-live-event/index.html"><span class="identifier">SingleLiveEvent</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="show-social-sources-command.html">showSocialSourcesCommand</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">showSocialSourcesCommand</span><span class="symbol">: </span><a href="../../com.uploadcare.android.widget.utils/-single-live-event/index.html"><span class="identifier">SingleLiveEvent</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.widget.data/-social-source/index.html"><span class="identifier">SocialSource</span></a><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="../../com.uploadcare.android.widget.controller/-file-type/index.html"><span class="identifier">FileType</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="upload-complete-command.html">uploadCompleteCommand</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">uploadCompleteCommand</span><span class="symbol">: </span><a href="../../com.uploadcare.android.widget.utils/-single-live-event/index.html"><span class="identifier">SingleLiveEvent</span></a><span class="symbol">&lt;</span><span class="identifier">UploadcareFile</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="on-restore-instance-state.html">onRestoreInstanceState</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onRestoreInstanceState</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.viewmodels.UploadcareViewModel$onRestoreInstanceState(android.os.Bundle)/bundle">bundle</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-save-instance-state.html">onSaveInstanceState</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onSaveInstanceState</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.viewmodels.UploadcareViewModel$onSaveInstanceState(android.os.Bundle)/bundle">bundle</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="source-selected.html">sourceSelected</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">sourceSelected</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.viewmodels.UploadcareViewModel$sourceSelected(com.uploadcare.android.widget.data.SocialSource)/socialSource">socialSource</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.widget.data/-social-source/index.html"><span class="identifier">SocialSource</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="start.html">start</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">start</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.viewmodels.UploadcareViewModel$start(android.os.Bundle)/bundle">bundle</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="upload-file.html">uploadFile</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">uploadFile</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.viewmodels.UploadcareViewModel$uploadFile(android.net.Uri)/fileUri">fileUri</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/net/Uri.html"><span class="identifier">Uri</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

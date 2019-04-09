@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>GroupsQueryBuilder - library</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">library</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.library.api</a>&nbsp;/&nbsp;<a href="./index.html">GroupsQueryBuilder</a><br/>
+<br/>
+<h1>GroupsQueryBuilder</h1>
+<code><span class="keyword">class </span><span class="identifier">GroupsQueryBuilder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-paginated-query-builder/index.html"><span class="identifier">PaginatedQueryBuilder</span></a><span class="symbol">&lt;</span><a href="../-uploadcare-group/index.html"><span class="identifier">UploadcareGroup</span></a><span class="symbol">&gt;</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">GroupsQueryBuilder</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.GroupsQueryBuilder$<init>(com.uploadcare.android.library.api.UploadcareClient)/client">client</span><span class="symbol">:</span>&nbsp;<a href="../-uploadcare-client/index.html"><span class="identifier">UploadcareClient</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="as-iterable.html">asIterable</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">asIterable</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="../-uploadcare-group/index.html"><span class="identifier">UploadcareGroup</span></a><span class="symbol">&gt;</span></code>
+<p>Returns a resource iterable for lazy loading.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="as-list.html">asList</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">asList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-uploadcare-group/index.html"><span class="identifier">UploadcareGroup</span></a><span class="symbol">&gt;</span></code>
+<p>Iterates through all resources and returns a complete list.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="as-list-async.html">asListAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">asListAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.GroupsQueryBuilder$asListAsync(android.content.Context, kotlin.Int, java.net.URI, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.GroupsQueryBuilder$asListAsync(android.content.Context, kotlin.Int, java.net.URI, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/limit">limit</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.GroupsQueryBuilder$asListAsync(android.content.Context, kotlin.Int, java.net.URI, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/next">next</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/net/URI.html"><span class="identifier">URI</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.GroupsQueryBuilder$asListAsync(android.content.Context, kotlin.Int, java.net.URI, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-uploadcare-groups-callback.html"><span class="identifier">UploadcareGroupsCallback</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Returns a limited amount of group resources with specified offset Asynchronously.</p>
+<code><span class="keyword">fun </span><span class="identifier">asListAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.GroupsQueryBuilder$asListAsync(com.uploadcare.android.library.callbacks.UploadcareAllGroupsCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-uploadcare-all-groups-callback.html"><span class="identifier">UploadcareAllGroupsCallback</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Iterates through all resources and returns a complete list Asynchronously.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="from.html">from</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">from</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.GroupsQueryBuilder$from(java.util.Date)/from">from</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/util/Date.html"><span class="identifier">Date</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">GroupsQueryBuilder</span></a></code>
+<p>Adds a filter for datetime from objects will be returned.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ordering.html">ordering</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">ordering</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.GroupsQueryBuilder$ordering(com.uploadcare.android.library.urls.Order)/order">order</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.urls/-order/index.html"><span class="identifier">Order</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">GroupsQueryBuilder</span></a></code>
+<p>Specifies the way files are sorted.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

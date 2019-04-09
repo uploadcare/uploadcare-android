@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ObjectMapper - library</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">library</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.library.data</a>&nbsp;/&nbsp;<a href="./index.html">ObjectMapper</a><br/>
+<br/>
+<h1>ObjectMapper</h1>
+<code><span class="keyword">class </span><span class="identifier">ObjectMapper</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ObjectMapper</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.data.ObjectMapper$<init>(com.squareup.moshi.Moshi)/moshi">moshi</span><span class="symbol">:</span>&nbsp;<span class="identifier">Moshi</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="moshi.html">moshi</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">moshi</span><span class="symbol">: </span><span class="identifier">Moshi</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="from-json.html">fromJson</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">fromJson</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.data.ObjectMapper$fromJson(kotlin.String, java.lang.Class((com.uploadcare.android.library.data.ObjectMapper.fromJson.T)))/json">json</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.data.ObjectMapper$fromJson(kotlin.String, java.lang.Class((com.uploadcare.android.library.data.ObjectMapper.fromJson.T)))/classOfT">classOfT</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="from-json.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="from-json.html#T"><span class="identifier">T</span></a><span class="symbol">?</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">fromJson</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.data.ObjectMapper$fromJson(kotlin.String, java.lang.reflect.Type)/json">json</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.data.ObjectMapper$fromJson(kotlin.String, java.lang.reflect.Type)/typeOfT">typeOfT</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/lang/reflect/Type.html"><span class="identifier">Type</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="from-json.html#T"><span class="identifier">T</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="to-json.html">toJson</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">toJson</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.data.ObjectMapper$toJson(com.uploadcare.android.library.data.ObjectMapper.toJson.T, kotlin.reflect.KClass((com.uploadcare.android.library.data.ObjectMapper.toJson.T)))/src">src</span><span class="symbol">:</span>&nbsp;<a href="to-json.html#T"><span class="identifier">T</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.data.ObjectMapper$toJson(com.uploadcare.android.library.data.ObjectMapper.toJson.T, kotlin.reflect.KClass((com.uploadcare.android.library.data.ObjectMapper.toJson.T)))/classOfT">classOfT</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><a href="to-json.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">toJson</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.data.ObjectMapper$toJson(kotlin.Any, java.lang.reflect.Type)/src">src</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.data.ObjectMapper$toJson(kotlin.Any, java.lang.reflect.Type)/typeOfSrc">typeOfSrc</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/lang/reflect/Type.html"><span class="identifier">Type</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="build.html">build</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">ObjectMapper</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

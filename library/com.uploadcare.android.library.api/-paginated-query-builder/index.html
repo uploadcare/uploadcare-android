@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PaginatedQueryBuilder - library</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">library</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.library.api</a>&nbsp;/&nbsp;<a href="./index.html">PaginatedQueryBuilder</a><br/>
+<br/>
+<h1>PaginatedQueryBuilder</h1>
+<code><span class="keyword">interface </span><span class="identifier">PaginatedQueryBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="as-iterable.html">asIterable</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">asIterable</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Returns a resource iterable for lazy loading.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="as-list.html">asList</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">asList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Iterates through all resources and returns a complete list.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-files-query-builder/index.html">FilesQueryBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">FilesQueryBuilder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">PaginatedQueryBuilder</span></a><span class="symbol">&lt;</span><a href="../-uploadcare-file/index.html"><span class="identifier">UploadcareFile</span></a><span class="symbol">&gt;</span></code>
+<p>File resource request builder.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-groups-query-builder/index.html">GroupsQueryBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">GroupsQueryBuilder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">PaginatedQueryBuilder</span></a><span class="symbol">&lt;</span><a href="../-uploadcare-group/index.html"><span class="identifier">UploadcareGroup</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

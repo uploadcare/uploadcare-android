@@ -1,0 +1,126 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UploadcareChunkViewModel - widget</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">widget</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.widget.viewmodels</a>&nbsp;/&nbsp;<a href="./index.html">UploadcareChunkViewModel</a><br/>
+<br/>
+<h1>UploadcareChunkViewModel</h1>
+<code><span class="keyword">class </span><span class="identifier">UploadcareChunkViewModel</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AndroidViewModel</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">UploadcareChunkViewModel</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.viewmodels.UploadcareChunkViewModel$<init>(android.app.Application)/application">application</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/app/Application.html"><span class="identifier">Application</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="allow-load-more.html">allowLoadMore</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">allowLoadMore</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="error-command.html">errorCommand</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">errorCommand</span><span class="symbol">: </span><a href="../../com.uploadcare.android.widget.utils/-single-live-event/index.html"><span class="identifier">SingleLiveEvent</span></a><span class="symbol">&lt;</span><span class="identifier">UploadcareApiException</span><span class="symbol">?</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-empty.html">isEmpty</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">isEmpty</span><span class="symbol">: </span><span class="identifier">ObservableBoolean</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-search.html">isSearch</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">isSearch</span><span class="symbol">: </span><span class="identifier">ObservableBoolean</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="loading.html">loading</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">loading</span><span class="symbol">: </span><span class="identifier">ObservableBoolean</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="loading-more.html">loadingMore</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">loadingMore</span><span class="symbol">: </span><span class="identifier">ObservableBoolean</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="need-auth-command.html">needAuthCommand</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">needAuthCommand</span><span class="symbol">: </span><a href="../../com.uploadcare.android.widget.utils/-single-live-event/index.html"><span class="identifier">SingleLiveEvent</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="things.html">things</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">things</span><span class="symbol">: </span><span class="identifier">MutableLiveData</span><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.widget.data/-thing/index.html"><span class="identifier">Thing</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="title.html">title</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">title</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="change-chunk.html">changeChunk</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">changeChunk</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.viewmodels.UploadcareChunkViewModel$changeChunk(kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="load-more.html">loadMore</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">loadMore</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="search.html">search</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">search</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.viewmodels.UploadcareChunkViewModel$search(kotlin.String)/query">query</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="start.html">start</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">start</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.viewmodels.UploadcareChunkViewModel$start(android.os.Bundle)/arguments">arguments</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

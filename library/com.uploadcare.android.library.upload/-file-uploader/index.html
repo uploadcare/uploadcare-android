@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FileUploader - library</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">library</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.library.upload</a>&nbsp;/&nbsp;<a href="./index.html">FileUploader</a><br/>
+<br/>
+<h1>FileUploader</h1>
+<code><span class="keyword">class </span><span class="identifier">FileUploader</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-uploader/index.html"><span class="identifier">Uploader</span></a></code>
+<p>Uploadcare uploader for files and binary data.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">FileUploader</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, java.io.File)/client">client</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.api/-uploadcare-client/index.html"><span class="identifier">UploadcareClient</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, java.io.File)/file">file</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">)</span></code>
+<p>Creates a new uploader from a file on disk
+(not to be confused with a file resource from Uploadcare API).</p>
+<code><span class="identifier">FileUploader</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, android.net.Uri, android.content.Context)/client">client</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.api/-uploadcare-client/index.html"><span class="identifier">UploadcareClient</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, android.net.Uri, android.content.Context)/uri">uri</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/net/Uri.html"><span class="identifier">Uri</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, android.net.Uri, android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span></code>
+<p>Creates a new uploader from a <a href="https://developer.android.com/reference/android/net/Uri.html">android.net.Uri</a> object reference.
+(not to be confused with a file resource from Uploadcare API).</p>
+<code><span class="identifier">FileUploader</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, java.io.InputStream, kotlin.String)/client">client</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.api/-uploadcare-client/index.html"><span class="identifier">UploadcareClient</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, java.io.InputStream, kotlin.String)/stream">stream</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/io/InputStream.html"><span class="identifier">InputStream</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, java.io.InputStream, kotlin.String)/filename">filename</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code>
+<p>Creates a new uploader from InputStream.</p>
+<code><span class="identifier">FileUploader</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, kotlin.ByteArray, kotlin.String)/client">client</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.api/-uploadcare-client/index.html"><span class="identifier">UploadcareClient</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, kotlin.ByteArray, kotlin.String)/bytes">bytes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, kotlin.ByteArray, kotlin.String)/filename">filename</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code><br/>
+<code><span class="identifier">FileUploader</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, kotlin.String)/client">client</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.api/-uploadcare-client/index.html"><span class="identifier">UploadcareClient</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$<init>(com.uploadcare.android.library.api.UploadcareClient, kotlin.String)/content">content</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code>
+<p>Creates a new uploader from binary data.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="store.html">store</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">store</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$store(kotlin.Boolean)/store">store</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">FileUploader</span></a></code>
+<p>Store the file upon uploading.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="upload.html">upload</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">upload</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.uploadcare.android.library.api/-uploadcare-file/index.html"><span class="identifier">UploadcareFile</span></a></code>
+<p>Synchronously uploads the file to Uploadcare.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="upload-async.html">uploadAsync</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">uploadAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.upload.FileUploader$uploadAsync(com.uploadcare.android.library.callbacks.UploadcareFileCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-uploadcare-file-callback.html"><span class="identifier">UploadcareFileCallback</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Asynchronously uploads the file to Uploadcare.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

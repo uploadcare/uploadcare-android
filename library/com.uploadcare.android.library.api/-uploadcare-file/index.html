@@ -1,0 +1,176 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UploadcareFile - library</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">library</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.library.api</a>&nbsp;/&nbsp;<a href="./index.html">UploadcareFile</a><br/>
+<br/>
+<h1>UploadcareFile</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">UploadcareFile</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Parcelable.html"><span class="identifier">Parcelable</span></a></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">UploadcareFile</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$<init>(kotlin.String, java.net.URI, kotlin.Int, kotlin.Boolean, kotlin.Boolean, kotlin.String, kotlin.String, java.net.URI, java.util.Date, java.util.Date, java.util.Date)/uuid">uuid</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$<init>(kotlin.String, java.net.URI, kotlin.Int, kotlin.Boolean, kotlin.Boolean, kotlin.String, kotlin.String, java.net.URI, java.util.Date, java.util.Date, java.util.Date)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/net/URI.html"><span class="identifier">URI</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$<init>(kotlin.String, java.net.URI, kotlin.Int, kotlin.Boolean, kotlin.Boolean, kotlin.String, kotlin.String, java.net.URI, java.util.Date, java.util.Date, java.util.Date)/size">size</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$<init>(kotlin.String, java.net.URI, kotlin.Int, kotlin.Boolean, kotlin.Boolean, kotlin.String, kotlin.String, java.net.URI, java.util.Date, java.util.Date, java.util.Date)/isReady">isReady</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$<init>(kotlin.String, java.net.URI, kotlin.Int, kotlin.Boolean, kotlin.Boolean, kotlin.String, kotlin.String, java.net.URI, java.util.Date, java.util.Date, java.util.Date)/isImage">isImage</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;false<span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$<init>(kotlin.String, java.net.URI, kotlin.Int, kotlin.Boolean, kotlin.Boolean, kotlin.String, kotlin.String, java.net.URI, java.util.Date, java.util.Date, java.util.Date)/mimeType">mimeType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$<init>(kotlin.String, java.net.URI, kotlin.Int, kotlin.Boolean, kotlin.Boolean, kotlin.String, kotlin.String, java.net.URI, java.util.Date, java.util.Date, java.util.Date)/originalFilename">originalFilename</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$<init>(kotlin.String, java.net.URI, kotlin.Int, kotlin.Boolean, kotlin.Boolean, kotlin.String, kotlin.String, java.net.URI, java.util.Date, java.util.Date, java.util.Date)/originalFileUrl">originalFileUrl</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/net/URI.html"><span class="identifier">URI</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$<init>(kotlin.String, java.net.URI, kotlin.Int, kotlin.Boolean, kotlin.Boolean, kotlin.String, kotlin.String, java.net.URI, java.util.Date, java.util.Date, java.util.Date)/datetimeUploaded">datetimeUploaded</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/util/Date.html"><span class="identifier">Date</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$<init>(kotlin.String, java.net.URI, kotlin.Int, kotlin.Boolean, kotlin.Boolean, kotlin.String, kotlin.String, java.net.URI, java.util.Date, java.util.Date, java.util.Date)/datetimeStored">datetimeStored</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/util/Date.html"><span class="identifier">Date</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$<init>(kotlin.String, java.net.URI, kotlin.Int, kotlin.Boolean, kotlin.Boolean, kotlin.String, kotlin.String, java.net.URI, java.util.Date, java.util.Date, java.util.Date)/datetimeRemoved">datetimeRemoved</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/util/Date.html"><span class="identifier">Date</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="datetime-removed.html">datetimeRemoved</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">datetimeRemoved</span><span class="symbol">: </span><a href="https://developer.android.com/reference/java/util/Date.html"><span class="identifier">Date</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="datetime-stored.html">datetimeStored</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">datetimeStored</span><span class="symbol">: </span><a href="https://developer.android.com/reference/java/util/Date.html"><span class="identifier">Date</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="datetime-uploaded.html">datetimeUploaded</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">datetimeUploaded</span><span class="symbol">: </span><a href="https://developer.android.com/reference/java/util/Date.html"><span class="identifier">Date</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-image.html">isImage</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">isImage</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-ready.html">isReady</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">isReady</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="mime-type.html">mimeType</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">mimeType</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="original-filename.html">originalFilename</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">originalFilename</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="original-file-url.html">originalFileUrl</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">originalFileUrl</span><span class="symbol">: </span><a href="https://developer.android.com/reference/java/net/URI.html"><span class="identifier">URI</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="size.html">size</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">size</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="url.html">url</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">url</span><span class="symbol">: </span><a href="https://developer.android.com/reference/java/net/URI.html"><span class="identifier">URI</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="uuid.html">uuid</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">uuid</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="cdn-path.html">cdnPath</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">cdnPath</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.uploadcare.android.library.urls/-cdn-path-builder/index.html"><span class="identifier">CdnPathBuilder</span></a></code>
+<p>Creates a CDN path builder for this file.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="delete.html">delete</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">delete</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$delete(com.uploadcare.android.library.api.UploadcareClient)/client">client</span><span class="symbol">:</span>&nbsp;<a href="../-uploadcare-client/index.html"><span class="identifier">UploadcareClient</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">UploadcareFile</span></a><span class="symbol">?</span></code>
+<p>Deletes this file from Uploadcare.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="has-original-file-url.html">hasOriginalFileUrl</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">hasOriginalFileUrl</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-removed.html">isRemoved</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isRemoved</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-stored.html">isStored</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isStored</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="save.html">save</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">save</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$save(com.uploadcare.android.library.api.UploadcareClient)/client">client</span><span class="symbol">:</span>&nbsp;<a href="../-uploadcare-client/index.html"><span class="identifier">UploadcareClient</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">UploadcareFile</span></a><span class="symbol">?</span></code>
+<p>Saves this file on Uploadcare (marks it to be kept).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="to-string.html">toString</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="update.html">update</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.UploadcareFile$update(com.uploadcare.android.library.api.UploadcareClient)/client">client</span><span class="symbol">:</span>&nbsp;<a href="../-uploadcare-client/index.html"><span class="identifier">UploadcareClient</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">UploadcareFile</span></a><span class="symbol">?</span></code>
+<p>Refreshes file data from Uploadcare.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

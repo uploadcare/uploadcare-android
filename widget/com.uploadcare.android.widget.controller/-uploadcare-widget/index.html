@@ -1,0 +1,109 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>UploadcareWidget - widget</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">widget</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.widget.controller</a>&nbsp;/&nbsp;<a href="./index.html">UploadcareWidget</a><br/>
+<br/>
+<h1>UploadcareWidget</h1>
+<code><span class="keyword">class </span><span class="identifier">UploadcareWidget</span></code>
+<p>UploadcareWidget class has multiple options for selecting files from Social networks,
+uses UploadcareClient internally and provides UploadcareWidgetResult with uploaded file info or
+error.</p>
+<p>Replace variables in res/strings.xml file with you public/private keys from Uploadcare console.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-companion/index.html">Companion</a></p>
+</td>
+<td>
+<code><span class="keyword">companion</span> <span class="keyword">object </span><span class="identifier">Companion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.widget.utils/-singleton-holder/index.html"><span class="identifier">SingletonHolder</span></a><span class="symbol">&lt;</span><a href="./index.html"><span class="identifier">UploadcareWidget</span></a><span class="symbol">,</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="social-api.html">socialApi</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">socialApi</span><span class="symbol">: </span><a href="../../com.uploadcare.android.widget.interfaces/-social-api/index.html"><span class="identifier">SocialApi</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="style.html">style</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">style</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="uploadcare-client.html">uploadcareClient</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">uploadcareClient</span><span class="symbol">: </span><span class="identifier">UploadcareClient</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="select-file.html">selectFile</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">selectFile</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFile(android.app.Activity, kotlin.Boolean)/activity">activity</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/app/Activity.html"><span class="identifier">Activity</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFile(android.app.Activity, kotlin.Boolean)/storeUponUpload">storeUponUpload</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">selectFile</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFile(androidx.fragment.app.Fragment, kotlin.Boolean)/fragment">fragment</span><span class="symbol">:</span>&nbsp;<span class="identifier">Fragment</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFile(androidx.fragment.app.Fragment, kotlin.Boolean)/storeUponUpload">storeUponUpload</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Select and upload file to Uploadcare from any social network.</p>
+<code><span class="keyword">fun </span><span class="identifier">selectFile</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFile(android.app.Activity, kotlin.Boolean, com.uploadcare.android.widget.controller.FileType)/activity">activity</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/app/Activity.html"><span class="identifier">Activity</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFile(android.app.Activity, kotlin.Boolean, com.uploadcare.android.widget.controller.FileType)/storeUponUpload">storeUponUpload</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFile(android.app.Activity, kotlin.Boolean, com.uploadcare.android.widget.controller.FileType)/fileType">fileType</span><span class="symbol">:</span>&nbsp;<a href="../-file-type/index.html"><span class="identifier">FileType</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">selectFile</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFile(androidx.fragment.app.Fragment, kotlin.Boolean, com.uploadcare.android.widget.controller.FileType)/fragment">fragment</span><span class="symbol">:</span>&nbsp;<span class="identifier">Fragment</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFile(androidx.fragment.app.Fragment, kotlin.Boolean, com.uploadcare.android.widget.controller.FileType)/storeUponUpload">storeUponUpload</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFile(androidx.fragment.app.Fragment, kotlin.Boolean, com.uploadcare.android.widget.controller.FileType)/fileType">fileType</span><span class="symbol">:</span>&nbsp;<a href="../-file-type/index.html"><span class="identifier">FileType</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Select and upload specific file type to Uploadcare from any social network.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="select-file-from.html">selectFileFrom</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">selectFileFrom</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(android.app.Activity, com.uploadcare.android.widget.controller.SocialNetwork, kotlin.Boolean)/activity">activity</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/app/Activity.html"><span class="identifier">Activity</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(android.app.Activity, com.uploadcare.android.widget.controller.SocialNetwork, kotlin.Boolean)/network">network</span><span class="symbol">:</span>&nbsp;<a href="../-social-network/index.html"><span class="identifier">SocialNetwork</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(android.app.Activity, com.uploadcare.android.widget.controller.SocialNetwork, kotlin.Boolean)/storeUponUpload">storeUponUpload</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">selectFileFrom</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(androidx.fragment.app.Fragment, com.uploadcare.android.widget.controller.SocialNetwork, kotlin.Boolean)/fragment">fragment</span><span class="symbol">:</span>&nbsp;<span class="identifier">Fragment</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(androidx.fragment.app.Fragment, com.uploadcare.android.widget.controller.SocialNetwork, kotlin.Boolean)/network">network</span><span class="symbol">:</span>&nbsp;<a href="../-social-network/index.html"><span class="identifier">SocialNetwork</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(androidx.fragment.app.Fragment, com.uploadcare.android.widget.controller.SocialNetwork, kotlin.Boolean)/storeUponUpload">storeUponUpload</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">selectFileFrom</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(android.app.Activity, com.uploadcare.android.widget.controller.SocialNetwork, com.uploadcare.android.widget.controller.FileType, kotlin.Boolean)/activity">activity</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/app/Activity.html"><span class="identifier">Activity</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(android.app.Activity, com.uploadcare.android.widget.controller.SocialNetwork, com.uploadcare.android.widget.controller.FileType, kotlin.Boolean)/network">network</span><span class="symbol">:</span>&nbsp;<a href="../-social-network/index.html"><span class="identifier">SocialNetwork</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(android.app.Activity, com.uploadcare.android.widget.controller.SocialNetwork, com.uploadcare.android.widget.controller.FileType, kotlin.Boolean)/fileType">fileType</span><span class="symbol">:</span>&nbsp;<a href="../-file-type/index.html"><span class="identifier">FileType</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(android.app.Activity, com.uploadcare.android.widget.controller.SocialNetwork, com.uploadcare.android.widget.controller.FileType, kotlin.Boolean)/storeUponUpload">storeUponUpload</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">selectFileFrom</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(androidx.fragment.app.Fragment, com.uploadcare.android.widget.controller.SocialNetwork, com.uploadcare.android.widget.controller.FileType, kotlin.Boolean)/fragment">fragment</span><span class="symbol">:</span>&nbsp;<span class="identifier">Fragment</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(androidx.fragment.app.Fragment, com.uploadcare.android.widget.controller.SocialNetwork, com.uploadcare.android.widget.controller.FileType, kotlin.Boolean)/network">network</span><span class="symbol">:</span>&nbsp;<a href="../-social-network/index.html"><span class="identifier">SocialNetwork</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(androidx.fragment.app.Fragment, com.uploadcare.android.widget.controller.SocialNetwork, com.uploadcare.android.widget.controller.FileType, kotlin.Boolean)/fileType">fileType</span><span class="symbol">:</span>&nbsp;<a href="../-file-type/index.html"><span class="identifier">FileType</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget$selectFileFrom(androidx.fragment.app.Fragment, com.uploadcare.android.widget.controller.SocialNetwork, com.uploadcare.android.widget.controller.FileType, kotlin.Boolean)/storeUponUpload">storeUponUpload</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Select and upload file to Uploadcare from specified network.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-u-p-l-o-a-d-c-a-r-e_-r-e-q-u-e-s-t_-c-o-d-e.html">UPLOADCARE_REQUEST_CODE</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">UPLOADCARE_REQUEST_CODE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-instance.html">getInstance</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getInstance</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.widget.controller.UploadcareWidget.Companion$getInstance(android.content.Context)/arg">arg</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">UploadcareWidget</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
