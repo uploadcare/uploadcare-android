@@ -23,7 +23,7 @@
         android:focusable="true"
         android:onClick="@{() -> handler.select(uploadcareFile)}">
 
-        <com.uploadcare.android.example.util.SquaredImageView
+        <com.uploadcare.android.widget.view.SquaredImageView
             android:id="@+id/image"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
