@@ -76,7 +76,7 @@ publish {
 
     groupId = 'com.uploadcare.android.widget'
     artifactId = 'uploadcare-android-widget'
-    publishVersion = '1.0.5'
+    publishVersion = '1.0.6'
     desc = 'Android client library for the Uploadcare API.'
     licences = ["Apache-2.0"]
     website = 'https://github.com/uploadcare/uploadcare-android'
