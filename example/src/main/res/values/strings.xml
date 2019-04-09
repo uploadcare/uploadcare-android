@@ -1,4 +1,8 @@
 <resources>
+    <!--Replace with your public/private keys to use UploadcareWidget-->
+    <string name="uploadcare_public_key" translatable="false">demopublickey</string>
+    <string name="uploadcare_private_key" translatable="false">demoprivatekey</string>
+
     <string name="app_name">Uploadcare Example</string>
     <string name="activity_main_title">Uploadcare library example</string>
     <string name="fragment_files_title">Get files example</string>
