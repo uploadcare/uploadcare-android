@@ -12,7 +12,7 @@ Supported features:
 - All operations available in synchronous and asynchronous modes.
 - Simple easy to use library without any extra resources or drawables.
 
-[Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/library/index.html)
+[Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/library)
 
 ## Widget
 
@@ -24,7 +24,7 @@ Supported features:
 - Includes Uploadcare Android library for direct access to Uploadcare API's.
 - Follows Material design guideline.
 
-[Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/widget/index.html)
+[Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/widget)
 
 ## Links
 
