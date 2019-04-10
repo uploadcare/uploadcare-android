@@ -1,5 +1,5 @@
 # History
-## 1.0.6
+## 2.0.0
 - Example: Update dependencies, rewrite example to Kotlin.
 - Widget: Update dependencies, rewrite widget to Kotlin, Fixes, Add "Google Photos" support.
 - Library: Update dependencies, rewrite library to Kotlin, Fixes, Add support for API v0.5

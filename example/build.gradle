@@ -11,8 +11,8 @@ android {
         applicationId "com.uploadcare.android.example"
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
-        versionCode 2
-        versionName "1.0.6"
+        versionCode 3
+        versionName "2.0.0"
     }
 
     dataBinding {
