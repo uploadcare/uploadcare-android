@@ -56,7 +56,7 @@ publish {
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
     }
 
-    userOrg = properties.containsKey('bintray.user') ? properties.getProperty("bintray.user") : System.getenv('BINTRAY_USER')
+    userOrg = properties.containsKey('bintray.user') ? properties.getProperty("bintray.user") : ""
     groupId = 'com.uploadcare.android.library'
     artifactId = 'uploadcare-android'
     publishVersion = '2.0.0'
@@ -66,8 +66,8 @@ publish {
     issueTracker = 'https://github.com/uploadcare/uploadcare-android/issues'
     repository = 'https://github.com/uploadcare/uploadcare-android.git'
     autoPublish = true
-    bintrayUser = properties.containsKey('bintray.user') ? properties.getProperty("bintray.user") : System.getenv('BINTRAY_USER')
-    bintrayKey = properties.containsKey('bintray.key') ? properties.getProperty("bintray.key") : System.getenv('BINTRAY_KEY')
+    bintrayUser = properties.containsKey('bintray.user') ? properties.getProperty("bintray.user") : ""
+    bintrayKey = properties.containsKey('bintray.key') ? properties.getProperty("bintray.key") : ""
     dryRun = true
 }
 
