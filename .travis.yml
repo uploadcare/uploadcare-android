@@ -1,5 +1,5 @@
 language: android
-jdk: oraclejdk7
+jdk: oraclejdk8
 
 branches:
   only:
@@ -9,8 +9,8 @@ android:
   components:
     - platform-tools
     - tools
-    - build-tools-23.0.2
-    - android-23
+    - build-tools-28.0.3
+    - android-28
     - extra-google-m2repository
     - extra-android-m2repository
     - extra-android-support
