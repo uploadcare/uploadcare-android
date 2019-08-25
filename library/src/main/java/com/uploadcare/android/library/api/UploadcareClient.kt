@@ -15,13 +15,14 @@ import java.util.concurrent.TimeUnit
  *
  * @param publicKey  Public key
  * @param privateKey Private key
- * @param simpleAuth If {@code false}, HMAC-based authentication is used
+ * @param simpleAuth If {@code false}, HMAC-based authentication is used, otherwise simple
+ * authentication is used.
  */
 class UploadcareClient constructor(val publicKey: String,
                                    val privateKey: String,
-                                   val simpleAuth: Boolean = true) {
+                                   val simpleAuth: Boolean = false) {
 
-    constructor(publicKey: String, privateKey: String) : this(publicKey, privateKey, true)
+    constructor(publicKey: String, privateKey: String) : this(publicKey, privateKey, false)
 
     val httpClient: OkHttpClient
     val requestHelper: RequestHelper
