@@ -37,7 +37,7 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * Initialize {@link UploadcareClient}
      */
-    private val client = UploadcareClient.demoClient() // UploadcareClient("publickey", "privatekey") Use your public and private keys from Uploadcare.com account dashboard.
+    private val client = UploadcareWidget.getInstance(application).uploadcareClient
 
     fun launchGetFiles() {
         launchGetFilesCommand.call()
