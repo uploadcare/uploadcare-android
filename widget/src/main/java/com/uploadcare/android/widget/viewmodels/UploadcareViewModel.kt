@@ -48,9 +48,13 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
             FileType.valueOf(it)
         } ?: FileType.any
 
-        sources?.let {
-            showNetworks(it)
-        } ?: getAvailableNetworks()
+        if (isLocalNetwork(network)) {
+            launchLocalNetwork(network)
+        } else {
+            sources?.let {
+                showNetworks(it)
+            } ?: getAvailableNetworks()
+        }
     }
 
     fun onRestoreInstanceState(bundle: Bundle) {
@@ -145,6 +149,19 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
 
     private fun launchNetwork(socialSource: SocialSource) {
         when (socialSource.name) {
+            SocialNetwork.SOCIAL_NETWORK_CAMERA.rawValue,
+            SocialNetwork.SOCIAL_NETWORK_VIDEOCAM.rawValue,
+            SocialNetwork.SOCIAL_NETWORK_FILE.rawValue -> {
+                launchLocalNetwork(socialSource.name)
+            }
+            else -> {
+                launchSocialSourceCommand.postValue(Pair(socialSource, storeUponUpload))
+            }
+        }
+    }
+
+    private fun launchLocalNetwork(network: String?) {
+        when (network) {
             SocialNetwork.SOCIAL_NETWORK_CAMERA.rawValue -> {
                 tempFileUri = getOutputMediaFileUri(MediaType.IMAGE)
                 tempFileUri?.let {
@@ -161,8 +178,21 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
                 launchFilePicker.postValue(fileType)
             }
             else -> {
-                launchSocialSourceCommand.postValue(Pair(socialSource, storeUponUpload))
+                throw IllegalArgumentException("Unsupported SocialSource: $network")
             }
+        }
+    }
+
+    private fun isLocalNetwork(network: String?): Boolean {
+        network ?: return false
+
+        return when (network) {
+            SocialNetwork.SOCIAL_NETWORK_CAMERA.rawValue,
+            SocialNetwork.SOCIAL_NETWORK_VIDEOCAM.rawValue,
+            SocialNetwork.SOCIAL_NETWORK_FILE.rawValue -> {
+                true
+            }
+            else -> false
         }
     }
 
