@@ -11,7 +11,7 @@ class Urls private constructor() {
 
     companion object {
 
-        private const val API_BASE = "https://api.uploadcare.com"
+        internal const val API_BASE = "https://api.uploadcare.com"
         private const val CDN_BASE = "https://ucarecdn.com"
         private const val UPLOAD_BASE = "https://upload.uploadcare.com"
 

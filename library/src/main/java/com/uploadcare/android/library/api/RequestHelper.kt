@@ -16,11 +16,13 @@ import com.uploadcare.android.library.exceptions.UploadcareAuthenticationExcepti
 import com.uploadcare.android.library.exceptions.UploadcareInvalidRequestException
 import com.uploadcare.android.library.urls.UrlParameter
 import com.uploadcare.android.library.urls.UrlUtils.Companion.trustedBuild
+import com.uploadcare.android.library.urls.Urls
 import okhttp3.*
 import java.io.IOException
 import java.net.URI
 import java.security.GeneralSecurityException
 import java.security.InvalidKeyException
+import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,19 +38,20 @@ class RequestHelper(private val client: UploadcareClient) {
 
     @Throws(NoSuchAlgorithmException::class, InvalidKeyException::class)
     fun makeSignature(url: String, date: String, requestType: String): String {
+        val uriStartIndex = url.indexOf(Urls.API_BASE) + Urls.API_BASE.length
+        val uri = url.substring(uriStartIndex, url.length)
         val sb = StringBuilder()
         sb.append(requestType)
-                .append("\n").append(EMPTY_MD5)
+                .append("\n").append("".md5())
                 .append("\n").append(JSON_CONTENT_TYPE)
                 .append("\n").append(date)
-                .append("\n").append(url)
-
+                .append("\n").append(uri)
         val privateKeyBytes = client.privateKey.toByteArray()
-        val signingKey = SecretKeySpec(privateKeyBytes, "HmacSHA1")
-        val mac = Mac.getInstance("HmacSHA1")
+        val signingKey = SecretKeySpec(privateKeyBytes, MAC_ALGORITHM)
+        val mac = Mac.getInstance(MAC_ALGORITHM)
         mac.init(signingKey)
         val hmacBytes = mac.doFinal(sb.toString().toByteArray())
-        return String(encodeHex(hmacBytes))
+        return hmacBytes.toHexString()
     }
 
     @Throws(UploadcareApiException::class)
@@ -59,6 +62,7 @@ class RequestHelper(private val client: UploadcareClient) {
         val calendar = GregorianCalendar(GMT)
         val formattedDate = rfc2822(calendar.time)
 
+        requestBuilder.addHeader("Content-Type", JSON_CONTENT_TYPE)
         requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.5+json")
         requestBuilder.addHeader("Date", formattedDate)
         requestBuilder.addHeader("User-Agent",
@@ -507,67 +511,42 @@ class RequestHelper(private val client: UploadcareClient) {
 
         const val REQUEST_PUT = "PUT"
 
-        const val DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z"
+        private const val DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z"
 
-        const val DATE_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        private const val DATE_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 
-        val UTC = TimeZone.getTimeZone("UTC")
+        private val UTC = TimeZone.getTimeZone("UTC")
 
-        val GMT = TimeZone.getTimeZone("GMT")
+        private val GMT = TimeZone.getTimeZone("GMT")
 
-        private const val EMPTY_MD5 = "d41d8cd98f00b204e9800998ecf8427e"
+        private const val MAC_ALGORITHM = "HmacSHA1"
 
         private const val JSON_CONTENT_TYPE = "application/json"
 
-        @JvmStatic
-        fun rfc2822(date: Date) = SimpleDateFormat(DATE_FORMAT, Locale.US).apply {
+        private fun rfc2822(date: Date) = SimpleDateFormat(DATE_FORMAT, Locale.US).apply {
             timeZone = GMT
         }.format(date)
 
-        @JvmStatic
-        fun iso8601(date: Date) = SimpleDateFormat(DATE_FORMAT_ISO_8601,
+        internal fun iso8601(date: Date) = SimpleDateFormat(DATE_FORMAT_ISO_8601,
                 Locale.US).apply {
             timeZone = UTC
         }.format(date)
 
-        @JvmStatic
-        fun setQueryParameters(builder: Uri.Builder, parameters: List<UrlParameter>) {
+        private fun setQueryParameters(builder: Uri.Builder, parameters: List<UrlParameter>) {
             for (parameter in parameters) {
                 builder.appendQueryParameter(parameter.getParam(), parameter.getValue())
             }
         }
 
-        /**
-         * * Converts an array of bytes into an array of characters representing the hexadecimal values
-         * of each byte in order.
-         * The returned array will be double the length of the passed array, as it takes two characters
-         * to represent any
-         * given byte.
-         *
-         * @param data a byte[] to convert to Hex characters
-         * @return array of characters the hexadecimal values of each byte in order
-         */
-        @JvmStatic
-        fun encodeHex(data: ByteArray): CharArray {
-            val l = data.size
-            val out = CharArray(l shl 1)
-            // two characters form the hex value.
-            var i = 0
-            var j = 0
-            while (i < l) {
-                out[j++] = DIGITS_UPPER[(0xF0 and data[i].toInt()).ushr(4)]
-                out[j++] = DIGITS_UPPER[0x0F and data[i].toInt()]
-                i++
-            }
-            return out
-        }
+        fun ByteArray.toHexString() = joinToString("") { "%02x".format(it) }
 
-        /**
-         * Used to build output as Hex
-         */
-        @JvmStatic
-        val DIGITS_UPPER = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B',
-                'C', 'D', 'E', 'F')
+        fun String.md5(): String {
+            val md = MessageDigest.getInstance("MD5")
+            val digested = md.digest(toByteArray())
+            return digested.joinToString("") {
+                String.format("%02x", it)
+            }
+        }
     }
 
 }
