@@ -56,7 +56,7 @@ class RequestHelper(private val client: UploadcareClient) {
                       url: String,
                       requestType: String,
                       callback: BaseCallback<out Any>? = null) {
-        val calendar = GregorianCalendar(UTC)
+        val calendar = GregorianCalendar(GMT)
         val formattedDate = rfc2822(calendar.time)
 
         requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.5+json")
@@ -507,11 +507,13 @@ class RequestHelper(private val client: UploadcareClient) {
 
         const val REQUEST_PUT = "PUT"
 
-        const val DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss Z"
+        const val DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z"
 
         const val DATE_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 
         val UTC = TimeZone.getTimeZone("UTC")
+
+        val GMT = TimeZone.getTimeZone("GMT")
 
         private const val EMPTY_MD5 = "d41d8cd98f00b204e9800998ecf8427e"
 
@@ -519,7 +521,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
         @JvmStatic
         fun rfc2822(date: Date) = SimpleDateFormat(DATE_FORMAT, Locale.US).apply {
-            timeZone = UTC
+            timeZone = GMT
         }.format(date)
 
         @JvmStatic
