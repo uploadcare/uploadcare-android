@@ -11,8 +11,8 @@ android {
     defaultConfig {
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
-        versionCode 7
-        versionName "2.0.0"
+        versionCode 8
+        versionName "2.0.1"
     }
 
     androidExtensions {
@@ -63,7 +63,7 @@ publish {
     userOrg = properties.containsKey('bintray.user') ? properties.getProperty("bintray.user") : ""
     groupId = 'com.uploadcare.android.library'
     artifactId = 'uploadcare-android'
-    publishVersion = '2.0.0'
+    publishVersion = '2.0.1'
     desc = 'Android client library for the Uploadcare API.'
     licences = ["Apache-2.0"]
     website = 'https://github.com/uploadcare/uploadcare-android'

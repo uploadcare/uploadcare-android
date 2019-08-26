@@ -1,4 +1,21 @@
 # History
+
+## 2.0.1
+- Example: 
+    - Update dependencies.
+- Widget:
+    - Update dependencies
+    - Fix: use existing UploadcareClient instance instead of creating new one
+    - Fix: UploadCareWidget.selectFileFrom() didn't work with Camera/Video/File social networks
+    - Fix: possible issue when Social Source dialog items were not visible in dialog fragment on some devices
+- Library:
+    - Update dependencies
+    - Add support for batch store/delete calls for Files
+    - Set default UploadcareClient auth method to HMAC-based
+    - Fix: "Project" data model, now **UploadcareClient.getProject()** and **UploadcareClient.getProjectAsync()** work properly
+    - Internal network layer optimizations and improvements
+    
+
 ## 2.0.0
 - Example: Update dependencies, rewrite example to Kotlin.
 - Widget: Update dependencies, rewrite widget to Kotlin, Fixes, Add "Google Photos" support.
