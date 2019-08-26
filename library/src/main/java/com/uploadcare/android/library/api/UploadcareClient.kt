@@ -1,12 +1,16 @@
 package com.uploadcare.android.library.api
 
 import android.content.Context
+import com.squareup.moshi.Types
 import com.uploadcare.android.library.BuildConfig
+import com.uploadcare.android.library.api.RequestHelper.Companion.md5
 import com.uploadcare.android.library.callbacks.*
-import com.uploadcare.android.library.data.*
+import com.uploadcare.android.library.data.CopyFileData
+import com.uploadcare.android.library.data.ObjectMapper
 import com.uploadcare.android.library.urls.Urls
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
+import okio.ByteString
 import java.util.concurrent.TimeUnit
 
 /**
@@ -206,6 +210,55 @@ class UploadcareClient constructor(val publicKey: String,
     }
 
     /**
+     * Marks a files as deleted.
+     * Maximum 100 file id's can be provided.
+     *
+     * @param fileIds  Resource UUIDs
+     */
+    fun deleteFiles(fileIds: List<String>) {
+        val url = Urls.apiFilesBatch()
+        val requestBodyContent = objectMapper.toJson(fileIds,
+                Types.newParameterizedType(List::class.java, String::class.java))
+        val body = RequestBody.create(RequestHelper.JSON, ByteString.encodeUtf8(requestBodyContent))
+        requestHelper.executeCommand(RequestHelper.REQUEST_DELETE, url.toString(), true, body,
+                requestBodyContent.md5())
+    }
+
+    /**
+     * Marks multiple files as deleted Asynchronously.
+     * Maximum 100 file id's can be provided.
+     *
+     * @param context Application context. [android.content.Context]
+     * @param fileIds  Resource UUIDs
+     */
+    fun deleteFilesAsync(context: Context, fileIds: List<String>) {
+        val url = Urls.apiFilesBatch()
+        val requestBodyContent = objectMapper.toJson(fileIds,
+                Types.newParameterizedType(List::class.java, String::class.java))
+        val body = RequestBody.create(RequestHelper.JSON, ByteString.encodeUtf8(requestBodyContent))
+        requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE, url.toString(),
+                true, null, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Marks multiple files as deleted Asynchronously.
+     * Maximum 100 file id's can be provided.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param fileIds  Resource UUIDs
+     * @param callback callback  [RequestCallback] with either
+     * an HTTP response or a failure exception.
+     */
+    fun deleteFilesAsync(context: Context, fileIds: List<String>, callback: RequestCallback? = null) {
+        val url = Urls.apiFilesBatch()
+        val requestBodyContent = objectMapper.toJson(fileIds,
+                Types.newParameterizedType(List::class.java, String::class.java))
+        val body = RequestBody.create(RequestHelper.JSON, ByteString.encodeUtf8(requestBodyContent))
+        requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE, url.toString(),
+                true, callback, body, requestBodyContent.md5())
+    }
+
+    /**
      * Marks a file as saved.
      *
      * This has to be done for all files you want to keep.
@@ -247,6 +300,61 @@ class UploadcareClient constructor(val publicKey: String,
         val url = Urls.apiFileStorage(fileId)
         requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_POST, url.toString(), true,
                 callback)
+    }
+
+    /**
+     * Marks multiple files as saved.
+     *
+     * This has to be done for all files you want to keep.
+     * Unsaved files are eventually purged.
+     *
+     * @param fileIds  Resource UUIDs
+     */
+    fun saveFiles(fileIds: List<String>) {
+        val url = Urls.apiFilesBatch()
+        val requestBodyContent = objectMapper.toJson(fileIds,
+                Types.newParameterizedType(List::class.java, String::class.java))
+        val body = RequestBody.create(RequestHelper.JSON, ByteString.encodeUtf8(requestBodyContent))
+        requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, body,
+                requestBodyContent.md5())
+    }
+
+    /**
+     * Marks multiple files as saved Asynchronously.
+     *
+     * This has to be done for all files you want to keep.
+     * Unsaved files are eventually purged.
+     *
+     * @param context Application context. [android.content.Context]
+     * @param fileIds  Resource UUIDs
+     */
+    fun saveFilesAsync(context: Context, fileIds: List<String>) {
+        val url = Urls.apiFilesBatch()
+        val requestBodyContent = objectMapper.toJson(fileIds,
+                Types.newParameterizedType(List::class.java, String::class.java))
+        val body = RequestBody.create(RequestHelper.JSON, ByteString.encodeUtf8(requestBodyContent))
+        requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
+                true, null, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Marks multiple files as saved Asynchronously.
+     *
+     * This has to be done for all files you want to keep.
+     * Unsaved files are eventually purged.
+     *
+     * @param context  Application context. @link android.content.Context
+     * @param fileIds  Resource UUIDs
+     * @param callback callback  [RequestCallback] with either
+     * an HTTP response or a failure exception.
+     */
+    fun saveFilesAsync(context: Context, fileIds: List<String>, callback: RequestCallback? = null) {
+        val url = Urls.apiFilesBatch()
+        val requestBodyContent = objectMapper.toJson(fileIds,
+                Types.newParameterizedType(List::class.java, String::class.java))
+        val body = RequestBody.create(RequestHelper.JSON, ByteString.encodeUtf8(requestBodyContent))
+        requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
+                true, callback, body, requestBodyContent.md5())
     }
 
     /**
