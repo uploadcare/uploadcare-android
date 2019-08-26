@@ -52,6 +52,8 @@ class SocialNetworksAdapter(context: Context,
         binding.adapter = this
         binding.socialSource = getItem(position)
         binding.executePendingBindings()
+        // Invalidate to make sure view correctly calculates it's size inside DialogFragment.
+        binding.invalidateAll()
 
         return binding.root
     }
