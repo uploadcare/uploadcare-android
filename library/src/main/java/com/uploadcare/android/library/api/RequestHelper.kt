@@ -68,7 +68,7 @@ class RequestHelper(private val client: UploadcareClient) {
         val calendar = GregorianCalendar(GMT)
         val formattedDate = rfc2822(calendar.time)
 
-        requestBuilder.addHeader("Content-Type", JSON_CONTENT_TYPE)
+        requestBuilder.addHeader("Content-Type", contentType?.let { it } ?: JSON_CONTENT_TYPE)
         requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.5+json")
         requestBuilder.addHeader("Date", formattedDate)
         requestBuilder.addHeader("User-Agent",
