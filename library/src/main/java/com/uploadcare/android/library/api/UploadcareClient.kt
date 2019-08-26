@@ -372,7 +372,7 @@ class UploadcareClient constructor(val publicKey: String,
         }
         val formBody = formBuilder.build()
         return requestHelper.executeQuery(RequestHelper.REQUEST_POST, url.toString(), true,
-                CopyFileData::class.java, formBody)
+                CopyFileData::class.java, formBody, formBody.md5())
     }
 
     /**
@@ -393,7 +393,7 @@ class UploadcareClient constructor(val publicKey: String,
         val formBody = formBuilder.build()
 
         requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_POST, url.toString(), true,
-                CopyFileData::class.java, callback, formBody)
+                CopyFileData::class.java, callback, formBody, formBody.md5())
     }
 
     companion object {

@@ -37,14 +37,17 @@ import javax.crypto.spec.SecretKeySpec
 class RequestHelper(private val client: UploadcareClient) {
 
     @Throws(NoSuchAlgorithmException::class, InvalidKeyException::class)
-    fun makeSignature(url: String, date: String, requestType: String,
-                      requestBodyMD5: String? = null): String {
+    fun makeSignature(url: String,
+                      date: String,
+                      requestType: String,
+                      requestBodyMD5: String? = null,
+                      contentType: String? = null): String {
         val uriStartIndex = url.indexOf(Urls.API_BASE) + Urls.API_BASE.length
         val uri = url.substring(uriStartIndex, url.length)
         val sb = StringBuilder()
         sb.append(requestType)
                 .append("\n").append(requestBodyMD5?.let { it } ?: "".md5())
-                .append("\n").append(JSON_CONTENT_TYPE)
+                .append("\n").append(contentType?.let { it } ?: JSON_CONTENT_TYPE)
                 .append("\n").append(date)
                 .append("\n").append(uri)
         val privateKeyBytes = client.privateKey.toByteArray()
@@ -60,7 +63,8 @@ class RequestHelper(private val client: UploadcareClient) {
                       url: String,
                       requestType: String,
                       callback: BaseCallback<out Any>? = null,
-                      requestBodyMD5: String? = null) {
+                      requestBodyMD5: String? = null,
+                      contentType: String? = null) {
         val calendar = GregorianCalendar(GMT)
         val formattedDate = rfc2822(calendar.time)
 
@@ -75,7 +79,8 @@ class RequestHelper(private val client: UploadcareClient) {
             authorization = "Uploadcare.Simple " + client.publicKey + ":" + client.privateKey
         } else {
             try {
-                val signature = makeSignature(url, formattedDate, requestType, requestBodyMD5)
+                val signature = makeSignature(url, formattedDate, requestType, requestBodyMD5,
+                        contentType)
                 authorization = "Uploadcare " + client.publicKey + ":" + signature
             } catch (e: GeneralSecurityException) {
                 e.printStackTrace()
@@ -105,7 +110,8 @@ class RequestHelper(private val client: UploadcareClient) {
                     ?: requestBuilder.delete()
         }
         if (apiHeaders) {
-            setApiHeaders(requestBuilder, url, requestType, requestBodyMD5 = requestBodyMD5)
+            setApiHeaders(requestBuilder, url, requestType, requestBodyMD5 = requestBodyMD5,
+                    contentType = requestBody?.contentType().toString())
         }
         try {
             val response = client.httpClient.newCall(requestBuilder.build()).execute()
@@ -137,7 +143,8 @@ class RequestHelper(private val client: UploadcareClient) {
                     ?: requestBuilder.delete()
         }
         if (apiHeaders) {
-            setApiHeaders(requestBuilder, url, requestType, callback, requestBodyMD5)
+            setApiHeaders(requestBuilder, url, requestType, callback, requestBodyMD5,
+                    requestBody?.contentType().toString())
         }
         client.httpClient.newCall(requestBuilder.build()).enqueue(object : Callback {
             val mainHandler = Handler(context.mainLooper)
@@ -383,7 +390,8 @@ class RequestHelper(private val client: UploadcareClient) {
             REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
         }
         if (apiHeaders) {
-            setApiHeaders(requestBuilder, url, requestType, requestBodyMD5 = requestBodyMD5)
+            setApiHeaders(requestBuilder, url, requestType, requestBodyMD5 = requestBodyMD5,
+                    contentType = requestBody?.contentType().toString())
         }
 
         try {
@@ -426,7 +434,8 @@ class RequestHelper(private val client: UploadcareClient) {
             REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
         }
         if (apiHeaders) {
-            setApiHeaders(requestBuilder, url, requestType, callback, requestBodyMD5)
+            setApiHeaders(requestBuilder, url, requestType, callback, requestBodyMD5,
+                    requestBody?.contentType().toString())
         }
 
         client.httpClient.newCall(requestBuilder.build()).enqueue(object : Callback {
@@ -551,6 +560,17 @@ class RequestHelper(private val client: UploadcareClient) {
         }
 
         fun ByteArray.toHexString() = joinToString("") { "%02x".format(it) }
+
+        fun FormBody.md5(): String {
+            val sb = StringBuilder()
+            for (i in 0 until this.size()) {
+                if (i > 0) sb.append("&")
+                sb.append(this.encodedName(i))
+                sb.append("=")
+                sb.append(this.encodedValue(i))
+            }
+            return sb.toString().md5()
+        }
 
         fun String.md5(): String {
             val md = MessageDigest.getInstance("MD5")
