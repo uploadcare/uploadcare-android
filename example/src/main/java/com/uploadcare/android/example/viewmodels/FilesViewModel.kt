@@ -11,6 +11,7 @@ import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.callbacks.UploadcareFilesCallback
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.urls.Order
+import com.uploadcare.android.widget.controller.UploadcareWidget
 import com.uploadcare.android.widget.utils.SingleLiveEvent
 import java.net.URI
 import java.util.*
@@ -36,7 +37,7 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Initialize {@link UploadcareClient}
      */
-    private val client = UploadcareClient.demoClient() // UploadcareClient("publickey", "privatekey") Use your public and private keys from Uploadcare.com account dashboard.
+    private val client = UploadcareWidget.getInstance(application).uploadcareClient
 
     fun launchFromPicker() {
         launchFromPickerCommand.call()

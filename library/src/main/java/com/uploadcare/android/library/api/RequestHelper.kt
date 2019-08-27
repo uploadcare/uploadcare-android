@@ -16,11 +16,13 @@ import com.uploadcare.android.library.exceptions.UploadcareAuthenticationExcepti
 import com.uploadcare.android.library.exceptions.UploadcareInvalidRequestException
 import com.uploadcare.android.library.urls.UrlParameter
 import com.uploadcare.android.library.urls.UrlUtils.Companion.trustedBuild
+import com.uploadcare.android.library.urls.Urls
 import okhttp3.*
 import java.io.IOException
 import java.net.URI
 import java.security.GeneralSecurityException
 import java.security.InvalidKeyException
+import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,30 +37,38 @@ import javax.crypto.spec.SecretKeySpec
 class RequestHelper(private val client: UploadcareClient) {
 
     @Throws(NoSuchAlgorithmException::class, InvalidKeyException::class)
-    fun makeSignature(url: String, date: String, requestType: String): String {
+    fun makeSignature(url: String,
+                      date: String,
+                      requestType: String,
+                      requestBodyMD5: String? = null,
+                      contentType: String? = null): String {
+        val uriStartIndex = url.indexOf(Urls.API_BASE) + Urls.API_BASE.length
+        val uri = url.substring(uriStartIndex, url.length)
         val sb = StringBuilder()
         sb.append(requestType)
-                .append("\n").append(EMPTY_MD5)
-                .append("\n").append(JSON_CONTENT_TYPE)
+                .append("\n").append(requestBodyMD5?.let { it } ?: "".md5())
+                .append("\n").append(contentType?.let { it } ?: JSON_CONTENT_TYPE)
                 .append("\n").append(date)
-                .append("\n").append(url)
-
+                .append("\n").append(uri)
         val privateKeyBytes = client.privateKey.toByteArray()
-        val signingKey = SecretKeySpec(privateKeyBytes, "HmacSHA1")
-        val mac = Mac.getInstance("HmacSHA1")
+        val signingKey = SecretKeySpec(privateKeyBytes, MAC_ALGORITHM)
+        val mac = Mac.getInstance(MAC_ALGORITHM)
         mac.init(signingKey)
         val hmacBytes = mac.doFinal(sb.toString().toByteArray())
-        return String(encodeHex(hmacBytes))
+        return hmacBytes.toHexString()
     }
 
     @Throws(UploadcareApiException::class)
     fun setApiHeaders(requestBuilder: Request.Builder,
                       url: String,
                       requestType: String,
-                      callback: BaseCallback<out Any>? = null) {
-        val calendar = GregorianCalendar(UTC)
+                      callback: BaseCallback<out Any>? = null,
+                      requestBodyMD5: String? = null,
+                      contentType: String? = null) {
+        val calendar = GregorianCalendar(GMT)
         val formattedDate = rfc2822(calendar.time)
 
+        requestBuilder.addHeader("Content-Type", contentType?.let { it } ?: JSON_CONTENT_TYPE)
         requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.5+json")
         requestBuilder.addHeader("Date", formattedDate)
         requestBuilder.addHeader("User-Agent",
@@ -69,7 +79,8 @@ class RequestHelper(private val client: UploadcareClient) {
             authorization = "Uploadcare.Simple " + client.publicKey + ":" + client.privateKey
         } else {
             try {
-                val signature = makeSignature(url, formattedDate, requestType)
+                val signature = makeSignature(url, formattedDate, requestType, requestBodyMD5,
+                        contentType)
                 authorization = "Uploadcare " + client.publicKey + ":" + signature
             } catch (e: GeneralSecurityException) {
                 e.printStackTrace()
@@ -89,15 +100,18 @@ class RequestHelper(private val client: UploadcareClient) {
                                url: String,
                                apiHeaders: Boolean,
                                dataClass: Class<T>,
-                               requestBody: RequestBody? = null): T {
+                               requestBody: RequestBody? = null,
+                               requestBodyMD5: String? = null): T {
         val requestBuilder = Request.Builder().url(url)
         when (requestType) {
             REQUEST_GET -> requestBuilder.get()
             REQUEST_POST -> requestBody?.let { requestBuilder.post(it) }
-            REQUEST_DELETE -> requestBuilder.delete()
+            REQUEST_DELETE -> requestBody?.let { requestBuilder.delete(it) }
+                    ?: requestBuilder.delete()
         }
         if (apiHeaders) {
-            setApiHeaders(requestBuilder, url, requestType)
+            setApiHeaders(requestBuilder, url, requestType, requestBodyMD5 = requestBodyMD5,
+                    contentType = requestBody?.contentType().toString())
         }
         try {
             val response = client.httpClient.newCall(requestBuilder.build()).execute()
@@ -119,15 +133,18 @@ class RequestHelper(private val client: UploadcareClient) {
                                     apiHeaders: Boolean,
                                     dataClass: Class<T>,
                                     callback: BaseCallback<T>? = null,
-                                    requestBody: RequestBody? = null) {
+                                    requestBody: RequestBody? = null,
+                                    requestBodyMD5: String? = null) {
         val requestBuilder = Request.Builder().url(url)
         when (requestType) {
             REQUEST_GET -> requestBuilder.get()
             REQUEST_POST -> requestBody?.let { requestBuilder.post(it) }
-            REQUEST_DELETE -> requestBuilder.delete()
+            REQUEST_DELETE -> requestBody?.let { requestBuilder.delete(it) }
+                    ?: requestBuilder.delete()
         }
         if (apiHeaders) {
-            setApiHeaders(requestBuilder, url, requestType, callback)
+            setApiHeaders(requestBuilder, url, requestType, callback, requestBodyMD5,
+                    requestBody?.contentType().toString())
         }
         client.httpClient.newCall(requestBuilder.build()).enqueue(object : Callback {
             val mainHandler = Handler(context.mainLooper)
@@ -362,16 +379,19 @@ class RequestHelper(private val client: UploadcareClient) {
     fun executeCommand(requestType: String,
                        url: String,
                        apiHeaders: Boolean,
-                       requestBody: RequestBody? = null): Response {
+                       requestBody: RequestBody? = null,
+                       requestBodyMD5: String? = null): Response {
         val requestBuilder = Request.Builder().url(url)
         when (requestType) {
             REQUEST_GET -> requestBuilder.get()
             REQUEST_POST -> requestBody?.let { requestBuilder.post(it) }
-            REQUEST_DELETE -> requestBuilder.delete()
+            REQUEST_DELETE -> requestBody?.let { requestBuilder.delete(it) }
+                    ?: requestBuilder.delete()
             REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
         }
         if (apiHeaders) {
-            setApiHeaders(requestBuilder, url, requestType)
+            setApiHeaders(requestBuilder, url, requestType, requestBodyMD5 = requestBodyMD5,
+                    contentType = requestBody?.contentType().toString())
         }
 
         try {
@@ -403,16 +423,19 @@ class RequestHelper(private val client: UploadcareClient) {
                             url: String,
                             apiHeaders: Boolean,
                             callback: RequestCallback? = null,
-                            requestBody: RequestBody? = null) {
+                            requestBody: RequestBody? = null,
+                            requestBodyMD5: String? = null) {
         val requestBuilder = Request.Builder().url(url)
         when (requestType) {
             REQUEST_GET -> requestBuilder.get()
             REQUEST_POST -> requestBody?.let { requestBuilder.post(it) }
-            REQUEST_DELETE -> requestBuilder.delete()
+            REQUEST_DELETE -> requestBody?.let { requestBuilder.delete(it) }
+                    ?: requestBuilder.delete()
             REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
         }
         if (apiHeaders) {
-            setApiHeaders(requestBuilder, url, requestType, callback)
+            setApiHeaders(requestBuilder, url, requestType, callback, requestBodyMD5,
+                    requestBody?.contentType().toString())
         }
 
         client.httpClient.newCall(requestBuilder.build()).enqueue(object : Callback {
@@ -507,65 +530,55 @@ class RequestHelper(private val client: UploadcareClient) {
 
         const val REQUEST_PUT = "PUT"
 
-        const val DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss Z"
+        private const val DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z"
 
-        const val DATE_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        private const val DATE_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 
-        val UTC = TimeZone.getTimeZone("UTC")
+        private val UTC = TimeZone.getTimeZone("UTC")
 
-        private const val EMPTY_MD5 = "d41d8cd98f00b204e9800998ecf8427e"
+        private val GMT = TimeZone.getTimeZone("GMT")
+
+        private const val MAC_ALGORITHM = "HmacSHA1"
 
         private const val JSON_CONTENT_TYPE = "application/json"
 
-        @JvmStatic
-        fun rfc2822(date: Date) = SimpleDateFormat(DATE_FORMAT, Locale.US).apply {
-            timeZone = UTC
+        internal val JSON = MediaType.parse(JSON_CONTENT_TYPE)
+
+        private fun rfc2822(date: Date) = SimpleDateFormat(DATE_FORMAT, Locale.US).apply {
+            timeZone = GMT
         }.format(date)
 
-        @JvmStatic
-        fun iso8601(date: Date) = SimpleDateFormat(DATE_FORMAT_ISO_8601,
+        internal fun iso8601(date: Date) = SimpleDateFormat(DATE_FORMAT_ISO_8601,
                 Locale.US).apply {
             timeZone = UTC
         }.format(date)
 
-        @JvmStatic
-        fun setQueryParameters(builder: Uri.Builder, parameters: List<UrlParameter>) {
+        private fun setQueryParameters(builder: Uri.Builder, parameters: List<UrlParameter>) {
             for (parameter in parameters) {
                 builder.appendQueryParameter(parameter.getParam(), parameter.getValue())
             }
         }
 
-        /**
-         * * Converts an array of bytes into an array of characters representing the hexadecimal values
-         * of each byte in order.
-         * The returned array will be double the length of the passed array, as it takes two characters
-         * to represent any
-         * given byte.
-         *
-         * @param data a byte[] to convert to Hex characters
-         * @return array of characters the hexadecimal values of each byte in order
-         */
-        @JvmStatic
-        fun encodeHex(data: ByteArray): CharArray {
-            val l = data.size
-            val out = CharArray(l shl 1)
-            // two characters form the hex value.
-            var i = 0
-            var j = 0
-            while (i < l) {
-                out[j++] = DIGITS_UPPER[(0xF0 and data[i].toInt()).ushr(4)]
-                out[j++] = DIGITS_UPPER[0x0F and data[i].toInt()]
-                i++
+        fun ByteArray.toHexString() = joinToString("") { "%02x".format(it) }
+
+        fun FormBody.md5(): String {
+            val sb = StringBuilder()
+            for (i in 0 until this.size()) {
+                if (i > 0) sb.append("&")
+                sb.append(this.encodedName(i))
+                sb.append("=")
+                sb.append(this.encodedValue(i))
             }
-            return out
+            return sb.toString().md5()
         }
 
-        /**
-         * Used to build output as Hex
-         */
-        @JvmStatic
-        val DIGITS_UPPER = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B',
-                'C', 'D', 'E', 'F')
+        fun String.md5(): String {
+            val md = MessageDigest.getInstance("MD5")
+            val digested = md.digest(toByteArray())
+            return digested.joinToString("") {
+                String.format("%02x", it)
+            }
+        }
     }
 
 }

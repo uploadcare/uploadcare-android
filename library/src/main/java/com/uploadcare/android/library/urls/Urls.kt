@@ -11,7 +11,7 @@ class Urls private constructor() {
 
     companion object {
 
-        private const val API_BASE = "https://api.uploadcare.com"
+        internal const val API_BASE = "https://api.uploadcare.com"
         private const val CDN_BASE = "https://ucarecdn.com"
         private const val UPLOAD_BASE = "https://upload.uploadcare.com"
 
@@ -81,6 +81,16 @@ class Urls private constructor() {
         @JvmStatic
         fun apiFiles(): URI {
             return URI.create("$API_BASE/files/")
+        }
+
+        /**
+         * Creates a URL to the storage action for a multiple files (saving/deleting the files).
+         *
+         * @see com.uploadcare.android.library.api.UploadcareClient
+         */
+        @JvmStatic
+        fun apiFilesBatch(): URI {
+            return URI.create("$API_BASE/files/storage/")
         }
 
         /**
