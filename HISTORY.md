@@ -1,4 +1,11 @@
 # History
+## 2.1.0
+- Example: 
+    - Update Widget/Library versions
+- Widget:
+    - Update Library version
+- Library:
+    - Fix batch store/delete calls support more than 100 Files
 
 ## 2.0.1
 - Example: 
@@ -14,7 +21,6 @@
     - Set default UploadcareClient auth method to HMAC-based
     - Fix: "Project" data model, now **UploadcareClient.getProject()** and **UploadcareClient.getProjectAsync()** work properly
     - Internal network layer optimizations and improvements
-    
 
 ## 2.0.0
 - Example: Update dependencies, rewrite example to Kotlin.
