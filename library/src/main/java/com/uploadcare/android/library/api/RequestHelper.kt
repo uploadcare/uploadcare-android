@@ -475,7 +475,7 @@ class RequestHelper(private val client: UploadcareClient) {
      */
     @Throws(IOException::class, UploadcareAuthenticationException::class,
             UploadcareInvalidRequestException::class, UploadcareApiException::class)
-    private fun checkResponseStatus(response: Response) {
+    internal fun checkResponseStatus(response: Response) {
         val statusCode = response.code()
 
         if (statusCode in 200..299) {

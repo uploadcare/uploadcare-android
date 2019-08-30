@@ -1,12 +1,14 @@
 package com.uploadcare.android.library.api
 
 import android.content.Context
+import android.os.AsyncTask
 import com.squareup.moshi.Types
 import com.uploadcare.android.library.BuildConfig
 import com.uploadcare.android.library.api.RequestHelper.Companion.md5
 import com.uploadcare.android.library.callbacks.*
 import com.uploadcare.android.library.data.CopyFileData
 import com.uploadcare.android.library.data.ObjectMapper
+import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.urls.Urls
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -211,51 +213,71 @@ class UploadcareClient constructor(val publicKey: String,
 
     /**
      * Marks a files as deleted.
-     * Maximum 100 file id's can be provided.
      *
      * @param fileIds  Resource UUIDs
      */
     fun deleteFiles(fileIds: List<String>) {
         val url = Urls.apiFilesBatch()
-        val requestBodyContent = objectMapper.toJson(fileIds,
-                Types.newParameterizedType(List::class.java, String::class.java))
-        val body = RequestBody.create(RequestHelper.JSON, ByteString.encodeUtf8(requestBodyContent))
-        requestHelper.executeCommand(RequestHelper.REQUEST_DELETE, url.toString(), true, body,
-                requestBodyContent.md5())
+        if (fileIds.size <= MAX_SAVE_DELETE_BATCH_SIZE) {
+            // Make single request.
+            val requestBodyContent = objectMapper.toJson(fileIds,
+                    Types.newParameterizedType(List::class.java, String::class.java))
+            val body = RequestBody.create(RequestHelper.JSON,
+                    ByteString.encodeUtf8(requestBodyContent))
+            requestHelper.executeCommand(RequestHelper.REQUEST_DELETE, url.toString(), true, body,
+                    requestBodyContent.md5())
+        } else {
+            // Make batch requests.
+            executeSaveDeleteBatchCommand(RequestHelper.REQUEST_DELETE, fileIds)
+        }
     }
 
     /**
      * Marks multiple files as deleted Asynchronously.
-     * Maximum 100 file id's can be provided.
      *
      * @param context Application context. [android.content.Context]
      * @param fileIds  Resource UUIDs
      */
     fun deleteFilesAsync(context: Context, fileIds: List<String>) {
         val url = Urls.apiFilesBatch()
-        val requestBodyContent = objectMapper.toJson(fileIds,
-                Types.newParameterizedType(List::class.java, String::class.java))
-        val body = RequestBody.create(RequestHelper.JSON, ByteString.encodeUtf8(requestBodyContent))
-        requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE, url.toString(),
-                true, null, body, requestBodyContent.md5())
+        if (fileIds.size < MAX_SAVE_DELETE_BATCH_SIZE) {
+            // Make single request.
+            val requestBodyContent = objectMapper.toJson(fileIds,
+                    Types.newParameterizedType(List::class.java, String::class.java))
+            val body = RequestBody.create(RequestHelper.JSON,
+                    ByteString.encodeUtf8(requestBodyContent))
+            requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE,
+                    url.toString(), true, null, body, requestBodyContent.md5())
+        } else {
+            // Make batch requests.
+            SaveDeleteBatchTask(this, RequestHelper.REQUEST_DELETE, fileIds).execute()
+        }
     }
 
     /**
      * Marks multiple files as deleted Asynchronously.
-     * Maximum 100 file id's can be provided.
      *
      * @param context  Application context. [android.content.Context]
      * @param fileIds  Resource UUIDs
      * @param callback callback  [RequestCallback] with either
      * an HTTP response or a failure exception.
      */
-    fun deleteFilesAsync(context: Context, fileIds: List<String>, callback: RequestCallback? = null) {
+    fun deleteFilesAsync(context: Context,
+                         fileIds: List<String>,
+                         callback: RequestCallback? = null) {
         val url = Urls.apiFilesBatch()
-        val requestBodyContent = objectMapper.toJson(fileIds,
-                Types.newParameterizedType(List::class.java, String::class.java))
-        val body = RequestBody.create(RequestHelper.JSON, ByteString.encodeUtf8(requestBodyContent))
-        requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE, url.toString(),
-                true, callback, body, requestBodyContent.md5())
+        if (fileIds.size < MAX_SAVE_DELETE_BATCH_SIZE) {
+            // Make single request.
+            val requestBodyContent = objectMapper.toJson(fileIds,
+                    Types.newParameterizedType(List::class.java, String::class.java))
+            val body = RequestBody.create(RequestHelper.JSON,
+                    ByteString.encodeUtf8(requestBodyContent))
+            requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE,
+                    url.toString(), true, callback, body, requestBodyContent.md5())
+        } else {
+            // Make batch requests.
+            SaveDeleteBatchTask(this, RequestHelper.REQUEST_DELETE, fileIds, callback).execute()
+        }
     }
 
     /**
@@ -312,11 +334,18 @@ class UploadcareClient constructor(val publicKey: String,
      */
     fun saveFiles(fileIds: List<String>) {
         val url = Urls.apiFilesBatch()
-        val requestBodyContent = objectMapper.toJson(fileIds,
-                Types.newParameterizedType(List::class.java, String::class.java))
-        val body = RequestBody.create(RequestHelper.JSON, ByteString.encodeUtf8(requestBodyContent))
-        requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, body,
-                requestBodyContent.md5())
+        if (fileIds.size < MAX_SAVE_DELETE_BATCH_SIZE) {
+            // Make single request.
+            val requestBodyContent = objectMapper.toJson(fileIds,
+                    Types.newParameterizedType(List::class.java, String::class.java))
+            val body = RequestBody.create(RequestHelper.JSON,
+                    ByteString.encodeUtf8(requestBodyContent))
+            requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, body,
+                    requestBodyContent.md5())
+        } else {
+            // Make batch requests.
+            executeSaveDeleteBatchCommand(RequestHelper.REQUEST_PUT, fileIds)
+        }
     }
 
     /**
@@ -330,11 +359,18 @@ class UploadcareClient constructor(val publicKey: String,
      */
     fun saveFilesAsync(context: Context, fileIds: List<String>) {
         val url = Urls.apiFilesBatch()
-        val requestBodyContent = objectMapper.toJson(fileIds,
-                Types.newParameterizedType(List::class.java, String::class.java))
-        val body = RequestBody.create(RequestHelper.JSON, ByteString.encodeUtf8(requestBodyContent))
-        requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
-                true, null, body, requestBodyContent.md5())
+        if (fileIds.size < MAX_SAVE_DELETE_BATCH_SIZE) {
+            // Make single request.
+            val requestBodyContent = objectMapper.toJson(fileIds,
+                    Types.newParameterizedType(List::class.java, String::class.java))
+            val body = RequestBody.create(RequestHelper.JSON,
+                    ByteString.encodeUtf8(requestBodyContent))
+            requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
+                    true, null, body, requestBodyContent.md5())
+        } else {
+            // Make batch requests.
+            SaveDeleteBatchTask(this, RequestHelper.REQUEST_PUT, fileIds).execute()
+        }
     }
 
     /**
@@ -350,11 +386,18 @@ class UploadcareClient constructor(val publicKey: String,
      */
     fun saveFilesAsync(context: Context, fileIds: List<String>, callback: RequestCallback? = null) {
         val url = Urls.apiFilesBatch()
-        val requestBodyContent = objectMapper.toJson(fileIds,
-                Types.newParameterizedType(List::class.java, String::class.java))
-        val body = RequestBody.create(RequestHelper.JSON, ByteString.encodeUtf8(requestBodyContent))
-        requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
-                true, callback, body, requestBodyContent.md5())
+        if (fileIds.size < MAX_SAVE_DELETE_BATCH_SIZE) {
+            // Make single request.
+            val requestBodyContent = objectMapper.toJson(fileIds,
+                    Types.newParameterizedType(List::class.java, String::class.java))
+            val body = RequestBody.create(RequestHelper.JSON,
+                    ByteString.encodeUtf8(requestBodyContent))
+            requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
+                    true, callback, body, requestBodyContent.md5())
+        } else {
+            // Make batch requests.
+            SaveDeleteBatchTask(this, RequestHelper.REQUEST_PUT, fileIds, callback).execute()
+        }
     }
 
     /**
@@ -396,7 +439,31 @@ class UploadcareClient constructor(val publicKey: String,
                 CopyFileData::class.java, callback, formBody, formBody.md5())
     }
 
+    internal fun executeSaveDeleteBatchCommand(requestType: String,
+                                               fileIds: List<String>): Response? {
+        val url = Urls.apiFilesBatch()
+        var lastResponse: Response? = null
+        for (offset in 0 until fileIds.size step MAX_SAVE_DELETE_BATCH_SIZE) {
+            val endIndex = if (offset + MAX_SAVE_DELETE_BATCH_SIZE >= fileIds.size)
+                fileIds.size - 1
+            else offset + (MAX_SAVE_DELETE_BATCH_SIZE - 1)
+            val ids = fileIds.subList(offset, endIndex)
+
+            val requestBodyContent = objectMapper.toJson(ids,
+                    Types.newParameterizedType(List::class.java, String::class.java))
+            val body = RequestBody.create(RequestHelper.JSON,
+                    ByteString.encodeUtf8(requestBodyContent))
+            val response = requestHelper.executeCommand(requestType, url.toString(), true, body,
+                    requestBodyContent.md5())
+            requestHelper.checkResponseStatus(response)
+            lastResponse = response
+        }
+        return lastResponse
+    }
+
     companion object {
+
+        private const val MAX_SAVE_DELETE_BATCH_SIZE = 100
 
         @JvmStatic
         fun demoClient(): UploadcareClient {
@@ -415,4 +482,27 @@ private class PublicKeyInterceptor constructor(private val publicKey: String)
 
         return chain.proceed(requestBuilder.build())
     }
+}
+
+private class SaveDeleteBatchTask(private val client: UploadcareClient,
+                                  private val requestType: String,
+                                  private val fileIds: List<String>,
+                                  private val callback: RequestCallback? = null)
+    : AsyncTask<Void, Void, Response?>() {
+    override fun doInBackground(vararg params: Void?): Response? {
+        return try {
+            client.executeSaveDeleteBatchCommand(requestType, fileIds)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    override fun onPostExecute(result: Response?) {
+        if (result != null) {
+            callback?.onSuccess(result)
+        } else {
+            callback?.onFailure(UploadcareApiException())
+        }
+    }
+
 }
