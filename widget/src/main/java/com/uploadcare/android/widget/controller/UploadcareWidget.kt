@@ -74,12 +74,12 @@ class UploadcareWidget private constructor(context: Context) {
      *              override onActivityResult() method, and use code below to get result
      *              val result = UploadcareWidgetResult.fromIntent(data)
      */
-    fun selectFile(fragment: Fragment, storeUponUpload: Boolean) {
+    fun selectFile(fragment: Fragment, storeUponUpload: Boolean, requestCode: Int = UPLOADCARE_REQUEST_CODE) {
         fragment.startActivityForResult(Intent(fragment.activity, UploadcareActivity::class.java).apply {
             putExtra("fileType", FileType.any.name)
             putExtra("store", storeUponUpload)
             putExtra("style", style)
-        }, UPLOADCARE_REQUEST_CODE)
+        }, requestCode)
     }
 
     /**
