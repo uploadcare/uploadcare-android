@@ -10,7 +10,7 @@ Supported features:
 - Custom appearance of the widget with ability to customize styles.
 - Includes Uploadcare Android library for direct access to Uploadcare API's.
 
-[Documentation](https://github.com/uploadcare/uploadcare-android/blob/master/widget/index.html)
+[Documentation](http://uploadcare.github.io/uploadcare-android/widget/index.html)
 
 ## jCenter
 
