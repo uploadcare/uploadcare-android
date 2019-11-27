@@ -127,8 +127,8 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
 
 See documentation for details:
 
-* [UploadcareWidget](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/widget/com.uploadcare.android.widget.controller/-uploadcare-widget/index.html)
-* [UploadcareWidgetResult](http://uploadcare.github.io/uploadcare-android/com/uploadcare/android/widget/com.uploadcare.android.widget.controller/-uploadcare-widget-result/index.html)
+* [UploadcareWidget](http://uploadcare.github.io/uploadcare-android/widget/com.uploadcare.android.widget.controller/-uploadcare-widget/index.html)
+* [UploadcareWidgetResult](http://uploadcare.github.io/uploadcare-android/widget/com.uploadcare.android.widget.controller/-uploadcare-widget-result/index.html)
 
 Custom appearance of the widget with custom style.
 
