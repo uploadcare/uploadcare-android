@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,7 +55,7 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = UcwFragmentChunkBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProviders.of(this).get()
+        viewModel = ViewModelProvider(this).get()
         binding.viewModel = viewModel
 
         val socialSource = arguments?.getParcelable("socialSource") as SocialSource
@@ -89,10 +89,10 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
             }
         }
 
-        viewModel.things.observe(this, Observer { things ->
+        viewModel.things.observe(this.viewLifecycleOwner, Observer { things ->
             mAdapter?.updateItems(things)
         })
-        viewModel.allowLoadMore.observe(this, Observer { allowLoadMore ->
+        viewModel.allowLoadMore.observe(this.viewLifecycleOwner, Observer { allowLoadMore ->
             if (allowLoadMore) {
                 mOnScrollListener?.let {
                     it.clear()
@@ -102,10 +102,10 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
                 binding.ucwRecyclerView.clearOnScrollListeners()
             }
         })
-        viewModel.errorCommand.observe(this, Observer { exception ->
+        viewModel.errorCommand.observe(this.viewLifecycleOwner, Observer { exception ->
             exception?.let { mOnFileActionsListener.onError(it) }
         })
-        viewModel.needAuthCommand.observe(this, Observer { loginLink ->
+        viewModel.needAuthCommand.observe(this.viewLifecycleOwner, Observer { loginLink ->
             loginLink?.let { mOnFileActionsListener.onAuthorizationNeeded(loginLink) }
         })
 

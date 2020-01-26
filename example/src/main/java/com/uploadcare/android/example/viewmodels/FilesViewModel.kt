@@ -26,7 +26,7 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
     val filterOrder = ObservableField<Order>()
 
     val files = MutableLiveData<List<UploadcareFile>>()
-    val allowLoadMore = MutableLiveData<Boolean>(false)
+    val allowLoadMore = MutableLiveData<Boolean>().apply { value = false }
 
     val launchFromPickerCommand = SingleLiveEvent<Void>()
     val launchOrderPickerCommand = SingleLiveEvent<Void>()

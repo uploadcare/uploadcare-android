@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -28,7 +28,7 @@ class UploadFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = FragmentUploadBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProviders.of(this).get()
+        viewModel = ViewModelProvider(this).get()
         binding.fragment = this
         binding.viewModel = viewModel
 
@@ -38,11 +38,11 @@ class UploadFragment : Fragment() {
             binding.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
         }
 
-        viewModel.launchGetFilesCommand.observe(this, Observer {
+        viewModel.launchGetFilesCommand.observe(this.viewLifecycleOwner, Observer {
             findNavController().navigate(UploadFragmentDirections
                     .actionUploadFragmentToFilesFragment())
         })
-        viewModel.launchFilePickerCommand.observe(this, Observer {
+        viewModel.launchFilePickerCommand.observe(this.viewLifecycleOwner, Observer {
             selectFilesForUpload()
         })
 

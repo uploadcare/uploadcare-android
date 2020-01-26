@@ -11,14 +11,14 @@ buildscript {
     versions.gradle_version = '3.5.3'
     versions.bintray_version = '0.9'
 
-    versions.core = "1.2.0-alpha03"
-    versions.material = "1.1.0-alpha09"
-    versions.navigation = "2.0.0"
-    versions.safe_args = "2.0.0"
-    versions.lifecycle = "2.2.0-alpha03"
-    versions.constraintlayout = "2.0.0-beta1"
+    versions.core = "1.2.0-rc01"
+    versions.material = "1.2.0-alpha04"
+    versions.navigation = "2.2.0"
+    versions.lifecycle = "2.2.0"
+    versions.constraintlayout = "2.0.0-beta4"
     versions.annotation = '1.1.0'
-    versions.appcompat = "1.1.0-rc01"
+    versions.appcompat = "1.2.0-alpha01"
+    versions.fragment = "1.2.0"
 
     versions.okhttp = "4.3.1"
     versions.retrofit = "2.7.1"
@@ -44,7 +44,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$versions.gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.safe_args"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
         classpath "com.novoda:bintray-release:$versions.bintray_version"
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:$versions.dokka"
         // NOTE: Do not place your application dependencies here; they belong
