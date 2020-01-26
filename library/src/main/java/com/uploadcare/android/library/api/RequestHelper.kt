@@ -18,6 +18,7 @@ import com.uploadcare.android.library.urls.UrlParameter
 import com.uploadcare.android.library.urls.UrlUtils.Companion.trustedBuild
 import com.uploadcare.android.library.urls.Urls
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.IOException
 import java.net.URI
 import java.security.GeneralSecurityException
@@ -118,7 +119,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
             checkResponseStatus(response)
 
-            response.body()?.string()?.let {
+            response.body?.string()?.let {
                 val result = client.objectMapper.fromJson(it, dataClass)
                 result?.let { return result } ?: throw UploadcareApiException("Can't parse result")
             } ?: throw UploadcareApiException("No response")
@@ -165,7 +166,7 @@ class RequestHelper(private val client: UploadcareClient) {
                 try {
                     checkResponseStatus(response)
 
-                    response.body()?.string()?.let {
+                    response.body?.string()?.let {
                         val result = client.objectMapper.fromJson(it, dataClass)
                         mainHandler.post {
                             result?.let {
@@ -282,7 +283,7 @@ class RequestHelper(private val client: UploadcareClient) {
                 try {
                     checkResponseStatus(response)
 
-                    response.body()?.string()?.let {
+                    response.body?.string()?.let {
                         val result = client.objectMapper.fromJson(it, FilePageData::class.java)
                         mainHandler.post {
                             result?.let { pageData ->
@@ -343,7 +344,7 @@ class RequestHelper(private val client: UploadcareClient) {
                 try {
                     checkResponseStatus(response)
 
-                    response.body()?.string()?.let {
+                    response.body?.string()?.let {
                         val result = client.objectMapper.fromJson(it, GroupPageData::class.java)
                         mainHandler.post {
                             result?.let { pageData ->
@@ -454,7 +455,7 @@ class RequestHelper(private val client: UploadcareClient) {
                         mainHandler.post {
                             callback.onFailure(
                                     UploadcareApiException(
-                                            "Unexpected code " + response.body()!!.toString()))
+                                            "Unexpected code " + response.body?.string()))
                         }
                     }
                 }
@@ -476,17 +477,17 @@ class RequestHelper(private val client: UploadcareClient) {
     @Throws(IOException::class, UploadcareAuthenticationException::class,
             UploadcareInvalidRequestException::class, UploadcareApiException::class)
     internal fun checkResponseStatus(response: Response) {
-        val statusCode = response.code()
+        val statusCode = response.code
 
         if (statusCode in 200..299) {
             return
         } else if (statusCode == 401 || statusCode == 403) {
-            throw UploadcareAuthenticationException(response.body()?.string())
+            throw UploadcareAuthenticationException(response.body?.string())
         } else if (statusCode == 400 || statusCode == 404) {
-            throw UploadcareInvalidRequestException(response.body()?.string())
+            throw UploadcareInvalidRequestException(response.body?.string())
         } else {
             throw UploadcareApiException(
-                    "Unknown exception during an API call, response: ${response.body()?.string()}")
+                    "Unknown exception during an API call, response: ${response.body?.string()}")
         }
     }
 
@@ -500,9 +501,9 @@ class RequestHelper(private val client: UploadcareClient) {
      */
     private fun checkResponseStatus(response: Response, callback: BaseCallback<Response>?) {
 
-        val statusCode = response.code()
+        val statusCode = response.code
         val requestBody: String? = try {
-            response.body()?.string()
+            response.body?.string()
         } catch (e: IOException) {
             callback?.onFailure(UploadcareApiException(e))
             return
@@ -542,7 +543,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
         private const val JSON_CONTENT_TYPE = "application/json"
 
-        internal val JSON = MediaType.parse(JSON_CONTENT_TYPE)
+        internal val JSON = JSON_CONTENT_TYPE.toMediaTypeOrNull()
 
         private fun rfc2822(date: Date) = SimpleDateFormat(DATE_FORMAT, Locale.US).apply {
             timeZone = GMT
@@ -563,7 +564,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
         fun FormBody.md5(): String {
             val sb = StringBuilder()
-            for (i in 0 until this.size()) {
+            for (i in 0 until this.size) {
                 if (i > 0) sb.append("&")
                 sb.append(this.encodedName(i))
                 sb.append("=")

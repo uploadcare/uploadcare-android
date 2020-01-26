@@ -11,8 +11,11 @@ import com.uploadcare.android.library.data.ObjectMapper
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.urls.Urls
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import okio.ByteString
+import okio.ByteString.Companion.encodeUtf8
 import java.util.concurrent.TimeUnit
 
 /**
@@ -136,7 +139,7 @@ class UploadcareClient constructor(val publicKey: String,
      * @param groupId Group ID
      */
     fun storeGroup(groupId: String) {
-        val requestBody = RequestBody.create(MediaType.parse(""), groupId)
+        val requestBody = groupId.toRequestBody("".toMediaTypeOrNull())
         val url = Urls.apiGroupStorage(groupId)
         requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, requestBody)
     }
@@ -150,7 +153,7 @@ class UploadcareClient constructor(val publicKey: String,
      * an HTTP response or a failure exception.
      */
     fun storeGroupAsync(context: Context, groupId: String, callback: RequestCallback? = null) {
-        val requestBody = RequestBody.create(MediaType.parse(""), groupId)
+        val requestBody = groupId.toRequestBody("".toMediaTypeOrNull())
         val url = Urls.apiGroupStorage(groupId)
         requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
                 true, callback, requestBody)
@@ -222,8 +225,7 @@ class UploadcareClient constructor(val publicKey: String,
             // Make single request.
             val requestBodyContent = objectMapper.toJson(fileIds,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             requestHelper.executeCommand(RequestHelper.REQUEST_DELETE, url.toString(), true, body,
                     requestBodyContent.md5())
         } else {
@@ -244,8 +246,7 @@ class UploadcareClient constructor(val publicKey: String,
             // Make single request.
             val requestBodyContent = objectMapper.toJson(fileIds,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE,
                     url.toString(), true, null, body, requestBodyContent.md5())
         } else {
@@ -270,8 +271,7 @@ class UploadcareClient constructor(val publicKey: String,
             // Make single request.
             val requestBodyContent = objectMapper.toJson(fileIds,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE,
                     url.toString(), true, callback, body, requestBodyContent.md5())
         } else {
@@ -338,8 +338,7 @@ class UploadcareClient constructor(val publicKey: String,
             // Make single request.
             val requestBodyContent = objectMapper.toJson(fileIds,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, body,
                     requestBodyContent.md5())
         } else {
@@ -363,8 +362,7 @@ class UploadcareClient constructor(val publicKey: String,
             // Make single request.
             val requestBodyContent = objectMapper.toJson(fileIds,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
                     true, null, body, requestBodyContent.md5())
         } else {
@@ -390,8 +388,7 @@ class UploadcareClient constructor(val publicKey: String,
             // Make single request.
             val requestBodyContent = objectMapper.toJson(fileIds,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
                     true, callback, body, requestBodyContent.md5())
         } else {
@@ -451,8 +448,7 @@ class UploadcareClient constructor(val publicKey: String,
 
             val requestBodyContent = objectMapper.toJson(ids,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             val response = requestHelper.executeCommand(requestType, url.toString(), true, body,
                     requestBodyContent.md5())
             requestHelper.checkResponseStatus(response)

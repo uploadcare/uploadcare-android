@@ -12,6 +12,8 @@ import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.urls.Urls
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
@@ -146,15 +148,17 @@ class FileUploader : Uploader {
 
         when {
             file != null -> multipartBuilder.addFormDataPart("file", file.name,
-                    RequestBody.create(UploadUtils.getMimeType(file), file))
+                    file.asRequestBody(UploadUtils.getMimeType(file)))
             uri != null && context != null -> {
                 var iStream: InputStream? = null
                 try {
                     val cr = context.contentResolver
                     iStream = cr?.openInputStream(uri)
                     val inputData = UploadUtils.getBytes(iStream)
-                    multipartBuilder.addFormDataPart("file", UploadUtils.getFileName(uri, context),
-                            RequestBody.create(UploadUtils.getMimeType(cr, uri), inputData))
+                    inputData?.let {
+                        multipartBuilder.addFormDataPart("file", UploadUtils.getFileName(uri, context),
+                                it.toRequestBody(UploadUtils.getMimeType(cr, uri)))
+                    }
                 } catch (e: IOException) {
                     throw UploadFailureException(e)
                 } catch (e: NullPointerException) {
@@ -166,15 +170,17 @@ class FileUploader : Uploader {
             content != null -> multipartBuilder.addFormDataPart("file", content)
             stream != null -> try {
                 val inputData = UploadUtils.getBytes(stream)
-                multipartBuilder.addFormDataPart("file", filename,
-                        RequestBody.create(UploadUtils.getMimeType(filename), inputData))
+                inputData?.let {
+                    multipartBuilder.addFormDataPart("file", filename,
+                            it.toRequestBody(UploadUtils.getMimeType(filename)))
+                }
             } catch (e: IOException) {
                 throw UploadFailureException(e)
             } catch (e: Exception) {
                 throw UploadFailureException(e)
             }
             bytes != null -> multipartBuilder.addFormDataPart("file", filename,
-                    RequestBody.create(UploadUtils.getMimeType(filename), bytes))
+                    bytes.toRequestBody(UploadUtils.getMimeType(filename)))
             else -> throw UploadFailureException(IllegalArgumentException())
         }
 

@@ -6,13 +6,14 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import android.webkit.MimeTypeMap
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.File
 import java.io.InputStream
 
 class UploadUtils {
     companion object {
 
-        private val MEDIA_TYPE_TEXT_PLAIN = MediaType.parse("text/plain")
+        private val MEDIA_TYPE_TEXT_PLAIN = "text/plain".toMediaTypeOrNull()
 
         fun getBytes(inputStream: InputStream?): ByteArray? {
             return inputStream?.readBytes()
@@ -57,7 +58,7 @@ class UploadUtils {
             val index = fileName.lastIndexOf('.') + 1
             val ext = fileName.substring(index).toLowerCase()
             val type = mime.getMimeTypeFromExtension(ext) ?: return MEDIA_TYPE_TEXT_PLAIN
-            return MediaType.parse(type)
+            return type.toMediaTypeOrNull()
         }
 
         fun getMimeType(contentResolver: ContentResolver, uri: Uri?): MediaType? {
@@ -66,14 +67,14 @@ class UploadUtils {
             }
 
             if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
-                return MediaType.parse(contentResolver.getType(uri))
+                return contentResolver.getType(uri)?.toMediaTypeOrNull()
             } else {
                 val mime = MimeTypeMap.getSingleton()
                 //This will replace white spaces with %20 and also other special characters.
                 // This will avoid returning null values on file name with spaces and special characters.
                 val extension = MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(File(uri.path!!)).toString())
                 val type = mime.getMimeTypeFromExtension(extension) ?: return MEDIA_TYPE_TEXT_PLAIN
-                return MediaType.parse(type)
+                return type.toMediaTypeOrNull()
             }
         }
     }
