@@ -5,9 +5,9 @@ import android.net.Uri
 import android.os.AsyncTask
 import com.uploadcare.android.library.api.RequestHelper
 import com.uploadcare.android.library.api.UploadcareClient
+import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.callbacks.UploadFilesCallback
 import com.uploadcare.android.library.data.UploadBaseData
-import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.urls.Urls
 import okhttp3.MultipartBody
@@ -89,7 +89,11 @@ class MultipleFilesUploader : MultipleUploader {
 
                 val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
                         uploadUrl.toString(), false, UploadBaseData::class.java, requestBody).file
-                results.add(client.getFile(fileId))
+                results.add(if (client.privateKey != null) {
+                    client.getFile(fileId)
+                } else {
+                    client.getUploadedFile(client.publicKey, fileId)
+                })
             }
         } else if (context != null && uris != null) {
             val cr = context.contentResolver
@@ -119,7 +123,11 @@ class MultipleFilesUploader : MultipleUploader {
 
                 val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
                         uploadUrl.toString(), false, UploadBaseData::class.java, requestBody).file
-                results.add(client.getFile(fileId))
+                results.add(if (client.privateKey != null) {
+                    client.getFile(fileId)
+                } else {
+                    client.getUploadedFile(client.publicKey, fileId)
+                })
             }
         }
 

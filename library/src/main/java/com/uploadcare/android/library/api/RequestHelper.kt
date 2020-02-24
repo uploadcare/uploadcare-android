@@ -51,7 +51,7 @@ class RequestHelper(private val client: UploadcareClient) {
                 .append("\n").append(contentType?.let { it } ?: JSON_CONTENT_TYPE)
                 .append("\n").append(date)
                 .append("\n").append(uri)
-        val privateKeyBytes = client.privateKey.toByteArray()
+        val privateKeyBytes = client.privateKey?.toByteArray() ?: "".toByteArray()
         val signingKey = SecretKeySpec(privateKeyBytes, MAC_ALGORITHM)
         val mac = Mac.getInstance(MAC_ALGORITHM)
         mac.init(signingKey)

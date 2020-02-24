@@ -26,6 +26,18 @@ class Urls private constructor() {
         }
 
         /**
+         * Creates a URL to a uploaded file resource.
+         *
+         * @param fileId File UUID
+         *
+         * @see com.uploadcare.android.library.api.UploadcareClient
+         */
+        @JvmStatic
+        fun apiUploadedFile(fileId: String): URI {
+            return URI.create("$UPLOAD_BASE/info/")
+        }
+
+        /**
          * Creates a URL to a file resource.
          *
          * @param fileId File UUID

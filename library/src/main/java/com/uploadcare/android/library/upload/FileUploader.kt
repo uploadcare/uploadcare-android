@@ -5,13 +5,12 @@ import android.net.Uri
 import android.os.AsyncTask
 import com.uploadcare.android.library.api.RequestHelper
 import com.uploadcare.android.library.api.UploadcareClient
+import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.callbacks.UploadcareFileCallback
 import com.uploadcare.android.library.data.UploadBaseData
-import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.urls.Urls
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
@@ -189,7 +188,11 @@ class FileUploader : Uploader {
         val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
                 uploadUrl.toString(), false, UploadBaseData::class.java, requestBody).file
         println("uploaded file id:$fileId")
-        return client.getFile(fileId)
+        return if (client.privateKey != null) {
+            client.getFile(fileId)
+        } else {
+            client.getUploadedFile(client.publicKey, fileId)
+        }
     }
 
     /**

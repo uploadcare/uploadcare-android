@@ -39,6 +39,18 @@ class FilesStoredParameter(private val stored: Boolean) : UrlParameter {
     override fun getValue() = if (stored) "true" else "false"
 }
 
+class PublicKeyParameter(private val publicKey: String) : UrlParameter {
+    override fun getParam() = "pub_key"
+
+    override fun getValue() = publicKey
+}
+
+class FileIdParameter(private val fileId: String) : UrlParameter {
+    override fun getParam() = "file_id"
+
+    override fun getValue() = fileId
+}
+
 enum class Order constructor(val rawValue: String) {
     UPLOAD_TIME_ASC("datetime_uploaded"),
     UPLOAD_TIME_DESC("-datetime_uploaded"),

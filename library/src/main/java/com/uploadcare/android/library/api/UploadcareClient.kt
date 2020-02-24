@@ -9,12 +9,17 @@ import com.uploadcare.android.library.callbacks.*
 import com.uploadcare.android.library.data.CopyFileData
 import com.uploadcare.android.library.data.ObjectMapper
 import com.uploadcare.android.library.exceptions.UploadcareApiException
+import com.uploadcare.android.library.urls.FileIdParameter
+import com.uploadcare.android.library.urls.PublicKeyParameter
+import com.uploadcare.android.library.urls.UrlParameter
 import com.uploadcare.android.library.urls.Urls
-import okhttp3.*
+import okhttp3.FormBody
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
-import okio.ByteString
 import okio.ByteString.Companion.encodeUtf8
 import java.util.concurrent.TimeUnit
 
@@ -23,13 +28,15 @@ import java.util.concurrent.TimeUnit
  * Can use simple or secure authentication.
  *
  * @param publicKey  Public key
- * @param privateKey Private key
+ * @param privateKey Private key, required for any request to Uploadcare REST API.
  * @param simpleAuth If {@code false}, HMAC-based authentication is used, otherwise simple
  * authentication is used.
  */
 class UploadcareClient constructor(val publicKey: String,
-                                   val privateKey: String,
+                                   val privateKey: String? = null,
                                    val simpleAuth: Boolean = false) {
+
+    constructor(publicKey: String) : this(publicKey, null, false)
 
     constructor(publicKey: String, privateKey: String) : this(publicKey, privateKey, false)
 
@@ -79,6 +86,20 @@ class UploadcareClient constructor(val publicKey: String,
         val url = Urls.apiProject()
         requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_GET, url.toString(), true,
                 Project::class.java, callback)
+    }
+
+    /**
+     * Request file data for uploaded file. Does not require "privatekey" set for UploadcareClient.
+     */
+    fun getUploadedFile(publicKey: String, fileId: String): UploadcareFile {
+        val url = Urls.apiUploadedFile(fileId)
+
+        val parameters: MutableList<UrlParameter> = mutableListOf()
+        parameters.add(PublicKeyParameter(publicKey))
+        parameters.add(FileIdParameter(fileId))
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(),
+                false, UploadcareFile::class.java, urlParameters = parameters)
     }
 
     /**
@@ -464,6 +485,11 @@ class UploadcareClient constructor(val publicKey: String,
         @JvmStatic
         fun demoClient(): UploadcareClient {
             return UploadcareClient("demopublickey", "demoprivatekey")
+        }
+
+        @JvmStatic
+        fun demoClientUploadOnly(): UploadcareClient {
+            return UploadcareClient("demopublickey")
         }
     }
 
