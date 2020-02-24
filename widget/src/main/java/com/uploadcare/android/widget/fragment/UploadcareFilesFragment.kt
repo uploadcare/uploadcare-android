@@ -128,7 +128,7 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
     }
 
     override fun onError(exception: UploadcareApiException) {
-        showError(exception.localizedMessage)
+        exception.message?.let { showError(it) }
     }
 
     override fun onFileSelected(fileUrl: String) {
