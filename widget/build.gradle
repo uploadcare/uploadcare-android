@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
-        versionCode 8
-        versionName "2.1.0"
+        versionCode 9
+        versionName "2.2.0"
     }
 
     dataBinding {
@@ -81,7 +81,7 @@ publish {
     userOrg = properties.containsKey('bintray.user') ? properties.getProperty("bintray.user") : ""
     groupId = 'com.uploadcare.android.widget'
     artifactId = 'uploadcare-android-widget'
-    publishVersion = '2.1.0'
+    publishVersion = '2.2.0'
     desc = 'Android client library for the Uploadcare API.'
     licences = ["Apache-2.0"]
     website = 'https://github.com/uploadcare/uploadcare-android'
