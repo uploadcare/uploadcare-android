@@ -93,7 +93,7 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
         val uploader = FileUploader(client, fileUri, getContext()).store(true)
         uploader.uploadAsync(object : UploadcareFileCallback {
             override fun onFailure(e: UploadcareApiException) {
-                showProgressOrResult(false, e.localizedMessage)
+                showProgressOrResult(false, e.message ?: "")
             }
 
             override fun onSuccess(result: UploadcareFile) {
@@ -113,7 +113,7 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
         uploader.uploadAsync(object : UploadFilesCallback {
 
             override fun onFailure(e: UploadcareApiException) {
-                showProgressOrResult(false, e.localizedMessage)
+                showProgressOrResult(false, e.message ?: "")
             }
 
             override fun onSuccess(result: List<UploadcareFile>) {
@@ -139,7 +139,7 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
         val uploader = UrlUploader(client, sourceUrl).store(true)
         uploader.uploadAsync(object : UploadcareFileCallback {
             override fun onFailure(e: UploadcareApiException) {
-                showProgressOrResult(false, e.localizedMessage)
+                showProgressOrResult(false, e.message ?: "")
             }
 
             override fun onSuccess(result: UploadcareFile) {
