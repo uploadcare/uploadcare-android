@@ -102,8 +102,15 @@ class RequestHelper(private val client: UploadcareClient) {
                                apiHeaders: Boolean,
                                dataClass: Class<T>,
                                requestBody: RequestBody? = null,
-                               requestBodyMD5: String? = null): T {
-        val requestBuilder = Request.Builder().url(url)
+                               requestBodyMD5: String? = null,
+                               urlParameters: List<UrlParameter>? = null): T {
+        val builder = Uri.parse(url).buildUpon()
+        urlParameters?.let {
+            setQueryParameters(builder, urlParameters)
+        }
+        val pageUrl = trustedBuild(builder)
+
+        val requestBuilder = Request.Builder().url(pageUrl.toString())
         when (requestType) {
             REQUEST_GET -> requestBuilder.get()
             REQUEST_POST -> requestBody?.let { requestBuilder.post(it) }
