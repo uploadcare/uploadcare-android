@@ -28,7 +28,10 @@ class UploadcareWidget private constructor(context: Context) {
 
     val uploadcareClient = UploadcareClient(
             context.getString(R.string.uploadcare_public_key),
-            context.getString(R.string.uploadcare_private_key))
+            // Private Key might not exist if only Upload is used.
+            if (context.getString(R.string.uploadcare_private_key).isNotEmpty()) {
+                context.getString(R.string.uploadcare_private_key)
+            } else null)
 
     val socialApi: SocialApi by lazy {
         val retrofit = Retrofit.Builder()
