@@ -1,4 +1,5 @@
-# History
+# Changelog
+
 ## 2.1.0
 - Example:
     - Update Widget/Library versions
