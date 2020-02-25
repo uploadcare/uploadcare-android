@@ -1,6 +1,6 @@
 # History
 ## 2.1.0
-- Example: 
+- Example:
     - Update Widget/Library versions
 - Widget:
     - Update Library version
@@ -8,7 +8,7 @@
     - Fix batch store/delete calls support more than 100 Files
 
 ## 2.0.1
-- Example: 
+- Example:
     - Update dependencies.
 - Widget:
     - Update dependencies
