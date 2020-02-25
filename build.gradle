@@ -9,7 +9,7 @@ buildscript {
     versions.compile_sdk = 28
 
     versions.gradle_version = '3.5.3'
-    versions.bintray_version = '0.9'
+    versions.bintray_version = '0.9.2'
 
     versions.core = "1.2.0-rc01"
     versions.material = "1.2.0-alpha04"
