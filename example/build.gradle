@@ -11,8 +11,8 @@ android {
         applicationId "com.uploadcare.android.example"
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
-        versionCode 5
-        versionName "2.1.0"
+        versionCode 6
+        versionName "2.2.0"
     }
 
     dataBinding {
@@ -46,8 +46,6 @@ android {
 }
 
 dependencies {
-    kapt "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
-
     implementation project (':widget')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin_version"
@@ -58,11 +56,11 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
 
+    implementation "androidx.fragment:fragment-ktx:$versions.fragment"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "com.google.android.material:material:$versions.material"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
 
-    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
 

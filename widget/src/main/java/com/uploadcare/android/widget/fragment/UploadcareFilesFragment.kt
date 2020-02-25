@@ -8,7 +8,7 @@ import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
@@ -38,7 +38,7 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = UcwFragmentFilesBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProviders.of(this).get()
+        viewModel = ViewModelProvider(this).get()
         binding.viewModel = viewModel
 
         (activity as AppCompatActivity).let {
@@ -56,21 +56,21 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
             }
         }
 
-        viewModel.progressDialogCommand.observe(this, Observer { pait ->
+        viewModel.progressDialogCommand.observe(this.viewLifecycleOwner, Observer { pait ->
             if (pait.first) {
                 NavigationHelper.showProgressDialog(childFragmentManager, pait.second)
             } else {
                 NavigationHelper.dismissProgressDialog(childFragmentManager)
             }
         })
-        viewModel.closeWidgetCommand.observe(this, Observer { exception ->
+        viewModel.closeWidgetCommand.observe(this.viewLifecycleOwner, Observer { exception ->
             activity?.setResult(Activity.RESULT_OK, Intent().apply {
                 putExtra("result",
                         UploadcareWidgetResult(exception = UploadcareException(exception?.message)))
             })
             activity?.finish()
         })
-        viewModel.uploadCompleteCommand.observe(this, Observer { uploadcareFile ->
+        viewModel.uploadCompleteCommand.observe(this.viewLifecycleOwner, Observer { uploadcareFile ->
             activity?.setResult(Activity.RESULT_OK, Intent().apply {
                 putExtra("result", UploadcareWidgetResult(uploadcareFile = uploadcareFile))
             })
@@ -128,7 +128,7 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
     }
 
     override fun onError(exception: UploadcareApiException) {
-        showError(exception.localizedMessage)
+        exception.message?.let { showError(it) }
     }
 
     override fun onFileSelected(fileUrl: String) {

@@ -28,7 +28,10 @@ class UploadcareWidget private constructor(context: Context) {
 
     val uploadcareClient = UploadcareClient(
             context.getString(R.string.uploadcare_public_key),
-            context.getString(R.string.uploadcare_private_key))
+            // Private Key might not exist if only Upload is used.
+            if (context.getString(R.string.uploadcare_private_key).isNotEmpty()) {
+                context.getString(R.string.uploadcare_private_key)
+            } else null)
 
     val socialApi: SocialApi by lazy {
         val retrofit = Retrofit.Builder()
@@ -83,6 +86,52 @@ class UploadcareWidget private constructor(context: Context) {
     }
 
     /**
+     * Select and upload file to Uploadcare from any social network.
+     *
+     * @param activity Activity
+     * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
+     *              is set false - do not store file upon uploading.
+     *
+     *              To get result with info about uploaded file or error,
+     *              override onActivityResult() method, and use code below to get result
+     *              val result = UploadcareWidgetResult.fromIntent(data)
+     * @param requestCode custom Request code that will be used, you can use this code to detect
+     *              specific request in onActivityResult().
+     */
+    fun selectFile(activity: Activity,
+                   storeUponUpload: Boolean,
+                   requestCode: Int = UPLOADCARE_REQUEST_CODE) {
+        activity.startActivityForResult(Intent(activity, UploadcareActivity::class.java).apply {
+            putExtra("fileType", FileType.any.name)
+            putExtra("store", storeUponUpload)
+            putExtra("style", style)
+        }, requestCode)
+    }
+
+    /**
+     * Select and upload file to Uploadcare from any social network.
+     *
+     * @param fragment Fragment
+     * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
+     *              is set false - do not store file upon uploading.
+     *
+     *              To get result with info about uploaded file or error,
+     *              override onActivityResult() method, and use code below to get result
+     *              val result = UploadcareWidgetResult.fromIntent(data)
+     * @param requestCode custom Request code that will be used, you can use this code to detect
+     *              specific request in onActivityResult().
+     */
+    fun selectFile(fragment: Fragment,
+                   storeUponUpload: Boolean,
+                   requestCode: Int = UPLOADCARE_REQUEST_CODE) {
+        fragment.startActivityForResult(Intent(fragment.activity, UploadcareActivity::class.java).apply {
+            putExtra("fileType", FileType.any.name)
+            putExtra("store", storeUponUpload)
+            putExtra("style", style)
+        }, requestCode)
+    }
+
+    /**
      * Select and upload specific file type to Uploadcare from any social network.
      *
      * @param activity Activity
@@ -128,6 +177,57 @@ class UploadcareWidget private constructor(context: Context) {
     }
 
     /**
+     * Select and upload specific file type to Uploadcare from any social network.
+     *
+     * @param activity Activity
+     * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
+     *              is set false - do not store file upon uploading.
+     * @param fileType FileType
+     *
+     *              To get result with info about uploaded file or error,
+     *              override onActivityResult() method, and use code below to get result
+     *              val result = UploadcareWidgetResult.fromIntent(data)
+     * @param requestCode custom Request code that will be used, you can use this code to detect
+     *              specific request in onActivityResult().
+     */
+    fun selectFile(activity: Activity,
+                   storeUponUpload: Boolean,
+                   fileType: FileType,
+                   requestCode: Int = UPLOADCARE_REQUEST_CODE) {
+        activity.startActivityForResult(Intent(activity, UploadcareActivity::class.java).apply {
+            putExtra("fileType", fileType.name)
+            putExtra("store", storeUponUpload)
+            putExtra("style", style)
+        }, requestCode)
+    }
+
+    /**
+     * Select and upload specific file type to Uploadcare from any social network.
+     *
+     * @param fragment Fragment
+     * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
+     *              is set false - do not store file upon uploading.
+     * @param fileType FileType
+     *
+     *              To get result with info about uploaded file or error,
+     *              override onActivityResult() method, and use code below to get result
+     *              val result = UploadcareWidgetResult.fromIntent(data)
+     * @param requestCode custom Request code that will be used, you can use this code to detect
+     *              specific request in onActivityResult().
+     */
+    fun selectFile(fragment: Fragment,
+                   storeUponUpload: Boolean,
+                   fileType: FileType,
+                   requestCode: Int = UPLOADCARE_REQUEST_CODE) {
+        fragment.startActivityForResult(Intent(fragment.activity,
+                UploadcareActivity::class.java).apply {
+            putExtra("fileType", fileType.name)
+            putExtra("store", storeUponUpload)
+            putExtra("style", style)
+        }, requestCode)
+    }
+
+    /**
      * Select and upload file to Uploadcare from specified network.
      *
      * @param activity Activity
@@ -185,6 +285,60 @@ class UploadcareWidget private constructor(context: Context) {
      *              To get result with info about uploaded file or error,
      *              override onActivityResult() method, and use code below to get result
      *              val result = UploadcareWidgetResult.fromIntent(data)
+     * @param requestCode custom Request code that will be used, you can use this code to detect
+     *              specific request in onActivityResult().
+     */
+    fun selectFileFrom(activity: Activity,
+                       network: SocialNetwork,
+                       storeUponUpload: Boolean,
+                       requestCode: Int = UPLOADCARE_REQUEST_CODE) {
+        activity.startActivityForResult(Intent(activity, UploadcareActivity::class.java).apply {
+            putExtra("network", network.rawValue)
+            putExtra("fileType", FileType.any.name)
+            putExtra("store", storeUponUpload)
+            putExtra("style", style)
+        }, requestCode)
+    }
+
+    /**
+     * Select and upload file to Uploadcare from specified network.
+     *
+     * @param fragment Fragment
+     * @param network SocialNetwork
+     * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
+     *              is set false - do not store file upon uploading.
+     *
+     *              To get result with info about uploaded file or error,
+     *              override onActivityResult() method, and use code below to get result
+     *              val result = UploadcareWidgetResult.fromIntent(data)
+     * @param requestCode custom Request code that will be used, you can use this code to detect
+     *              specific request in onActivityResult().
+     */
+    fun selectFileFrom(fragment: Fragment,
+                       network: SocialNetwork,
+                       storeUponUpload: Boolean,
+                       requestCode: Int = UPLOADCARE_REQUEST_CODE) {
+        fragment.startActivityForResult(Intent(fragment.activity,
+                UploadcareActivity::class.java).apply {
+            putExtra("network", network.rawValue)
+            putExtra("fileType", FileType.any.name)
+            putExtra("store", storeUponUpload)
+            putExtra("style", style)
+        }, requestCode)
+    }
+
+    /**
+     * Select and upload file to Uploadcare from specified network.
+     *
+     * @param activity Activity
+     * @param network SocialNetwork
+     * @param fileType FileType
+     * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
+     *              is set false - do not store file upon uploading.
+     *
+     *              To get result with info about uploaded file or error,
+     *              override onActivityResult() method, and use code below to get result
+     *              val result = UploadcareWidgetResult.fromIntent(data)
      */
     fun selectFileFrom(activity: Activity,
                        network: SocialNetwork,
@@ -203,6 +357,7 @@ class UploadcareWidget private constructor(context: Context) {
      *
      * @param fragment Fragment
      * @param network SocialNetwork
+     * @param fileType FileType
      * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
      *              is set false - do not store file upon uploading.
      *
@@ -221,6 +376,63 @@ class UploadcareWidget private constructor(context: Context) {
             putExtra("store", storeUponUpload)
             putExtra("style", style)
         }, UPLOADCARE_REQUEST_CODE)
+    }
+
+    /**
+     * Select and upload file to Uploadcare from specified network.
+     *
+     * @param activity Activity
+     * @param network SocialNetwork
+     * @param fileType FileType
+     * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
+     *              is set false - do not store file upon uploading.
+     *
+     *              To get result with info about uploaded file or error,
+     *              override onActivityResult() method, and use code below to get result
+     *              val result = UploadcareWidgetResult.fromIntent(data)
+     * @param requestCode custom Request code that will be used, you can use this code to detect
+     *              specific request in onActivityResult().
+     */
+    fun selectFileFrom(activity: Activity,
+                       network: SocialNetwork,
+                       fileType: FileType,
+                       storeUponUpload: Boolean,
+                       requestCode: Int = UPLOADCARE_REQUEST_CODE) {
+        activity.startActivityForResult(Intent(activity, UploadcareActivity::class.java).apply {
+            putExtra("network", network.rawValue)
+            putExtra("fileType", fileType.name)
+            putExtra("store", storeUponUpload)
+            putExtra("style", style)
+        }, requestCode)
+    }
+
+    /**
+     * Select and upload file to Uploadcare from specified network.
+     *
+     * @param fragment Fragment
+     * @param network SocialNetwork
+     * @param fileType FileType
+     * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
+     *              is set false - do not store file upon uploading.
+     *
+     *              To get result with info about uploaded file or error,
+     *              override onActivityResult() method, and use code below to get result
+     *              val result = UploadcareWidgetResult.fromIntent(data)
+     * @param requestCode custom Request code that will be used, you can use this code to detect
+     *              specific request in onActivityResult().
+     */
+    fun selectFileFrom(fragment: Fragment,
+                       network: SocialNetwork,
+                       fileType: FileType,
+                       storeUponUpload: Boolean,
+                       requestCode: Int = UPLOADCARE_REQUEST_CODE) {
+        fragment.startActivityForResult(Intent(fragment.activity,
+                UploadcareActivity::class.java).apply {
+            putExtra("network", network.rawValue)
+            putExtra("fileType", fileType.name)
+            putExtra("store", storeUponUpload)
+            putExtra("style", style)
+        }, requestCode)
     }
 
     companion object : SingletonHolder<UploadcareWidget, Context>(::UploadcareWidget) {

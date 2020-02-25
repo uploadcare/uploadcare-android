@@ -1,5 +1,18 @@
 # Changelog
 
+# History
+## 2.2.0
+- Example:
+    - Update Widget/Library versions
+- Widget:
+    - Add ability to use UploadcareWidget without "private" key, for selection and uploading files.
+    - Add ability to provide custom "Request code" for file selection/upload request so you can filter result for specific request.
+    - Fix possible issue when showing error that doesn't have message.
+- Library:
+    - Add ability to use UploadcareClient without "private" key, for uploading files.
+    - Update UploadcareFile data model, make "url" and "datetimeUploaded" fields optional, those fields can be empty when you use UploadcareClient without "private" key, for uploading files.
+    - Update dependencies
+    
 ## 2.1.0
 - Example:
     - Update Widget/Library versions

@@ -5,13 +5,14 @@ import android.net.Uri
 import android.os.AsyncTask
 import com.uploadcare.android.library.api.RequestHelper
 import com.uploadcare.android.library.api.UploadcareClient
+import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.callbacks.UploadFilesCallback
 import com.uploadcare.android.library.data.UploadBaseData
-import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.urls.Urls
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
@@ -88,7 +89,11 @@ class MultipleFilesUploader : MultipleUploader {
 
                 val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
                         uploadUrl.toString(), false, UploadBaseData::class.java, requestBody).file
-                results.add(client.getFile(fileId))
+                results.add(if (client.privateKey != null) {
+                    client.getFile(fileId)
+                } else {
+                    client.getUploadedFile(client.publicKey, fileId)
+                })
             }
         } else if (context != null && uris != null) {
             val cr = context.contentResolver
@@ -103,8 +108,11 @@ class MultipleFilesUploader : MultipleUploader {
                 try {
                     iStream = cr.openInputStream(uri)
                     val inputData = UploadUtils.getBytes(iStream)
-                    multipartBuilder.addFormDataPart("file", UploadUtils.getFileName(uri, context),
-                            RequestBody.create(UploadUtils.getMimeType(cr, uri), inputData))
+                    inputData?.let {
+                        multipartBuilder.addFormDataPart("file",
+                                UploadUtils.getFileName(uri, context),
+                                it.toRequestBody(UploadUtils.getMimeType(cr, uri)))
+                    }
                 } catch (e: IOException) {
                     throw UploadFailureException(e)
                 } catch (e: NullPointerException) {
@@ -115,7 +123,11 @@ class MultipleFilesUploader : MultipleUploader {
 
                 val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
                         uploadUrl.toString(), false, UploadBaseData::class.java, requestBody).file
-                results.add(client.getFile(fileId))
+                results.add(if (client.privateKey != null) {
+                    client.getFile(fileId)
+                } else {
+                    client.getUploadedFile(client.publicKey, fileId)
+                })
             }
         }
 

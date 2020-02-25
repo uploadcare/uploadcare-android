@@ -16,7 +16,7 @@ import retrofit2.Response
 class UploadcareChunkViewModel(application: Application) : AndroidViewModel(application) {
 
     val things = MutableLiveData<List<Thing>>()
-    val allowLoadMore = MutableLiveData<Boolean>(false)
+    val allowLoadMore = MutableLiveData<Boolean>().apply { value = false }
     val errorCommand = SingleLiveEvent<UploadcareApiException?>()
     val needAuthCommand = SingleLiveEvent<String>()
 

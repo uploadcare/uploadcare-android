@@ -83,7 +83,11 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
                         statusUrl.toString(), false, UploadFromUrlStatusData::class.java)
                 if (status == "success" && fileId != null) {
                     print(" upload status success:")
-                    results.add(client.getFile(fileId))
+                    results.add(if (client.privateKey != null) {
+                        client.getFile(fileId)
+                    } else {
+                        client.getUploadedFile(client.publicKey, fileId)
+                    })
                     break
                 } else if (status == "error" || status == "failed") {
                     throw UploadFailureException()

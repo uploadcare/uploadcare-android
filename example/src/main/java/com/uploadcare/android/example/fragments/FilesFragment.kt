@@ -9,7 +9,7 @@ import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -40,7 +40,7 @@ class FilesFragment : Fragment(), OrderDialogListener, DatePickerDialog.OnDateSe
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = FragmentFilesBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProviders.of(this).get()
+        viewModel = ViewModelProvider(this).get()
 
         binding.viewModel = viewModel
 
@@ -63,10 +63,10 @@ class FilesFragment : Fragment(), OrderDialogListener, DatePickerDialog.OnDateSe
             }
         }
 
-        viewModel.files.observe(this, Observer { files ->
+        viewModel.files.observe(this.viewLifecycleOwner, Observer { files ->
             mAdapter?.updateFiles(files)
         })
-        viewModel.allowLoadMore.observe(this, Observer { allowLoadMore ->
+        viewModel.allowLoadMore.observe(this.viewLifecycleOwner, Observer { allowLoadMore ->
             if (allowLoadMore) {
                 mOnScrollListener?.let {
                     it.clear()
@@ -76,13 +76,13 @@ class FilesFragment : Fragment(), OrderDialogListener, DatePickerDialog.OnDateSe
                 binding.recyclerView.clearOnScrollListeners()
             }
         })
-        viewModel.errorCommand.observe(this, Observer { message ->
+        viewModel.errorCommand.observe(this.viewLifecycleOwner, Observer { message ->
             Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
         })
-        viewModel.launchFromPickerCommand.observe(this, Observer {
+        viewModel.launchFromPickerCommand.observe(this.viewLifecycleOwner, Observer {
             showDateDialog()
         })
-        viewModel.launchOrderPickerCommand.observe(this, Observer {
+        viewModel.launchOrderPickerCommand.observe(this.viewLifecycleOwner, Observer {
             showOrderDialog()
         })
 

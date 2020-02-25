@@ -19,7 +19,7 @@ Latest stable version is available from jCenter.
 To include it in your Android project, add this to the gradle.build file:
 
 ```
-implementation 'com.uploadcare.android.widget:uploadcare-android-widget:2.1.0'
+implementation 'com.uploadcare.android.widget:uploadcare-android-widget:2.2.0'
 
 ```
 

@@ -9,10 +9,18 @@ import com.uploadcare.android.library.callbacks.*
 import com.uploadcare.android.library.data.CopyFileData
 import com.uploadcare.android.library.data.ObjectMapper
 import com.uploadcare.android.library.exceptions.UploadcareApiException
+import com.uploadcare.android.library.urls.FileIdParameter
+import com.uploadcare.android.library.urls.PublicKeyParameter
+import com.uploadcare.android.library.urls.UrlParameter
 import com.uploadcare.android.library.urls.Urls
-import okhttp3.*
+import okhttp3.FormBody
+import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
-import okio.ByteString
+import okio.ByteString.Companion.encodeUtf8
 import java.util.concurrent.TimeUnit
 
 /**
@@ -20,13 +28,15 @@ import java.util.concurrent.TimeUnit
  * Can use simple or secure authentication.
  *
  * @param publicKey  Public key
- * @param privateKey Private key
+ * @param privateKey Private key, required for any request to Uploadcare REST API.
  * @param simpleAuth If {@code false}, HMAC-based authentication is used, otherwise simple
  * authentication is used.
  */
 class UploadcareClient constructor(val publicKey: String,
-                                   val privateKey: String,
+                                   val privateKey: String? = null,
                                    val simpleAuth: Boolean = false) {
+
+    constructor(publicKey: String) : this(publicKey, null, false)
 
     constructor(publicKey: String, privateKey: String) : this(publicKey, privateKey, false)
 
@@ -76,6 +86,20 @@ class UploadcareClient constructor(val publicKey: String,
         val url = Urls.apiProject()
         requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_GET, url.toString(), true,
                 Project::class.java, callback)
+    }
+
+    /**
+     * Request file data for uploaded file. Does not require "privatekey" set for UploadcareClient.
+     */
+    fun getUploadedFile(publicKey: String, fileId: String): UploadcareFile {
+        val url = Urls.apiUploadedFile(fileId)
+
+        val parameters: MutableList<UrlParameter> = mutableListOf()
+        parameters.add(PublicKeyParameter(publicKey))
+        parameters.add(FileIdParameter(fileId))
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(),
+                false, UploadcareFile::class.java, urlParameters = parameters)
     }
 
     /**
@@ -136,7 +160,7 @@ class UploadcareClient constructor(val publicKey: String,
      * @param groupId Group ID
      */
     fun storeGroup(groupId: String) {
-        val requestBody = RequestBody.create(MediaType.parse(""), groupId)
+        val requestBody = groupId.toRequestBody("".toMediaTypeOrNull())
         val url = Urls.apiGroupStorage(groupId)
         requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, requestBody)
     }
@@ -150,7 +174,7 @@ class UploadcareClient constructor(val publicKey: String,
      * an HTTP response or a failure exception.
      */
     fun storeGroupAsync(context: Context, groupId: String, callback: RequestCallback? = null) {
-        val requestBody = RequestBody.create(MediaType.parse(""), groupId)
+        val requestBody = groupId.toRequestBody("".toMediaTypeOrNull())
         val url = Urls.apiGroupStorage(groupId)
         requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
                 true, callback, requestBody)
@@ -222,8 +246,7 @@ class UploadcareClient constructor(val publicKey: String,
             // Make single request.
             val requestBodyContent = objectMapper.toJson(fileIds,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             requestHelper.executeCommand(RequestHelper.REQUEST_DELETE, url.toString(), true, body,
                     requestBodyContent.md5())
         } else {
@@ -244,8 +267,7 @@ class UploadcareClient constructor(val publicKey: String,
             // Make single request.
             val requestBodyContent = objectMapper.toJson(fileIds,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE,
                     url.toString(), true, null, body, requestBodyContent.md5())
         } else {
@@ -270,8 +292,7 @@ class UploadcareClient constructor(val publicKey: String,
             // Make single request.
             val requestBodyContent = objectMapper.toJson(fileIds,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE,
                     url.toString(), true, callback, body, requestBodyContent.md5())
         } else {
@@ -338,8 +359,7 @@ class UploadcareClient constructor(val publicKey: String,
             // Make single request.
             val requestBodyContent = objectMapper.toJson(fileIds,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, body,
                     requestBodyContent.md5())
         } else {
@@ -363,8 +383,7 @@ class UploadcareClient constructor(val publicKey: String,
             // Make single request.
             val requestBodyContent = objectMapper.toJson(fileIds,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
                     true, null, body, requestBodyContent.md5())
         } else {
@@ -390,8 +409,7 @@ class UploadcareClient constructor(val publicKey: String,
             // Make single request.
             val requestBodyContent = objectMapper.toJson(fileIds,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
                     true, callback, body, requestBodyContent.md5())
         } else {
@@ -451,8 +469,7 @@ class UploadcareClient constructor(val publicKey: String,
 
             val requestBodyContent = objectMapper.toJson(ids,
                     Types.newParameterizedType(List::class.java, String::class.java))
-            val body = RequestBody.create(RequestHelper.JSON,
-                    ByteString.encodeUtf8(requestBodyContent))
+            val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
             val response = requestHelper.executeCommand(requestType, url.toString(), true, body,
                     requestBodyContent.md5())
             requestHelper.checkResponseStatus(response)
@@ -468,6 +485,11 @@ class UploadcareClient constructor(val publicKey: String,
         @JvmStatic
         fun demoClient(): UploadcareClient {
             return UploadcareClient("demopublickey", "demoprivatekey")
+        }
+
+        @JvmStatic
+        fun demoClientUploadOnly(): UploadcareClient {
+            return UploadcareClient("demopublickey")
         }
     }
 

@@ -9,14 +9,14 @@ import java.util.*
 
 @Parcelize
 data class UploadcareFile(val uuid: String,
-                          val url: URI,
+                          val url: URI? = null,
                           val size: Int,
                           @Json(name = "is_ready") val isReady: Boolean,
                           @Json(name = "is_image") val isImage: Boolean? = false,
                           @Json(name = "mime_type") val mimeType: String? = null,
                           @Json(name = "original_filename") val originalFilename: String? = null,
                           @Json(name = "original_file_url") val originalFileUrl: URI? = null,
-                          @Json(name = "datetime_uploaded") val datetimeUploaded: Date,
+                          @Json(name = "datetime_uploaded") val datetimeUploaded: Date? = null,
                           @Json(name = "datetime_stored") val datetimeStored: Date? = null,
                           @Json(name = "datetime_removed") val datetimeRemoved: Date? = null)
     : Parcelable {

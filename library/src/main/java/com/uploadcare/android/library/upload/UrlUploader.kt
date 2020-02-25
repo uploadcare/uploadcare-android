@@ -59,7 +59,11 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
                     statusUrl.toString(), false, UploadFromUrlStatusData::class.java)
             if (status == "success" && fileId != null) {
                 println("url upload request status success")
-                return client.getFile(fileId)
+                return if (client.privateKey != null) {
+                    client.getFile(fileId)
+                } else {
+                    client.getUploadedFile(client.publicKey, fileId)
+                }
             } else if (status == "error" || status == "failed") {
                 println("url upload request status fail")
                 throw UploadFailureException(status)

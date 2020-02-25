@@ -5,13 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -34,39 +33,39 @@ class UploadcareFragment : Fragment(), SocialSourcesListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = UcwFragmentUploadcareBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProviders.of(this).get()
-        viewModel.progressDialogCommand.observe(this, Observer { pait ->
+        viewModel = ViewModelProvider(this).get()
+        viewModel.progressDialogCommand.observe(this.viewLifecycleOwner, Observer { pait ->
             if (pait.first) {
                 NavigationHelper.showProgressDialog(childFragmentManager, pait.second)
             } else {
                 NavigationHelper.dismissProgressDialog(childFragmentManager)
             }
         })
-        viewModel.showSocialSourcesCommand.observe(this, Observer { pair ->
+        viewModel.showSocialSourcesCommand.observe(this.viewLifecycleOwner, Observer { pair ->
             NavigationHelper.showSocialSourcesDialog(childFragmentManager,
                     pair.first,
                     getString(R.string.ucw_action_select_network),
                     pair.second)
         })
-        viewModel.launchSocialSourceCommand.observe(this, Observer { pair ->
+        viewModel.launchSocialSourceCommand.observe(this.viewLifecycleOwner, Observer { pair ->
             findNavController().navigate(UploadcareFragmentDirections
                     .actionUploadcareFragmentToUploadcareFilesFragment(pair.first, pair.second),
                     NavOptions.Builder().setPopUpTo(R.id.uploadcareFragment, true).build())
         })
-        viewModel.launchCamera.observe(this, Observer { mediaType ->
+        viewModel.launchCamera.observe(this.viewLifecycleOwner, Observer { mediaType ->
             launchCamera(mediaType.first, mediaType.second)
         })
-        viewModel.launchFilePicker.observe(this, Observer { fileType ->
+        viewModel.launchFilePicker.observe(this.viewLifecycleOwner, Observer { fileType ->
             launchFilePicker(fileType)
         })
-        viewModel.closeWidgetCommand.observe(this, Observer { exception ->
+        viewModel.closeWidgetCommand.observe(this.viewLifecycleOwner, Observer { exception ->
             activity?.setResult(RESULT_OK, Intent().apply {
                 putExtra("result",
                         UploadcareWidgetResult(exception = UploadcareException(exception?.message)))
             })
             activity?.finish()
         })
-        viewModel.uploadCompleteCommand.observe(this, Observer { uploadcareFile ->
+        viewModel.uploadCompleteCommand.observe(this.viewLifecycleOwner, Observer { uploadcareFile ->
             activity?.setResult(RESULT_OK, Intent().apply {
                 putExtra("result", UploadcareWidgetResult(uploadcareFile = uploadcareFile))
             })

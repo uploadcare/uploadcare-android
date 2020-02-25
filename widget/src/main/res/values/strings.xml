@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Uploadcare Android Widget</string>
-    <string name="uploadcare_public_key" translatable="false">demopublickey</string>
-    <string name="uploadcare_private_key" translatable="false">demoprivatekey</string>
+    <string name="uploadcare_public_key" translatable="false" />
+    <string name="uploadcare_private_key" translatable="false" />
     <string name="ucw_uploadcare_activity_title">Uploadcare Android Widget</string>
     <string name="ucw_social_instagram">Instagram</string>
     <string name="ucw_social_facebook">Facebook</string>
