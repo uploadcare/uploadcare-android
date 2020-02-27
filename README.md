@@ -7,6 +7,8 @@ GIF TBD
 
 Check out [demo app](/example).
 
+## Installation
+
 ## Features
 
 ### Library
