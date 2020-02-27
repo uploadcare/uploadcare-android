@@ -3,6 +3,8 @@
 
 Uploadcare Android integration handles uploads and further operations with files by wrapping Upload and REST APIs.
 
+GIF TBD
+
 Check out [demo app](/example).
 
 ## Features
