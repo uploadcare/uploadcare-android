@@ -1,7 +1,13 @@
-# uploadcare-android [![Build Status](https://travis-ci.org/uploadcare/uploadcare-android.svg?branch=master)](https://travis-ci.org/uploadcare/uploadcare-android)
+# Android integration for Uploadcare
+[![Build Status](https://travis-ci.org/uploadcare/uploadcare-android.svg?branch=master)](https://travis-ci.org/uploadcare/uploadcare-android)
 
+Uploadcare Android integration handles uploads and further operations with files by wrapping Upload and REST APIs.
 
-## Library
+Check out [demo app](/example).
+
+## Features
+
+### Library
 
 Supported features:
 
@@ -14,7 +20,7 @@ Supported features:
 
 [Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/library)
 
-## Widget
+### Widget
 
 Supported features:
 
@@ -26,10 +32,14 @@ Supported features:
 
 [Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/widget)
 
-## Links
+## Useful links
 
 [Library Documentation](http://uploadcare.github.io/uploadcare-android/library/index.html)
-
 [Widget Documentation](http://uploadcare.github.io/uploadcare-android/widget/index.html)
-
-[Changelog](https://github.com/uploadcare/uploadcare-android/blob/master/HISTORY.md)
+[Uploadcare documentation](https://uploadcare.com/docs/?utm_source=github&utm_medium=referral&utm_campaign=uploadcare-android)  
+[Upload API reference](https://uploadcare.com/api-refs/upload-api/?utm_source=github&utm_medium=referral&utm_campaign=uploadcare-android)  
+[REST API reference](https://uploadcare.com/api-refs/rest-api/?utm_source=github&utm_medium=referral&utm_campaign=uploadcare-android)  
+[Changelog](https://github.com/uploadcare/uploadcare-android/blob/master/CHANGELOG.md)  
+[Contributing guide](https://github.com/uploadcare/.github/blob/master/CONTRIBUTING.md)  
+[Security policy](https://github.com/uploadcare/uploadcare-android/security/policy)  
+[Support](https://github.com/uploadcare/.github/blob/master/SUPPORT.md)  
