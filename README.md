@@ -1,5 +1,6 @@
 # Android integration for Uploadcare
-[![Build Status](https://travis-ci.org/uploadcare/uploadcare-android.svg?branch=master)](https://travis-ci.org/uploadcare/uploadcare-android)
+
+[![build](https://travis-ci.org/uploadcare/uploadcare-android.svg?branch=master)](https://travis-ci.org/uploadcare/uploadcare-android)
 
 Uploadcare Android integration handles uploads and further operations with files by wrapping Upload and REST APIs.
 
