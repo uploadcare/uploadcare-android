@@ -34,8 +34,8 @@ Supported features:
 
 ## Useful links
 
-[Library Documentation](http://uploadcare.github.io/uploadcare-android/library/index.html)
-[Widget Documentation](http://uploadcare.github.io/uploadcare-android/widget/index.html)
+[Library Documentation](http://uploadcare.github.io/uploadcare-android/library/index.html)  
+[Widget Documentation](http://uploadcare.github.io/uploadcare-android/widget/index.html)  
 [Uploadcare documentation](https://uploadcare.com/docs/?utm_source=github&utm_medium=referral&utm_campaign=uploadcare-android)  
 [Upload API reference](https://uploadcare.com/api-refs/upload-api/?utm_source=github&utm_medium=referral&utm_campaign=uploadcare-android)  
 [REST API reference](https://uploadcare.com/api-refs/rest-api/?utm_source=github&utm_medium=referral&utm_campaign=uploadcare-android)  
