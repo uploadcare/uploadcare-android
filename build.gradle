@@ -23,7 +23,7 @@ buildscript {
     versions.okhttp = "4.7.1"
     versions.retrofit = "2.8.2"
 
-    versions.picasso = "2.5.2"
+    versions.picasso = "2.71828"
 
     versions.moshi = "1.9.2"
 

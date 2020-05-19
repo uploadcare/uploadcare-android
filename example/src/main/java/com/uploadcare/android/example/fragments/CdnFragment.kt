@@ -55,37 +55,37 @@ class CdnFragment : Fragment() {
             when (i) {
                 0 -> {
                     val url = Urls.cdn(builder)
-                    Picasso.with(context).load(url.toString()).into(binding.cdn1)
+                    Picasso.get().load(url.toString()).into(binding.cdn1)
                 }
                 1 -> {
                     builder.grayscale()
                     val url2 = Urls.cdn(builder)
-                    Picasso.with(context).load(url2.toString()).into(binding.cdn2)
+                    Picasso.get().load(url2.toString()).into(binding.cdn2)
                 }
                 2 -> {
                     builder.flip()
                     val url3 = Urls.cdn(builder)
-                    Picasso.with(context).load(url3.toString()).into(binding.cdn3)
+                    Picasso.get().load(url3.toString()).into(binding.cdn3)
                 }
                 3 -> {
                     builder.invert()
                     val url4 = Urls.cdn(builder)
-                    Picasso.with(context).load(url4.toString()).into(binding.cdn4)
+                    Picasso.get().load(url4.toString()).into(binding.cdn4)
                 }
                 4 -> {
                     builder.mirror()
                     val url5 = Urls.cdn(builder)
-                    Picasso.with(context).load(url5.toString()).into(binding.cdn5)
+                    Picasso.get().load(url5.toString()).into(binding.cdn5)
                 }
                 5 -> {
                     builder.blur(100)
                     val url6 = Urls.cdn(builder)
-                    Picasso.with(context).load(url6.toString()).into(binding.cdn6)
+                    Picasso.get().load(url6.toString()).into(binding.cdn6)
                 }
                 6 -> {
                     builder.sharp(10)
                     val url7 = Urls.cdn(builder)
-                    Picasso.with(context).load(url7.toString()).into(binding.cdn7)
+                    Picasso.get().load(url7.toString()).into(binding.cdn7)
                 }
             }
         }

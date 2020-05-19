@@ -60,7 +60,7 @@ class UploadcareFileViewHolder(private val binding: FileItemBinding,
         builder.resizeWidth(250)
         builder.cropCenter(250, 250)
         val url = Urls.cdn(builder)
-        Picasso.with(binding.image.context).load(url.toString()).into(binding.image)
+        Picasso.get().load(url.toString()).into(binding.image)
     }
 
     fun select(uploadcareFile: UploadcareFile) {
