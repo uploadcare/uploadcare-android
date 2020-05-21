@@ -72,7 +72,6 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
     fun upload(pollingInterval: Int): List<UploadcareFile> {
         val results = ArrayList<UploadcareFile>()
         for (sourceUrl in sourceUrls) {
-            print("starting upload:$sourceUrl")
             val uploadUrl = Urls.uploadFromUrl(sourceUrl, client.publicKey, store)
             val token = client.requestHelper.executeQuery(RequestHelper.REQUEST_GET,
                     uploadUrl.toString(), false, UploadFromUrlData::class.java).token
@@ -82,7 +81,6 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
                 val (status, fileId) = client.requestHelper.executeQuery(RequestHelper.REQUEST_GET,
                         statusUrl.toString(), false, UploadFromUrlStatusData::class.java)
                 if (status == "success" && fileId != null) {
-                    print(" upload status success:")
                     results.add(if (client.privateKey != null) {
                         client.getFile(fileId)
                     } else {

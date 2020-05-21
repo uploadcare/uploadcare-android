@@ -52,20 +52,17 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
         val token = client.requestHelper.executeQuery(RequestHelper.REQUEST_GET,
                 uploadUrl.toString(), false, UploadFromUrlData::class.java).token
         val statusUrl = Urls.uploadFromUrlStatus(token)
-        println("url upload request done")
         while (true) {
             sleep(pollingInterval.toLong())
             val (status, fileId) = client.requestHelper.executeQuery(RequestHelper.REQUEST_GET,
                     statusUrl.toString(), false, UploadFromUrlStatusData::class.java)
             if (status == "success" && fileId != null) {
-                println("url upload request status success")
                 return if (client.privateKey != null) {
                     client.getFile(fileId)
                 } else {
                     client.getUploadedFile(client.publicKey, fileId)
                 }
             } else if (status == "error" || status == "failed") {
-                println("url upload request status fail")
                 throw UploadFailureException(status)
             }
         }

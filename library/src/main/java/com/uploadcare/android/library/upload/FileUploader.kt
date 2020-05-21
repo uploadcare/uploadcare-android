@@ -3,6 +3,7 @@ package com.uploadcare.android.library.upload
 import android.content.Context
 import android.net.Uri
 import android.os.AsyncTask
+import android.text.TextUtils
 import com.uploadcare.android.library.api.RequestHelper
 import com.uploadcare.android.library.api.UploadcareClient
 import com.uploadcare.android.library.api.UploadcareFile
@@ -39,6 +40,10 @@ class FileUploader : Uploader {
     private val context: Context?
 
     private var store = "auto"
+
+    private var signature: String? = null
+
+    private var expire: String? = null
 
     /**
      * Creates a new uploader from a file on disk
@@ -145,6 +150,11 @@ class FileUploader : Uploader {
                 .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
                 .addFormDataPart("UPLOADCARE_STORE", store)
 
+        if (!TextUtils.isEmpty(signature) && !TextUtils.isEmpty(expire)) {
+            multipartBuilder.addFormDataPart("signature", signature!!)
+            multipartBuilder.addFormDataPart("expire", expire!!)
+        }
+
         when {
             file != null -> multipartBuilder.addFormDataPart("file", file.name,
                     file.asRequestBody(UploadUtils.getMimeType(file)))
@@ -187,7 +197,6 @@ class FileUploader : Uploader {
 
         val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
                 uploadUrl.toString(), false, UploadBaseData::class.java, requestBody).file
-        println("uploaded file id:$fileId")
         return if (client.privateKey != null) {
             client.getFile(fileId)
         } else {
@@ -216,6 +225,19 @@ class FileUploader : Uploader {
         return this
     }
 
+    /**
+     * Signed Upload - let you control who and when can upload files to a specified Uploadcare
+     * project.
+     *
+     * @param signature is a string sent along with your upload request. It requires your Uploadcare
+     * project secret key and hence should be crafted on your back end.
+     * @param expire sets the time until your signature is valid. It is a Unix time.(ex 1454902434)
+     */
+    fun signedUpload(signature: String, expire: String): FileUploader {
+        this.signature = signature
+        this.expire = expire
+        return this
+    }
 }
 
 private class UploadTask(private val uploader: FileUploader,

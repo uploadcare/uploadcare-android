@@ -3,6 +3,7 @@ package com.uploadcare.android.library.upload
 import android.content.Context
 import android.net.Uri
 import android.os.AsyncTask
+import android.text.TextUtils
 import com.uploadcare.android.library.api.RequestHelper
 import com.uploadcare.android.library.api.UploadcareClient
 import com.uploadcare.android.library.api.UploadcareFile
@@ -12,6 +13,7 @@ import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.urls.Urls
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.IOException
@@ -32,6 +34,10 @@ class MultipleFilesUploader : MultipleUploader {
     private val context: Context?
 
     private var store = "auto"
+
+    private var signature: String? = null
+
+    private var expire: String? = null
 
     /**
      * Creates a new uploader from a list of files on disk
@@ -82,8 +88,13 @@ class MultipleFilesUploader : MultipleUploader {
                         .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
                         .addFormDataPart("UPLOADCARE_STORE", store)
 
-                multipartBuilder.addFormDataPart("file", file.name, RequestBody
-                        .create(UploadUtils.getMimeType(file), file))
+                if (!TextUtils.isEmpty(signature) && !TextUtils.isEmpty(expire)) {
+                    multipartBuilder.addFormDataPart("signature", signature!!)
+                    multipartBuilder.addFormDataPart("expire", expire!!)
+                }
+
+                multipartBuilder.addFormDataPart("file", file.name,
+                        file.asRequestBody(UploadUtils.getMimeType(file)))
 
                 val requestBody = multipartBuilder.build()
 
@@ -103,6 +114,11 @@ class MultipleFilesUploader : MultipleUploader {
                         .setType(MultipartBody.FORM)
                         .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
                         .addFormDataPart("UPLOADCARE_STORE", store)
+
+                if (!TextUtils.isEmpty(signature) && !TextUtils.isEmpty(expire)) {
+                    multipartBuilder.addFormDataPart("signature", signature!!)
+                    multipartBuilder.addFormDataPart("expire", expire!!)
+                }
 
                 var iStream: InputStream? = null
                 try {
@@ -147,6 +163,20 @@ class MultipleFilesUploader : MultipleUploader {
      */
     override fun store(store: Boolean): MultipleFilesUploader {
         this.store = if (store) 1.toString() else 0.toString()
+        return this
+    }
+
+    /**
+     * Signed Upload - let you control who and when can upload files to a specified Uploadcare
+     * project.
+     *
+     * @param signature is a string sent along with your upload request. It requires your Uploadcare
+     * project secret key and hence should be crafted on your back end.
+     * @param expire sets the time until your signature is valid. It is a Unix time.(ex 1454902434)
+     */
+    fun signedUpload(signature: String, expire: String): MultipleFilesUploader {
+        this.signature = signature
+        this.expire = expire
         return this
     }
 }
