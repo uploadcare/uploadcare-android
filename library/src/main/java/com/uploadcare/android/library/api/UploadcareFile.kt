@@ -11,6 +11,7 @@ import java.util.*
 data class UploadcareFile(val uuid: String,
                           val url: URI? = null,
                           val size: Int,
+                          val source: String? = null,
                           @Json(name = "is_ready") val isReady: Boolean,
                           @Json(name = "is_image") val isImage: Boolean? = false,
                           @Json(name = "mime_type") val mimeType: String? = null,
@@ -18,7 +19,11 @@ data class UploadcareFile(val uuid: String,
                           @Json(name = "original_file_url") val originalFileUrl: URI? = null,
                           @Json(name = "datetime_uploaded") val datetimeUploaded: Date? = null,
                           @Json(name = "datetime_stored") val datetimeStored: Date? = null,
-                          @Json(name = "datetime_removed") val datetimeRemoved: Date? = null)
+                          @Json(name = "datetime_removed") val datetimeRemoved: Date? = null,
+                          @Json(name = "image_info") val imageInfo: ImageInfo? = null,
+                          @Json(name = "video_info") val videoInfo: VideoInfo? = null,
+                          @Json(name = "rekognition_info") val rekognitionInfo: Map<String, Float>? = null,
+                          val variations: Map<String, String>? = null)
     : Parcelable {
 
     fun hasOriginalFileUrl() = originalFileUrl != null
@@ -92,6 +97,49 @@ data class UploadcareFile(val uuid: String,
             append("Date stored: $datetimeStored").append(newline)
             append("is Removed: ${isRemoved()}").append(newline)
             append("Date removed: $datetimeRemoved").append(newline)
+            append("Source: $source").append(newline)
+            append("Image Info: $imageInfo").append(newline)
+            append("Video Info: $videoInfo").append(newline)
+            append("Variations: $variations").append(newline)
+            append("Rekognition Info: $rekognitionInfo").append(newline)
         }.toString()
     }
+}
+
+@Parcelize
+data class ImageInfo(val format: String,
+                     val height: Int,
+                     val width: Int,
+                     val orientation: Int? = null,
+                     val sequence: Boolean? = false,
+                     @Json(name = "color_mode") val colorMode: ColorMode? = null,
+                     @Json(name = "geo_location") val geoLocation: GeoLocation? = null,
+                     @Json(name = "datetime_original") val datetimeOriginal: String? = null,
+                     val dpi: List<Float>? = null) : Parcelable
+
+@Parcelize
+data class VideoInfo(val format: String,
+                     val duration: Int,
+                     val bitrate: Int,
+                     val audio: Audio? = null,
+                     val video: Video) : Parcelable
+
+@Parcelize
+data class GeoLocation(val latitude: Float, val longitude: Float) : Parcelable
+
+@Parcelize
+data class Audio(val bitrate: Int? = null,
+                 val codec: String? = null,
+                 val channels: String? = null,
+                 @Json(name = "sample_rate") val sampleRate: Int? = null) : Parcelable
+
+@Parcelize
+data class Video(val bitrate: Int,
+                 val codec: String,
+                 val height: Int,
+                 val width: Int,
+                 @Json(name = "frame_rate") val frameRate: Float) : Parcelable
+
+enum class ColorMode {
+    RGB, RGBA, RGBa, RGBX, L, LA, La, P, PA, CMYK, YCbCr, HSV, LAB
 }
