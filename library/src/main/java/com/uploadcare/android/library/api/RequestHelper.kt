@@ -31,7 +31,7 @@ import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
 /**
- * A helper class for doing API calls to the Uploadcare API. Supports API version 0.5.
+ * A helper class for doing API calls to the Uploadcare API. Supports API version 0.6.
  * <p>
  * TODO Support of throttled requests needs to be added
  */
@@ -70,7 +70,7 @@ class RequestHelper(private val client: UploadcareClient) {
         val formattedDate = rfc2822(calendar.time)
 
         requestBuilder.addHeader("Content-Type", contentType?.let { it } ?: JSON_CONTENT_TYPE)
-        requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.5+json")
+        requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.6+json")
         requestBuilder.addHeader("Date", formattedDate)
         requestBuilder.addHeader("User-Agent",
                 String.format("javauploadcare-android/%s/%s", BuildConfig.VERSION_NAME,
@@ -106,7 +106,7 @@ class RequestHelper(private val client: UploadcareClient) {
                                urlParameters: List<UrlParameter>? = null): T {
         val builder = Uri.parse(url).buildUpon()
         urlParameters?.let {
-            setQueryParameters(builder, urlParameters)
+            setQueryParameters(builder, it)
         }
         val pageUrl = trustedBuild(builder)
 
@@ -142,8 +142,15 @@ class RequestHelper(private val client: UploadcareClient) {
                                     dataClass: Class<T>,
                                     callback: BaseCallback<T>? = null,
                                     requestBody: RequestBody? = null,
-                                    requestBodyMD5: String? = null) {
-        val requestBuilder = Request.Builder().url(url)
+                                    requestBodyMD5: String? = null,
+                                    urlParameters: List<UrlParameter>? = null) {
+        val builder = Uri.parse(url).buildUpon()
+        urlParameters?.let {
+            setQueryParameters(builder, it)
+        }
+        val pageUrl = trustedBuild(builder)
+
+        val requestBuilder = Request.Builder().url(pageUrl.toString())
         when (requestType) {
             REQUEST_GET -> requestBuilder.get()
             REQUEST_POST -> requestBody?.let { requestBuilder.post(it) }

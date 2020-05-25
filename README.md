@@ -11,7 +11,7 @@ Check out [demo app](/example).
 
 Supported features:
 
-- Complete file, group and project API v0.5
+- Complete file, group and project API v0.6
 - Paginated resources fetching.
 - CDN path builder.
 - File uploads from file, byte array, Uri, and URL.
