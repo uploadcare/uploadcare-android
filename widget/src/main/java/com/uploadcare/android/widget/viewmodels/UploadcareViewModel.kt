@@ -40,6 +40,8 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
     private var sources: List<SocialSource>? = null
     private var fileType = FileType.any
     private var tempFileUri: Uri? = null
+    private var signature: String? = null
+    private var expire: String? = null
 
     fun start(bundle: Bundle) {
         network = bundle.getString("network")
@@ -47,6 +49,8 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
         fileType = bundle.getString("fileType")?.let {
             FileType.valueOf(it)
         } ?: FileType.any
+        signature = bundle.getString("signature")
+        expire = bundle.getString("expire")
 
         if (isLocalNetwork(network)) {
             launchLocalNetwork(network)
@@ -87,7 +91,10 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
                     getContext().getString(R.string.ucw_action_loading_image)))
 
             val uploader = FileUploader(UploadcareWidget.getInstance(getContext()).uploadcareClient,
-                    uri, getContext()).store(storeUponUpload)
+                    uri, getContext())
+                    .store(storeUponUpload)
+                    .signedUpload(signature ?: "", expire ?: "")
+
             uploader.uploadAsync(object : UploadcareFileCallback {
                 override fun onFailure(e: UploadcareApiException) {
                     progressDialogCommand.postValue(Pair(false, null))

@@ -228,6 +228,81 @@ class UploadcareWidget private constructor(context: Context) {
     }
 
     /**
+     * Select and upload specific file type to Uploadcare from any social network using Signed Upload.
+     *
+     * Signed Upload will be only used if SocialNetwork.SOCIAL_NETWORK_CAMERA,
+     * SocialNetwork.SOCIAL_NETWORK_VIDEOCAM or SocialNetwork.SOCIAL_NETWORK_FILE is selected.
+     * Signed upload won't be used if Selected file is from external network like
+     * Instagram/Facebook etc. is selected.
+     *
+     * @param activity Activity
+     * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
+     *              is set false - do not store file upon uploading.
+     * @param fileType FileType
+     *
+     *              To get result with info about uploaded file or error,
+     *              override onActivityResult() method, and use code below to get result
+     *              val result = UploadcareWidgetResult.fromIntent(data)
+     * @param signature is a string sent along with your upload request. It requires your Uploadcare
+     * project secret key and hence should be crafted on your back end.
+     * @param expire sets the time until your signature is valid. It is a Unix time.(ex 1454902434)
+     * @param requestCode custom Request code that will be used, you can use this code to detect
+     *              specific request in onActivityResult().
+     */
+    fun selectFile(activity: Activity,
+                   storeUponUpload: Boolean,
+                   fileType: FileType,
+                   signature: String,
+                   expire: String,
+                   requestCode: Int = UPLOADCARE_REQUEST_CODE) {
+        activity.startActivityForResult(Intent(activity, UploadcareActivity::class.java).apply {
+            putExtra("fileType", fileType.name)
+            putExtra("store", storeUponUpload)
+            putExtra("style", style)
+            putExtra("signature", signature)
+            putExtra("expire", expire)
+        }, requestCode)
+    }
+
+    /**
+     * Select and upload specific file type to Uploadcare from any social network using Signed Upload.
+     *
+     * Signed Upload will be only used if SocialNetwork.SOCIAL_NETWORK_CAMERA,
+     * SocialNetwork.SOCIAL_NETWORK_VIDEOCAM or SocialNetwork.SOCIAL_NETWORK_FILE is selected.
+     * Signed upload won't be used if Selected file is from external network like
+     * Instagram/Facebook etc. is selected.
+     *
+     * @param fragment Fragment
+     * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
+     *              is set false - do not store file upon uploading.
+     * @param fileType FileType
+     *
+     *              To get result with info about uploaded file or error,
+     *              override onActivityResult() method, and use code below to get result
+     *              val result = UploadcareWidgetResult.fromIntent(data)
+     * @param signature is a string sent along with your upload request. It requires your Uploadcare
+     * project secret key and hence should be crafted on your back end.
+     * @param expire sets the time until your signature is valid. It is a Unix time.(ex 1454902434)
+     * @param requestCode custom Request code that will be used, you can use this code to detect
+     *              specific request in onActivityResult().
+     */
+    fun selectFile(fragment: Fragment,
+                   storeUponUpload: Boolean,
+                   fileType: FileType,
+                   signature: String,
+                   expire: String,
+                   requestCode: Int = UPLOADCARE_REQUEST_CODE) {
+        fragment.startActivityForResult(Intent(fragment.activity,
+                UploadcareActivity::class.java).apply {
+            putExtra("fileType", fileType.name)
+            putExtra("store", storeUponUpload)
+            putExtra("style", style)
+            putExtra("signature", signature)
+            putExtra("expire", expire)
+        }, requestCode)
+    }
+
+    /**
      * Select and upload file to Uploadcare from specified network.
      *
      * @param activity Activity
@@ -432,6 +507,87 @@ class UploadcareWidget private constructor(context: Context) {
             putExtra("fileType", fileType.name)
             putExtra("store", storeUponUpload)
             putExtra("style", style)
+        }, requestCode)
+    }
+
+    /**
+     * Select and upload file to Uploadcare from specified network using Signed Upload.
+     *
+     * Signed Upload will be only used if SocialNetwork.SOCIAL_NETWORK_CAMERA,
+     * SocialNetwork.SOCIAL_NETWORK_VIDEOCAM or SocialNetwork.SOCIAL_NETWORK_FILE is selected.
+     * Signed upload won't be used if Selected file is from external network like
+     * Instagram/Facebook etc. is selected.
+     *
+     * @param activity Activity
+     * @param network SocialNetwork
+     * @param fileType FileType
+     * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
+     *              is set false - do not store file upon uploading.
+     *
+     *              To get result with info about uploaded file or error,
+     *              override onActivityResult() method, and use code below to get result
+     *              val result = UploadcareWidgetResult.fromIntent(data)
+     * @param signature is a string sent along with your upload request. It requires your Uploadcare
+     * project secret key and hence should be crafted on your back end.
+     * @param expire sets the time until your signature is valid. It is a Unix time.(ex 1454902434)
+     * @param requestCode custom Request code that will be used, you can use this code to detect
+     *              specific request in onActivityResult().
+     */
+    fun selectFileFrom(activity: Activity,
+                       network: SocialNetwork,
+                       fileType: FileType,
+                       storeUponUpload: Boolean,
+                       signature: String,
+                       expire: String,
+                       requestCode: Int = UPLOADCARE_REQUEST_CODE) {
+        activity.startActivityForResult(Intent(activity, UploadcareActivity::class.java).apply {
+            putExtra("network", network.rawValue)
+            putExtra("fileType", fileType.name)
+            putExtra("store", storeUponUpload)
+            putExtra("style", style)
+            putExtra("signature", signature)
+            putExtra("expire", expire)
+        }, requestCode)
+    }
+
+    /**
+     * Select and upload file to Uploadcare from specified network using Signed Upload.
+     *
+     * Signed Upload will be only used if SocialNetwork.SOCIAL_NETWORK_CAMERA,
+     * SocialNetwork.SOCIAL_NETWORK_VIDEOCAM or SocialNetwork.SOCIAL_NETWORK_FILE is selected.
+     * Signed upload won't be used if Selected file is from external network like
+     * Instagram/Facebook etc. is selected.
+     *
+     * @param fragment Fragment
+     * @param network SocialNetwork
+     * @param fileType FileType
+     * @param storeUponUpload is set true - store the file upon uploading. Requires “automatic file storing” setting to be enabled.
+     *              is set false - do not store file upon uploading.
+     *
+     *              To get result with info about uploaded file or error,
+     *              override onActivityResult() method, and use code below to get result
+     *              val result = UploadcareWidgetResult.fromIntent(data)
+     * @param signature is a string sent along with your upload request. It requires your Uploadcare
+     * project secret key and hence should be crafted on your back end.
+     * @param expire sets the time until your signature is valid. It is a Unix time.(ex 1454902434)
+     * @param requestCode custom Request code that will be used, you can use this code to detect
+     *              specific request in onActivityResult().
+     */
+    fun selectFileFrom(fragment: Fragment,
+                       network: SocialNetwork,
+                       fileType: FileType,
+                       storeUponUpload: Boolean,
+                       signature: String,
+                       expire: String,
+                       requestCode: Int = UPLOADCARE_REQUEST_CODE) {
+        fragment.startActivityForResult(Intent(fragment.activity,
+                UploadcareActivity::class.java).apply {
+            putExtra("network", network.rawValue)
+            putExtra("fileType", fileType.name)
+            putExtra("store", storeUponUpload)
+            putExtra("style", style)
+            putExtra("signature", signature)
+            putExtra("expire", expire)
         }, requestCode)
     }
 
