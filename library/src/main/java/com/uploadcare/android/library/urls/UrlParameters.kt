@@ -51,6 +51,12 @@ class FileIdParameter(private val fileId: String) : UrlParameter {
     override fun getValue() = fileId
 }
 
+class AddFieldsParameter(private val fields: String):UrlParameter{
+    override fun getParam() = "add_fields"
+
+    override fun getValue() = fields
+}
+
 enum class Order constructor(val rawValue: String) {
     UPLOAD_TIME_ASC("datetime_uploaded"),
     UPLOAD_TIME_DESC("-datetime_uploaded"),

@@ -9,10 +9,7 @@ import com.uploadcare.android.library.callbacks.*
 import com.uploadcare.android.library.data.CopyFileData
 import com.uploadcare.android.library.data.ObjectMapper
 import com.uploadcare.android.library.exceptions.UploadcareApiException
-import com.uploadcare.android.library.urls.FileIdParameter
-import com.uploadcare.android.library.urls.PublicKeyParameter
-import com.uploadcare.android.library.urls.UrlParameter
-import com.uploadcare.android.library.urls.Urls
+import com.uploadcare.android.library.urls.*
 import okhttp3.FormBody
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -126,6 +123,34 @@ class UploadcareClient constructor(val publicKey: String,
         val url = Urls.apiFile(fileId)
         requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_GET, url.toString(), true,
                 UploadcareFile::class.java, callback)
+    }
+
+    /**
+     * Requests file data, with Rekognition Info if available.
+     *
+     * @param fileId Resource UUID
+     * @return UploadcareFile resource
+     */
+    fun getFileWithRekognitionInfo(fileId: String): UploadcareFile {
+        val url = Urls.apiFile(fileId)
+        return requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(),
+                true, UploadcareFile::class.java,
+                urlParameters = listOf(AddFieldsParameter("rekognition_info")))
+    }
+
+    /**
+     * Requests file data, with Rekognition Info if available, Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param fileId   Resource UUID
+     * @param callback callback  [UploadcareFileCallback] with either
+     * an UploadcareFile response or a failure exception.
+     */
+    fun getFileWithRekognitionInfoAsync(context: Context, fileId: String, callback: UploadcareFileCallback? = null) {
+        val url = Urls.apiFile(fileId)
+        requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_GET, url.toString(), true,
+                UploadcareFile::class.java, callback,
+                urlParameters = listOf(AddFieldsParameter("rekognition_info")))
     }
 
     /**

@@ -63,6 +63,16 @@ class FilesQueryBuilder(private val client: UploadcareClient)
         return this
     }
 
+    /**
+     * Add special fields to the file object in the result.
+     *
+     * @param fields Example: "rekognition_info"
+     */
+    fun addFields(fields: String): FilesQueryBuilder {
+        parameters.add(AddFieldsParameter(fields))
+        return this
+    }
+
     override fun asIterable(): Iterable<UploadcareFile> {
         val url = Urls.apiFiles()
         return client.requestHelper.executePaginatedQuery(url, parameters, true,
