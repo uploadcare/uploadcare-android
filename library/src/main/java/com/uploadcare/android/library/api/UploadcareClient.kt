@@ -53,9 +53,9 @@ class UploadcareClient constructor(val publicKey: String,
         httpClient = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(PublicKeyInterceptor(publicKey))
-                .callTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .callTimeout(5, TimeUnit.MINUTES)
+                .writeTimeout(3, TimeUnit.MINUTES)
+                .readTimeout(1, TimeUnit.MINUTES)
                 .build()
 
         requestHelper = DefaultRequestHelperProvider().get(this)
