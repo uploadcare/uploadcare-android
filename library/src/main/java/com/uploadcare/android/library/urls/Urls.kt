@@ -169,5 +169,35 @@ class Urls private constructor() {
                     .appendQueryParameter("token", token)
             return trustedBuild(builder)
         }
+
+        /**
+         * Creates a URL to the file upload using multipart.
+         *
+         * @see com.uploadcare.android.library.upload.FileUploader
+         */
+        @JvmStatic
+        fun uploadMultipartStart(): URI {
+            return URI.create("$UPLOAD_BASE/multipart/start/")
+        }
+
+        /**
+         * Creates a URL to the file upload using multipart.
+         *
+         * @see com.uploadcare.android.library.upload.FileUploader
+         */
+        @JvmStatic
+        fun uploadMultipartPart(preSignedPartUrl: String): URI {
+            return URI.create("$UPLOAD_BASE$preSignedPartUrl")
+        }
+
+        /**
+         * Creates a URL for multipart upload complete.
+         *
+         * @see com.uploadcare.android.library.upload.FileUploader
+         */
+        @JvmStatic
+        fun uploadMultipartComplete(): URI {
+            return URI.create("$UPLOAD_BASE/multipart/complete/")
+        }
     }
 }

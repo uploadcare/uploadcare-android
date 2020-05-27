@@ -9,15 +9,18 @@ import com.uploadcare.android.library.api.UploadcareClient
 import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.callbacks.UploadFilesCallback
 import com.uploadcare.android.library.data.UploadBaseData
+import com.uploadcare.android.library.data.UploadMultipartCompleteData
+import com.uploadcare.android.library.data.UploadMultipartStartData
 import com.uploadcare.android.library.exceptions.UploadFailureException
+import com.uploadcare.android.library.upload.UploadUtils.Companion.chunkedSequence
 import com.uploadcare.android.library.urls.Urls
+import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.IOException
-import java.io.InputStream
 import java.util.*
 
 /**
@@ -76,80 +79,69 @@ class MultipleFilesUploader : MultipleUploader {
      * @return An list of Uploadcare files
      */
     override fun upload(): List<UploadcareFile> {
-        val uploadUrl = Urls.uploadBase()
-
         val results = ArrayList<UploadcareFile>()
-
         if (files != null) {
             for (file in files) {
+                try {
+                    val name = file.name
+                    val size = file.length()
+                    val contentType = UploadUtils.getMimeType(file)
+                            ?: throw UploadFailureException("Cannot get mime type for file: $name")
 
-                val multipartBuilder = MultipartBody.Builder()
-                        .setType(MultipartBody.FORM)
-                        .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
-                        .addFormDataPart("UPLOADCARE_STORE", store)
-
-                if (!TextUtils.isEmpty(signature) && !TextUtils.isEmpty(expire)) {
-                    multipartBuilder.addFormDataPart("signature", signature!!)
-                    multipartBuilder.addFormDataPart("expire", expire!!)
+                    results.add(if (size > MIN_MULTIPART_SIZE) {
+                        // We can use multipart upload
+                        multipartUpload(name, size, contentType, file.chunkedSequence(CHUNK_SIZE))
+                    } else {
+                        // We can use only direct upload
+                        directUpload(name, file.asRequestBody(contentType))
+                    })
+                } catch (e: UploadFailureException) {
+                    e.printStackTrace()
                 }
-
-                multipartBuilder.addFormDataPart("file", file.name,
-                        file.asRequestBody(UploadUtils.getMimeType(file)))
-
-                val requestBody = multipartBuilder.build()
-
-                val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
-                        uploadUrl.toString(), false, UploadBaseData::class.java, requestBody).file
-                results.add(if (client.privateKey != null) {
-                    client.getFile(fileId)
-                } else {
-                    client.getUploadedFile(client.publicKey, fileId)
-                })
             }
         } else if (context != null && uris != null) {
             val cr = context.contentResolver
             for (uri in uris) {
-
-                val multipartBuilder = MultipartBody.Builder()
-                        .setType(MultipartBody.FORM)
-                        .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
-                        .addFormDataPart("UPLOADCARE_STORE", store)
-
-                if (!TextUtils.isEmpty(signature) && !TextUtils.isEmpty(expire)) {
-                    multipartBuilder.addFormDataPart("signature", signature!!)
-                    multipartBuilder.addFormDataPart("expire", expire!!)
-                }
-
-                var iStream: InputStream? = null
                 try {
-                    iStream = cr.openInputStream(uri)
-                    val inputData = UploadUtils.getBytes(iStream)
-                    inputData?.let {
-                        multipartBuilder.addFormDataPart("file",
-                                UploadUtils.getFileName(uri, context),
-                                it.toRequestBody(UploadUtils.getMimeType(cr, uri)))
-                    }
-                } catch (e: IOException) {
-                    throw UploadFailureException(e)
-                } catch (e: NullPointerException) {
-                    throw UploadFailureException(e)
+                    val name = UploadUtils.getFileName(uri, context)
+                    val size = UploadUtils.getFileSize(uri, context)
+                            ?: throw UploadFailureException("Cannot get file size for uri: $uri")
+                    val contentType = UploadUtils.getMimeType(context.contentResolver, uri)
+                            ?: throw UploadFailureException("Cannot get mime type for uri: $uri")
+
+                    results.add(if (size > MIN_MULTIPART_SIZE) {
+                        // We can use multipart upload
+                        multipartUpload(name, size, contentType, uri.chunkedSequence(context, CHUNK_SIZE))
+                    } else {
+                        // We can use only direct upload
+                        val requestBody = try {
+                            val iStream = cr?.openInputStream(uri)
+                            UploadUtils.getBytes(iStream)?.toRequestBody(contentType)
+                                    ?: throw UploadFailureException("Cannot read file: $name")
+                        } catch (e: IOException) {
+                            throw UploadFailureException(e)
+                        } catch (e: NullPointerException) {
+                            throw UploadFailureException(e)
+                        } catch (e: Exception) {
+                            throw UploadFailureException(e)
+                        }
+
+                        directUpload(name, requestBody)
+                    })
+                } catch (e: UploadFailureException) {
+                    e.printStackTrace()
                 }
-
-                val requestBody = multipartBuilder.build()
-
-                val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
-                        uploadUrl.toString(), false, UploadBaseData::class.java, requestBody).file
-                results.add(if (client.privateKey != null) {
-                    client.getFile(fileId)
-                } else {
-                    client.getUploadedFile(client.publicKey, fileId)
-                })
             }
         }
 
         return results
     }
 
+    /**
+     * Asynchronously uploads the files to Uploadcare.
+     *
+     * @param callback callback {@link UploadFilesCallback}
+     */
     override fun uploadAsync(callback: UploadFilesCallback) {
         MultipleUploadTask(this, callback).execute()
     }
@@ -178,6 +170,103 @@ class MultipleFilesUploader : MultipleUploader {
         this.signature = signature
         this.expire = expire
         return this
+    }
+
+    private fun directUpload(name: String, requestBody: RequestBody): UploadcareFile {
+        val uploadUrl = Urls.uploadBase()
+
+        val multipartBuilder = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
+                .addFormDataPart("UPLOADCARE_STORE", store)
+
+        if (!TextUtils.isEmpty(signature) && !TextUtils.isEmpty(expire)) {
+            multipartBuilder.addFormDataPart("signature", signature!!)
+            multipartBuilder.addFormDataPart("expire", expire!!)
+        }
+
+        multipartBuilder.addFormDataPart("file", name, requestBody)
+
+        val body = multipartBuilder.build()
+
+        val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
+                uploadUrl.toString(), false, UploadBaseData::class.java, body).file
+
+        return if (client.privateKey != null) {
+            client.getFile(fileId)
+        } else {
+            client.getUploadedFile(client.publicKey, fileId)
+        }
+    }
+
+    private fun multipartUpload(name: String,
+                                size: Long,
+                                contentType: MediaType,
+                                chunkedSequence: Sequence<ByteArray>): UploadcareFile {
+        // start multipart upload
+        val multipartData = startMultipartUpload(name, size, contentType)
+
+        // upload parts
+        var i = 0
+        chunkedSequence.forEach {
+            val chunk = it.toRequestBody(contentType)
+            val partUrl = multipartData.parts[i]
+            client.requestHelper.executeCommand(RequestHelper.REQUEST_PUT, partUrl, false, chunk)
+            i += 1
+        }
+
+        val multipartComplete = completeMultipartUpload(multipartData.uuid)
+
+        //complete upload
+        return if (client.privateKey != null) {
+            client.getFile(multipartComplete.uuid)
+        } else {
+            client.getUploadedFile(client.publicKey, multipartComplete.uuid)
+        }
+    }
+
+    private fun startMultipartUpload(name: String,
+                                     size: Long,
+                                     contentType: MediaType): UploadMultipartStartData {
+        val multipartBuilder = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
+                .addFormDataPart("UPLOADCARE_STORE", store)
+
+        if (!TextUtils.isEmpty(signature) && !TextUtils.isEmpty(expire)) {
+            multipartBuilder.addFormDataPart("signature", signature!!)
+            multipartBuilder.addFormDataPart("expire", expire!!)
+        }
+
+        multipartBuilder.addFormDataPart("filename", name)
+        multipartBuilder.addFormDataPart("size", size.toString())
+        multipartBuilder.addFormDataPart("content_type", contentType.toString())
+
+        val uploadUrl = Urls.uploadMultipartStart()
+        val multipartBody = multipartBuilder.build()
+
+        return client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
+                uploadUrl.toString(), false, UploadMultipartStartData::class.java, multipartBody)
+    }
+
+    private fun completeMultipartUpload(uuid: String): UploadMultipartCompleteData {
+        val multipartBuilder = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
+
+        multipartBuilder.addFormDataPart("uuid", uuid)
+
+        val uploadCompleteUrl = Urls.uploadMultipartComplete()
+        val multipartBody = multipartBuilder.build()
+
+        return client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
+                uploadCompleteUrl.toString(), false, UploadMultipartCompleteData::class.java, multipartBody)
+    }
+
+    companion object {
+        private const val MIN_MULTIPART_SIZE: Long = 10485760
+
+        private const val CHUNK_SIZE: Int = 5242880
     }
 }
 

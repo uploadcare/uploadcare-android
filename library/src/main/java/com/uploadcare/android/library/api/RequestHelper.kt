@@ -115,7 +115,7 @@ class RequestHelper(private val client: UploadcareClient) {
             REQUEST_GET -> requestBuilder.get()
             REQUEST_POST -> requestBody?.let { requestBuilder.post(it) }
             REQUEST_DELETE -> requestBody?.let { requestBuilder.delete(it) }
-                    ?: requestBuilder.delete()
+            REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
         }
         if (apiHeaders) {
             setApiHeaders(requestBuilder, url, requestType, requestBodyMD5 = requestBodyMD5,
@@ -123,7 +123,6 @@ class RequestHelper(private val client: UploadcareClient) {
         }
         try {
             val response = client.httpClient.newCall(requestBuilder.build()).execute()
-
             checkResponseStatus(response)
 
             response.body?.string()?.let {
@@ -131,6 +130,8 @@ class RequestHelper(private val client: UploadcareClient) {
                 result?.let { return result } ?: throw UploadcareApiException("Can't parse result")
             } ?: throw UploadcareApiException("No response")
         } catch (e: RuntimeException) {
+            throw UploadcareApiException(e)
+        } catch (e: IOException) {
             throw UploadcareApiException(e)
         }
     }
@@ -155,7 +156,7 @@ class RequestHelper(private val client: UploadcareClient) {
             REQUEST_GET -> requestBuilder.get()
             REQUEST_POST -> requestBody?.let { requestBuilder.post(it) }
             REQUEST_DELETE -> requestBody?.let { requestBuilder.delete(it) }
-                    ?: requestBuilder.delete()
+            REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
         }
         if (apiHeaders) {
             setApiHeaders(requestBuilder, url, requestType, callback, requestBodyMD5,

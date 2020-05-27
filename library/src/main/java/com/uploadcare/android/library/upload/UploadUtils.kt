@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.webkit.MimeTypeMap
+import com.uploadcare.android.library.exceptions.UploadFailureException
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.File
@@ -38,6 +39,23 @@ class UploadUtils {
                     result = result.substring(cut + 1)
                 }
             }
+            return result
+        }
+
+        fun getFileSize(uri: Uri, context: Context): Long? {
+            var result: Long? = null
+
+            if (uri.scheme == "content") {
+                val cursor = context.contentResolver.query(uri, null, null, null, null)
+                try {
+                    if (cursor != null && cursor.moveToFirst()) {
+                        result = cursor.getLong(cursor.getColumnIndex(OpenableColumns.SIZE))
+                    }
+                } finally {
+                    cursor?.close()
+                }
+            }
+
             return result
         }
 
@@ -75,6 +93,72 @@ class UploadUtils {
                 val extension = MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(File(uri.path!!)).toString())
                 val type = mime.getMimeTypeFromExtension(extension) ?: return MEDIA_TYPE_TEXT_PLAIN
                 return type.toMediaTypeOrNull()
+            }
+        }
+
+        fun File.chunkedSequence(chunk: Int): Sequence<ByteArray> {
+            val input = this.inputStream().buffered()
+            val buffer = ByteArray(chunk)
+            return generateSequence {
+                val red = input.read(buffer)
+                if (red >= 0) buffer.copyOf(red)
+                else {
+                    input.close()
+                    null
+                }
+            }
+        }
+
+        fun InputStream.chunkedSequence(chunk: Int): Sequence<ByteArray> {
+            val input = this.buffered()
+            val buffer = ByteArray(chunk)
+            return generateSequence {
+                val red = input.read(buffer)
+                if (red >= 0) buffer.copyOf(red)
+                else {
+                    input.close()
+                    null
+                }
+            }
+        }
+
+        fun Uri.chunkedSequence(context: Context, chunk: Int): Sequence<ByteArray> {
+            val input = context.contentResolver?.openInputStream(this)?.buffered()
+                    ?: throw UploadFailureException(IllegalArgumentException())
+            val buffer = ByteArray(chunk)
+            return generateSequence {
+                val red = input.read(buffer)
+                if (red >= 0) buffer.copyOf(red)
+                else {
+                    input.close()
+                    null
+                }
+            }
+        }
+
+        fun String.chunkedSequence(chunk: Int): Sequence<ByteArray> {
+            val input = this.byteInputStream()
+            val buffer = ByteArray(chunk)
+            return generateSequence {
+                val red = input.read(buffer)
+                if (red >= 0) buffer.copyOf(red)
+                else {
+                    input.close()
+                    null
+                }
+            }
+        }
+
+        fun ByteArray.chunkedSequence(chunk: Int): Sequence<ByteArray> {
+            val input = this.inputStream()
+            val buffer = ByteArray(chunk)
+            return generateSequence {
+                val red = input.read(buffer)
+                if (red >= 0) buffer.copyOf(red)
+                else {
+                    input.close()
+                    null
+                }
             }
         }
     }
