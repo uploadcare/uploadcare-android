@@ -37,12 +37,14 @@ import javax.crypto.spec.SecretKeySpec
  */
 class RequestHelper(private val client: UploadcareClient) {
 
-    @Throws(NoSuchAlgorithmException::class, InvalidKeyException::class)
+    @Throws(NoSuchAlgorithmException::class, InvalidKeyException::class, UploadcareApiException::class)
     fun makeSignature(url: String,
                       date: String,
                       requestType: String,
                       requestBodyMD5: String? = null,
                       contentType: String? = null): String {
+        client.secretKey?: throw UploadcareApiException("Secret key is required for this request.")
+
         val uriStartIndex = url.indexOf(Urls.API_BASE) + Urls.API_BASE.length
         val uri = url.substring(uriStartIndex, url.length)
         val sb = StringBuilder()
