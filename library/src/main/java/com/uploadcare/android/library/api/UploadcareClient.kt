@@ -25,17 +25,17 @@ import java.util.concurrent.TimeUnit
  * Can use simple or secure authentication.
  *
  * @param publicKey  Public key
- * @param privateKey Private key, required for any request to Uploadcare REST API.
+ * @param secretKey Private key, required for any request to Uploadcare REST API.
  * @param simpleAuth If {@code false}, HMAC-based authentication is used, otherwise simple
  * authentication is used.
  */
 class UploadcareClient constructor(val publicKey: String,
-                                   val privateKey: String? = null,
+                                   val secretKey: String? = null,
                                    val simpleAuth: Boolean = false) {
 
     constructor(publicKey: String) : this(publicKey, null, false)
 
-    constructor(publicKey: String, privateKey: String) : this(publicKey, privateKey, false)
+    constructor(publicKey: String, secretKey: String) : this(publicKey, secretKey, false)
 
     val httpClient: OkHttpClient
     val requestHelper: RequestHelper
@@ -86,7 +86,7 @@ class UploadcareClient constructor(val publicKey: String,
     }
 
     /**
-     * Request file data for uploaded file. Does not require "privatekey" set for UploadcareClient.
+     * Request file data for uploaded file. Does not require "secretKey" set for UploadcareClient.
      */
     fun getUploadedFile(publicKey: String, fileId: String): UploadcareFile {
         val url = Urls.apiUploadedFile(fileId)
@@ -509,7 +509,7 @@ class UploadcareClient constructor(val publicKey: String,
 
         @JvmStatic
         fun demoClient(): UploadcareClient {
-            return UploadcareClient("demopublickey", "demoprivatekey")
+            return UploadcareClient("demopublickey", "demosecretkey")
         }
 
         @JvmStatic

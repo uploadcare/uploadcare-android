@@ -263,7 +263,7 @@ class FileUploader : Uploader {
         val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
                 uploadUrl.toString(), false, UploadBaseData::class.java, body).file
 
-        return if (client.privateKey != null) {
+        return if (client.secretKey != null) {
             client.getFile(fileId)
         } else {
             client.getUploadedFile(client.publicKey, fileId)
@@ -322,7 +322,7 @@ class FileUploader : Uploader {
         val multipartComplete = completeMultipartUpload(multipartData.uuid)
 
         //complete upload
-        return if (client.privateKey != null) {
+        return if (client.secretKey != null) {
             client.getFile(multipartComplete.uuid)
         } else {
             client.getUploadedFile(client.publicKey, multipartComplete.uuid)

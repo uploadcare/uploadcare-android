@@ -57,7 +57,7 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
             val (status, fileId) = client.requestHelper.executeQuery(RequestHelper.REQUEST_GET,
                     statusUrl.toString(), false, UploadFromUrlStatusData::class.java)
             if (status == "success" && fileId != null) {
-                return if (client.privateKey != null) {
+                return if (client.secretKey != null) {
                     client.getFile(fileId)
                 } else {
                     client.getUploadedFile(client.publicKey, fileId)

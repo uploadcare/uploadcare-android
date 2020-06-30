@@ -34,7 +34,7 @@ Asynchronous fetch all files.
 
 Java
 ```java
-UploadcareClient client = new UploadcareClient("publickey", "privatekey");
+UploadcareClient client = new UploadcareClient("publickey", "secretkey");
 client.getFiles().asListAsync(new UploadcareAllFilesCallback() {
     @Override
     public void onFailure(@NotNull UploadcareApiException e) {
@@ -49,7 +49,7 @@ client.getFiles().asListAsync(new UploadcareAllFilesCallback() {
 ```
 Kotlin
 ```kotlin
-val client = UploadcareClient("publickey", "privatekey")
+val client = UploadcareClient("publickey", "secretkey")
 client.getFiles().asListAsync(object : UploadcareAllFilesCallback {
     override fun onFailure(e: UploadcareApiException) {
         //handle errors.
@@ -65,7 +65,7 @@ Synchronous fetch all files.
 
 Java
 ```java
-UploadcareClient client = new UploadcareClient("publickey", "privatekey");
+UploadcareClient client = new UploadcareClient("publickey", "secretkey");
 Iterable<UploadcareFile> files = client.getFiles().asIterable();
 for (UploadcareFile file : files) {
     System.out.println(file.toString());
@@ -73,7 +73,7 @@ for (UploadcareFile file : files) {
 ```
 Kotlin
 ```kotlin
-val client = UploadcareClient("publickey", "privatekey")
+val client = UploadcareClient("publickey", "secretkey")
 val files = client.getFiles().asList()
 for(file in files){
     System.out.println(file)
@@ -90,7 +90,7 @@ Asynchronous fetch all groups.
 
 Java
 ```java
-UploadcareClient client = new UploadcareClient("publickey", "privatekey");
+UploadcareClient client = new UploadcareClient("publickey", "secretkey");
 client.getGroups().asListAsync(new UploadcareAllGroupsCallback() {
     @Override
     public void onFailure(@NotNull UploadcareApiException e) {
@@ -105,7 +105,7 @@ client.getGroups().asListAsync(new UploadcareAllGroupsCallback() {
 ```
 Kotlin
 ```kotlin
-val client = UploadcareClient("publickey", "privatekey")
+val client = UploadcareClient("publickey", "secretkey")
 client.getGroups().asListAsync(object : UploadcareAllGroupsCallback {
     override fun onFailure(e: UploadcareApiException) {
         //handle errors.
@@ -121,7 +121,7 @@ Synchronous fetch all groups.
 
 Java
 ```java
-UploadcareClient client = new UploadcareClient("publickey", "privatekey");
+UploadcareClient client = new UploadcareClient("publickey", "secretkey");
 Iterable<UploadcareGroup> groups = client.getGroups().asIterable();
 for (UploadcareGroup group : groups) {
     System.out.println(group.toString());
@@ -129,7 +129,7 @@ for (UploadcareGroup group : groups) {
 ```
 Kotlin
 ```kotlin
-val client = UploadcareClient("publickey", "privatekey")
+val client = UploadcareClient("publickey", "secretkey")
 val groups = client.getGroups().asIterable()
 for (group in groups) {
     println(group)

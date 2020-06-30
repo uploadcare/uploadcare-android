@@ -81,7 +81,7 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
                 val (status, fileId) = client.requestHelper.executeQuery(RequestHelper.REQUEST_GET,
                         statusUrl.toString(), false, UploadFromUrlStatusData::class.java)
                 if (status == "success" && fileId != null) {
-                    results.add(if (client.privateKey != null) {
+                    results.add(if (client.secretKey != null) {
                         client.getFile(fileId)
                     } else {
                         client.getUploadedFile(client.publicKey, fileId)
