@@ -1,8 +1,8 @@
 package com.uploadcare.android.library.callbacks
 
 import androidx.annotation.NonNull
-import com.uploadcare.android.library.data.CopyFileData
 import com.uploadcare.android.library.api.Project
+import com.uploadcare.android.library.api.UploadcareCopyFile
 import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.api.UploadcareGroup
 import com.uploadcare.android.library.exceptions.UploadcareApiException
@@ -27,7 +27,7 @@ interface BasePaginationCallback<T> {
 
 interface RequestCallback : BaseCallback<Response>
 
-interface CopyFileCallback : BaseCallback<CopyFileData>
+interface CopyFileCallback : BaseCallback<UploadcareCopyFile>
 
 interface ProjectCallback : BaseCallback<Project>
 

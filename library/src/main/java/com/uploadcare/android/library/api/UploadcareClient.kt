@@ -2,15 +2,15 @@ package com.uploadcare.android.library.api
 
 import android.content.Context
 import android.os.AsyncTask
+import android.text.TextUtils
 import com.squareup.moshi.Types
 import com.uploadcare.android.library.BuildConfig
 import com.uploadcare.android.library.api.RequestHelper.Companion.md5
 import com.uploadcare.android.library.callbacks.*
-import com.uploadcare.android.library.data.CopyFileData
+import com.uploadcare.android.library.data.CopyOptionsData
 import com.uploadcare.android.library.data.ObjectMapper
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.urls.*
-import okhttp3.FormBody
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
@@ -444,42 +444,164 @@ class UploadcareClient constructor(val publicKey: String,
     }
 
     /**
-     * @param fileId  Resource UUID
-     * @param storage Target storage name
-     * @return An object containing the results of the copy request
+     * @deprecated Use {@link #copyFileLocalStorage(String, Boolean)}
+     * or {@link #copyFileRemoteStorage(String, String, Boolean, String)} instead.
+     *
+     * @param source  File Resource UUID or A CDN URL.
+     * @param storage Target storage name. If {@code null} local file copy will be executed,
+     * else remote file copy will be executed.
+     *
+     * @return UploadcareCopyFile resource with result of Copy operation
      */
-    fun copyFile(fileId: String, storage: String?): CopyFileData {
-        val url = Urls.apiFiles()
-
-        val formBuilder = FormBody.Builder().add("source", fileId)
-
-        if (storage != null && !storage.isEmpty()) {
-            formBuilder.add("target", storage)
+    @Deprecated(message = "Deprecated since v2.3.0", replaceWith = ReplaceWith("copyFileRemoteStorage(source, storage)"))
+    fun copyFile(source: String, storage: String? = null): UploadcareCopyFile {
+        return if (!TextUtils.isEmpty(storage)) {
+            copyFileRemoteStorage(source, storage)
+        } else {
+            copyFileLocalStorage(source)
         }
-        val formBody = formBuilder.build()
-        return requestHelper.executeQuery(RequestHelper.REQUEST_POST, url.toString(), true,
-                CopyFileData::class.java, formBody, formBody.md5())
     }
 
     /**
-     * @param context  Application context. @link android.content.Context
-     * @param fileId   Resource UUID
-     * @param storage  Target storage name
-     * @param callback callback  [CopyFileCallback] with either
-     * an CopyFileData response or a failure exception.
+     * Copy file to local storage. Copy original files or their modified versions to default storage. Source files MAY
+     * either be stored or just uploaded and MUST NOT be deleted.
+     *
+     * @param source     File Resource UUID or A CDN URL.
+     * @param store      The parameter only applies to the Uploadcare storage and MUST be either true or false.
+     *
+     * @return An object containing the results of the copy request
      */
-    fun copyFileAsync(context: Context, fileId: String, storage: String?,
-                      callback: CopyFileCallback? = null) {
-        val url = Urls.apiFiles()
+    fun copyFileLocalStorage(source: String, store: Boolean = true): UploadcareCopyFile {
+        val copyOptionsData = CopyOptionsData(source, store = store)
 
-        val formBuilder = FormBody.Builder().add("source", fileId)
-        if (storage != null && !storage.isEmpty()) {
-            formBuilder.add("target", storage)
+        val requestBodyContent = objectMapper.toJson(copyOptionsData, CopyOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+
+        val url = Urls.apiFileLocalCopy()
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_POST, url.toString(), true,
+                UploadcareCopyFile::class.java, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Copy file to remote storage. Copy original files or their modified versions to a custom storage. Source files
+     * MAY either be stored or just uploaded and MUST NOT be deleted.
+     *
+     * @param source     File Resource UUID or A CDN URL.
+     * @param target     Identifies a custom storage name related to your project. Implies you are copying a file to a
+     *                   specified custom storage. Keep in mind you can have multiple storages associated with a single
+     *                   S3 bucket.
+     * @param makePublic MUST be either true or false. true to make copied files available via public links, false to
+     *                   reverse the behavior.
+     * @param pattern    The parameter is used to specify file names Uploadcare passes to a custom storage. In case the
+     *                   parameter is omitted, we use pattern of your custom storage. Use any combination of allowed
+     *                   values.
+     *
+     * @return An object containing the results of the copy request
+     */
+    fun copyFileRemoteStorage(source: String,
+                              target: String? = null,
+                              makePublic: Boolean = true,
+                              pattern: String? = null): UploadcareCopyFile {
+        val copyOptionsData = CopyOptionsData(
+                source,
+                target = target,
+                makePublic = makePublic,
+                pattern = pattern)
+
+        val requestBodyContent = objectMapper.toJson(copyOptionsData, CopyOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+
+        val url = Urls.apiFileRemoteCopy()
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_POST, url.toString(), true,
+                UploadcareCopyFile::class.java, body, requestBodyContent.md5())
+    }
+
+    /**
+     * @deprecated Use {@link #copyFileLocalStorageAsync(Context, String, Boolean, Callback)}
+     * or {@link #copyFileRemoteStorageAsync(Context, String, String, Boolean, String, Callback)} instead.
+     *
+     * @param context  Application context. @link android.content.Context
+     * @param source  File Resource UUID or A CDN URL.
+     * @param storage Target storage name. If {@code null} local file copy will be executed,
+     * else remote file copy will be executed.
+     * @param callback callback  [CopyFileCallback] with either
+     * an UploadcareCopyFile response or a failure exception.
+     */
+    @Deprecated(message = "Deprecated since v2.3.0", replaceWith = ReplaceWith("copyFileRemoteStorageAsync(context, source, storage, callback)"))
+    fun copyFileAsync(context: Context,
+                      source: String,
+                      storage: String? = null,
+                      callback: CopyFileCallback? = null) {
+        if (!TextUtils.isEmpty(storage)) {
+            copyFileRemoteStorageAsync(context, source, storage, callback = callback)
+        } else {
+            copyFileLocalStorageAsync(context, source, callback = callback)
         }
-        val formBody = formBuilder.build()
+    }
+
+    /**
+     * Copy file to local storage. Copy original files or their modified versions to default storage. Source files MAY
+     * either be stored or just uploaded and MUST NOT be deleted.
+     *
+     * @param context  Application context. @link android.content.Context
+     * @param source     File Resource UUID or A CDN URL.
+     * @param store      The parameter only applies to the Uploadcare storage and MUST be either true or false.
+     * @param callback callback  [CopyFileCallback] with either
+     * an UploadcareCopyFile response or a failure exception.
+     */
+    fun copyFileLocalStorageAsync(context: Context,
+                                  source: String,
+                                  store: Boolean = true,
+                                  callback: CopyFileCallback? = null) {
+        val copyOptionsData = CopyOptionsData(source, store = store)
+
+        val requestBodyContent = objectMapper.toJson(copyOptionsData, CopyOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+
+        val url = Urls.apiFileLocalCopy()
 
         requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_POST, url.toString(), true,
-                CopyFileData::class.java, callback, formBody, formBody.md5())
+                UploadcareCopyFile::class.java, callback, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Copy file to remote storage. Copy original files or their modified versions to a custom storage. Source files
+     * MAY either be stored or just uploaded and MUST NOT be deleted.
+     *
+     * @param context  Application context. @link android.content.Context
+     * @param source     File Resource UUID or A CDN URL.
+     * @param target     Identifies a custom storage name related to your project. Implies you are copying a file to a
+     *                   specified custom storage. Keep in mind you can have multiple storages associated with a single
+     *                   S3 bucket.
+     * @param makePublic MUST be either true or false. true to make copied files available via public links, false to
+     *                   reverse the behavior.
+     * @param pattern    The parameter is used to specify file names Uploadcare passes to a custom storage. In case the
+     *                   parameter is omitted, we use pattern of your custom storage. Use any combination of allowed
+     *                   values.
+     * @param callback callback  [CopyFileCallback] with either
+     * an UploadcareCopyFile response or a failure exception.
+     */
+    fun copyFileRemoteStorageAsync(context: Context,
+                                   source: String,
+                                   target: String? = null,
+                                   makePublic: Boolean = true,
+                                   pattern: String? = null,
+                                   callback: CopyFileCallback? = null) {
+        val copyOptionsData = CopyOptionsData(
+                source,
+                target = target,
+                makePublic = makePublic,
+                pattern = pattern)
+
+        val requestBodyContent = objectMapper.toJson(copyOptionsData, CopyOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+
+        val url = Urls.apiFileRemoteCopy()
+
+        requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_POST, url.toString(), true,
+                UploadcareCopyFile::class.java, callback, body, requestBodyContent.md5())
     }
 
     internal fun executeSaveDeleteBatchCommand(requestType: String,

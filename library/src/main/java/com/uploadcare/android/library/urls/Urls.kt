@@ -96,6 +96,26 @@ class Urls private constructor() {
         }
 
         /**
+         * Creates a URL to the file local copy resource.
+         *
+         * @see com.uploadcare.android.library.api.UploadcareClient
+         */
+        @JvmStatic
+        fun apiFileLocalCopy(): URI {
+            return URI.create("$API_BASE/files/local_copy/")
+        }
+
+        /**
+         * Creates a URL to the file remote copy resource.
+         *
+         * @see com.uploadcare.android.library.api.UploadcareClient
+         */
+        @JvmStatic
+        fun apiFileRemoteCopy(): URI {
+            return URI.create("$API_BASE/files/remote_copy/")
+        }
+
+        /**
          * Creates a URL to the storage action for a multiple files (saving/deleting the files).
          *
          * @see com.uploadcare.android.library.api.UploadcareClient
