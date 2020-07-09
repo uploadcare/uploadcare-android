@@ -9,10 +9,12 @@ import com.uploadcare.android.library.api.RequestHelper.Companion.md5
 import com.uploadcare.android.library.callbacks.*
 import com.uploadcare.android.library.data.CopyOptionsData
 import com.uploadcare.android.library.data.ObjectMapper
+import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.urls.*
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
@@ -604,6 +606,106 @@ class UploadcareClient constructor(val publicKey: String,
                 UploadcareCopyFile::class.java, callback, body, requestBodyContent.md5())
     }
 
+    /**
+     * Create files group from a set of files by using their UUIDs.
+     *
+     * @param fileIds  That parameter defines a set of files you want to join in a group.
+     * @param jsonpCallback Sets the name of your JSONP callback function.
+     *
+     * @return New created Group resource instance.
+     */
+    fun createGroup(fileIds: List<String>, jsonpCallback: String? = null): UploadcareGroup {
+        return createGroupInternal(fileIds, jsonpCallback = jsonpCallback)
+    }
+
+    /**
+     * Create files group from a set of files by using their UUIDs. Using Signed Uploads.
+     *
+     * @param fileIds  That parameter defines a set of files you want to join in a group.
+     * @param signature is a string sent along with your upload request. It requires your Uploadcare
+     *                  project secret key and hence should be crafted on your back end.
+     * @param expire    sets the time until your signature is valid. It is a Unix time.(ex 1454902434)
+     * @param jsonpCallback Sets the name of your JSONP callback function.
+     *
+     * @return New created Group resource instance.
+     */
+    fun createGroupSigned(fileIds: List<String>,
+                          signature: String,
+                          expire: String,
+                          jsonpCallback: String? = null): UploadcareGroup {
+        return createGroupInternal(fileIds, jsonpCallback = jsonpCallback,
+                signature = signature, expire = expire)
+    }
+
+    /**
+     * Create files group from a set of files by using their UUIDs.
+     *
+     * @param fileIds  That parameter defines a set of files you want to join in a group.
+     * @param jsonpCallback Sets the name of your JSONP callback function.
+     * @param callback callback  [UploadcareGroupCallback] with either
+     * an UploadcareGroup response or a failure exception.
+     */
+    fun createGroupAsync(fileIds: List<String>,
+                         jsonpCallback: String? = null,
+                         callback: UploadcareGroupCallback? = null) {
+        CreateGroupTask(this, fileIds, jsonpCallback = jsonpCallback, callback = callback).execute()
+    }
+
+    /**
+     * Create files group from a set of files by using their UUIDs.
+     *
+     * @param fileIds  That parameter defines a set of files you want to join in a group.
+     * @param signature is a string sent along with your upload request. It requires your Uploadcare
+     *                  project secret key and hence should be crafted on your back end.
+     * @param expire    sets the time until your signature is valid. It is a Unix time.(ex 1454902434)
+     * @param jsonpCallback Sets the name of your JSONP callback function.
+     * @param callback callback  [UploadcareGroupCallback] with either
+     * an UploadcareGroup response or a failure exception.
+     */
+    fun createGroupSignedAsync(context: Context,
+                               fileIds: List<String>,
+                               signature: String,
+                               expire: String,
+                               jsonpCallback: String? = null,
+                               callback: UploadcareGroupCallback? = null) {
+        CreateGroupTask(
+                this,
+                fileIds,
+                jsonpCallback = jsonpCallback,
+                signature = signature,
+                expire = expire,
+                callback = callback)
+                .execute()
+    }
+
+    internal fun createGroupInternal(fileIds: List<String>,
+                                     jsonpCallback: String? = null,
+                                     signature: String? = null,
+                                     expire: String? = null): UploadcareGroup {
+        val multipartBuilder = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("pub_key", publicKey)
+
+        jsonpCallback?.let {
+            multipartBuilder.addFormDataPart("callback", it)
+        }
+
+        if (!TextUtils.isEmpty(signature) && !TextUtils.isEmpty(expire)) {
+            multipartBuilder.addFormDataPart("signature", signature!!)
+            multipartBuilder.addFormDataPart("expire", expire!!)
+        }
+
+        for (i in 0 until fileIds.size) {
+            multipartBuilder.addFormDataPart("files[$i]", fileIds[i])
+        }
+
+        val url = Urls.apiCreateGroup()
+        val body = multipartBuilder.build()
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_POST,
+                url.toString(), false, UploadcareGroup::class.java, body)
+    }
+
     internal fun executeSaveDeleteBatchCommand(requestType: String,
                                                fileIds: List<String>): Response? {
         val url = Urls.apiFilesBatch()
@@ -674,4 +776,28 @@ private class SaveDeleteBatchTask(private val client: UploadcareClient,
         }
     }
 
+}
+
+private class CreateGroupTask(private val client: UploadcareClient,
+                              private val fileIds: List<String>,
+                              private val jsonpCallback: String? = null,
+                              private val signature: String? = null,
+                              private val expire: String? = null,
+                              private val callback: UploadcareGroupCallback? = null)
+    : AsyncTask<Void, Void, UploadcareGroup?>() {
+    override fun doInBackground(vararg p0: Void?): UploadcareGroup? {
+        return try {
+            client.createGroupInternal(fileIds, jsonpCallback, signature, expire)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    override fun onPostExecute(result: UploadcareGroup?) {
+        if (result != null) {
+            callback?.onSuccess(result)
+        } else {
+            callback?.onFailure(UploadFailureException())
+        }
+    }
 }

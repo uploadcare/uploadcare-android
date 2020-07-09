@@ -136,6 +136,16 @@ class Urls private constructor() {
         }
 
         /**
+         * Creates a URL to the group resource.
+         *
+         * @see com.uploadcare.android.library.api.UploadcareClient
+         */
+        @JvmStatic
+        fun apiCreateGroup(): URI {
+            return URI.create("$UPLOAD_BASE/group/")
+        }
+
+        /**
          * Creates a full CDN URL with a CDN path builder.
          *
          * @param builder Configured CDN path builder

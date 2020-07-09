@@ -10,9 +10,9 @@ import java.util.*
 data class UploadcareGroup(val id: String,
                            val url: URI,
                            val files: List<UploadcareFile>? = null,
-                           @Json(name = "datetime_created") val datetimeCreated: Date,
-                           @Json(name = "datetime_stored") val datetimeStored: Date,
-                           @Json(name = "files_count") val filesCount: Int,
+                           @Json(name = "datetime_created") val datetimeCreated: Date?,
+                           @Json(name = "datetime_stored") val datetimeStored: Date?,
+                           @Json(name = "files_count") val filesCount: Int = 0,
                            @Json(name = "cdn_url") val cdnUrl: URI) : Parcelable {
 
     fun hasFiles() = files != null
