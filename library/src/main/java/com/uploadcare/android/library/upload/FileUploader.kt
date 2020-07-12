@@ -388,7 +388,7 @@ class FileUploader : Uploader {
 
         private const val CHUNK_SIZE: Int = 5242880
 
-        private const val DEFAULT_FILE_NAME = "default_filename"
+        internal const val DEFAULT_FILE_NAME = "default_filename"
     }
 }
 

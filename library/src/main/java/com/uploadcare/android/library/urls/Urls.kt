@@ -192,20 +192,11 @@ class Urls private constructor() {
         /**
          * Creates a URL for URL upload.
          *
-         * @param sourceUrl URL to upload from
-         * @param pubKey Public key
-         *
          * @see com.uploadcare.android.library.upload.UrlUploader
          */
         @JvmStatic
-        fun uploadFromUrl(sourceUrl: String, pubKey: String, store: String): URI {
-            val builder = Uri.parse(UPLOAD_BASE)
-                    .buildUpon()
-                    .appendPath("/from_url/")
-                    .appendQueryParameter("source_url", sourceUrl)
-                    .appendQueryParameter("pub_key", pubKey)
-                    .appendQueryParameter("store", store)
-            return trustedBuild(builder)
+        fun uploadFromUrl(): URI {
+            return URI.create("$UPLOAD_BASE/from_url/")
         }
 
         /**
