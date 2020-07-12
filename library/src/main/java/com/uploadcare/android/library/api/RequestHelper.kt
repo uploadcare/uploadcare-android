@@ -548,7 +548,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
         private const val DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z"
 
-        private const val DATE_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        private const val DATE_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss"
 
         private val UTC = TimeZone.getTimeZone("UTC")
 
