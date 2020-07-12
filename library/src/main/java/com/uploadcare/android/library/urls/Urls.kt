@@ -62,6 +62,24 @@ class Urls private constructor() {
         }
 
         /**
+         * Creates a URL to a group resource with files included.
+         *
+         * @param publicKey
+         * @param groupId   File UUID
+         *
+         * @see com.uploadcare.android.library.api.UploadcareClient
+         */
+        @JvmStatic
+        fun apiUploadedGroup(publicKey: String, groupId: String): URI {
+            val builder = Uri.parse(UPLOAD_BASE)
+                    .buildUpon()
+                    .appendPath("/group/info/")
+                    .appendQueryParameter("pub_key", publicKey)
+                    .appendQueryParameter("group_id", groupId)
+            return trustedBuild(builder)
+        }
+
+        /**
          * Creates a URL to the storage action for a file (saving the file).
          *
          * @param fileId File UUID

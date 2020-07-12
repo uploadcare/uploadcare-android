@@ -167,6 +167,18 @@ class UploadcareClient constructor(val publicKey: String,
     }
 
     /**
+     * Request file data for uploaded file. Does not require "secretKey" set for UploadcareClient.
+     *
+     * @param groupId Group ID
+     */
+    fun getUploadedGroup(groupId: String): UploadcareGroup {
+        val url = Urls.apiUploadedGroup(publicKey, groupId)
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(),
+                false, UploadcareGroup::class.java)
+    }
+
+    /**
      * Requests file data Asynchronously.
      *
      * @param context  Application context. [android.content.Context]
