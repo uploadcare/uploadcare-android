@@ -266,7 +266,7 @@ class FileUploader : Uploader {
         return if (client.secretKey != null) {
             client.getFile(fileId)
         } else {
-            client.getUploadedFile(client.publicKey, fileId)
+            client.getUploadedFile(fileId)
         }
     }
 
@@ -325,7 +325,7 @@ class FileUploader : Uploader {
         return if (client.secretKey != null) {
             client.getFile(multipartComplete.uuid)
         } else {
-            client.getUploadedFile(client.publicKey, multipartComplete.uuid)
+            client.getUploadedFile(multipartComplete.uuid)
         }
     }
 

@@ -88,16 +88,15 @@ class UploadcareClient constructor(val publicKey: String,
 
     /**
      * Request file data for uploaded file. Does not require "secretKey" set for UploadcareClient.
+     *
+     * @param fileId Resource UUID
+     * @return UploadcareFile resource
      */
-    fun getUploadedFile(publicKey: String, fileId: String): UploadcareFile {
-        val url = Urls.apiUploadedFile(fileId)
-
-        val parameters: MutableList<UrlParameter> = mutableListOf()
-        parameters.add(PublicKeyParameter(publicKey))
-        parameters.add(FileIdParameter(fileId))
+    fun getUploadedFile(fileId: String): UploadcareFile {
+        val url = Urls.apiUploadedFile(publicKey, fileId)
 
         return requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(),
-                false, UploadcareFile::class.java, urlParameters = parameters)
+                false, UploadcareFile::class.java)
     }
 
     /**

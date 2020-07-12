@@ -60,7 +60,7 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
                 return if (client.secretKey != null) {
                     client.getFile(fileId)
                 } else {
-                    client.getUploadedFile(client.publicKey, fileId)
+                    client.getUploadedFile(fileId)
                 }
             } else if (status == "error" || status == "failed") {
                 throw UploadFailureException(status)

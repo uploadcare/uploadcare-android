@@ -28,13 +28,19 @@ class Urls private constructor() {
         /**
          * Creates a URL to a uploaded file resource.
          *
+         * @param publicKey
          * @param fileId File UUID
          *
          * @see com.uploadcare.android.library.api.UploadcareClient
          */
         @JvmStatic
-        fun apiUploadedFile(fileId: String): URI {
-            return URI.create("$UPLOAD_BASE/info/")
+        fun apiUploadedFile(publicKey: String, fileId: String): URI {
+            val builder = Uri.parse(UPLOAD_BASE)
+                    .buildUpon()
+                    .appendPath("/info/")
+                    .appendQueryParameter("pub_key", publicKey)
+                    .appendQueryParameter("file_id", fileId)
+            return trustedBuild(builder)
         }
 
         /**

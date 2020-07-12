@@ -84,7 +84,7 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
                     results.add(if (client.secretKey != null) {
                         client.getFile(fileId)
                     } else {
-                        client.getUploadedFile(client.publicKey, fileId)
+                        client.getUploadedFile(fileId)
                     })
                     break
                 } else if (status == "error" || status == "failed") {
