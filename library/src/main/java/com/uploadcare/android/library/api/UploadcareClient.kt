@@ -13,7 +13,6 @@ import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.urls.*
 import okhttp3.Interceptor
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -187,9 +186,9 @@ class UploadcareClient constructor(val publicKey: String,
      * @param groupId Group ID
      */
     fun storeGroup(groupId: String) {
-        val requestBody = groupId.toRequestBody("".toMediaTypeOrNull())
+        val requestBody = groupId.encodeUtf8().toRequestBody(RequestHelper.JSON)
         val url = Urls.apiGroupStorage(groupId)
-        requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, requestBody)
+        requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, requestBody, groupId.md5())
     }
 
     /**
@@ -201,10 +200,10 @@ class UploadcareClient constructor(val publicKey: String,
      * an HTTP response or a failure exception.
      */
     fun storeGroupAsync(context: Context, groupId: String, callback: RequestCallback? = null) {
-        val requestBody = groupId.toRequestBody("".toMediaTypeOrNull())
+        val requestBody = groupId.encodeUtf8().toRequestBody(RequestHelper.JSON)
         val url = Urls.apiGroupStorage(groupId)
         requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
-                true, callback, requestBody)
+                true, callback, requestBody, groupId.md5())
     }
 
     /**
