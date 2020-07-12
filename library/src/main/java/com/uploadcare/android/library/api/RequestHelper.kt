@@ -53,7 +53,7 @@ class RequestHelper(private val client: UploadcareClient) {
                 .append("\n").append(contentType?.let { it } ?: JSON_CONTENT_TYPE)
                 .append("\n").append(date)
                 .append("\n").append(uri)
-        val secretKeyBytes = client.secretKey?.toByteArray() ?: "".toByteArray()
+        val secretKeyBytes = client.secretKey.toByteArray()
         val signingKey = SecretKeySpec(secretKeyBytes, MAC_ALGORITHM)
         val mac = Mac.getInstance(MAC_ALGORITHM)
         mac.init(signingKey)
@@ -470,9 +470,7 @@ class RequestHelper(private val client: UploadcareClient) {
                 if (!response.isSuccessful) {
                     if (callback != null) {
                         mainHandler.post {
-                            callback.onFailure(
-                                    UploadcareApiException(
-                                            "Unexpected code " + response.body?.string()))
+                            callback.onFailure(UploadcareApiException("Unexpected code $response"))
                         }
                     }
                 }
@@ -499,12 +497,12 @@ class RequestHelper(private val client: UploadcareClient) {
         if (statusCode in 200..299) {
             return
         } else if (statusCode == 401 || statusCode == 403) {
-            throw UploadcareAuthenticationException(response.body?.string())
+            throw UploadcareAuthenticationException("$response")
         } else if (statusCode == 400 || statusCode == 404) {
-            throw UploadcareInvalidRequestException(response.body?.string())
+            throw UploadcareInvalidRequestException("$response")
         } else {
             throw UploadcareApiException(
-                    "Unknown exception during an API call, response: ${response.body?.string()}")
+                    "Unknown exception during an API call, response: $response")
         }
     }
 
