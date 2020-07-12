@@ -9,6 +9,7 @@ import com.uploadcare.android.library.data.UploadFromUrlData
 import com.uploadcare.android.library.data.UploadFromUrlStatusData
 import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.urls.Urls
+import kotlin.math.pow
 
 /**
  * Uploadcare uploader for URLs.
@@ -18,7 +19,7 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
     private var store = "auto"
 
     override fun upload(): UploadcareFile {
-        return upload(500)
+        return upload(DEFAULT_POLLING_INTERVAL)
     }
 
     override fun uploadAsync(callback: UploadcareFileCallback) {
@@ -42,30 +43,63 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
      *
      * The calling thread will be busy until the upload is finished.
      *
-     * @param pollingInterval Progress polling interval in ms
+     * @param pollingInterval Progress polling interval in ms, default is 500ms.
      * @return An Uploadcare file
      * @throws UploadFailureException
      */
     @Throws(UploadFailureException::class)
-    fun upload(pollingInterval: Int): UploadcareFile {
+    fun upload(pollingInterval: Long): UploadcareFile {
         val uploadUrl = Urls.uploadFromUrl(sourceUrl, client.publicKey, store)
         val token = client.requestHelper.executeQuery(RequestHelper.REQUEST_GET,
                 uploadUrl.toString(), false, UploadFromUrlData::class.java).token
         val statusUrl = Urls.uploadFromUrlStatus(token)
+
+        var waitTime = pollingInterval
+        var retries: Int = 0
+        var progress: Long = 0L
+
         while (true) {
-            sleep(pollingInterval.toLong())
-            val (status, fileId) = client.requestHelper.executeQuery(RequestHelper.REQUEST_GET,
-                    statusUrl.toString(), false, UploadFromUrlStatusData::class.java)
-            if (status == "success" && fileId != null) {
+            sleep(waitTime)
+            val data: UploadFromUrlStatusData = client.requestHelper.executeQuery(
+                    RequestHelper.REQUEST_GET, statusUrl.toString(), false,
+                    UploadFromUrlStatusData::class.java)
+            if (data.status == "success" && data.fileId != null) {
+                // Success
                 return if (client.secretKey != null) {
-                    client.getFile(fileId)
+                    client.getFile(data.fileId)
                 } else {
-                    client.getUploadedFile(fileId)
+                    client.getUploadedFile(data.fileId)
                 }
-            } else if (status == "error" || status == "failed") {
-                throw UploadFailureException(status)
+            } else if (data.status == "progress") {
+                // Upload is in progress we make sure that progress changing and not stuck, otherwise start exponential
+                // backoff and timeout.
+                val currentProgress: Long = data.done * 100L / data.total
+                if (retries >= MAX_UPLOAD_STATUS_ATTEMPTS) {
+                    break
+                } else if (currentProgress > progress) {
+                    //reset backoff because progress is changing.
+                    retries = 0
+                    waitTime = pollingInterval
+                    progress = currentProgress
+                } else {
+                    waitTime = calculateTimeToWait(retries)
+                    retries++
+                }
+            } else if (data.status == "waiting" || data.status == "unknown") {
+                // Upload is in unknown state, do exponential backoff and timeout.
+                if (retries >= MAX_UPLOAD_STATUS_ATTEMPTS) {
+                    break
+                } else {
+                    waitTime = calculateTimeToWait(retries)
+                    retries++
+                }
+            } else if (data.status == "error" || data.status == "failed") {
+                throw UploadFailureException(data.status)
             }
         }
+
+        // If upload status not success or error, and we tried MAX_UPLOAD_STATUS_ATTEMPTS with exponential backoff.
+        throw UploadFailureException("Timeout")
     }
 
     private fun sleep(millis: Long) {
@@ -73,6 +107,22 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
             Thread.sleep(millis)
         } catch (e: InterruptedException) {
             Thread.currentThread().interrupt()
+        }
+    }
+
+    companion object{
+        internal const val DEFAULT_POLLING_INTERVAL: Long = 500L
+
+        internal const val MAX_UPLOAD_STATUS_ATTEMPTS: Int = 25
+
+        /*
+         * Returns the next wait interval, in milliseconds, using an exponential
+         * backoff algorithm.
+         */
+        internal fun calculateTimeToWait(retryCount: Int): Long {
+            return if (0 == retryCount) {
+                DEFAULT_POLLING_INTERVAL
+            } else 2.0.pow(retryCount).toLong() * DEFAULT_POLLING_INTERVAL
         }
     }
 

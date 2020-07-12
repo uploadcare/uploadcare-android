@@ -28,7 +28,7 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
      * @return A list of Uploadcare files
      */
     override fun upload(): List<UploadcareFile> {
-        return upload(500)
+        return upload(UrlUploader.DEFAULT_POLLING_INTERVAL)
     }
 
     /**
@@ -65,29 +65,59 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
      *
      * The calling thread will be busy until the upload is finished.
      *
-     * @param pollingInterval Progress polling interval in ms
+     * @param pollingInterval Progress polling interval in ms, default is 500ms.
      * @return An Uploadcare file
+     * @throws UploadFailureException
      */
     @Throws(UploadFailureException::class)
-    fun upload(pollingInterval: Int): List<UploadcareFile> {
+    fun upload(pollingInterval: Long): List<UploadcareFile> {
         val results = ArrayList<UploadcareFile>()
         for (sourceUrl in sourceUrls) {
             val uploadUrl = Urls.uploadFromUrl(sourceUrl, client.publicKey, store)
             val token = client.requestHelper.executeQuery(RequestHelper.REQUEST_GET,
                     uploadUrl.toString(), false, UploadFromUrlData::class.java).token
             val statusUrl = Urls.uploadFromUrlStatus(token)
+
+            var waitTime = pollingInterval
+            var retries: Int = 0
+            var progress: Long = 0L
+
             while (true) {
-                sleep(pollingInterval.toLong())
-                val (status, fileId) = client.requestHelper.executeQuery(RequestHelper.REQUEST_GET,
-                        statusUrl.toString(), false, UploadFromUrlStatusData::class.java)
-                if (status == "success" && fileId != null) {
+                sleep(waitTime)
+                val data: UploadFromUrlStatusData = client.requestHelper.executeQuery(
+                        RequestHelper.REQUEST_GET, statusUrl.toString(), false,
+                        UploadFromUrlStatusData::class.java)
+                if (data.status == "success" && data.fileId != null) {
                     results.add(if (client.secretKey != null) {
-                        client.getFile(fileId)
+                        client.getFile(data.fileId)
                     } else {
-                        client.getUploadedFile(fileId)
+                        client.getUploadedFile(data.fileId)
                     })
                     break
-                } else if (status == "error" || status == "failed") {
+                } else if (data.status == "progress") {
+                    // Upload is in progress we make sure that progress changing and not stuck, otherwise start exponential
+                    // backoff and timeout.
+                    val currentProgress: Long = data.done * 100L / data.total
+                    if (retries >= UrlUploader.MAX_UPLOAD_STATUS_ATTEMPTS) {
+                        break
+                    } else if (currentProgress > progress) {
+                        //reset backoff because progress is changing.
+                        retries = 0
+                        waitTime = pollingInterval
+                        progress = currentProgress
+                    } else {
+                        waitTime = UrlUploader.calculateTimeToWait(retries)
+                        retries++
+                    }
+                }else if (data.status == "waiting" || data.status == "unknown") {
+                    // Upload is in unknown state, do exponential backoff and timeout.
+                    if (retries >= UrlUploader.MAX_UPLOAD_STATUS_ATTEMPTS) {
+                        break
+                    } else {
+                        waitTime = UrlUploader.calculateTimeToWait(retries)
+                        retries++
+                    }
+                } else if (data.status == "error" || data.status == "failed") {
                     throw UploadFailureException()
                 }
             }
