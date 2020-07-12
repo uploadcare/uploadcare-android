@@ -20,10 +20,7 @@ data class UploadcareGroup(val id: String,
     /**
      * Mark all files in a group as stored. Sync operation.
      *
-     * This does not mutate the current {@code Group} instance,
-     * but creates a new one.
-     *
-     * @return New Group resource instance
+     * @return Updated Group resource instance
      */
     fun store(client: UploadcareClient): UploadcareGroup? {
         client.storeGroup(id)
