@@ -9,9 +9,11 @@ import com.uploadcare.android.library.api.RequestHelper.Companion.md5
 import com.uploadcare.android.library.callbacks.*
 import com.uploadcare.android.library.data.CopyOptionsData
 import com.uploadcare.android.library.data.ObjectMapper
+import com.uploadcare.android.library.data.WebhookOptionsData
 import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.exceptions.UploadcareApiException
-import com.uploadcare.android.library.urls.*
+import com.uploadcare.android.library.urls.AddFieldsParameter
+import com.uploadcare.android.library.urls.Urls
 import okhttp3.Interceptor
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -19,6 +21,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import okio.ByteString.Companion.encodeUtf8
+import java.net.URI
 import java.util.concurrent.TimeUnit
 
 /**
@@ -686,6 +689,172 @@ class UploadcareClient constructor(val publicKey: String,
                 expire = expire,
                 callback = callback)
                 .execute()
+    }
+
+    /**
+     * Requests Webhooks data.
+     *
+     * @return list of Webhooks resources.
+     */
+    fun getWebhooks(): List<UploadcareWebhook> {
+        val url = Urls.apiWebhooks()
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(), true,
+                Types.newParameterizedType(List::class.java, UploadcareWebhook::class.java))
+    }
+
+    /**
+     * Requests Webhooks data Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param callback callback  [UploadcareWebhooksCallback] with either
+     * a response with List of UploadcareWebhook or a failure exception.
+     */
+    fun getWebhooksAsync(context: Context, callback: UploadcareWebhooksCallback) {
+        val url = Urls.apiWebhooks()
+
+        requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_GET, url.toString(), true,
+                Types.newParameterizedType(List::class.java, UploadcareWebhook::class.java), callback)
+    }
+
+    /**
+     * Create and subscribe to webhook.
+     *
+     * @param targetUrl A URL that is triggered by an event.
+     * @param event An event you subscribe to. Only "file.uploaded" event supported.
+     * @param isActive Marks a subscription as either active or not.
+     *
+     * @return New created webhook resource instance.
+     */
+    fun createWebhook(targetUrl: URI, event: String, isActive: Boolean = true): UploadcareWebhook {
+        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive)
+
+        val requestBodyContent = objectMapper.toJson(webhookOptionsData,
+                WebhookOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = Urls.apiWebhooks()
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_POST, url.toString(), true,
+                UploadcareWebhook::class.java, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Create and subscribe to webhook Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param targetUrl A URL that is triggered by an event.
+     * @param event An event you subscribe to. Only "file.uploaded" event supported.
+     * @param isActive  Marks a subscription as either active or not. Default value is {@code true}.
+     * @param callback callback  [UploadcareWebhookCallback] with either
+     * a response with UploadcareWebhook or a failure exception.
+     */
+    fun createWebhookAsync(context: Context,
+                           targetUrl: URI,
+                           event: String,
+                           isActive: Boolean = true,
+                           callback: UploadcareWebhookCallback) {
+        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive)
+
+        val requestBodyContent = objectMapper.toJson(webhookOptionsData,
+                WebhookOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = Urls.apiWebhooks()
+
+        requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_POST, url.toString(), true,
+                UploadcareWebhook::class.java, callback, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Update webhook attributes.
+     *
+     * @param webhookId Webhook id. If {@code null} then this field won't be updated.
+     * @param targetUrl A URL that is triggered by an event. If {@code null} then this field won't be updated.
+     * @param event     An event you subscribe to. Only "file.uploaded" event supported. If {@code null} then this field
+     *                  won't be updated.
+     * @param isActive  Marks a subscription as either active or not. Default value is {@code true}.
+     *
+     * @return New webhook resource instance.
+     */
+    fun updateWebhook(webhookId: Int,
+                      targetUrl: URI,
+                      event: String,
+                      isActive: Boolean = true): UploadcareWebhook {
+        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive)
+
+        val requestBodyContent = objectMapper.toJson(webhookOptionsData,
+                WebhookOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = Urls.apiWebhook(webhookId)
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_PUT, url.toString(), true,
+                UploadcareWebhook::class.java, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Update webhook attributes Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param webhookId Webhook id. If {@code null} then this field won't be updated.
+     * @param targetUrl A URL that is triggered by an event. If {@code null} then this field won't be updated.
+     * @param event     An event you subscribe to. Only "file.uploaded" event supported. If {@code null} then this field
+     *                  won't be updated.
+     * @param isActive  Marks a subscription as either active or not. Default value is {@code true}.
+     * @param callback callback  [UploadcareWebhookCallback] with either
+     * a response with UploadcareWebhook or a failure exception.
+     */
+    fun updateWebhookAsync(context: Context,
+                           webhookId: Int,
+                           targetUrl: URI,
+                           event: String,
+                           isActive: Boolean = true,
+                           callback: UploadcareWebhookCallback) {
+        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive)
+
+        val requestBodyContent = objectMapper.toJson(webhookOptionsData,
+                WebhookOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = Urls.apiWebhook(webhookId)
+
+        requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_PUT, url.toString(), true,
+                UploadcareWebhook::class.java, callback, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Unsubscribe and delete webhook.
+     *
+     * @param targetUrl A URL that is triggered by an event from Webhook.
+     *
+     * @return Response with result of the operation or information about failure.
+     */
+    fun deleteWebhook(targetUrl: URI): Response {
+        val webhookOptionsData = WebhookOptionsData(targetUrl = targetUrl)
+
+        val requestBodyContent = objectMapper.toJson(webhookOptionsData,
+                WebhookOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = Urls.apiDeleteWebhook()
+
+        return requestHelper.executeCommand(RequestHelper.REQUEST_DELETE, url.toString(), true, body,
+                requestBodyContent.md5())
+    }
+
+    /**
+     * Unsubscribe and delete webhook Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param targetUrl A URL that is triggered by an event from Webhook.
+     * @param callback callback  [RequestCallback] with a response result information.
+     */
+    fun deleteWebhookAsync(context: Context, targetUrl: URI, callback: RequestCallback? = null) {
+        val webhookOptionsData = WebhookOptionsData(targetUrl = targetUrl)
+
+        val requestBodyContent = objectMapper.toJson(webhookOptionsData,
+                WebhookOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = Urls.apiDeleteWebhook()
+
+        requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE, url.toString(),
+                true, callback, body, requestBodyContent.md5())
     }
 
     internal fun createGroupInternal(fileIds: List<String>,

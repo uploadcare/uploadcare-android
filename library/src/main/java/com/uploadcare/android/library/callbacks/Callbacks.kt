@@ -1,10 +1,7 @@
 package com.uploadcare.android.library.callbacks
 
 import androidx.annotation.NonNull
-import com.uploadcare.android.library.api.Project
-import com.uploadcare.android.library.api.UploadcareCopyFile
-import com.uploadcare.android.library.api.UploadcareFile
-import com.uploadcare.android.library.api.UploadcareGroup
+import com.uploadcare.android.library.api.*
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import okhttp3.Response
 import java.net.URI
@@ -44,3 +41,7 @@ interface UploadcareGroupsCallback : BasePaginationCallback<UploadcareGroup>
 interface UploadcareAllGroupsCallback : BaseListCallback<UploadcareGroup>
 
 interface UploadFilesCallback : BaseListCallback<UploadcareFile>
+
+interface UploadcareWebhookCallback : BaseCallback<UploadcareWebhook>
+
+interface UploadcareWebhooksCallback : BaseListCallback<UploadcareWebhook>

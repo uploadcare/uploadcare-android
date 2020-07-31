@@ -180,6 +180,33 @@ class Urls private constructor() {
         }
 
         /**
+         * Creates a URL to the webhook collection resource.
+         *
+         * @see com.uploadcare.android.library.api.UploadcareClient
+         */
+        fun apiWebhooks(): URI {
+            return URI.create("$API_BASE/webhooks/")
+        }
+
+        /**
+         * Creates a URL for the webhook delete.
+         *
+         * @see com.uploadcare.android.library.api.UploadcareClient
+         */
+        fun apiWebhook(webhookId: Int): URI {
+            return URI.create("$API_BASE/webhooks/$webhookId/")
+        }
+
+        /**
+         * Creates a URL for the webhook delete.
+         *
+         * @see com.uploadcare.android.library.api.UploadcareClient
+         */
+        fun apiDeleteWebhook(): URI {
+            return URI.create("$API_BASE/webhooks/unsubscribe/")
+        }
+
+        /**
          * Creates a URL to the file upload endpoint.
          *
          * @see com.uploadcare.android.library.upload.FileUploader
