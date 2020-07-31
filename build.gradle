@@ -25,7 +25,7 @@ buildscript {
 
     versions.picasso = "2.71828"
 
-    versions.moshi = "1.9.2"
+    versions.moshi = "1.9.3"
 
     versions.junit = "4.12"
     versions.test_runner = "1.1.0-beta02"
