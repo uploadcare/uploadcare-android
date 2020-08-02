@@ -106,7 +106,7 @@ class RequestHelper(private val client: UploadcareClient) {
                                dataClass: Class<T>,
                                requestBody: RequestBody? = null,
                                requestBodyMD5: String? = null,
-                               urlParameters: MutableCollection<UrlParameter>? = null): T {
+                               urlParameters: Collection<UrlParameter>? = null): T {
         val builder = Uri.parse(url).buildUpon()
         urlParameters?.let {
             setQueryParameters(builder, it)
@@ -145,7 +145,7 @@ class RequestHelper(private val client: UploadcareClient) {
                                dataType: ParameterizedType,
                                requestBody: RequestBody? = null,
                                requestBodyMD5: String? = null,
-                               urlParameters: MutableCollection<UrlParameter>? = null): T {
+                               urlParameters: Collection<UrlParameter>? = null): T {
         val builder = Uri.parse(url).buildUpon()
         urlParameters?.let {
             setQueryParameters(builder, it)
@@ -186,7 +186,7 @@ class RequestHelper(private val client: UploadcareClient) {
                                     callback: BaseCallback<T>? = null,
                                     requestBody: RequestBody? = null,
                                     requestBodyMD5: String? = null,
-                                    urlParameters: MutableCollection<UrlParameter>? = null) {
+                                    urlParameters: Collection<UrlParameter>? = null) {
         val builder = Uri.parse(url).buildUpon()
         urlParameters?.let {
             setQueryParameters(builder, it)
@@ -248,7 +248,7 @@ class RequestHelper(private val client: UploadcareClient) {
                                     callback: BaseCallback<T>? = null,
                                     requestBody: RequestBody? = null,
                                     requestBodyMD5: String? = null,
-                                    urlParameters: MutableCollection<UrlParameter>? = null) {
+                                    urlParameters: Collection<UrlParameter>? = null) {
         val builder = Uri.parse(url).buildUpon()
         urlParameters?.let {
             setQueryParameters(builder, it)
@@ -303,7 +303,7 @@ class RequestHelper(private val client: UploadcareClient) {
     }
 
     fun <T : Any> executePaginatedQuery(url: URI,
-                                        urlParameters: MutableCollection<UrlParameter>,
+                                        urlParameters: Collection<UrlParameter>,
                                         apiHeaders: Boolean,
                                         dataClass: Class<out PageData<T>>)
             : Iterable<T> {
@@ -361,7 +361,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
     fun executePaginatedQueryWithOffsetLimitAsync(context: Context,
                                                   url: URI,
-                                                  urlParameters: MutableCollection<UrlParameter>,
+                                                  urlParameters: Collection<UrlParameter>,
                                                   apiHeaders: Boolean,
                                                   callback: UploadcareFilesCallback? = null) {
 
@@ -422,7 +422,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
     fun executeGroupsPaginatedQueryWithOffsetLimitAsync(context: Context,
                                                         url: URI,
-                                                        urlParameters: MutableCollection<UrlParameter>,
+                                                        urlParameters: Collection<UrlParameter>,
                                                         apiHeaders: Boolean,
                                                         callback: UploadcareGroupsCallback?) {
 
@@ -670,7 +670,7 @@ class RequestHelper(private val client: UploadcareClient) {
             timeZone = UTC
         }.format(date)
 
-        private fun setQueryParameters(builder: Uri.Builder, parameters: MutableCollection<UrlParameter>) {
+        private fun setQueryParameters(builder: Uri.Builder, parameters: Collection<UrlParameter>) {
             for (parameter in parameters) {
                 builder.appendQueryParameter(parameter.getParam(), parameter.getValue())
             }
