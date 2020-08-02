@@ -28,8 +28,8 @@ buildscript {
     versions.moshi = "1.9.3"
 
     versions.junit = "4.12"
-    versions.test_runner = "1.1.0-beta02"
-    versions.espresso_core = "3.1.0-beta02"
+    versions.test_runner = "1.2.0"
+    versions.espresso_core = "3.2.0"
 
     versions.dokka = "0.9.18"
 
