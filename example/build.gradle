@@ -15,8 +15,8 @@ android {
         versionName "2.2.0"
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
 
     buildTypes {
