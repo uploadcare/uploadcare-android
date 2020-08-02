@@ -9,10 +9,19 @@ interface UrlParameter {
     fun getValue(): String?
 }
 
-class FilesFromParameter(private val from: Date) : UrlParameter {
+class FilesFromParameter(private val fromDate: Date? = null, private val fromSize: Long? = null) : UrlParameter {
+
+    constructor(fromDate: Date) : this(fromDate, null)
+
+    constructor(fromSize: Long) : this(null, fromSize)
+
     override fun getParam() = "from"
 
-    override fun getValue() = RequestHelper.iso8601(from)
+    override fun getValue(): String = if (fromDate != null) {
+        RequestHelper.iso8601(fromDate)
+    } else {
+        fromSize?.toString() ?: "0"
+    }
 }
 
 class FilesLimitParameter(private val limit: Int) : UrlParameter {

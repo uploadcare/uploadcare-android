@@ -9,7 +9,6 @@ import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.urls.*
 import java.net.URI
 import java.util.*
-import java.util.Arrays.asList
 
 /**
  * File resource request builder.
@@ -21,7 +20,7 @@ import java.util.Arrays.asList
 class FilesQueryBuilder(private val client: UploadcareClient)
     : PaginatedQueryBuilder<UploadcareFile> {
 
-    private val parameters: MutableList<UrlParameter> = mutableListOf()
+    private val parameters: MutableMap<String, UrlParameter> = mutableMapOf()
 
     /**
      * Adds a filter for removed files.
@@ -29,7 +28,7 @@ class FilesQueryBuilder(private val client: UploadcareClient)
      * @param removed If `true`, accepts removed files, otherwise declines them.
      */
     fun removed(removed: Boolean): FilesQueryBuilder {
-        parameters.add(FilesRemovedParameter(removed))
+        parameters["removed"] = FilesRemovedParameter(removed)
         return this
     }
 
@@ -39,27 +38,66 @@ class FilesQueryBuilder(private val client: UploadcareClient)
      * @param stored If `true`, accepts stored files, otherwise declines them.
      */
     fun stored(stored: Boolean): FilesQueryBuilder {
-        parameters.add(FilesStoredParameter(stored))
+        parameters["stored"] = FilesStoredParameter(stored)
         return this
     }
 
     /**
      * Specifies the way files are sorted.
      *
-     * @param order [Order]
+     * @param order Order in which files are sorted in a returned list
      */
     fun ordering(order: Order): FilesQueryBuilder {
-        parameters.add(FilesOrderParameter(order))
+        parameters["ordering"] = FilesOrderParameter(order)
+        parameters.remove("from")
         return this
     }
 
     /**
      * Adds a filter for datetime from objects will be returned.
+     * Order {@link Order#UPLOAD_TIME_ASC} will be used.
      *
-     * @param from A uploading datetime from which objects will be returned.
+     * @param fromDate A uploading datetime from which objects will be returned.
      */
-    fun from(from: Date): FilesQueryBuilder {
-        parameters.add(FilesFromParameter(from))
+    fun from(fromDate: Date): FilesQueryBuilder {
+        parameters["ordering"] = FilesOrderParameter(Order.UPLOAD_TIME_ASC)
+        parameters["from"] = FilesFromParameter(fromDate)
+        return this
+    }
+
+    /**
+     * Adds a filter for datetime from objects will be returned.
+     * Order {@link Order#SIZE_ASC} will be used.
+     *
+     * @param fromSize File size in bytes.
+     */
+    fun from(fromSize: Long): FilesQueryBuilder {
+        parameters["ordering"] = FilesOrderParameter(Order.SIZE_ASC)
+        parameters["from"] = FilesFromParameter(fromSize)
+        return this
+    }
+
+    /**
+     * Adds a filter for datetime to which objects will be returned.
+     * Order {@link Order#UPLOAD_TIME_DESC} will be used.
+     *
+     * @param toDate A uploading datetime to which objects will be returned.
+     */
+    fun to(toDate: Date): FilesQueryBuilder {
+        parameters["ordering"] = FilesOrderParameter(Order.UPLOAD_TIME_DESC)
+        parameters["from"] = FilesFromParameter(toDate)
+        return this
+    }
+
+    /**
+     * Adds a filter for datetime to which objects will be returned.
+     * Order {@link Order#SIZE_DESC} will be used.
+     *
+     * @param toSize File size in bytes.
+     */
+    fun to(toSize: Long): FilesQueryBuilder {
+        parameters["ordering"] = FilesOrderParameter(Order.SIZE_DESC)
+        parameters["from"] = FilesFromParameter(toSize)
         return this
     }
 
@@ -69,13 +107,13 @@ class FilesQueryBuilder(private val client: UploadcareClient)
      * @param fields Example: "rekognition_info"
      */
     fun addFields(fields: String): FilesQueryBuilder {
-        parameters.add(AddFieldsParameter(fields))
+        parameters["add_fields"] = AddFieldsParameter(fields)
         return this
     }
 
     override fun asIterable(): Iterable<UploadcareFile> {
         val url = Urls.apiFiles()
-        return client.requestHelper.executePaginatedQuery(url, parameters, true,
+        return client.requestHelper.executePaginatedQuery(url, parameters.values, true,
                 FilePageData::class.java)
     }
 
@@ -98,12 +136,12 @@ class FilesQueryBuilder(private val client: UploadcareClient)
     fun asListAsync(context: Context, limit: Int, next: URI?,
                     callback: UploadcareFilesCallback?) {
         if (next == null) {
-            parameters.add(FilesLimitParameter(limit))
+            parameters["limit"] = FilesLimitParameter(limit)
         }
         val url = next ?: Urls.apiFiles()
 
-        client.requestHelper.executePaginatedQueryWithOffsetLimitAsync(context, url, parameters,
-                true, callback)
+        client.requestHelper.executePaginatedQueryWithOffsetLimitAsync(context, url,
+                parameters.values, true, callback)
     }
 
     /**
@@ -112,17 +150,18 @@ class FilesQueryBuilder(private val client: UploadcareClient)
      * @param callback [UploadcareAllFilesCallback].
      */
     fun asListAsync(callback: UploadcareAllFilesCallback?) {
-        PaginatedQueryTask(callback).execute()
+        PaginatedQueryTask(this, callback).execute()
     }
 
 }
 
-private class PaginatedQueryTask(private val callback: UploadcareAllFilesCallback?)
+private class PaginatedQueryTask(private val queryBuilder: FilesQueryBuilder,
+                                 private val callback: UploadcareAllFilesCallback?)
     : AsyncTask<Void, Void, List<UploadcareFile>?>() {
 
     override fun doInBackground(vararg params: Void?): List<UploadcareFile>? {
         return try {
-            asList()
+            queryBuilder.asList()
         } catch (e: Exception) {
             e.printStackTrace()
             null

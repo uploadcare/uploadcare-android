@@ -75,17 +75,18 @@ class GroupsQueryBuilder(private val client: UploadcareClient)
      * @param callback [UploadcareAllGroupsCallback].
      */
     fun asListAsync(callback: UploadcareAllGroupsCallback?) {
-        PaginatedGroupQueryTask(callback).execute()
+        PaginatedGroupQueryTask(this, callback).execute()
     }
 
 }
 
-private class PaginatedGroupQueryTask(private val callback: UploadcareAllGroupsCallback?)
+private class PaginatedGroupQueryTask(private val queryBuilder: GroupsQueryBuilder,
+                                      private val callback: UploadcareAllGroupsCallback?)
     : AsyncTask<Void, Void, List<UploadcareGroup>?>() {
 
     override fun doInBackground(vararg params: Void?): List<UploadcareGroup>? {
         return try {
-            Arrays.asList()
+            queryBuilder.asList()
         } catch (e: Exception) {
             e.printStackTrace()
             null
