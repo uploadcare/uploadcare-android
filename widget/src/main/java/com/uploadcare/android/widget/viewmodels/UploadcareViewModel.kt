@@ -8,7 +8,7 @@ import android.os.Environment
 import androidx.core.content.FileProvider
 import androidx.lifecycle.AndroidViewModel
 import com.uploadcare.android.library.api.UploadcareFile
-import com.uploadcare.android.library.callbacks.UploadcareFileCallback
+import com.uploadcare.android.library.callbacks.UploadFileCallback
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.upload.FileUploader
 import com.uploadcare.android.widget.R
@@ -95,10 +95,17 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
                     .store(storeUponUpload)
                     .signedUpload(signature ?: "", expire ?: "")
 
-            uploader.uploadAsync(object : UploadcareFileCallback {
+            uploader.uploadAsync(object : UploadFileCallback {
                 override fun onFailure(e: UploadcareApiException) {
                     progressDialogCommand.postValue(Pair(false, null))
                     closeWidgetCommand.postValue(e)
+                }
+
+                override fun onProgressUpdate(
+                        bytesWritten: Long,
+                        contentLength: Long,
+                        progress: Double) {
+                    // Ignore.
                 }
 
                 override fun onSuccess(result: UploadcareFile) {
