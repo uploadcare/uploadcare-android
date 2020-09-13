@@ -13,8 +13,8 @@ import com.uploadcare.android.example.R
 import com.uploadcare.android.example.fragments.UploadFragment
 import com.uploadcare.android.library.api.UploadcareClient
 import com.uploadcare.android.library.api.UploadcareFile
+import com.uploadcare.android.library.callbacks.UploadFileCallback
 import com.uploadcare.android.library.callbacks.UploadFilesCallback
-import com.uploadcare.android.library.callbacks.UploadcareFileCallback
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.upload.FileUploader
 import com.uploadcare.android.library.upload.MultipleFilesUploader
@@ -91,9 +91,16 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     fun uploadFile(fileUri: Uri) {
         showProgressOrResult(true, getContext().getString(R.string.activity_main_status_uploading))
         val uploader = FileUploader(client, fileUri, getContext()).store(true)
-        uploader.uploadAsync(object : UploadcareFileCallback {
+        uploader.uploadAsync(object : UploadFileCallback{
             override fun onFailure(e: UploadcareApiException) {
                 showProgressOrResult(false, e.message ?: "")
+            }
+
+            override fun onProgressUpdate(
+                    bytesWritten: Long,
+                    contentLength: Long,
+                    progress: Double) {
+                // Ignore.
             }
 
             override fun onSuccess(result: UploadcareFile) {
@@ -114,6 +121,13 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
 
             override fun onFailure(e: UploadcareApiException) {
                 showProgressOrResult(false, e.message ?: "")
+            }
+
+            override fun onProgressUpdate(
+                    bytesWritten: Long,
+                    contentLength: Long,
+                    progress: Double) {
+                // Ignore.
             }
 
             override fun onSuccess(result: List<UploadcareFile>) {
@@ -137,9 +151,16 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     private fun uploadFromUrl(client: UploadcareClient, sourceUrl: String) {
         showProgressOrResult(true, getContext().getString(R.string.activity_main_status_uploading))
         val uploader = UrlUploader(client, sourceUrl).store(true)
-        uploader.uploadAsync(object : UploadcareFileCallback {
+        uploader.uploadAsync(object : UploadFileCallback {
             override fun onFailure(e: UploadcareApiException) {
                 showProgressOrResult(false, e.message ?: "")
+            }
+
+            override fun onProgressUpdate(
+                    bytesWritten: Long,
+                    contentLength: Long,
+                    progress: Double) {
+                // Ignore.
             }
 
             override fun onSuccess(result: UploadcareFile) {
