@@ -5,7 +5,8 @@ import android.text.TextUtils
 import com.uploadcare.android.library.api.RequestHelper
 import com.uploadcare.android.library.api.UploadcareClient
 import com.uploadcare.android.library.api.UploadcareFile
-import com.uploadcare.android.library.callbacks.UploadcareFileCallback
+import com.uploadcare.android.library.callbacks.ProgressCallback
+import com.uploadcare.android.library.callbacks.UploadFileCallback
 import com.uploadcare.android.library.data.UploadFromUrlData
 import com.uploadcare.android.library.data.UploadFromUrlStatusData
 import com.uploadcare.android.library.exceptions.UploadFailureException
@@ -30,11 +31,21 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
 
     private var expire: String? = null
 
-    override fun upload(): UploadcareFile {
-        return upload(DEFAULT_POLLING_INTERVAL)
+    /**
+     * Synchronously uploads the file from provided URL to Uploadcare.
+     *
+     * @param progressCallback, progress will be reported on the same thread upload started.
+     */
+    override fun upload(progressCallback: ProgressCallback?): UploadcareFile {
+        return upload(DEFAULT_POLLING_INTERVAL, progressCallback)
     }
 
-    override fun uploadAsync(callback: UploadcareFileCallback) {
+    /**
+     * Asynchronously uploads the file from provided URL to Uploadcare.
+     *
+     * @param callback callback {@link UploadFileCallback}, will be executed on Main (UI) thread.
+     */
+    override fun uploadAsync(callback: UploadFileCallback) {
         UrlUploadTask(this, callback).execute()
     }
 
@@ -99,15 +110,16 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
     /**
      * Synchronously uploads the file to Uploadcare.
      *
-     *
      * The calling thread will be busy until the upload is finished.
      *
      * @param pollingInterval Progress polling interval in ms, default is 500ms.
+     * @param progressCallback, progress will be reported on the same thread upload started.
+     *
      * @return An Uploadcare file
      * @throws UploadFailureException
      */
     @Throws(UploadFailureException::class)
-    fun upload(pollingInterval: Long): UploadcareFile {
+    fun upload(pollingInterval: Long, progressCallback: ProgressCallback? = null): UploadcareFile {
         val multipartBuilder = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("pub_key", client.publicKey)
@@ -139,7 +151,7 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
 
         var waitTime = pollingInterval
         var retries: Int = 0
-        var progress: Long = 0L
+        var progress : Double = 0.0
 
         while (true) {
             sleep(waitTime)
@@ -147,6 +159,10 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
                     RequestHelper.REQUEST_GET, statusUrl.toString(), false,
                     UploadFromUrlStatusData::class.java)
             if (data.status == "success" && data.fileId != null) {
+                progress = 1.0
+
+                progressCallback?.onProgressUpdate(data.done, data.total, progress)
+
                 // Success
                 return if (client.secretKey != null) {
                     client.getFile(data.fileId)
@@ -156,7 +172,7 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
             } else if (data.status == "progress") {
                 // Upload is in progress we make sure that progress changing and not stuck, otherwise start exponential
                 // backoff and timeout.
-                val currentProgress: Long = data.done * 100L / data.total
+                val currentProgress = 1.0 * data.done / data.total
                 if (retries >= MAX_UPLOAD_STATUS_ATTEMPTS) {
                     break
                 } else if (currentProgress > progress) {
@@ -164,6 +180,7 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
                     retries = 0
                     waitTime = pollingInterval
                     progress = currentProgress
+                    progressCallback?.onProgressUpdate(data.done, data.total, progress)
                 } else {
                     waitTime = calculateTimeToWait(retries)
                     retries++
@@ -212,14 +229,28 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
 }
 
 private class UrlUploadTask(private val uploader: UrlUploader,
-                            private val callback: UploadcareFileCallback)
-    : AsyncTask<Void, Void, UploadcareFile?>() {
+                            private val callback: UploadFileCallback)
+    : AsyncTask<Void, UploadProgress, UploadcareFile?>() {
 
     override fun doInBackground(vararg params: Void?): UploadcareFile? {
         return try {
-            uploader.upload(500)
+            uploader.upload(500, object : ProgressCallback {
+                override fun onProgressUpdate(
+                        bytesWritten: Long,
+                        contentLength: Long,
+                        progress: Double) {
+                    publishProgress(UploadProgress(bytesWritten, contentLength, progress))
+                }
+            })
         } catch (e: Exception) {
             null
+        }
+    }
+
+    override fun onProgressUpdate(vararg values: UploadProgress?) {
+        val fileProgress = values[0]
+        fileProgress?.let {
+            callback.onProgressUpdate(it.bytesWritten, it.contentLength, it.progress)
         }
     }
 

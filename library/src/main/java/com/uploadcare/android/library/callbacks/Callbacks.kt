@@ -22,6 +22,10 @@ interface BasePaginationCallback<T> {
     fun onSuccess(@NonNull result: List<@JvmSuppressWildcards T>, next: URI?)
 }
 
+interface ProgressCallback {
+    fun onProgressUpdate(bytesWritten: Long, contentLength: Long, progress: Double)
+}
+
 interface RequestCallback : BaseCallback<Response>
 
 interface CopyFileCallback : BaseCallback<UploadcareCopyFile>
@@ -29,6 +33,8 @@ interface CopyFileCallback : BaseCallback<UploadcareCopyFile>
 interface ProjectCallback : BaseCallback<Project>
 
 interface UploadcareFileCallback : BaseCallback<UploadcareFile>
+
+interface UploadFileCallback : BaseCallback<UploadcareFile>, ProgressCallback
 
 interface UploadcareFilesCallback : BasePaginationCallback<UploadcareFile>
 
@@ -40,7 +46,7 @@ interface UploadcareGroupsCallback : BasePaginationCallback<UploadcareGroup>
 
 interface UploadcareAllGroupsCallback : BaseListCallback<UploadcareGroup>
 
-interface UploadFilesCallback : BaseListCallback<UploadcareFile>
+interface UploadFilesCallback : BaseListCallback<UploadcareFile>, ProgressCallback
 
 interface UploadcareWebhookCallback : BaseCallback<UploadcareWebhook>
 

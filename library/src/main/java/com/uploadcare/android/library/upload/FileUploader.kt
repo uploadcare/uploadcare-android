@@ -7,13 +7,15 @@ import android.text.TextUtils
 import com.uploadcare.android.library.api.RequestHelper
 import com.uploadcare.android.library.api.UploadcareClient
 import com.uploadcare.android.library.api.UploadcareFile
-import com.uploadcare.android.library.callbacks.UploadcareFileCallback
+import com.uploadcare.android.library.callbacks.ProgressCallback
+import com.uploadcare.android.library.callbacks.UploadFileCallback
 import com.uploadcare.android.library.data.UploadBaseData
 import com.uploadcare.android.library.data.UploadMultipartCompleteData
 import com.uploadcare.android.library.data.UploadMultipartStartData
 import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.upload.UploadUtils.Companion.chunkedSequence
 import com.uploadcare.android.library.urls.Urls
+import com.uploadcare.android.library.utils.CountingRequestBody
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -150,9 +152,12 @@ class FileUploader : Uploader {
      *
      * The calling thread will be busy until the upload is finished.
      *
+     * @param progressCallback, progress will be reported on the same thread upload started.
+     *
      * @return An Uploadcare file
+     * @throws UploadFailureException
      */
-    override fun upload(): UploadcareFile {
+    override fun upload(progressCallback: ProgressCallback?): UploadcareFile {
         val name: String
         val size: Long
         val contentType: MediaType
@@ -199,19 +204,19 @@ class FileUploader : Uploader {
 
         return if (size > MIN_MULTIPART_SIZE) {
             // We can use multipart upload
-            multipartUpload(name, size, contentType)
+            multipartUpload(name, size, contentType, progressCallback)
         } else {
             // We can use only direct upload
-            directUpload(name, contentType)
+            directUpload(name, contentType, progressCallback)
         }
     }
 
     /**
      * Asynchronously uploads the file to Uploadcare.
      *
-     * @param callback callback {@link UploadcareFileCallback}
+     * @param callback callback {@link UploadFileCallback}, will be executed on Main (UI) thread.
      */
-    override fun uploadAsync(callback: UploadcareFileCallback) {
+    override fun uploadAsync(callback: UploadFileCallback) {
         UploadTask(this, callback).execute()
     }
 
@@ -241,7 +246,9 @@ class FileUploader : Uploader {
         return this
     }
 
-    private fun directUpload(name: String, contentType: MediaType): UploadcareFile {
+    private fun directUpload(name: String,
+                             contentType: MediaType,
+                             progressCallback: ProgressCallback?): UploadcareFile {
         val uploadUrl = Urls.uploadBase()
 
         val multipartBuilder = MultipartBody.Builder()
@@ -256,8 +263,11 @@ class FileUploader : Uploader {
         val requestBody = getRequestBody(name, contentType)
                 ?: throw UploadFailureException("Cannot read file: $name")
 
-        multipartBuilder.addFormDataPart("file", name, requestBody)
-
+        val countingRequestBody = CountingRequestBody(requestBody) { bytesWritten, contentLength ->
+            val progress = 1.0 * bytesWritten / contentLength
+            progressCallback?.onProgressUpdate(bytesWritten, contentLength, progress)
+        }
+        multipartBuilder.addFormDataPart("file", name, countingRequestBody)
         val body = multipartBuilder.build()
 
         val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
@@ -306,14 +316,26 @@ class FileUploader : Uploader {
 
     private fun multipartUpload(name: String,
                                 size: Long,
-                                contentType: MediaType): UploadcareFile {
+                                contentType: MediaType,
+                                progressCallback: ProgressCallback?): UploadcareFile {
         // start multipart upload
         val multipartData = startMultipartUpload(name, size, contentType)
 
         // upload parts
         var i = 0
+        var allBytesWritten = 0L
         getChunkedSequence().forEach {
-            val chunk = it.toRequestBody(contentType)
+            val requestBody = it.toRequestBody(contentType)
+
+            val chunk = CountingRequestBody(requestBody) { bytesWritten, contentLength ->
+                allBytesWritten += bytesWritten
+                if (allBytesWritten > size) {
+                    allBytesWritten = size
+                }
+                val progress = 1.0 * allBytesWritten / size
+                progressCallback?.onProgressUpdate(allBytesWritten, size, progress)
+            }
+
             val partUrl = multipartData.parts[i]
             client.requestHelper.executeCommand(RequestHelper.REQUEST_PUT, partUrl, false, chunk)
             i += 1
@@ -393,13 +415,27 @@ class FileUploader : Uploader {
 }
 
 private class UploadTask(private val uploader: FileUploader,
-                         private val callback: UploadcareFileCallback)
-    : AsyncTask<Void, Void, UploadcareFile?>() {
+                         private val callback: UploadFileCallback)
+    : AsyncTask<Void, UploadProgress, UploadcareFile?>() {
     override fun doInBackground(vararg params: Void?): UploadcareFile? {
         return try {
-            uploader.upload()
+            uploader.upload(object : ProgressCallback {
+                override fun onProgressUpdate(
+                        bytesWritten: Long,
+                        contentLength: Long,
+                        progress: Double) {
+                    publishProgress(UploadProgress(bytesWritten, contentLength, progress))
+                }
+            })
         } catch (e: Exception) {
             null
+        }
+    }
+
+    override fun onProgressUpdate(vararg values: UploadProgress?) {
+        val fileProgress = values[0]
+        fileProgress?.let {
+            callback.onProgressUpdate(it.bytesWritten, it.contentLength, it.progress)
         }
     }
 

@@ -163,3 +163,8 @@ class UploadUtils {
         }
     }
 }
+
+internal data class UploadProgress(
+        val bytesWritten: Long,
+        val contentLength: Long,
+        val progress: Double)
