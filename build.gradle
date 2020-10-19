@@ -8,7 +8,7 @@ buildscript {
     versions.target_sdk = 28
     versions.compile_sdk = 28
 
-    versions.gradle_version = '4.0.1'
+    versions.gradle_version = '4.1.0'
     versions.bintray_version = '1.8.5'
 
     versions.core = "1.3.1"
