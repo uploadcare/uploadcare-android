@@ -2,7 +2,6 @@ package com.uploadcare.android.library.upload
 
 import android.content.Context
 import android.net.Uri
-import android.os.AsyncTask
 import android.text.TextUtils
 import com.uploadcare.android.library.api.RequestHelper
 import com.uploadcare.android.library.api.UploadcareClient
@@ -16,6 +15,7 @@ import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.upload.UploadUtils.Companion.chunkedSequence
 import com.uploadcare.android.library.urls.Urls
 import com.uploadcare.android.library.utils.CountingRequestBody
+import kotlinx.coroutines.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -47,6 +47,10 @@ class MultipleFilesUploader : MultipleUploader {
     private var totalFilesSize: Long = 0L
 
     private var totalBytesWritten: Long = 0L
+
+    private var job: Job? = null
+
+    private var isCanceled: Boolean = false
 
     /**
      * Creates a new uploader from a list of files on disk
@@ -85,7 +89,9 @@ class MultipleFilesUploader : MultipleUploader {
      * @param progressCallback, progress will be reported on the same thread upload started.
      *
      * @return An list of Uploadcare files
+     * @throws UploadFailureException
      */
+    @Throws(UploadFailureException::class)
     override fun upload(progressCallback: ProgressCallback?): List<UploadcareFile> {
         val results = ArrayList<UploadcareFile>()
         totalFilesSize = calculateTotalSize()
@@ -162,7 +168,23 @@ class MultipleFilesUploader : MultipleUploader {
      * @param callback callback {@link UploadFilesCallback}
      */
     override fun uploadAsync(callback: UploadFilesCallback) {
-        MultipleUploadTask(this, callback).execute()
+        job = GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val uploadedFiles = upload(callback)
+                callback.onSuccess(uploadedFiles)
+            } catch (e: Exception) {
+                callback.onFailure(UploadFailureException(e.message))
+            }
+        }
+    }
+
+    /**
+     * Cancel upload of the files.
+     */
+    override fun cancel(){
+        isCanceled = true
+        job?.cancel("Canceled", UploadFailureException("Canceled"))
+        job = null
     }
 
     /**
@@ -208,6 +230,7 @@ class MultipleFilesUploader : MultipleUploader {
         }
 
         val countingRequestBody = CountingRequestBody(requestBody) { bytesWritten, contentLength ->
+            checkUploadCanceled()
             updateProgress(bytesWritten, contentLength, progressCallback)
         }
 
@@ -216,6 +239,8 @@ class MultipleFilesUploader : MultipleUploader {
 
         val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
                 uploadUrl.toString(), false, UploadBaseData::class.java, body).file
+
+        checkUploadCanceled()
 
         return if (client.secretKey != null) {
             client.getFile(fileId)
@@ -236,8 +261,11 @@ class MultipleFilesUploader : MultipleUploader {
         var i = 0
         var fileBytesWritten = 0L
         chunkedSequence.forEach {
+            checkUploadCanceled()
+
             val requestBody = it.toRequestBody(contentType)
             val chunk = CountingRequestBody(requestBody){ bytesWritten, contentLength ->
+                checkUploadCanceled()
                 fileBytesWritten += bytesWritten
                 if (fileBytesWritten > size) {
                     fileBytesWritten = size
@@ -251,6 +279,7 @@ class MultipleFilesUploader : MultipleUploader {
 
         val multipartComplete = completeMultipartUpload(multipartData.uuid)
 
+        checkUploadCanceled()
         //complete upload
         return if (client.secretKey != null) {
             client.getFile(multipartComplete.uuid)
@@ -262,6 +291,8 @@ class MultipleFilesUploader : MultipleUploader {
     private fun startMultipartUpload(name: String,
                                      size: Long,
                                      contentType: MediaType): UploadMultipartStartData {
+        checkUploadCanceled()
+
         val multipartBuilder = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
@@ -284,6 +315,8 @@ class MultipleFilesUploader : MultipleUploader {
     }
 
     private fun completeMultipartUpload(uuid: String): UploadMultipartCompleteData {
+        checkUploadCanceled()
+
         val multipartBuilder = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
@@ -339,44 +372,15 @@ class MultipleFilesUploader : MultipleUploader {
         progressCallback.onProgressUpdate(totalBytesWritten, totalFilesSize, progress)
     }
 
+    private fun checkUploadCanceled() {
+        if (isCanceled) {
+            throw UploadFailureException("Canceled")
+        }
+    }
+
     companion object {
         private const val MIN_MULTIPART_SIZE: Long = 10485760
 
         private const val CHUNK_SIZE: Int = 5242880
     }
-}
-
-private class MultipleUploadTask(private val uploader: MultipleUploader,
-                                 private val callback: UploadFilesCallback)
-    : AsyncTask<Void, UploadProgress, List<UploadcareFile>?>() {
-    override fun doInBackground(vararg params: Void?): List<UploadcareFile>? {
-        return try {
-            uploader.upload(object : ProgressCallback {
-                override fun onProgressUpdate(
-                        bytesWritten: Long,
-                        contentLength: Long,
-                        progress: Double) {
-                    publishProgress(UploadProgress(bytesWritten, contentLength, progress))
-                }
-            })
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    override fun onProgressUpdate(vararg values: UploadProgress?) {
-        val fileProgress = values[0]
-        fileProgress?.let {
-            callback.onProgressUpdate(it.bytesWritten, it.contentLength, it.progress)
-        }
-    }
-
-    override fun onPostExecute(result: List<UploadcareFile>?) {
-        if (result != null) {
-            callback.onSuccess(result)
-        } else {
-            callback.onFailure(UploadFailureException())
-        }
-    }
-
 }

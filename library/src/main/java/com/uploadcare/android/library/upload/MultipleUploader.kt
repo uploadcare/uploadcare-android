@@ -12,5 +12,7 @@ interface MultipleUploader {
 
     fun uploadAsync(callback: UploadFilesCallback)
 
+    fun cancel()
+
     fun store(store: Boolean): MultipleUploader
 }

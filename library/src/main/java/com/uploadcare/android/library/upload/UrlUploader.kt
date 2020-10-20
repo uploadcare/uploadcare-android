@@ -1,6 +1,5 @@
 package com.uploadcare.android.library.upload
 
-import android.os.AsyncTask
 import android.text.TextUtils
 import com.uploadcare.android.library.api.RequestHelper
 import com.uploadcare.android.library.api.UploadcareClient
@@ -11,6 +10,7 @@ import com.uploadcare.android.library.data.UploadFromUrlData
 import com.uploadcare.android.library.data.UploadFromUrlStatusData
 import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.urls.Urls
+import kotlinx.coroutines.*
 import okhttp3.MultipartBody
 import kotlin.math.pow
 
@@ -31,6 +31,10 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
 
     private var expire: String? = null
 
+    private var job: Job? = null
+
+    private var isCanceled: Boolean = false
+
     /**
      * Synchronously uploads the file from provided URL to Uploadcare.
      *
@@ -46,7 +50,23 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
      * @param callback callback {@link UploadFileCallback}, will be executed on Main (UI) thread.
      */
     override fun uploadAsync(callback: UploadFileCallback) {
-        UrlUploadTask(this, callback).execute()
+        job = GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val uploadedFiles = upload(500, callback)
+                callback.onSuccess(uploadedFiles)
+            } catch (e: Exception) {
+                callback.onFailure(UploadFailureException(e.message))
+            }
+        }
+    }
+
+    /**
+     * Cancel upload of the file.
+     */
+    override fun cancel(){
+        isCanceled = true
+        job?.cancel("canceled", UploadFailureException("Canceled"))
+        job = null
     }
 
     /**
@@ -154,6 +174,7 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
         var progress : Double = 0.0
 
         while (true) {
+            checkUploadCanceled()
             sleep(waitTime)
             val data: UploadFromUrlStatusData = client.requestHelper.executeQuery(
                     RequestHelper.REQUEST_GET, statusUrl.toString(), false,
@@ -163,6 +184,7 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
 
                 progressCallback?.onProgressUpdate(data.done, data.total, progress)
 
+                checkUploadCanceled()
                 // Success
                 return if (client.secretKey != null) {
                     client.getFile(data.fileId)
@@ -180,6 +202,8 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
                     retries = 0
                     waitTime = pollingInterval
                     progress = currentProgress
+
+                    checkUploadCanceled()
                     progressCallback?.onProgressUpdate(data.done, data.total, progress)
                 } else {
                     waitTime = calculateTimeToWait(retries)
@@ -194,6 +218,7 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
                     retries++
                 }
             } else if (data.status == "error" || data.status == "failed") {
+                checkUploadCanceled()
                 throw UploadFailureException(data.error)
             }
         }
@@ -210,6 +235,12 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
         }
     }
 
+    private fun checkUploadCanceled() {
+        if (isCanceled) {
+            throw UploadFailureException("Canceled")
+        }
+    }
+
     companion object{
         internal const val DEFAULT_POLLING_INTERVAL: Long = 500L
 
@@ -223,42 +254,6 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
             return if (0 == retryCount) {
                 DEFAULT_POLLING_INTERVAL
             } else 2.0.pow(retryCount).toLong() * DEFAULT_POLLING_INTERVAL
-        }
-    }
-
-}
-
-private class UrlUploadTask(private val uploader: UrlUploader,
-                            private val callback: UploadFileCallback)
-    : AsyncTask<Void, UploadProgress, UploadcareFile?>() {
-
-    override fun doInBackground(vararg params: Void?): UploadcareFile? {
-        return try {
-            uploader.upload(500, object : ProgressCallback {
-                override fun onProgressUpdate(
-                        bytesWritten: Long,
-                        contentLength: Long,
-                        progress: Double) {
-                    publishProgress(UploadProgress(bytesWritten, contentLength, progress))
-                }
-            })
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    override fun onProgressUpdate(vararg values: UploadProgress?) {
-        val fileProgress = values[0]
-        fileProgress?.let {
-            callback.onProgressUpdate(it.bytesWritten, it.contentLength, it.progress)
-        }
-    }
-
-    override fun onPostExecute(result: UploadcareFile?) {
-        if (result != null) {
-            callback.onSuccess(result)
-        } else {
-            callback.onFailure(UploadFailureException())
         }
     }
 

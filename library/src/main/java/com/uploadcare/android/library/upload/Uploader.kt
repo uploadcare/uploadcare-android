@@ -12,5 +12,7 @@ interface Uploader {
 
     fun uploadAsync(callback: UploadFileCallback)
 
+    fun cancel()
+
     fun store(store: Boolean): Uploader
 }

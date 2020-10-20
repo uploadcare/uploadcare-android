@@ -120,6 +120,8 @@ dependencies {
     testImplementation "junit:junit:$versions.junit"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlin_coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.kotlin_coroutines"
     implementation "com.squareup.moshi:moshi:$versions.moshi"
     implementation "com.squareup.moshi:moshi-adapters:$versions.moshi"
     implementation "com.squareup.moshi:moshi-kotlin:$versions.moshi"

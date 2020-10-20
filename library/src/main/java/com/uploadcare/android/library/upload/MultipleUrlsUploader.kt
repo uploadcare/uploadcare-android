@@ -1,6 +1,5 @@
 package com.uploadcare.android.library.upload
 
-import android.os.AsyncTask
 import android.text.TextUtils
 import com.uploadcare.android.library.api.RequestHelper
 import com.uploadcare.android.library.api.UploadcareClient
@@ -11,6 +10,7 @@ import com.uploadcare.android.library.data.UploadFromUrlData
 import com.uploadcare.android.library.data.UploadFromUrlStatusData
 import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.urls.Urls
+import kotlinx.coroutines.*
 import okhttp3.MultipartBody
 import java.util.*
 
@@ -32,6 +32,10 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
 
     private var expire: String? = null
 
+    private var job: Job? = null
+
+    private var isCanceled: Boolean = false
+
     /**
      * Synchronously uploads the files to Uploadcare.
      * <p>
@@ -48,7 +52,23 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
      * Asynchronously uploads the list of files to Uploadcare.
      */
     override fun uploadAsync(callback: UploadFilesCallback) {
-        MultipleUrlsUploadTask(this, callback).execute()
+        job = GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val uploadedFiles = upload(500, callback)
+                callback.onSuccess(uploadedFiles)
+            } catch (e: Exception) {
+                callback.onFailure(UploadFailureException(e.message))
+            }
+        }
+    }
+
+    /**
+     * Cancel upload of the file.
+     */
+    override fun cancel(){
+        isCanceled = true
+        job?.cancel("canceled", UploadFailureException("Canceled"))
+        job = null
     }
 
     /**
@@ -135,6 +155,7 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
             : List<UploadcareFile> {
         val results = ArrayList<UploadcareFile>()
         for (sourceUrl in sourceUrls) {
+            checkUploadCanceled()
             val multipartBuilder = MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("pub_key", client.publicKey)
@@ -169,6 +190,7 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
             var progress: Double = 0.0
 
             while (true) {
+                checkUploadCanceled()
                 sleep(waitTime)
                 val data: UploadFromUrlStatusData = client.requestHelper.executeQuery(
                         RequestHelper.REQUEST_GET, statusUrl.toString(), false,
@@ -177,6 +199,8 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
                     progress = 1.0
 
                     progressCallback?.onProgressUpdate(data.done, data.total, progress)
+
+                    checkUploadCanceled()
 
                     results.add(if (client.secretKey != null) {
                         client.getFile(data.fileId)
@@ -195,6 +219,8 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
                         retries = 0
                         waitTime = pollingInterval
                         progress = currentProgress
+
+                        checkUploadCanceled()
                         progressCallback?.onProgressUpdate(data.done, data.total, progress)
                     } else {
                         waitTime = UrlUploader.calculateTimeToWait(retries)
@@ -209,44 +235,17 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
                         retries++
                     }
                 } else if (data.status == "error" || data.status == "failed") {
+                    checkUploadCanceled()
                     throw UploadFailureException(data.error)
                 }
             }
         }
         return results
     }
-}
 
-private class MultipleUrlsUploadTask(private val uploader: MultipleUrlsUploader,
-                                     private val callback: UploadFilesCallback)
-    : AsyncTask<Void, UploadProgress, List<UploadcareFile>?>() {
-    override fun doInBackground(vararg params: Void?): List<UploadcareFile>? {
-        return try {
-            uploader.upload(500, object : ProgressCallback {
-                override fun onProgressUpdate(
-                        bytesWritten: Long,
-                        contentLength: Long,
-                        progress: Double) {
-                    publishProgress(UploadProgress(bytesWritten, contentLength, progress))
-                }
-            })
-        } catch (e: UploadFailureException) {
-            null
-        }
-    }
-
-    override fun onProgressUpdate(vararg values: UploadProgress?) {
-        val fileProgress = values[0]
-        fileProgress?.let {
-            callback.onProgressUpdate(it.bytesWritten, it.contentLength, it.progress)
-        }
-    }
-
-    override fun onPostExecute(result: List<UploadcareFile>?) {
-        if (result != null) {
-            callback.onSuccess(result)
-        } else {
-            callback.onFailure(UploadFailureException())
+    private fun checkUploadCanceled() {
+        if (isCanceled) {
+            throw UploadFailureException("Canceled")
         }
     }
 }

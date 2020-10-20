@@ -2,7 +2,6 @@ package com.uploadcare.android.library.upload
 
 import android.content.Context
 import android.net.Uri
-import android.os.AsyncTask
 import android.text.TextUtils
 import com.uploadcare.android.library.api.RequestHelper
 import com.uploadcare.android.library.api.UploadcareClient
@@ -16,6 +15,7 @@ import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.upload.UploadUtils.Companion.chunkedSequence
 import com.uploadcare.android.library.urls.Urls
 import com.uploadcare.android.library.utils.CountingRequestBody
+import kotlinx.coroutines.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -51,6 +51,10 @@ class FileUploader : Uploader {
     private var signature: String? = null
 
     private var expire: String? = null
+
+    private var job: Job? = null
+
+    private var isCanceled: Boolean = false
 
     /**
      * Creates a new uploader from a file on disk
@@ -157,6 +161,7 @@ class FileUploader : Uploader {
      * @return An Uploadcare file
      * @throws UploadFailureException
      */
+    @Throws(UploadFailureException::class)
     override fun upload(progressCallback: ProgressCallback?): UploadcareFile {
         val name: String
         val size: Long
@@ -217,7 +222,23 @@ class FileUploader : Uploader {
      * @param callback callback {@link UploadFileCallback}, will be executed on Main (UI) thread.
      */
     override fun uploadAsync(callback: UploadFileCallback) {
-        UploadTask(this, callback).execute()
+        job = GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val uploadedFile = upload(callback)
+                callback.onSuccess(uploadedFile)
+            } catch (e: Exception) {
+                callback.onFailure(UploadFailureException(e.message))
+            }
+        }
+    }
+
+    /**
+     * Cancel upload of the file.
+     */
+    override fun cancel(){
+        isCanceled = true
+        job?.cancel("canceled", UploadFailureException("Canceled"))
+        job = null
     }
 
     /**
@@ -264,6 +285,7 @@ class FileUploader : Uploader {
                 ?: throw UploadFailureException("Cannot read file: $name")
 
         val countingRequestBody = CountingRequestBody(requestBody) { bytesWritten, contentLength ->
+            checkUploadCanceled()
             val progress = 1.0 * bytesWritten / contentLength
             progressCallback?.onProgressUpdate(bytesWritten, contentLength, progress)
         }
@@ -272,6 +294,8 @@ class FileUploader : Uploader {
 
         val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
                 uploadUrl.toString(), false, UploadBaseData::class.java, body).file
+
+        checkUploadCanceled()
 
         return if (client.secretKey != null) {
             client.getFile(fileId)
@@ -325,9 +349,12 @@ class FileUploader : Uploader {
         var i = 0
         var allBytesWritten = 0L
         getChunkedSequence().forEach {
+            checkUploadCanceled()
+
             val requestBody = it.toRequestBody(contentType)
 
             val chunk = CountingRequestBody(requestBody) { bytesWritten, contentLength ->
+                checkUploadCanceled()
                 allBytesWritten += bytesWritten
                 if (allBytesWritten > size) {
                     allBytesWritten = size
@@ -343,6 +370,7 @@ class FileUploader : Uploader {
 
         val multipartComplete = completeMultipartUpload(multipartData.uuid)
 
+        checkUploadCanceled()
         //complete upload
         return if (client.secretKey != null) {
             client.getFile(multipartComplete.uuid)
@@ -354,6 +382,8 @@ class FileUploader : Uploader {
     private fun startMultipartUpload(name: String,
                                      size: Long,
                                      contentType: MediaType): UploadMultipartStartData {
+        checkUploadCanceled()
+
         val multipartBuilder = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
@@ -376,6 +406,8 @@ class FileUploader : Uploader {
     }
 
     private fun completeMultipartUpload(uuid: String): UploadMultipartCompleteData {
+        checkUploadCanceled()
+
         val multipartBuilder = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
@@ -405,6 +437,12 @@ class FileUploader : Uploader {
         }
     }
 
+    private fun checkUploadCanceled() {
+        if (isCanceled) {
+            throw UploadFailureException("Canceled")
+        }
+    }
+
     companion object {
         private const val MIN_MULTIPART_SIZE: Long = 10485760
 
@@ -412,39 +450,4 @@ class FileUploader : Uploader {
 
         internal const val DEFAULT_FILE_NAME = "default_filename"
     }
-}
-
-private class UploadTask(private val uploader: FileUploader,
-                         private val callback: UploadFileCallback)
-    : AsyncTask<Void, UploadProgress, UploadcareFile?>() {
-    override fun doInBackground(vararg params: Void?): UploadcareFile? {
-        return try {
-            uploader.upload(object : ProgressCallback {
-                override fun onProgressUpdate(
-                        bytesWritten: Long,
-                        contentLength: Long,
-                        progress: Double) {
-                    publishProgress(UploadProgress(bytesWritten, contentLength, progress))
-                }
-            })
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    override fun onProgressUpdate(vararg values: UploadProgress?) {
-        val fileProgress = values[0]
-        fileProgress?.let {
-            callback.onProgressUpdate(it.bytesWritten, it.contentLength, it.progress)
-        }
-    }
-
-    override fun onPostExecute(result: UploadcareFile?) {
-        if (result != null) {
-            callback.onSuccess(result)
-        } else {
-            callback.onFailure(UploadFailureException())
-        }
-    }
-
 }
