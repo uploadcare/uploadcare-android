@@ -100,6 +100,7 @@ class RequestHelper(private val client: UploadcareClient) {
         authorization?.let { requestBuilder.addHeader("Authorization", it) }
     }
 
+    @Throws(UploadcareApiException::class)
     fun <T : Any> executeQuery(requestType: String,
                                url: String,
                                apiHeaders: Boolean,
@@ -133,12 +134,13 @@ class RequestHelper(private val client: UploadcareClient) {
                 result?.let { return result } ?: throw UploadcareApiException("Can't parse result")
             } ?: throw UploadcareApiException("No response")
         } catch (e: RuntimeException) {
-            throw UploadcareApiException(e)
+            throw UploadcareApiException(e.message)
         } catch (e: IOException) {
-            throw UploadcareApiException(e)
+            throw UploadcareApiException(e.message)
         }
     }
 
+    @Throws(UploadcareApiException::class)
     fun <T : Any> executeQuery(requestType: String,
                                url: String,
                                apiHeaders: Boolean,
@@ -172,9 +174,9 @@ class RequestHelper(private val client: UploadcareClient) {
                 result?.let { return result } ?: throw UploadcareApiException("Can't parse result")
             } ?: throw UploadcareApiException("No response")
         } catch (e: RuntimeException) {
-            throw UploadcareApiException(e)
+            throw UploadcareApiException(e.message)
         } catch (e: IOException) {
-            throw UploadcareApiException(e)
+            throw UploadcareApiException(e.message)
         }
     }
 
@@ -209,7 +211,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
             }
 
             @Throws(IOException::class)
@@ -234,7 +236,7 @@ class RequestHelper(private val client: UploadcareClient) {
                             ?: mainHandler.post { callback?.onFailure(UploadcareApiException("No response")) }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                    mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
                 }
             }
         })
@@ -271,7 +273,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
             }
 
             @Throws(IOException::class)
@@ -296,12 +298,13 @@ class RequestHelper(private val client: UploadcareClient) {
                             ?: mainHandler.post { callback?.onFailure(UploadcareApiException("No response")) }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                    mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
                 }
             }
         })
     }
 
+    @Throws(UploadcareApiException::class)
     fun <T : Any> executePaginatedQuery(url: URI,
                                         urlParameters: Collection<UrlParameter>,
                                         apiHeaders: Boolean,
@@ -378,7 +381,7 @@ class RequestHelper(private val client: UploadcareClient) {
                 setApiHeaders(requestBuilder, pageUrl.toString(), REQUEST_GET, null)
             } catch (e: Exception) {
                 e.printStackTrace()
-                callback?.onFailure(UploadcareApiException(e))
+                callback?.onFailure(UploadcareApiException(e.message))
                 return
             }
 
@@ -388,7 +391,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
             }
 
             @Throws(IOException::class)
@@ -412,12 +415,11 @@ class RequestHelper(private val client: UploadcareClient) {
                             ?: mainHandler.post { callback?.onFailure(UploadcareApiException("No response")) }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                    mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
                 }
 
             }
         })
-
     }
 
     fun executeGroupsPaginatedQueryWithOffsetLimitAsync(context: Context,
@@ -439,7 +441,7 @@ class RequestHelper(private val client: UploadcareClient) {
                 setApiHeaders(requestBuilder, pageUrl.toString(), REQUEST_GET, null)
             } catch (e: Exception) {
                 e.printStackTrace()
-                callback?.onFailure(UploadcareApiException(e))
+                callback?.onFailure(UploadcareApiException(e.message))
                 return
             }
 
@@ -449,7 +451,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
             }
 
             @Throws(IOException::class)
@@ -473,7 +475,7 @@ class RequestHelper(private val client: UploadcareClient) {
                             ?: mainHandler.post { callback?.onFailure(UploadcareApiException("No response")) }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                    mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
                 }
 
             }
@@ -495,6 +497,7 @@ class RequestHelper(private val client: UploadcareClient) {
      * @param requestBody body of POST request, used only with request type REQUEST_POST.
      * @return HTTP Response object
      */
+    @Throws(UploadcareApiException::class)
     fun executeCommand(requestType: String,
                        url: String,
                        apiHeaders: Boolean,
@@ -518,7 +521,7 @@ class RequestHelper(private val client: UploadcareClient) {
             checkResponseStatus(response)
             return response
         } catch (e: IOException) {
-            throw UploadcareApiException(e)
+            throw UploadcareApiException(e.message)
         }
     }
 
@@ -562,7 +565,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
             override fun onFailure(call: Call, e: IOException) {
                 if (callback != null) {
-                    mainHandler.post { callback.onFailure(UploadcareApiException(e)) }
+                    mainHandler.post { callback.onFailure(UploadcareApiException(e.message)) }
                 }
             }
 
@@ -621,7 +624,7 @@ class RequestHelper(private val client: UploadcareClient) {
         val requestBody: String? = try {
             response.body?.string()
         } catch (e: IOException) {
-            callback?.onFailure(UploadcareApiException(e))
+            callback?.onFailure(UploadcareApiException(e.message))
             return
         }
 
