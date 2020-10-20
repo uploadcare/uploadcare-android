@@ -14,6 +14,7 @@ android {
         targetSdkVersion versions.target_sdk
         versionCode 10
         versionName "2.2.0"
+        buildConfigField 'String', 'VERSION_NAME', "\"2.2.0\""
     }
 
     androidExtensions {
