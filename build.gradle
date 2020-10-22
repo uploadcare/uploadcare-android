@@ -6,31 +6,31 @@ buildscript {
     versions.kotlin_coroutines = '1.3.9'
 
     versions.min_sdk = 22
-    versions.target_sdk = 28
-    versions.compile_sdk = 28
+    versions.target_sdk = 29
+    versions.compile_sdk = 29
 
     versions.gradle_version = '4.1.0'
     versions.bintray_version = '1.8.5'
 
-    versions.core = "1.3.1"
-    versions.material = "1.2.0-rc01"
-    versions.navigation = "2.3.0"
+    versions.core = "1.3.2"
+    versions.material = "1.3.0-alpha03"
+    versions.navigation = "2.3.1"
     versions.lifecycle = "2.2.0"
-    versions.constraintlayout = "2.0.0-rc1"
+    versions.constraintlayout = "2.0.2"
     versions.annotation = '1.1.0'
-    versions.appcompat = "1.2.0-rc02"
+    versions.appcompat = "1.2.0"
     versions.fragment = "1.2.5"
 
-    versions.okhttp = "4.7.1"
-    versions.retrofit = "2.8.2"
+    versions.okhttp = "4.9.0"
+    versions.retrofit = "2.9.0"
 
     versions.picasso = "2.71828"
 
-    versions.moshi = "1.9.3"
+    versions.moshi = "1.11.0"
 
     versions.junit = "4.12"
-    versions.test_runner = "1.2.0"
-    versions.espresso_core = "3.2.0"
+    versions.test_runner = "1.3.0"
+    versions.espresso_core = "3.3.0"
 
     versions.dokka = "0.9.18"
 

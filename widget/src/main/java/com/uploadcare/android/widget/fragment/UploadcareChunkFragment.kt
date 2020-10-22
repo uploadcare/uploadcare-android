@@ -58,13 +58,13 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
         viewModel = ViewModelProvider(this).get()
         binding.viewModel = viewModel
 
-        val socialSource = arguments?.getParcelable("socialSource") as SocialSource
+        val socialSource = arguments?.getParcelable("socialSource") as SocialSource?
         binding.ucwRecyclerView.apply {
-            if (socialSource.name == SocialNetwork.SOCIAL_NETWORK_BOX.rawValue
-                    || socialSource.name == SocialNetwork.SOCIAL_NETWORK_DROPBOX.rawValue
-                    || socialSource.name == SocialNetwork.SOCIAL_NETWORK_EVERNOTE.rawValue
-                    || socialSource.name == SocialNetwork.SOCIAL_NETWORK_SKYDRIVE.rawValue
-                    || socialSource.name == SocialNetwork.SOCIAL_NETWORK_GDRIVE.rawValue) {
+            if (socialSource?.name == SocialNetwork.SOCIAL_NETWORK_BOX.rawValue
+                    || socialSource?.name == SocialNetwork.SOCIAL_NETWORK_DROPBOX.rawValue
+                    || socialSource?.name == SocialNetwork.SOCIAL_NETWORK_EVERNOTE.rawValue
+                    || socialSource?.name == SocialNetwork.SOCIAL_NETWORK_SKYDRIVE.rawValue
+                    || socialSource?.name == SocialNetwork.SOCIAL_NETWORK_GDRIVE.rawValue) {
                 layoutManager = LinearLayoutManager(context)
                 mAdapter = FilesLinearAdapter(FileType.any) { thing ->
                     itemSelected(thing)

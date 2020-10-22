@@ -60,7 +60,7 @@ class UploadFragment : Fragment() {
             if (requestCode == ACTIVITY_CHOOSE_FILE) {
                 if (data?.data != null) {
                     // Upload 1 file.
-                    viewModel.uploadFile(data.data)
+                    viewModel.uploadFile(data.data!!)
                     return
                 } else if (data?.clipData != null) {
                     // Upload multiple files.
