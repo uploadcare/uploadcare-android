@@ -36,6 +36,7 @@ class CdnFragment : Fragment() {
             binding.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
         }
 
+        binding.uploadcareFile = args.uploadcareFile
         loadImages(args.uploadcareFile)
 
         return binding.root
