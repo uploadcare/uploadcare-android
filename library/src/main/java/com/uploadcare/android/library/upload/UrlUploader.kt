@@ -53,9 +53,13 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
         job = GlobalScope.launch(Dispatchers.IO) {
             try {
                 val uploadedFiles = upload(500, callback)
-                callback.onSuccess(uploadedFiles)
+                withContext(Dispatchers.Main) {
+                    callback.onSuccess(uploadedFiles)
+                }
             } catch (e: Exception) {
-                callback.onFailure(UploadFailureException(e.message))
+                withContext(Dispatchers.Main) {
+                    callback.onFailure(UploadFailureException(e.message))
+                }
             }
         }
     }

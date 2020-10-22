@@ -225,9 +225,13 @@ class FileUploader : Uploader {
         job = GlobalScope.launch(Dispatchers.IO) {
             try {
                 val uploadedFile = upload(callback)
-                callback.onSuccess(uploadedFile)
+                withContext(Dispatchers.Main) {
+                    callback.onSuccess(uploadedFile)
+                }
             } catch (e: Exception) {
-                callback.onFailure(UploadFailureException(e.message))
+                withContext(Dispatchers.Main) {
+                    callback.onFailure(UploadFailureException(e.message))
+                }
             }
         }
     }
