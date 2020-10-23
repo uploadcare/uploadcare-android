@@ -186,7 +186,9 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
             if (data.status == "success" && data.fileId != null) {
                 progress = 1.0
 
-                progressCallback?.onProgressUpdate(data.done, data.total, progress)
+                GlobalScope.launch(Dispatchers.IO){
+                    reportProgress(data, progress, progressCallback)
+                }
 
                 checkUploadCanceled()
                 // Success
@@ -208,7 +210,9 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
                     progress = currentProgress
 
                     checkUploadCanceled()
-                    progressCallback?.onProgressUpdate(data.done, data.total, progress)
+                    GlobalScope.launch(Dispatchers.IO){
+                        reportProgress(data, progress, progressCallback)
+                    }
                 } else {
                     waitTime = calculateTimeToWait(retries)
                     retries++
@@ -242,6 +246,14 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
     private fun checkUploadCanceled() {
         if (isCanceled) {
             throw UploadFailureException("Canceled")
+        }
+    }
+
+    private suspend fun reportProgress(data: UploadFromUrlStatusData,
+                                       progress: Double,
+                                       progressCallback: ProgressCallback? = null){
+        withContext(Dispatchers.Main) {
+            progressCallback?.onProgressUpdate(data.done, data.total, progress)
         }
     }
 

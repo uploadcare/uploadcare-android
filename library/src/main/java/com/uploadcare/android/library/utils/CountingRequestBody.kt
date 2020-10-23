@@ -1,5 +1,9 @@
 package com.uploadcare.android.library.utils
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.RequestBody
 import okio.*
 import java.io.IOException
@@ -21,13 +25,21 @@ internal class CountingRequestBody(private val requestBody: RequestBody,
     @Throws(IOException::class)
     override fun writeTo(sink: BufferedSink) {
         val countingSink = CountingSink(sink) { bytesWritten ->
-            onProgressUpdate(bytesWritten, requestBody.contentLength())
+            GlobalScope.launch(Dispatchers.IO){
+                reportProgress(bytesWritten, requestBody.contentLength())
+            }
         }
         val bufferedSink = countingSink.buffer()
 
         requestBody.writeTo(bufferedSink)
 
         bufferedSink.flush()
+    }
+
+    private suspend fun reportProgress(bytesWritten: Long, contentLength: Long) {
+        withContext(Dispatchers.Main) {
+            onProgressUpdate(bytesWritten, contentLength)
+        }
     }
 }
 
