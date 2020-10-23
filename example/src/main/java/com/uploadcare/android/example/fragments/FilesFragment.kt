@@ -42,6 +42,7 @@ class FilesFragment : Fragment(), OrderDialogListener, DatePickerDialog.OnDateSe
         binding = FragmentFilesBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get()
 
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         (activity as AppCompatActivity).let {
@@ -86,18 +87,22 @@ class FilesFragment : Fragment(), OrderDialogListener, DatePickerDialog.OnDateSe
             showOrderDialog()
         })
 
+        if (savedInstanceState == null) {
+            viewModel.apply()
+        }
+
         return binding.root
     }
 
     override fun onOrderSelected(order: Order) {
-        viewModel.filterOrder.set(order)
+        viewModel.filterOrder.value = order
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
         try {
             val fromDate = dateFormat.parse("$year-${(month + 1)}-$dayOfMonth}")
-            viewModel.filterFromDate.set(fromDate)
+            viewModel.filterFromDate.value = fromDate
         } catch (e: ParseException) {
             e.printStackTrace()
         }

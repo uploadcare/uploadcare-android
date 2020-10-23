@@ -29,6 +29,7 @@ class UploadFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
         binding = FragmentUploadBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get()
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.fragment = this
         binding.viewModel = viewModel
 

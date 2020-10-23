@@ -25,6 +25,8 @@
     <string name="activity_files_btn_order">Order</string>
     <string name="activity_files_stored">Stored</string>
     <string name="activity_files_removed">Removed</string>
+    <string name="activity_files_cancelable">Cancelable</string>
+    <string name="activity_files_progress">Show Progress</string>
     <string name="activity_files_no_items">No more items</string>
     <string name="activity_cdn_original">Original</string>
     <string name="activity_cdn_grayscale">Grayscale</string>
@@ -38,6 +40,7 @@
     <string name="activity_files_from_text">From date: %s</string>
     <string name="activity_files_order_text">Order: %s</string>
     <string name="order_dialog_title">Select Order</string>
+    <string name="activity_main_btn_cancel_upload">Cancel Upload</string>
 
     <array name="orders">
         <item>Upload time, Ascending (Default)</item>
