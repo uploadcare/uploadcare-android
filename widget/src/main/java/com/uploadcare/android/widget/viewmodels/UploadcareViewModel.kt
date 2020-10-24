@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.os.Environment
 import androidx.core.content.FileProvider
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.callbacks.UploadFileCallback
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.upload.FileUploader
+import com.uploadcare.android.library.upload.Uploader
 import com.uploadcare.android.widget.R
 import com.uploadcare.android.widget.controller.FileType
 import com.uploadcare.android.widget.controller.SocialNetwork
@@ -24,16 +26,18 @@ import retrofit2.Response
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class UploadcareViewModel(application: Application) : AndroidViewModel(application) {
 
-    val progressDialogCommand = SingleLiveEvent<Pair<Boolean, String?>>()
+    val progressDialogCommand = SingleLiveEvent<ProgressData>()
     val closeWidgetCommand = SingleLiveEvent<UploadcareApiException?>()
     val showSocialSourcesCommand = SingleLiveEvent<Pair<List<SocialSource>, FileType>>()
-    val launchSocialSourceCommand = SingleLiveEvent<Pair<SocialSource, Boolean>>()
+    val launchSocialSourceCommand = SingleLiveEvent<SocialData>()
     val launchCamera = SingleLiveEvent<Pair<Uri, MediaType>>()
     val launchFilePicker = SingleLiveEvent<FileType>()
     val uploadCompleteCommand = SingleLiveEvent<UploadcareFile>()
+    val uploadProgress = MutableLiveData<Int>().apply { value = 0 }
 
     private var network: String? = null
     private var storeUponUpload = false
@@ -42,6 +46,9 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
     private var tempFileUri: Uri? = null
     private var signature: String? = null
     private var expire: String? = null
+    private var cancelable : Boolean = false
+    private var showProgress : Boolean = false
+    private var uploader: Uploader? = null
 
     fun start(bundle: Bundle) {
         network = bundle.getString("network")
@@ -51,7 +58,8 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
         } ?: FileType.any
         signature = bundle.getString("signature")
         expire = bundle.getString("expire")
-
+        cancelable = bundle.getBoolean("cancelable", false)
+        showProgress = bundle.getBoolean("showProgress", false)
         if (isLocalNetwork(network)) {
             launchLocalNetwork(network)
         } else {
@@ -87,50 +95,63 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
     fun uploadFile(fileUri: Uri? = null) {
         val uri = fileUri ?: tempFileUri
         uri?.let { uri ->
-            progressDialogCommand.postValue(Pair(true,
-                    getContext().getString(R.string.ucw_action_loading_image)))
+            progressDialogCommand.postValue(ProgressData(
+                    true,
+                    getContext().getString(R.string.ucw_action_loading_image),
+                    cancelable,
+                    showProgress))
 
-            val uploader = FileUploader(UploadcareWidget.getInstance(getContext()).uploadcareClient,
+            uploader = FileUploader(UploadcareWidget.getInstance(getContext()).uploadcareClient,
                     uri, getContext())
                     .store(storeUponUpload)
                     .signedUpload(signature ?: "", expire ?: "")
 
-            uploader.uploadAsync(object : UploadFileCallback {
+            uploader!!.uploadAsync(object : UploadFileCallback {
                 override fun onFailure(e: UploadcareApiException) {
-                    progressDialogCommand.postValue(Pair(false, null))
+                    progressDialogCommand.postValue(ProgressData(false))
                     closeWidgetCommand.postValue(e)
+                    uploader = null
                 }
 
                 override fun onProgressUpdate(
                         bytesWritten: Long,
                         contentLength: Long,
                         progress: Double) {
-                    // Ignore.
+                    if (showProgress) {
+                        uploadProgress.value = (progress * 100).roundToInt()
+                    }
                 }
 
                 override fun onSuccess(result: UploadcareFile) {
-                    progressDialogCommand.postValue(Pair(false, null))
+                    progressDialogCommand.postValue(ProgressData(false))
                     uploadCompleteCommand.postValue(result)
+                    uploader = null
                 }
             })
         } ?: closeWidgetCommand.call()
     }
 
+    fun canlcelUpload(){
+        uploader?.cancel()
+        uploader = null
+        closeWidgetCommand.postValue(UploadcareApiException("Canceled"))
+    }
+
     private fun getAvailableNetworks() {
-        progressDialogCommand.postValue(Pair(true,
+        progressDialogCommand.postValue(ProgressData(true,
                 getContext().getString(R.string.ucw_action_loading_networks)))
         UploadcareWidget.getInstance(getApplication())
                 .socialApi
                 .getSources()
                 .enqueue(object : Callback<SocialSourcesResponse> {
                     override fun onFailure(call: Call<SocialSourcesResponse>, t: Throwable) {
-                        progressDialogCommand.postValue(Pair(false, null))
+                        progressDialogCommand.postValue(ProgressData(false))
                         closeWidgetCommand.postValue(UploadcareApiException(t))
                     }
 
                     override fun onResponse(call: Call<SocialSourcesResponse>,
                                             response: Response<SocialSourcesResponse>) {
-                        progressDialogCommand.postValue(Pair(false, null))
+                        progressDialogCommand.postValue(ProgressData(false))
                         val data = response.body()
                         sources = data?.sources
                         sources?.let { showNetworks(it) } ?: closeWidgetCommand.call()
@@ -152,7 +173,11 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
             }
 
             socialSource?.let {
-                launchSocialSourceCommand.postValue(Pair(socialSource, storeUponUpload))
+                launchSocialSourceCommand.postValue(SocialData(
+                        socialSource,
+                        storeUponUpload,
+                        cancelable,
+                        showProgress))
             } ?: closeWidgetCommand.call()
         }
     }
@@ -169,7 +194,11 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
                 launchLocalNetwork(socialSource.name)
             }
             else -> {
-                launchSocialSourceCommand.postValue(Pair(socialSource, storeUponUpload))
+                launchSocialSourceCommand.postValue(SocialData(
+                        socialSource,
+                        storeUponUpload,
+                        cancelable,
+                        showProgress))
             }
         }
     }
@@ -242,3 +271,16 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
 enum class MediaType {
     IMAGE, VIDEO
 }
+
+data class ProgressData(
+        val show: Boolean,
+        val message: String? = null,
+        val cancelable: Boolean = false,
+        val showProgress: Boolean = false)
+
+data class SocialData(
+        val socialSource: SocialSource,
+        val storeUponUpload:Boolean = false,
+        val cancelable: Boolean = false,
+        val showProgress: Boolean = false
+)
