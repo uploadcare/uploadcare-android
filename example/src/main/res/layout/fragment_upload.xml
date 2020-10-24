@@ -153,6 +153,31 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/button_upload_url" />
 
+                <CheckBox
+                    android:id="@+id/widget_upload_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.allowUploadCancelWidget}"
+                    android:padding="@dimen/ucw_standard"
+                    android:text="@string/activity_files_cancelable"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toStartOf="@+id/widget_upload_progress"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/widget_demos" />
+
+                <CheckBox
+                    android:id="@+id/widget_upload_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.showUploadProgressWidget}"
+                    android:padding="@dimen/ucw_standard"
+                    android:text="@string/activity_files_progress"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/widget_upload_cancel"
+                    app:layout_constraintTop_toBottomOf="@+id/widget_demos" />
+
                 <Button
                     android:id="@+id/button_uploadcare_widget"
                     android:layout_width="wrap_content"
@@ -162,7 +187,7 @@
                     app:isVisible="@{!viewModel.loading}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/widget_demos" />
+                    app:layout_constraintTop_toBottomOf="@+id/widget_upload_cancel" />
 
                 <Button
                     android:id="@+id/button_uploadcare_widget_instagram"

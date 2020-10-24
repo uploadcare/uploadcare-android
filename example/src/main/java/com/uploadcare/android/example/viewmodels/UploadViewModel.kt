@@ -29,6 +29,8 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     val loading = MutableLiveData<Boolean>().apply { value = false }
     val allowUploadCancel = MutableLiveData<Boolean>().apply { value = false }
     val showUploadProgress = MutableLiveData<Boolean>().apply { value = false }
+    val allowUploadCancelWidget = MutableLiveData<Boolean>().apply { value = false }
+    val showUploadProgressWidget = MutableLiveData<Boolean>().apply { value = false }
     val uploadProgress = MutableLiveData<Int>().apply { value = 0 }
     val status = MutableLiveData<String>()
 
@@ -60,26 +62,40 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun uploadWidgetAny(fragment: UploadFragment) {
-        UploadcareWidget.getInstance(getContext()).style = -1
-        UploadcareWidget.getInstance(getContext()).selectFile(fragment, true)
+        UploadcareWidget.getInstance(getContext())
+                .selectFile(fragment)
+                .cancelable(allowUploadCancelWidget.value ?: false)
+                .showProgress(showUploadProgressWidget.value ?: false)
+                .launch()
     }
 
     fun uploadWidgetInstagram(fragment: UploadFragment) {
-        UploadcareWidget.getInstance(getContext()).style = R.style.CustomUploadCareIndigoPink
         UploadcareWidget.getInstance(getContext())
-                .selectFileFrom(fragment, SocialNetwork.SOCIAL_NETWORK_INSTAGRAM, true)
+                .selectFile(fragment)
+                .style(R.style.CustomUploadCareIndigoPink)
+                .from(SocialNetwork.SOCIAL_NETWORK_INSTAGRAM)
+                .cancelable(allowUploadCancelWidget.value ?: false)
+                .showProgress(showUploadProgressWidget.value ?: false)
+                .launch()
     }
 
     fun uploadWidgetFacebook(fragment: UploadFragment) {
-        UploadcareWidget.getInstance(getContext()).style = R.style.CustomUploadCareGreenRed
         UploadcareWidget.getInstance(getContext())
-                .selectFileFrom(fragment, SocialNetwork.SOCIAL_NETWORK_FACEBOOK, true)
+                .selectFile(fragment)
+                .style(R.style.CustomUploadCareGreenRed)
+                .from(SocialNetwork.SOCIAL_NETWORK_FACEBOOK)
+                .cancelable(allowUploadCancelWidget.value ?: false)
+                .showProgress(showUploadProgressWidget.value ?: false)
+                .launch()
     }
 
     fun uploadWidgetDropbox(fragment: UploadFragment) {
-        UploadcareWidget.getInstance(getContext()).style = -1
         UploadcareWidget.getInstance(getContext())
-                .selectFileFrom(fragment, SocialNetwork.SOCIAL_NETWORK_DROPBOX, true)
+                .selectFile(fragment)
+                .from(SocialNetwork.SOCIAL_NETWORK_DROPBOX)
+                .cancelable(allowUploadCancelWidget.value ?: false)
+                .showProgress(showUploadProgressWidget.value ?: false)
+                .launch()
     }
 
     fun onUploadResult(result: UploadcareWidgetResult) {
@@ -212,6 +228,9 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     private fun showProgressOrResult(progress: Boolean, message: String) {
         if (progress) {
             uploadProgress.value = 0
+        } else {
+            uploader = null
+            multipleUploader = null
         }
         loading.value = progress
         status.value = message
