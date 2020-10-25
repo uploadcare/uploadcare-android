@@ -6,8 +6,8 @@ buildscript {
     versions.kotlin_coroutines = '1.3.9'
 
     versions.min_sdk = 22
-    versions.target_sdk = 29
-    versions.compile_sdk = 29
+    versions.target_sdk = 30
+    versions.compile_sdk = 30
 
     versions.gradle_version = '4.1.0'
     versions.bintray_version = '1.8.5'

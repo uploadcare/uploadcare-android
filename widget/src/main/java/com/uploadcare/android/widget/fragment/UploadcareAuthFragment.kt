@@ -48,7 +48,7 @@ class UploadcareAuthFragment : Fragment() {
             binding.progress.isVisible = showProgress
         })
 
-        binding.ucwWebview.loadUrl(arguments?.getString("loginLink"))
+        arguments?.getString("loginLink")?.let { binding.ucwWebview.loadUrl(it) }
 
         return binding.root
     }
