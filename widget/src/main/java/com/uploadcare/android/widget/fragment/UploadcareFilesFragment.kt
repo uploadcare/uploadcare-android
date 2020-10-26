@@ -39,6 +39,7 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
                               savedInstanceState: Bundle?): View {
         binding = UcwFragmentFilesBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get()
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         (activity as AppCompatActivity).let {
@@ -179,7 +180,7 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     private fun updateTitle(title: String?) {
         (activity as AppCompatActivity).let {
-            viewModel.isRoot.set(title == null)
+            viewModel.isRoot.value = (title == null)
             title?.let { updatedTitle ->
                 it.supportActionBar?.apply {
                     setTitle(updatedTitle)

@@ -56,6 +56,7 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
                               savedInstanceState: Bundle?): View {
         binding = UcwFragmentChunkBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get()
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         val socialSource = arguments?.getParcelable("socialSource") as SocialSource?

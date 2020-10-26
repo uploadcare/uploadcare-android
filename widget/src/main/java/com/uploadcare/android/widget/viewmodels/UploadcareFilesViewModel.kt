@@ -2,7 +2,6 @@ package com.uploadcare.android.widget.viewmodels
 
 import android.app.Application
 import android.content.Context
-import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.uploadcare.android.library.api.UploadcareFile
@@ -28,7 +27,7 @@ class UploadcareFilesViewModel(application: Application) : AndroidViewModel(appl
     val showErrorCommand = SingleLiveEvent<String>()
     val uploadProgress = MutableLiveData<Int>().apply { value = 0 }
 
-    val isRoot = ObservableBoolean(true)
+    val isRoot = MutableLiveData<Boolean>().apply { value = true }
 
     private var socialSource: SocialSource? = null
     private var storeUponUpload = false
