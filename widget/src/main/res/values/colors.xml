@@ -10,6 +10,14 @@
 
     <color name="ucw_primary_500">#607D8B</color>
     <color name="ucw_primary_700">#455A64</color>
-    <color name="ucw_accent_400">#FF9100</color>
+    <color name="ucw_secondary_200">#fb8d00</color>
+    <color name="ucw_secondary_500">#e65200</color>
     <color name="ucw_transparent">#00FFFFFF</color>
+
+    <color name="ucw_on_primary">#fff</color>
+    <color name="ucw_on_secondary">#000</color>
+    <color name="ucw_on_surface">#000</color>
+    <color name="ucw_on_background">#000</color>
+
+    <color name="ucw_background">#fff</color>
 </resources>

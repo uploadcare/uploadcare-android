@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="text"
-            type="String"/>
+            type="String" />
 
     </data>
 
@@ -17,23 +17,25 @@
 
         <TextView
             android:id="@+id/ucw_spinner_title"
-            style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ucw_ic_arrow_drop_down_white_24dp"
+            android:layout_marginEnd="@dimen/ucw_extra"
+            android:drawablePadding="@dimen/ucw_spinner_content_inset"
             android:ellipsize="marquee"
             android:gravity="start|center_vertical"
-            android:paddingEnd="@dimen/ucw_extra"
+            android:padding="0dp"
             android:singleLine="true"
             android:text="@{text}"
             android:textAlignment="gravity"
             android:textColor="@color/ucw_solid_white"
+            app:drawableStartCompat="@drawable/ucw_ic_arrow_drop_down_white_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:background="@color/ucw_accent_400"
-            tools:text="Test"/>
+            tools:drawableStart="@drawable/ucw_ic_arrow_drop_down_white_24dp"
+            tools:text="Test" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

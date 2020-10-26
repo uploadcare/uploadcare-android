@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.uploadcare.android.widget.fragment.UploadcareChunkFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.uploadcare.android.widget.fragment.UploadcareChunkFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.uploadcare.android.widget.viewmodels.UploadcareChunkViewModel"/>
+            type="com.uploadcare.android.widget.viewmodels.UploadcareChunkViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/ucw_solid_white"
+        android:background="@color/ucw_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,15 +26,15 @@
             isVisible="@{viewModel.isSearch}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:iconifiedByDefault="false"
             android:queryHint="@string/ucw_search_hint"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-        </androidx.appcompat.widget.SearchView>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ucw_recycler_view"
@@ -46,7 +46,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ucw_search_view"/>
+            app:layout_constraintTop_toBottomOf="@+id/ucw_search_view" />
 
         <ProgressBar
             android:id="@+id/progress"
@@ -57,7 +57,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/ucw_empty_image"
@@ -69,25 +69,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"/>
+            app:layout_constraintVertical_chainStyle="packed"
+            app:tint="?attr/colorOnBackground" />
 
         <TextView
             android:id="@+id/ucw_empty_text"
-            style="@style/TextAppearance.AppCompat.Button"
+            style="@style/TextAppearance.MaterialComponents.Button"
             isVisible="@{viewModel.isEmpty}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@string/ucw_empty_content"
-            android:textColor="@color/ucw_black_text_56"
+            android:textColor="@color/ucw_on_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ucw_empty_image"/>
+            app:layout_constraintTop_toBottomOf="@+id/ucw_empty_image" />
 
         <TextView
             android:id="@+id/ucw_additional_loading"
-            style="@style/TextAppearance.AppCompat.Body1"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             isVisible="@{viewModel.loadingMore}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -101,7 +102,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

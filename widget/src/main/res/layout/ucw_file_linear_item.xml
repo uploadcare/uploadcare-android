@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="thing"
-            type="com.uploadcare.android.widget.data.Thing"/>
+            type="com.uploadcare.android.widget.data.Thing" />
 
         <variable
             name="handler"
-            type="com.uploadcare.android.widget.adapter.ThingLinearViewHolder"/>
+            type="com.uploadcare.android.widget.adapter.ThingLinearViewHolder" />
 
     </data>
 
@@ -33,26 +33,25 @@
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/ucw_item_title"
-            style="@style/TextAppearance.AppCompat.Subhead"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
-            android:layout_marginEnd="@dimen/ucw_standard"
             android:layout_marginStart="@dimen/ucw_standard"
+            android:layout_marginEnd="@dimen/ucw_standard"
             android:ellipsize="marquee"
             android:singleLine="true"
             android:text="@{thing.title}"
             android:textAlignment="gravity"
-            android:textColor="@color/ucw_black_text_87"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ucw_item_tb"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Test"/>
+            tools:text="Test" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

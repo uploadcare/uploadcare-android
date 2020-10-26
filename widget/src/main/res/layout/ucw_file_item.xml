@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="android.text.TextUtils"/>
+        <import type="android.text.TextUtils" />
 
         <variable
             name="thing"
-            type="com.uploadcare.android.widget.data.Thing"/>
+            type="com.uploadcare.android.widget.data.Thing" />
 
         <variable
             name="handler"
-            type="com.uploadcare.android.widget.adapter.ThingGridViewHolder"/>
+            type="com.uploadcare.android.widget.adapter.ThingGridViewHolder" />
 
     </data>
 
@@ -36,11 +36,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/ucw_item_title"
-            style="@style/TextAppearance.AppCompat.Subhead"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
@@ -55,7 +55,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Test"/>
+            tools:text="Test" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

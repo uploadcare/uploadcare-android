@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.uploadcare.android.widget.fragment.UploadcareFilesFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.uploadcare.android.widget.fragment.UploadcareFilesFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.uploadcare.android.widget.viewmodels.UploadcareFilesViewModel"/>
+            type="com.uploadcare.android.widget.viewmodels.UploadcareFilesViewModel" />
 
     </data>
 
@@ -27,21 +27,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/ucw_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/uploadcareColorPrimary"
                 app:contentInsetStartWithNavigation="0dp"
                 app:popupTheme="@style/UploadcareWidget.PopupOverlay">
 
                 <Spinner
-                    isVisible="@{viewModel.isRoot}"
                     android:id="@+id/ucw_spinner"
                     style="@style/UploadcareWidget.Spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </androidx.appcompat.widget.Toolbar>
+                    isVisible="@{viewModel.isRoot}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -49,11 +48,11 @@
             android:id="@+id/chunkHolder"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/ucw_solid_white"
+            android:background="@color/ucw_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_bar_layout"/>
+            app:layout_constraintTop_toBottomOf="@+id/app_bar_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
