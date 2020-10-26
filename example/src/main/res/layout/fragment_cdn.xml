@@ -16,17 +16,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetStartWithNavigation="0dp" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <ScrollView
             android:layout_width="0dp"
@@ -34,7 +38,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+            app:layout_constraintTop_toBottomOf="@+id/app_bar_layout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -53,7 +57,7 @@
 
                 <TextView
                     android:id="@+id/cdn1_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -65,7 +69,7 @@
 
                 <TextView
                     android:id="@+id/file_description"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -89,7 +93,7 @@
 
                 <TextView
                     android:id="@+id/cdn2_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -111,7 +115,7 @@
 
                 <TextView
                     android:id="@+id/cdn3_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -133,7 +137,7 @@
 
                 <TextView
                     android:id="@+id/cdn4_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -155,7 +159,7 @@
 
                 <TextView
                     android:id="@+id/cdn5_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -177,7 +181,7 @@
 
                 <TextView
                     android:id="@+id/cdn6_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -199,7 +203,7 @@
 
                 <TextView
                     android:id="@+id/cdn7_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"

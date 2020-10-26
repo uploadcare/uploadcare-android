@@ -20,17 +20,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetStartWithNavigation="0dp"
+                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Dark" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <ScrollView
             android:layout_width="0dp"
@@ -38,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+            app:layout_constraintTop_toBottomOf="@+id/app_bar_layout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -47,7 +52,7 @@
 
                 <TextView
                     android:id="@+id/library_demos"
-                    style="@style/TextAppearance.AppCompat.Title"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/ucw_standard"
@@ -59,6 +64,7 @@
 
                 <Button
                     android:id="@+id/button_get_files"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> viewModel.launchGetFiles()}"
@@ -95,6 +101,7 @@
 
                 <Button
                     android:id="@+id/button_upload_file"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> viewModel.launchFilePicker()}"
@@ -132,6 +139,7 @@
 
                 <Button
                     android:id="@+id/button_upload_url"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> viewModel.uploadUrl(fromUrlEditText,viewModel.url)}"
@@ -143,7 +151,7 @@
 
                 <TextView
                     android:id="@+id/widget_demos"
-                    style="@style/TextAppearance.AppCompat.Title"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/ucw_standard"
@@ -180,6 +188,7 @@
 
                 <Button
                     android:id="@+id/button_uploadcare_widget"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> viewModel.uploadWidgetAny(fragment)}"
@@ -191,6 +200,7 @@
 
                 <Button
                     android:id="@+id/button_uploadcare_widget_instagram"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> viewModel.uploadWidgetInstagram(fragment)}"
@@ -202,6 +212,7 @@
 
                 <Button
                     android:id="@+id/button_uploadcare_widget_facebook"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> viewModel.uploadWidgetFacebook(fragment)}"
@@ -213,6 +224,7 @@
 
                 <Button
                     android:id="@+id/button_uploadcare_widget_dropbox"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> viewModel.uploadWidgetDropbox(fragment)}"
@@ -241,12 +253,12 @@
 
                 <TextView
                     android:id="@+id/status"
+                    style="@style/TextAppearance.AppCompat.Body2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:text="@{viewModel.status}"
                     android:textAlignment="gravity"
-                    android:textColor="@android:color/black"
                     app:isVisible="@{viewModel.status!=null}"
                     app:layout_constraintBottom_toTopOf="@+id/button_cancel_upload"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -257,6 +269,7 @@
 
                 <Button
                     android:id="@+id/button_cancel_upload"
+                    style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> viewModel.cancelUpload()}"

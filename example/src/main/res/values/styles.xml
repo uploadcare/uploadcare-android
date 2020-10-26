@@ -1,22 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+
+        <item name="colorSurface">@color/colorBackground</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+
+        <item name="colorOnPrimary">@color/onPrimary</item>
+        <item name="colorOnSecondary">@color/onSecondary</item>
+        <item name="colorOnSurface">@color/onBackground</item>
+        <item name="colorOnBackground">@color/onBackground</item>
+
+        <item name="android:statusBarColor">@color/statusBarColor</item>
     </style>
 
+    <!--    custom Uploadcare widget theme based on example app theme-->
     <style name="CustomUploadCareIndigoPink" parent="UploadcareStyle">
-        <item name="uploadcareColorAccent">@color/colorAccent</item>
+        <item name="uploadcareColorSecondary">@color/colorSecondary</item>
         <item name="uploadcareColorPrimary">@color/colorPrimary</item>
-        <item name="uploadcareColorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="uploadcareColorPrimaryVariant">@color/colorPrimaryVariant</item>
     </style>
 
+    <!--    custom Uploadcare widget theme based on random colors-->
     <style name="CustomUploadCareGreenRed" parent="UploadcareStyle">
-        <item name="uploadcareColorAccent">@color/colorRedAccent</item>
+        <item name="uploadcareColorSecondary">@color/colorRedSecondary</item>
         <item name="uploadcareColorPrimary">@color/colorGreenPrimary</item>
-        <item name="uploadcareColorPrimaryDark">@color/colorGreenPrimaryDark</item>
+        <item name="uploadcareColorPrimaryVariant">@color/colorGreenPrimaryVariant</item>
     </style>
 </resources>

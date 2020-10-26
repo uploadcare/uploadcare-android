@@ -15,7 +15,7 @@
     <string name="activity_main_btn_upload_widget">Upload any file from Any network (default Style)</string>
     <string name="activity_main_btn_upload_widget_in">Upload video from Instagram (custom Style)</string>
     <string name="activity_main_btn_upload_widget_fa">Upload any file from Facebook (custom Style)</string>
-    <string name="activity_main_btn_upload_widget_dropbox">Upload image from Dropbox </string>
+    <string name="activity_main_btn_upload_widget_dropbox">Upload file from Dropbox </string>
     <string name="activity_main_choose_file">Choose file for upload</string>
     <string name="activity_main_status_uploading">Uploading…</string>
     <string name="activity_files_status_loading">Loading…</string>
