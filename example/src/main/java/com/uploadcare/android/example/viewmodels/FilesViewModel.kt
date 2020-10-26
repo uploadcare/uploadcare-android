@@ -20,7 +20,7 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
     val loading = MutableLiveData<Boolean>().apply { value = false }
     val isEmpty = MutableLiveData<Boolean>().apply { value = true }
     val filterFromDate = MutableLiveData<Date>()
-    val filterOrder = MutableLiveData<Order>()
+    val filterOrder = MutableLiveData<Order>().apply { value = Order.UPLOAD_TIME_DESC }
 
     val files = MutableLiveData<List<UploadcareFile>>()
     val allowLoadMore = MutableLiveData<Boolean>().apply { value = false }
