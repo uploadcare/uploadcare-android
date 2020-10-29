@@ -30,4 +30,15 @@
     <string name="ucw_empty_content">No content here</string>
     <string name="ucw_search_hint">Enter your search query</string>
     <string name="ucw_choose_file">Choose file for upload</string>
+
+    <string name="ucw_notification_channel_name">Uploading files</string>
+    <string name="ucw_notification_channel_description">Shows notification while uploading file, with progress and ability to cancel/pause.</string>
+    <string name="ucw_notification_cancel_download">Cancel</string>
+    <string name="ucw_notification_title">Uploading file</string>
+    <string name="ucw_notification_content_started">Starting Upload</string>
+    <string name="ucw_notification_content_progress">Uploading…</string>
+    <string name="ucw_notification_content_error">Error Uploading</string>
+    <string name="ucw_notification_content_completed">Finished Upload</string>
+
+    <string name="ucw_notification_channel_id" translatable="false">uploadcare_group</string>
 </resources>

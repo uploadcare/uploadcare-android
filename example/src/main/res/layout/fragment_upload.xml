@@ -186,6 +186,18 @@
                     app:layout_constraintStart_toEndOf="@+id/widget_upload_cancel"
                     app:layout_constraintTop_toBottomOf="@+id/widget_demos" />
 
+                <CheckBox
+                    android:id="@+id/widget_upload_background"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={viewModel.backgroundUploadWidget}"
+                    android:padding="@dimen/ucw_standard"
+                    android:text="@string/activity_files_background"
+                    app:isVisible="@{!viewModel.loading}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/widget_upload_cancel" />
+
                 <Button
                     android:id="@+id/button_uploadcare_widget"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -196,7 +208,7 @@
                     app:isVisible="@{!viewModel.loading}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/widget_upload_cancel" />
+                    app:layout_constraintTop_toBottomOf="@+id/widget_upload_background" />
 
                 <Button
                     android:id="@+id/button_uploadcare_widget_instagram"

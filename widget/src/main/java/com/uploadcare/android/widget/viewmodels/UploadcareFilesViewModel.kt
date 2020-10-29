@@ -4,6 +4,10 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
+import androidx.work.workDataOf
 import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.callbacks.UploadFileCallback
 import com.uploadcare.android.library.exceptions.UploadcareApiException
@@ -14,9 +18,11 @@ import com.uploadcare.android.widget.controller.UploadcareWidget
 import com.uploadcare.android.widget.data.SelectedFile
 import com.uploadcare.android.widget.data.SocialSource
 import com.uploadcare.android.widget.utils.SingleLiveEvent
+import com.uploadcare.android.widget.worker.FileUploadWorker
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import kotlin.math.roundToInt
 
 class UploadcareFilesViewModel(application: Application) : AndroidViewModel(application) {
@@ -24,6 +30,7 @@ class UploadcareFilesViewModel(application: Application) : AndroidViewModel(appl
     val progressDialogCommand = SingleLiveEvent<ProgressData>()
     val closeWidgetCommand = SingleLiveEvent<UploadcareApiException?>()
     val uploadCompleteCommand = SingleLiveEvent<UploadcareFile>()
+    val uploadingInBackgroundCommand = SingleLiveEvent<UUID>()
     val showErrorCommand = SingleLiveEvent<String>()
     val uploadProgress = MutableLiveData<Int>().apply { value = 0 }
 
@@ -33,13 +40,20 @@ class UploadcareFilesViewModel(application: Application) : AndroidViewModel(appl
     private var storeUponUpload = false
     private var cancelable : Boolean = false
     private var showProgress : Boolean = false
+    private var backgroundUpload : Boolean = false
     private var uploader: Uploader? = null
 
-    fun start(source: SocialSource, store: Boolean, cancelable : Boolean, showProgress : Boolean) {
+    fun start(
+            source: SocialSource,
+            store: Boolean,
+            cancelable : Boolean,
+            showProgress : Boolean,
+            backgroundUpload : Boolean) {
         this.socialSource = source
         this.storeUponUpload = store
         this.cancelable = cancelable
         this.showProgress = showProgress
+        this.backgroundUpload = backgroundUpload
     }
 
     fun selectFile(fileUrl: String) {
@@ -100,30 +114,43 @@ class UploadcareFilesViewModel(application: Application) : AndroidViewModel(appl
     }
 
     private fun uploadFileFromUrl(file: SelectedFile) {
-        uploader = UrlUploader(UploadcareWidget
-                .getInstance(getContext()).uploadcareClient, file.url)
-                .store(storeUponUpload)
-        uploader!!.uploadAsync(object : UploadFileCallback {
-            override fun onFailure(e: UploadcareApiException) {
-                error(e)
-            }
-
-            override fun onProgressUpdate(
-                    bytesWritten: Long,
-                    contentLength: Long,
-                    progress: Double) {
-                if (showProgress) {
-                    uploadProgress.value = (progress * 100).roundToInt()
+        if (backgroundUpload) {
+            val requestBuilder = OneTimeWorkRequestBuilder<FileUploadWorker>()
+            requestBuilder.addTag(FileUploadWorker.TAG)
+            requestBuilder.setInputData(workDataOf(
+                    FileUploadWorker.KEY_FILE_URL to file.url,
+                    FileUploadWorker.KEY_CANCELABLE to cancelable,
+                    FileUploadWorker.KEY_SHOW_PROGRESS to showProgress,
+                    FileUploadWorker.KEY_STORE to storeUponUpload
+            ))
+            val uploadWorkRequest: WorkRequest = requestBuilder.build()
+            WorkManager.getInstance(getContext()).enqueue(uploadWorkRequest)
+            uploadingInBackgroundCommand.postValue(uploadWorkRequest.id)
+        } else {
+            uploader = UrlUploader(UploadcareWidget
+                    .getInstance(getContext()).uploadcareClient, file.url)
+                    .store(storeUponUpload)
+            uploader!!.uploadAsync(object : UploadFileCallback {
+                override fun onFailure(e: UploadcareApiException) {
+                    error(e)
                 }
-            }
 
-            override fun onSuccess(result: UploadcareFile) {
-                progressDialogCommand.postValue(ProgressData(false))
-                uploadCompleteCommand.postValue(result)
-                uploader = null
-            }
+                override fun onProgressUpdate(
+                        bytesWritten: Long,
+                        contentLength: Long,
+                        progress: Double) {
+                    if (showProgress) {
+                        uploadProgress.value = (progress * 100).roundToInt()
+                    }
+                }
 
-        })
+                override fun onSuccess(result: UploadcareFile) {
+                    progressDialogCommand.postValue(ProgressData(false))
+                    uploadCompleteCommand.postValue(result)
+                    uploader = null
+                }
+            })
+        }
     }
 
     private fun error(e: UploadcareApiException? = null) {

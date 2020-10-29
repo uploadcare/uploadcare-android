@@ -6,7 +6,9 @@ import android.net.Uri
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.google.android.material.textfield.TextInputEditText
 import com.uploadcare.android.example.R
 import com.uploadcare.android.example.fragments.UploadFragment
@@ -20,6 +22,7 @@ import com.uploadcare.android.widget.controller.SocialNetwork
 import com.uploadcare.android.widget.controller.UploadcareWidget
 import com.uploadcare.android.widget.controller.UploadcareWidgetResult
 import com.uploadcare.android.widget.utils.SingleLiveEvent
+import java.util.*
 import kotlin.math.roundToInt
 
 class UploadViewModel(application: Application) : AndroidViewModel(application) {
@@ -31,8 +34,18 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     val showUploadProgress = MutableLiveData<Boolean>().apply { value = false }
     val allowUploadCancelWidget = MutableLiveData<Boolean>().apply { value = false }
     val showUploadProgressWidget = MutableLiveData<Boolean>().apply { value = false }
+    val backgroundUploadWidget = MutableLiveData<Boolean>().apply { value = false }
     val uploadProgress = MutableLiveData<Int>().apply { value = 0 }
     val status = MutableLiveData<String>()
+
+    private val backgroundUploadUUID = MutableLiveData<UUID>()
+    val backgroundUploadResult : LiveData<UploadcareWidgetResult> =
+            Transformations.switchMap(backgroundUploadUUID){
+                uuid->
+                UploadcareWidget
+                    .getInstance(application.applicationContext)
+                    .backgroundUploadResult(application.applicationContext, uuid)
+    }
 
     val launchGetFilesCommand = SingleLiveEvent<Void>()
     val launchFilePickerCommand = SingleLiveEvent<Void>()
@@ -62,46 +75,77 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun uploadWidgetAny(fragment: UploadFragment) {
-        UploadcareWidget.getInstance(getContext())
+        val selectFileBuilder = UploadcareWidget.getInstance(getContext())
                 .selectFile(fragment)
                 .cancelable(allowUploadCancelWidget.value ?: false)
                 .showProgress(showUploadProgressWidget.value ?: false)
-                .launch()
+
+        if (backgroundUploadWidget.value == true) {
+            selectFileBuilder.backgroundUpload()
+        }
+
+        selectFileBuilder.launch()
     }
 
     fun uploadWidgetInstagram(fragment: UploadFragment) {
-        UploadcareWidget.getInstance(getContext())
+        val selectFileBuilder = UploadcareWidget.getInstance(getContext())
                 .selectFile(fragment)
                 .style(R.style.CustomUploadCareIndigoPink)
                 .from(SocialNetwork.SOCIAL_NETWORK_INSTAGRAM)
                 .cancelable(allowUploadCancelWidget.value ?: false)
                 .showProgress(showUploadProgressWidget.value ?: false)
-                .launch()
+
+        if (backgroundUploadWidget.value == true) {
+            selectFileBuilder.backgroundUpload()
+        }
+
+        selectFileBuilder.launch()
     }
 
     fun uploadWidgetFacebook(fragment: UploadFragment) {
-        UploadcareWidget.getInstance(getContext())
+        val selectFileBuilder = UploadcareWidget.getInstance(getContext())
                 .selectFile(fragment)
                 .style(R.style.CustomUploadCareGreenRed)
                 .from(SocialNetwork.SOCIAL_NETWORK_FACEBOOK)
                 .cancelable(allowUploadCancelWidget.value ?: false)
                 .showProgress(showUploadProgressWidget.value ?: false)
-                .launch()
+
+        if (backgroundUploadWidget.value == true) {
+            selectFileBuilder.backgroundUpload()
+        }
+
+        selectFileBuilder.launch()
     }
 
     fun uploadWidgetDropbox(fragment: UploadFragment) {
-        UploadcareWidget.getInstance(getContext())
+        val selectFileBuilder = UploadcareWidget.getInstance(getContext())
                 .selectFile(fragment)
                 .from(SocialNetwork.SOCIAL_NETWORK_DROPBOX)
                 .cancelable(allowUploadCancelWidget.value ?: false)
                 .showProgress(showUploadProgressWidget.value ?: false)
-                .launch()
+
+        if (backgroundUploadWidget.value == true) {
+            selectFileBuilder.backgroundUpload()
+        }
+
+        selectFileBuilder.launch()
     }
 
     fun onUploadResult(result: UploadcareWidgetResult) {
-        result.uploadcareFile?.let {
-            showProgressOrResult(false, it.toString())
-        } ?: showProgressOrResult(false, result.exception?.message.toString())
+        if (result.isSuccess()) {
+            if (result.uploadcareFile != null) {
+                showProgressOrResult(false, result.uploadcareFile.toString())
+            } else if (result.backgroundUploadUUID != null) {
+                showProgressOrResult(false,
+                        "Uploading in background: ${result.backgroundUploadUUID.toString()}")
+
+                if(result.backgroundUploadUUID != backgroundUploadUUID.value){
+                    backgroundUploadUUID.value = result.backgroundUploadUUID
+                }
+            }
+        } else {
+            showProgressOrResult(false, result.exception?.message.toString())
+        }
     }
 
     /**

@@ -80,8 +80,19 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
             })
             activity?.finish()
         })
+        viewModel.uploadingInBackgroundCommand.observe(this.viewLifecycleOwner, { uuid ->
+            activity?.setResult(Activity.RESULT_OK, Intent().apply {
+                putExtra("result", UploadcareWidgetResult(backgroundUploadUUID = uuid))
+            })
+            activity?.finish()
+        })
 
-        viewModel.start(args.socialsource, args.store, args.cancelable, args.showProgress)
+        viewModel.start(
+                args.socialsource,
+                args.store,
+                args.cancelable,
+                args.showProgress,
+                args.backgroundUpload)
 
         childFragmentManager.addOnBackStackChangedListener {
             val chunkFragment = childFragmentManager.findFragmentByTag(fragmentTag)

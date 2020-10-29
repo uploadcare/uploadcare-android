@@ -2,7 +2,6 @@ package com.uploadcare.android.widget.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -148,7 +147,7 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
                 }
             }
             else -> {
-                Log.d("UploadcareChunkFragment", "Unknown thing type: ${thing.objectType}")
+                // unsupported
             }
         }
     }

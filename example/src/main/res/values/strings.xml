@@ -27,6 +27,7 @@
     <string name="activity_files_removed">Removed</string>
     <string name="activity_files_cancelable">Cancelable</string>
     <string name="activity_files_progress">Show Progress</string>
+    <string name="activity_files_background">Background Upload</string>
     <string name="activity_files_no_items">No more items</string>
     <string name="activity_cdn_original">Original</string>
     <string name="activity_cdn_grayscale">Grayscale</string>

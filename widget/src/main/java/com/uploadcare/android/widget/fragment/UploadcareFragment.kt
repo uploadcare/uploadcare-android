@@ -57,7 +57,8 @@ class UploadcareFragment : Fragment(), SocialSourcesListener, CancelUploadListen
                             socialData.socialSource,
                             socialData.storeUponUpload,
                             socialData.cancelable,
-                            socialData.showProgress),
+                            socialData.showProgress,
+                            socialData.backgroundUpload),
                     NavOptions.Builder().setPopUpTo(R.id.uploadcareFragment, true).build())
         })
         viewModel.launchCamera.observe(this.viewLifecycleOwner, { mediaType ->
@@ -76,6 +77,12 @@ class UploadcareFragment : Fragment(), SocialSourcesListener, CancelUploadListen
         viewModel.uploadCompleteCommand.observe(this.viewLifecycleOwner, { uploadcareFile ->
             activity?.setResult(RESULT_OK, Intent().apply {
                 putExtra("result", UploadcareWidgetResult(uploadcareFile = uploadcareFile))
+            })
+            activity?.finish()
+        })
+        viewModel.uploadingInBackgroundCommand.observe(this.viewLifecycleOwner, { uuid ->
+            activity?.setResult(RESULT_OK, Intent().apply {
+                putExtra("result", UploadcareWidgetResult(backgroundUploadUUID = uuid))
             })
             activity?.finish()
         })
@@ -117,6 +124,13 @@ class UploadcareFragment : Fragment(), SocialSourcesListener, CancelUploadListen
             }
             CHOOSE_FILE_ACTIVITY_REQUEST_CODE -> {
                 val fileUri = data?.data
+                fileUri?.let {
+                    context?.contentResolver?.takePersistableUriPermission(
+                            it,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                    or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                }
+
                 fileUri?.let { viewModel.uploadFile(it) } ?: activity?.finish()
             }
         }
@@ -141,7 +155,7 @@ class UploadcareFragment : Fragment(), SocialSourcesListener, CancelUploadListen
     }
 
     private fun launchFilePicker(fileType: FileType) {
-        val chooseFile = Intent(Intent.ACTION_GET_CONTENT).apply {
+        val chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             type = getTypeForFileChooser(fileType)
             putExtra(Intent.EXTRA_LOCAL_ONLY, true)
         }

@@ -5,6 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Parcelable
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.uploadcare.android.library.api.UploadcareClient
 import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.exceptions.UploadcareException
@@ -13,9 +17,11 @@ import com.uploadcare.android.widget.R
 import com.uploadcare.android.widget.activity.UploadcareActivity
 import com.uploadcare.android.widget.interfaces.SocialApi
 import com.uploadcare.android.widget.utils.SingletonHolder
+import com.uploadcare.android.widget.worker.FileUploadWorker
 import kotlinx.android.parcel.Parcelize
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.*
 
 /**
  * UploadcareWidget class has multiple options for selecting files from Social networks,
@@ -68,6 +74,68 @@ class UploadcareWidget private constructor(context: Context) {
         return Builder(fragment)
     }
 
+    /**
+     * Cancel background upload that is happening.
+     *
+     * @param context - Context
+     * @param uuid - UUID of the background upload, can be get from {@link UploadcareWidgetResult}.
+     */
+    fun cancelBackgroundUpload(context: Context, uuid: UUID) {
+        WorkManager.getInstance(context).cancelWorkById(uuid)
+    }
+
+    /**
+     * Gets a {@link LiveData} of the {@link UploadcareWidgetResult} for a given background upload.
+     *
+     * @param context - Context
+     * @param uuid - UUID of the background upload, can be get from {@link UploadcareWidgetResult}.
+     *
+     * @return A {@link LiveData} of the {@link UploadcareWidgetResult} associated with
+     * {@code uuid}; note that this {@link UploadcareWidgetResult} may be {@code null}
+     * if {@code uuid} is not known to WorkManager.
+     */
+    fun backgroundUploadResult(context: Context, uuid: UUID): LiveData<UploadcareWidgetResult> {
+        val workerLiveData = WorkManager.getInstance(context).getWorkInfoByIdLiveData(uuid)
+        val result = MediatorLiveData<UploadcareWidgetResult>()
+        result.addSource(workerLiveData) { workInfo ->
+            if (workInfo == null) {
+                result.value = null
+                result.removeSource(workerLiveData)
+                return@addSource
+            }
+
+            when (workInfo.state) {
+                WorkInfo.State.SUCCEEDED -> {
+                    val resultJson = workInfo.outputData
+                            .getString(FileUploadWorker.KEY_UPLOADCARE_FILE)
+
+                    result.value = resultJson?.let {
+                        val uploadcareFile = uploadcareClient.objectMapper
+                                .fromJson(it, UploadcareFile::class.java)
+                        UploadcareWidgetResult(uploadcareFile = uploadcareFile)
+                    } ?: UploadcareWidgetResult(null)
+                }
+                WorkInfo.State.FAILED -> {
+                    val errorMessage = workInfo.outputData.getString(FileUploadWorker.KEY_ERROR)
+                    result.value =
+                            UploadcareWidgetResult(exception = UploadcareException(errorMessage))
+                }
+                WorkInfo.State.CANCELLED -> {
+                    result.value =
+                            UploadcareWidgetResult(exception = UploadcareException("Canceled"))
+                }
+                // still in progress
+                else -> result.value = UploadcareWidgetResult(backgroundUploadUUID = uuid)
+            }
+
+            if (workInfo.state.isFinished) {
+                result.removeSource(workerLiveData)
+            }
+        }
+
+        return result
+    }
+
     class Builder private constructor(private val fragment: Fragment? = null,
                                       private val activity: Activity? = null) {
 
@@ -92,6 +160,8 @@ class UploadcareWidget private constructor(context: Context) {
         private var cancelable: Boolean = false
 
         private var showProgress: Boolean = false
+
+        private var backgroundUpload: Boolean = false
 
         /**
          * @param enabled when set true - store the file upon uploading.
@@ -161,6 +231,12 @@ class UploadcareWidget private constructor(context: Context) {
         fun showProgress(enabled: Boolean) = apply { this.showProgress = enabled }
 
         /**
+         * Upload will happen in the background using WorkManager.
+         * Notification will be shown to the user with progress/cancel if enabled.
+         */
+        fun backgroundUpload() = apply { this.backgroundUpload = true }
+
+        /**
          * Launches selection and upload of the file, with specified parameters.
          *
          * To get result with info about uploaded file or error, override onActivityResult() method,
@@ -181,6 +257,7 @@ class UploadcareWidget private constructor(context: Context) {
                     putExtra("expire", expire)
                     putExtra("cancelable", cancelable)
                     putExtra("showProgress", showProgress)
+                    putExtra("backgroundUpload", backgroundUpload)
                 }, requestCode)
             } else activity?.startActivityForResult(Intent(activity, UploadcareActivity::class.java)
                     .apply {
@@ -194,6 +271,7 @@ class UploadcareWidget private constructor(context: Context) {
                         putExtra("expire", expire)
                         putExtra("cancelable", cancelable)
                         putExtra("showProgress", showProgress)
+                        putExtra("backgroundUpload", backgroundUpload)
                     }, requestCode)
         }
     }
@@ -235,8 +313,14 @@ enum class FileType {
  */
 @Parcelize
 data class UploadcareWidgetResult(val uploadcareFile: UploadcareFile? = null,
+                                  val backgroundUploadUUID: UUID? = null,
                                   val exception: UploadcareException? = null) : Parcelable {
-    fun isSuccess() = uploadcareFile != null
+    fun isSuccess() = uploadcareFile != null || backgroundUploadUUID != null
+
+    fun hasFile() = uploadcareFile != null
+
+    fun isBackgroundUpload() = backgroundUploadUUID != null
+
     fun isFailed() = exception != null
 
     companion object {

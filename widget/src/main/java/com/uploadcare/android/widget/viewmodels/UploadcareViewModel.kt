@@ -8,6 +8,10 @@ import android.os.Environment
 import androidx.core.content.FileProvider
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
+import androidx.work.workDataOf
 import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.callbacks.UploadFileCallback
 import com.uploadcare.android.library.exceptions.UploadcareApiException
@@ -20,6 +24,7 @@ import com.uploadcare.android.widget.controller.UploadcareWidget
 import com.uploadcare.android.widget.data.SocialSource
 import com.uploadcare.android.widget.data.SocialSourcesResponse
 import com.uploadcare.android.widget.utils.SingleLiveEvent
+import com.uploadcare.android.widget.worker.FileUploadWorker
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,6 +42,7 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
     val launchCamera = SingleLiveEvent<Pair<Uri, MediaType>>()
     val launchFilePicker = SingleLiveEvent<FileType>()
     val uploadCompleteCommand = SingleLiveEvent<UploadcareFile>()
+    val uploadingInBackgroundCommand = SingleLiveEvent<UUID>()
     val uploadProgress = MutableLiveData<Int>().apply { value = 0 }
 
     private var network: String? = null
@@ -48,6 +54,7 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
     private var expire: String? = null
     private var cancelable : Boolean = false
     private var showProgress : Boolean = false
+    private var backgroundUpload : Boolean = false
     private var uploader: Uploader? = null
 
     fun start(bundle: Bundle) {
@@ -60,6 +67,7 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
         expire = bundle.getString("expire")
         cancelable = bundle.getBoolean("cancelable", false)
         showProgress = bundle.getBoolean("showProgress", false)
+        backgroundUpload = bundle.getBoolean("backgroundUpload", false)
         if (isLocalNetwork(network)) {
             launchLocalNetwork(network)
         } else {
@@ -94,7 +102,27 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
 
     fun uploadFile(fileUri: Uri? = null) {
         val uri = fileUri ?: tempFileUri
-        uri?.let { uri ->
+
+        if (uri == null) {
+            closeWidgetCommand.call()
+            return
+        }
+
+        if (backgroundUpload) {
+            val requestBuilder = OneTimeWorkRequestBuilder<FileUploadWorker>()
+            requestBuilder.addTag(FileUploadWorker.TAG)
+            requestBuilder.setInputData(workDataOf(
+                    FileUploadWorker.KEY_FILE_URI to uri.toString(),
+                    FileUploadWorker.KEY_CANCELABLE to cancelable,
+                    FileUploadWorker.KEY_SHOW_PROGRESS to showProgress,
+                    FileUploadWorker.KEY_STORE to storeUponUpload,
+                    FileUploadWorker.KEY_SIGNATURE to signature,
+                    FileUploadWorker.KEY_EXPIRE to expire,
+            ))
+            val uploadWorkRequest: WorkRequest = requestBuilder.build()
+            WorkManager.getInstance(getContext()).enqueue(uploadWorkRequest)
+            uploadingInBackgroundCommand.postValue(uploadWorkRequest.id)
+        } else {
             progressDialogCommand.postValue(ProgressData(
                     true,
                     getContext().getString(R.string.ucw_action_loading_image),
@@ -128,7 +156,7 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
                     uploader = null
                 }
             })
-        } ?: closeWidgetCommand.call()
+        }
     }
 
     fun canlcelUpload(){
@@ -177,7 +205,8 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
                         socialSource,
                         storeUponUpload,
                         cancelable,
-                        showProgress))
+                        showProgress,
+                        backgroundUpload))
             } ?: closeWidgetCommand.call()
         }
     }
@@ -198,7 +227,8 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
                         socialSource,
                         storeUponUpload,
                         cancelable,
-                        showProgress))
+                        showProgress,
+                        backgroundUpload))
             }
         }
     }
@@ -282,5 +312,6 @@ data class SocialData(
         val socialSource: SocialSource,
         val storeUponUpload:Boolean = false,
         val cancelable: Boolean = false,
-        val showProgress: Boolean = false
+        val showProgress: Boolean = false,
+        val backgroundUpload: Boolean = false
 )

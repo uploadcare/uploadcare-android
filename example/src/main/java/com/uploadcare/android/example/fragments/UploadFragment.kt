@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
@@ -39,12 +38,15 @@ class UploadFragment : Fragment() {
             binding.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
         }
 
-        viewModel.launchGetFilesCommand.observe(this.viewLifecycleOwner, Observer {
+        viewModel.launchGetFilesCommand.observe(this.viewLifecycleOwner, {
             findNavController().navigate(UploadFragmentDirections
                     .actionUploadFragmentToFilesFragment())
         })
-        viewModel.launchFilePickerCommand.observe(this.viewLifecycleOwner, Observer {
+        viewModel.launchFilePickerCommand.observe(this.viewLifecycleOwner, {
             selectFilesForUpload()
+        })
+        viewModel.backgroundUploadResult.observe(this.viewLifecycleOwner, {
+            viewModel.onUploadResult(it)
         })
 
         return binding.root
