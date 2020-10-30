@@ -8,7 +8,7 @@ open class SingletonHolder<out T, in A>(creator: (A) -> T) {
     @Volatile
     private var instance: T? = null
 
-    open fun getInstance(arg: A): T {
+    internal open fun init(arg: A): T {
         val i = instance
         if (i != null) {
             return i
@@ -25,5 +25,14 @@ open class SingletonHolder<out T, in A>(creator: (A) -> T) {
                 created
             }
         }
+    }
+
+    open fun getInstance(): T {
+        val i = instance
+        if (i != null) {
+            return i
+        }
+
+        throw IllegalStateException("Error project setup is incorrect")
     }
 }

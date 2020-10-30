@@ -282,7 +282,10 @@ class UploadcareWidget private constructor(context: Context) {
         val UPLOADCARE_REQUEST_CODE = 431
 
         @JvmStatic
-        override fun getInstance(arg: Context) = super.getInstance(arg)
+        override fun init(arg: Context) = super.init(arg)
+
+        @JvmStatic
+        override fun getInstance() = super.getInstance()
     }
 }
 

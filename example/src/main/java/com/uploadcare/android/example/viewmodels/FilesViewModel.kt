@@ -34,7 +34,7 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Initialize {@link UploadcareClient}
      */
-    private val client = UploadcareWidget.getInstance(application).uploadcareClient
+    private val client = UploadcareWidget.getInstance().uploadcareClient
 
     fun launchFromPicker() {
         launchFromPickerCommand.call()

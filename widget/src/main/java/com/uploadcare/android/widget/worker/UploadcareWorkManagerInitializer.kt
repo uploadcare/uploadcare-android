@@ -2,14 +2,18 @@ package com.uploadcare.android.widget.worker
 
 import android.content.ContentProvider
 import android.content.ContentValues
+import android.content.Context
+import android.content.pm.ProviderInfo
 import android.database.Cursor
 import android.net.Uri
 import androidx.annotation.RestrictTo
 import androidx.work.Configuration
 import androidx.work.WorkManager
+import com.uploadcare.android.widget.controller.UploadcareWidget
 
 /**
- * The {@link ContentProvider} responsible for initializing {@link WorkManagerImpl}.
+ * The {@link ContentProvider} responsible for initializing {@link UploadcareWidget}
+ * and {@link WorkManagerImpl}.
  *
  * @hide
  */
@@ -17,6 +21,8 @@ import androidx.work.WorkManager
 class UploadcareWorkManagerInitializer : ContentProvider() {
 
     override fun onCreate(): Boolean {
+        //Initialize UploadcareWidget.
+        UploadcareWidget.init(context!!)
         // provide custom configuration
         val workManagerConfig = Configuration.Builder()
                 .setMinimumLoggingLevel(android.util.Log.INFO)
@@ -48,4 +54,17 @@ class UploadcareWorkManagerInitializer : ContentProvider() {
         return null
     }
 
+    override fun attachInfo(context: Context?, info: ProviderInfo?) {
+        if (info == null) {
+            throw NullPointerException("UploadcareWorkManagerInitializer ProviderInfo cannot be null.")
+        }
+
+        // So if the authorities equal the library internal ones, the developer forgot to set his applicationId
+        if ("com.uploadcare.android.widget.UploadcareWorkManagerInitializer" == info.authority) {
+            throw IllegalStateException("Incorrect provider authority in manifest. Most likely due to a "
+                    + "missing applicationId variable in application\'s build.gradle.")
+        }
+
+        super.attachInfo(context, info)
+    }
 }

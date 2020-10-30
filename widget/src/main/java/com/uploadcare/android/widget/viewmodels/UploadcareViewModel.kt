@@ -129,7 +129,7 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
                     cancelable,
                     showProgress))
 
-            uploader = FileUploader(UploadcareWidget.getInstance(getContext()).uploadcareClient,
+            uploader = FileUploader(UploadcareWidget.getInstance().uploadcareClient,
                     uri, getContext())
                     .store(storeUponUpload)
                     .signedUpload(signature ?: "", expire ?: "")
@@ -168,7 +168,7 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
     private fun getAvailableNetworks() {
         progressDialogCommand.postValue(ProgressData(true,
                 getContext().getString(R.string.ucw_action_loading_networks)))
-        UploadcareWidget.getInstance(getApplication())
+        UploadcareWidget.getInstance()
                 .socialApi
                 .getSources()
                 .enqueue(object : Callback<SocialSourcesResponse> {

@@ -94,7 +94,7 @@ class UploadcareChunkViewModel(application: Application) : AndroidViewModel(appl
             }
         }
 
-        UploadcareWidget.getInstance(getApplication()).socialApi
+        UploadcareWidget.getInstance().socialApi
                 .getSourceChunk(socialSource?.getCookie(getApplication()) ?: "",
                         socialSource?.urls?.sourceBase ?: "",
                         stringBuilder.toString(),

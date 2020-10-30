@@ -54,7 +54,7 @@ class FileUploadWorker(appContext: Context,
                     applicationContext.getString(R.string.ucw_notification_content_completed),
                     100)
             val fileJson = UploadcareWidget
-                    .getInstance(applicationContext).uploadcareClient.objectMapper
+                    .getInstance().uploadcareClient.objectMapper
                     .toJson(uploadcareFile, UploadcareFile::class.java)
             Result.success(workDataOf(KEY_UPLOADCARE_FILE to  fileJson))
         } else {
@@ -127,11 +127,11 @@ class FileUploadWorker(appContext: Context,
         var uploader: Uploader? = null
         if (url != null) {
             uploader = UrlUploader(UploadcareWidget
-                    .getInstance(applicationContext).uploadcareClient, url)
+                    .getInstance().uploadcareClient, url)
                     .store(storeUponUpload)
         } else if (uri != null) {
             uploader = FileUploader(UploadcareWidget
-                    .getInstance(applicationContext).uploadcareClient, uri, applicationContext)
+                    .getInstance().uploadcareClient, uri, applicationContext)
                     .store(storeUponUpload)
                     .signedUpload(signature ?: "", expire ?: "")
         }

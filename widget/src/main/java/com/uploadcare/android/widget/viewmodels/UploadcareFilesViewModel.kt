@@ -61,7 +61,7 @@ class UploadcareFilesViewModel(application: Application) : AndroidViewModel(appl
             progressDialogCommand.postValue(ProgressData(true,
                     getContext().getString(R.string.ucw_action_loading_image), cancelable, showProgress))
 
-            UploadcareWidget.getInstance(getContext())
+            UploadcareWidget.getInstance()
                     .socialApi
                     .selectFile(source.getCookie(getContext()), source.urls.done, fileUrl)
                     .enqueue(object : Callback<SelectedFile> {
@@ -80,7 +80,7 @@ class UploadcareFilesViewModel(application: Application) : AndroidViewModel(appl
     }
 
     fun saveCookie(cookie: String) {
-        socialSource?.let { it.saveCookie(getContext(), cookie) }
+        socialSource?.saveCookie(getContext(), cookie)
     }
 
     fun signOut() {
@@ -88,7 +88,7 @@ class UploadcareFilesViewModel(application: Application) : AndroidViewModel(appl
             progressDialogCommand.postValue(ProgressData(true,
                     getContext().getString(R.string.ucw_action_signout)))
 
-            UploadcareWidget.getInstance(getContext())
+            UploadcareWidget.getInstance()
                     .socialApi
                     .signOut(source.getCookie(getContext()), source.urls.session)
                     .enqueue(object : Callback<Any> {
@@ -128,7 +128,7 @@ class UploadcareFilesViewModel(application: Application) : AndroidViewModel(appl
             uploadingInBackgroundCommand.postValue(uploadWorkRequest.id)
         } else {
             uploader = UrlUploader(UploadcareWidget
-                    .getInstance(getContext()).uploadcareClient, file.url)
+                    .getInstance().uploadcareClient, file.url)
                     .store(storeUponUpload)
             uploader!!.uploadAsync(object : UploadFileCallback {
                 override fun onFailure(e: UploadcareApiException) {

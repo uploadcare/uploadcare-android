@@ -43,8 +43,8 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
             Transformations.switchMap(backgroundUploadUUID){
                 uuid->
                 UploadcareWidget
-                    .getInstance(application.applicationContext)
-                    .backgroundUploadResult(application.applicationContext, uuid)
+                        .getInstance()
+                        .backgroundUploadResult(application.applicationContext, uuid)
     }
 
     val launchGetFilesCommand = SingleLiveEvent<Void>()
@@ -57,7 +57,7 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * Initialize {@link UploadcareClient}
      */
-    private val client = UploadcareWidget.getInstance(application).uploadcareClient
+    private val client = UploadcareWidget.getInstance().uploadcareClient
 
     fun launchGetFiles() {
         launchGetFilesCommand.call()
@@ -75,7 +75,8 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun uploadWidgetAny(fragment: UploadFragment) {
-        val selectFileBuilder = UploadcareWidget.getInstance(getContext())
+        val selectFileBuilder = UploadcareWidget
+                .getInstance()
                 .selectFile(fragment)
                 .cancelable(allowUploadCancelWidget.value ?: false)
                 .showProgress(showUploadProgressWidget.value ?: false)
@@ -88,7 +89,8 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun uploadWidgetInstagram(fragment: UploadFragment) {
-        val selectFileBuilder = UploadcareWidget.getInstance(getContext())
+        val selectFileBuilder = UploadcareWidget
+                .getInstance()
                 .selectFile(fragment)
                 .style(R.style.CustomUploadCareIndigoPink)
                 .from(SocialNetwork.SOCIAL_NETWORK_INSTAGRAM)
@@ -103,7 +105,8 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun uploadWidgetFacebook(fragment: UploadFragment) {
-        val selectFileBuilder = UploadcareWidget.getInstance(getContext())
+        val selectFileBuilder = UploadcareWidget
+                .getInstance()
                 .selectFile(fragment)
                 .style(R.style.CustomUploadCareGreenRed)
                 .from(SocialNetwork.SOCIAL_NETWORK_FACEBOOK)
@@ -118,7 +121,8 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun uploadWidgetDropbox(fragment: UploadFragment) {
-        val selectFileBuilder = UploadcareWidget.getInstance(getContext())
+        val selectFileBuilder = UploadcareWidget
+                .getInstance()
                 .selectFile(fragment)
                 .from(SocialNetwork.SOCIAL_NETWORK_DROPBOX)
                 .cancelable(allowUploadCancelWidget.value ?: false)
