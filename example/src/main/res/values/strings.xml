@@ -42,6 +42,8 @@
     <string name="activity_files_order_text">Order: %s</string>
     <string name="order_dialog_title">Select Order</string>
     <string name="activity_main_btn_cancel_upload">Cancel Upload</string>
+    <string name="activity_main_btn_pause_upload">Pause Upload</string>
+    <string name="activity_main_btn_resume_upload">Resume Upload</string>
 
     <array name="orders">
         <item>Upload time, Ascending (Default)</item>

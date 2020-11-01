@@ -31,10 +31,12 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     val urlError = MutableLiveData<String>()
     val loading = MutableLiveData<Boolean>().apply { value = false }
     val allowUploadCancel = MutableLiveData<Boolean>().apply { value = false }
+    val allowUploadPause = MutableLiveData<Boolean>().apply { value = false }
     val showUploadProgress = MutableLiveData<Boolean>().apply { value = false }
     val allowUploadCancelWidget = MutableLiveData<Boolean>().apply { value = false }
     val showUploadProgressWidget = MutableLiveData<Boolean>().apply { value = false }
     val backgroundUploadWidget = MutableLiveData<Boolean>().apply { value = false }
+    val uploadPaused = MutableLiveData<Boolean>().apply { value = false }
     val uploadProgress = MutableLiveData<Int>().apply { value = 0 }
     val status = MutableLiveData<String>()
 
@@ -159,9 +161,11 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
      */
     fun uploadFile(fileUri: Uri) {
         showProgressOrResult(true, getContext().getString(R.string.activity_main_status_uploading))
+        allowUploadPause.value = true
         uploader = FileUploader(client, fileUri, getContext()).store(true)
         uploader!!.uploadAsync(object : UploadFileCallback {
             override fun onFailure(e: UploadcareApiException) {
+                allowUploadPause.value = false
                 showProgressOrResult(false, e.message ?: "")
             }
 
@@ -175,6 +179,7 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
             }
 
             override fun onSuccess(result: UploadcareFile) {
+                allowUploadPause.value = false
                 showProgressOrResult(false, result.toString())
             }
         })
@@ -221,6 +226,19 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
         uploader = null
         multipleUploader = null
         showProgressOrResult(false, "Canceled")
+    }
+
+    fun tooglePause() {
+        // pause/resume upload if supported.
+        val fileUploader: FileUploader? = uploader as? FileUploader
+        fileUploader?.let { uploader ->
+            if (uploader.isPaused) {
+                uploader.resume()
+            } else {
+                uploader.pause()
+            }
+            uploadPaused.value = uploader.isPaused
+        }
     }
 
     /**

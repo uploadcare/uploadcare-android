@@ -292,6 +292,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/status" />
 
+                <Button
+                    android:id="@+id/button_pause_resume_upload"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.tooglePause()}"
+                    android:text="@{viewModel.uploadPaused? @string/activity_main_btn_resume_upload : @string/activity_main_btn_pause_upload}"
+                    app:isVisible="@{viewModel.loading &amp;&amp; viewModel.allowUploadPause}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_cancel_upload"
+                    tools:text="@string/activity_main_btn_pause_upload" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
