@@ -9,9 +9,13 @@ import com.uploadcare.android.library.api.UploadcareFile
  *
  * @see com.uploadcare.android.library.data.UploadcareFile.cdnPath
  */
-class CdnPathBuilder internal constructor(file: UploadcareFile) {
+class CdnPathBuilder internal constructor(private val file: UploadcareFile) {
 
     private val sb = StringBuilder("/")
+
+    internal fun getUUID(): String {
+        return file.uuid
+    }
 
     init {
         sb.append(file.uuid)
