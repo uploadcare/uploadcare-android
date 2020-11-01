@@ -5,6 +5,9 @@ branches:
   only:
     - master
 
+before_install:
+  - yes | sdkmanager "platforms;android-30"
+
 android:
   components:
     - platform-tools
