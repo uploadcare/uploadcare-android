@@ -180,6 +180,40 @@ class Urls private constructor() {
         }
 
         /**
+         * Creates a full CDN URL with a CDN path builder. Using Secure delivery.
+         *
+         * @param domain domain that is setup for Secure delivery on your account. (ex. https://cdn.yourdomain.com)
+         * @param fileId File UUID
+         * @param token is a generated token used to access your content using a authenticated URL.
+         * @param expire is an expiry date provided with the access token.
+         */
+        @JvmStatic
+        fun cdnAkamai(
+                domain: String,
+                fileId: String,
+                token: String,
+                expire: String): URI {
+            return URI.create("$domain/$fileId/?token=exp=$expire~acl=/$fileId/~hmac=$token")
+        }
+
+        /**
+         * Creates a full CDN URL with a CDN path builder. Using Secure delivery.
+         *
+         * @param domain domain that is setup for Secure delivery on your account. (ex. https://cdn.yourdomain.com)
+         * @param fileId File UUID
+         * @param token is a generated token used to access your content using a authenticated URL.
+         * @param expire is an expiry date provided with the access token.
+         */
+        @JvmStatic
+        fun cdnKeyCDN(
+                domain: String,
+                fileId: String,
+                token: String,
+                expire: String): URI {
+            return URI.create("$domain/$fileId/?token=$token&expire=$expire")
+        }
+
+        /**
          * Creates a URL to the webhook collection resource.
          *
          * @see com.uploadcare.android.library.api.UploadcareClient

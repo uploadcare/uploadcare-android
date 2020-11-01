@@ -9,7 +9,7 @@ import com.uploadcare.android.library.api.UploadcareFile
  *
  * @see com.uploadcare.android.library.data.UploadcareFile.cdnPath
  */
-class CdnPathBuilder constructor(file: UploadcareFile) {
+class CdnPathBuilder internal constructor(file: UploadcareFile) {
 
     private val sb = StringBuilder("/")
 
