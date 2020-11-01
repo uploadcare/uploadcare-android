@@ -108,6 +108,10 @@ class FileUploadWorker(appContext: Context,
         if (showProgress) {
             notification.setProgress(100, progress, false)
         }
+        if (progress == 100) {
+            notification.setOngoing(false)
+            notification.setAutoCancel(true)
+        }
 
         setForegroundAsync(createForegroundInfo(notification))
     }
