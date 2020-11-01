@@ -192,10 +192,12 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
      */
     fun uploadFiles(filesUriList: List<Uri>) {
         showProgressOrResult(true, getContext().getString(R.string.activity_main_status_uploading))
+        allowUploadPause.value = true
         multipleUploader = MultipleFilesUploader(client, filesUriList, getContext()).store(true)
         multipleUploader!!.uploadAsync(object : UploadFilesCallback {
 
             override fun onFailure(e: UploadcareApiException) {
+                allowUploadPause.value = false
                 showProgressOrResult(false, e.message ?: "")
             }
 
@@ -209,6 +211,7 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
             }
 
             override fun onSuccess(result: List<UploadcareFile>) {
+                allowUploadPause.value = false
                 val resultStringBuilder = StringBuilder()
                 for (file in result) {
                     resultStringBuilder.append(file.toString())
@@ -238,6 +241,17 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
                 uploader.pause()
             }
             uploadPaused.value = uploader.isPaused
+        }
+
+        val multipleFilesUploader: MultipleFilesUploader?
+                = multipleUploader as? MultipleFilesUploader
+        multipleFilesUploader?.let {
+            if (multipleFilesUploader.isPaused) {
+                multipleFilesUploader.resume()
+            } else {
+                multipleFilesUploader.pause()
+            }
+            uploadPaused.value = multipleFilesUploader.isPaused
         }
     }
 
