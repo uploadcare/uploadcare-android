@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
-apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'org.jetbrains.dokka'
 
 android {
     compileSdkVersion versions.compile_sdk
@@ -12,9 +12,9 @@ android {
     defaultConfig {
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
-        versionCode 10
-        versionName "2.2.0"
-        buildConfigField 'String', 'VERSION_NAME', "\"2.2.0\""
+        versionCode 11
+        versionName "3.0.0"
+        buildConfigField 'String', 'VERSION_NAME', "\"3.0.0\""
     }
 
     androidExtensions {
@@ -50,9 +50,16 @@ android {
         jvmTarget = "1.8"
     }
 
-    dokka {
-        outputFormat = 'html'
-        outputDirectory = "$buildDir/javadoc"
+    dokkaHtml.configure {
+        dokkaSourceSets {
+            named("main") {
+                outputDirectory.set(buildDir.resolve("javadoc"))
+                sourceRoots.setFrom(file("src/main/java"))
+                noAndroidSdkLink.set(false)
+                skipEmptyPackages.set(true)
+                includeNonPublic.set(false)
+            }
+        }
     }
 }
 

@@ -9,6 +9,7 @@ Supported features:
 - Handle social networks authorization and file selection for you.
 - Custom appearance of the widget with ability to customize styles.
 - Includes Uploadcare Android library for direct access to Uploadcare API's.
+- Upload selected file/files in Background (using WorkManager internally), report result as LiveData.
 
 [Documentation](http://uploadcare.github.io/uploadcare-android/widget/index.html)
 
@@ -19,7 +20,7 @@ Latest stable version is available from jCenter.
 To include it in your Android project, add this to the gradle.build file:
 
 ```
-implementation 'com.uploadcare.android.widget:uploadcare-android-widget:2.2.0'
+implementation 'com.uploadcare.android.widget:uploadcare-android-widget:3.0.0'
 
 ```
 
@@ -31,7 +32,7 @@ Place your Uploadcare public/private keys into ../res/strings.xml file (example 
 
 ```xml
 <resources>
-    <!--Replace with your public/private keys to use UploadcareWidget-->
+    <!--Replace with your public/private keys to use UploadcareWidget. Private key is optional, required only if you use Rest API features.-->
     <string name="uploadcare_public_key" translatable="false">place_uploadcare_public_key_here</string>
     <string name="uploadcare_private_key" translatable="false">place_uploadcare_private_key_here</string>
 </resources>
@@ -42,10 +43,11 @@ Select and upload file to Uploadcare from any available social network/camera/lo
 Java
 ```java
 // Launch UploadcareWidget
-Context context = ...// Context
 Fragment fragment = this; //or Activity activity = this;
-boolean storeUponUpload = true;
-UploadcareWidget.getInstance(context).selectFile(fragment, storeUponUpload)
+UploadcareWidget.getInstance()
+                .selectFile(fragment)
+                //set other parameters for upload
+                .launch();
 
 // Handle result
 @Override
@@ -53,7 +55,7 @@ public void onActivityResult(int requestCode, int resultCode, @Nullable Intent d
     super.onActivityResult(requestCode, resultCode, data);
 
     UploadcareWidgetResult result = UploadcareWidgetResult.fromIntent(data);
-    if(result!=null){
+    if(result != null){
         //handle result.
     }
 }
@@ -61,10 +63,11 @@ public void onActivityResult(int requestCode, int resultCode, @Nullable Intent d
 Kotlin
 ```kotlin
 // Launch UploadcareWidget
-val context = ...// Context
 val fragment = this //or val activity = this;
-val storeUponUpload = true
-UploadcareWidget.getInstance(context).selectFile(fragment, storeUponUpload)
+UploadcareWidget.getInstance()
+                .selectFile(fragment)
+                //set other parameters for upload
+                .launch()
 
 // Handle result
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -77,19 +80,20 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
 }
 ```
 
-Select and upload Video file to Uploadcare from Facebook network.
+Select and upload Video file to Uploadcare from Facebook network. Cancelable and showing progress UI.
 
 Java
 ```java
 // Launch UploadcareWidget
-Context context = ...// Context
 Fragment fragment = this; //or Activity activity = this;
-boolean storeUponUpload = true;
-UploadcareWidget.getInstance(context).selectFileFrom(
-                fragment,
-                SocialNetwork.SOCIAL_NETWORK_FACEBOOK,
-                FileType.video,
-                storeUponUpload);
+UploadcareWidget.getInstance()
+                .selectFile(fragment)
+                .from(SocialNetwork.SOCIAL_NETWORK_FACEBOOK)
+                .fileType(FileType.video)
+                .cancelable(true) // Allows user to cancel upload.
+                .showProgress(true) // Shows progress UI so user can see upload progress.
+                //set other parameters for upload
+                .launch();
 
 // Handle result
 @Override
@@ -97,7 +101,7 @@ public void onActivityResult(int requestCode, int resultCode, @Nullable Intent d
     super.onActivityResult(requestCode, resultCode, data);
 
     UploadcareWidgetResult result = UploadcareWidgetResult.fromIntent(data);
-    if(result!=null){
+    if(result != null){
         //handle result.
     }
 }
@@ -105,14 +109,15 @@ public void onActivityResult(int requestCode, int resultCode, @Nullable Intent d
 Kotlin
 ```kotlin
 // Launch UploadcareWidget
-val context = ...// Context
 val fragment = this //or val activity = this;
-val storeUponUpload = true
-UploadcareWidget.getInstance(context).selectFileFrom(
-                fragment,
-                SocialNetwork.SOCIAL_NETWORK_FACEBOOK,
-                FileType.video,
-                storeUponUpload)
+UploadcareWidget.getInstance()
+                .selectFile(fragment)
+                .from(SocialNetwork.SOCIAL_NETWORK_FACEBOOK)
+                .fileType(FileType.video)
+                .cancelable(true) // Allows user to cancel upload.
+                .showProgress(true) // Shows progress UI so user can see upload progress.
+                //set other parameters for upload
+                .launch()
 
 // Handle result
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -130,14 +135,14 @@ See documentation for details:
 * [UploadcareWidget](http://uploadcare.github.io/uploadcare-android/widget/com.uploadcare.android.widget.controller/-uploadcare-widget/index.html)
 * [UploadcareWidgetResult](http://uploadcare.github.io/uploadcare-android/widget/com.uploadcare.android.widget.controller/-uploadcare-widget-result/index.html)
 
-Custom appearance of the widget with custom style.
+Custom appearance of the widget with custom style. We only provide ability to set colors for Regular (Day) mode, Dark Mode will use default dark style.
 
 Paste in your /res/values/styles.xml
 ```xml
 <style name="CustomUploadCareStyle" parent="UploadcareStyle">
-    <item name="uploadcareColorAccent">#FF1744</item>
+    <item name="uploadcareColorSecondary">#FF1744</item>
     <item name="uploadcareColorPrimary">#4CAF50</item>
-    <item name="uploadcareColorPrimaryDark">#388E3C</item>
+    <item name="uploadcareColorPrimaryVariant">#388E3C</item>
 </style>
 ```
 
@@ -145,10 +150,18 @@ Set UploadcareWidget to use your custom style.
 
 Java
 ```java
-UploadcareWidget.getInstance(context).setStyle(R.style.CustomUploadCareStyle);
+UploadcareWidget.getInstance()
+                .selectFile(fragment) //or Activity
+                .style(R.style.CustomUploadCareStyle);
+                //...
+                .launch()
 ```
 
 Kotlin
 ```kotlin
-UploadcareWidget.getInstance(context).style = R.style.CustomUploadCareStyle
+UploadcareWidget.getInstance()
+                .selectFile(fragment) //or Activity
+                .style(R.style.CustomUploadCareStyle)
+                //...
+                .launch()
 ```

@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
-apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'org.jetbrains.dokka'
 
 android {
     compileSdkVersion versions.compile_sdk
@@ -13,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
-        versionCode 9
-        versionName "2.2.0"
+        versionCode 10
+        versionName "3.0.0"
     }
 
     buildFeatures {
@@ -67,9 +67,16 @@ android {
         jvmTarget = "1.8"
     }
 
-    dokka {
-        outputFormat = 'html'
-        outputDirectory = "$buildDir/javadoc"
+    dokkaHtml.configure {
+        dokkaSourceSets {
+            named("main") {
+                outputDirectory.set(buildDir.resolve("javadoc"))
+                sourceRoots.setFrom(file("src/main/java"))
+                noAndroidSdkLink.set(false)
+                skipEmptyPackages.set(true)
+                includeNonPublic.set(false)
+            }
+        }
     }
 }
 

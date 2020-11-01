@@ -1,6 +1,37 @@
 # Changelog
 
 # History
+## 3.0.0
+- Example:
+    - Add Background upload example.
+    - Add Cancel upload example.
+    - Add Upload Progress example.
+    - Add Pause/Resume Upload example.
+- Widget:
+    - "UploadcareWidget.getInstance()" doesn't require Context no more.
+    - Background upload (using WorkManager internally).
+    - Full support for Android 11 (compile/target SDK 30).
+    - Update to full usage of MaterialComponents.
+    - Dark theme support.
+    - Refactor widget methods to be much easier to use, builder like pattern.
+    - Add ability to specify upload parameters like cancellation, show progress etc.
+    - Signed uploads for local Files.
+    - Update dependencies.
+- Library:
+    - Add Secure Delivery support (Authenticated Urls) from custom CDN (Akamai, KeyCDN).
+    - Add ability to Pause/Resume upload when using FileUploader/MultipleFilesUploader.
+    - Add ability to cancel upload in progress.
+    - Add ability to listen for upload progress for File/Url and Multiple Files/Urls.
+    - Add "UploadFileCallback", use it instead of "UploadcareFileCallback" for uploading file.
+    - Rename "privateKey" to "secretKey".
+    - Add ability to get File/Files with Object Recognition information.
+    - Signed uploads.
+    - Add support for API v0.6
+    - Add ability to Create file Group.
+    - Add ability to copy files in local/remote storage. Update old copy file method, mark as Deprecated.
+    - Add ability to get/create/update/delete Webhooks.
+    - Update dependencies.
+
 ## 2.2.0
 - Example:
     - Update Widget/Library versions

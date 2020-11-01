@@ -22,7 +22,7 @@ Latest stable version is available from jCenter.
 To include it in your Android project, add this to the gradle.build file:
 
 ```
-implementation 'com.uploadcare.android.library:uploadcare-android:2.2.0'
+implementation 'com.uploadcare.android.library:uploadcare-android:3.0.0'
 
 ```
 
@@ -178,10 +178,18 @@ Context context = getApplicationContext();
 Uri fileUri = ...//resource representing file.
 Uploader uploader = new FileUploader(client, fileUri, context)
                 .store(true);
-        uploader.uploadAsync(new UploadcareFileCallback() {
+        uploader.uploadAsync(new UploadFileCallback() {
             @Override
             public void onFailure(UploadcareApiException e) {
                 //handle errors.
+            }
+
+            @Override
+            public void onProgressUpdate(
+                                Long bytesWritten,
+                                Long contentLength,
+                                Double progress) {
+                //progress info.
             }
 
             @Override
@@ -189,6 +197,9 @@ Uploader uploader = new FileUploader(client, fileUri, context)
                 //successfully uploaded file to Uploadcare.
             }
         });
+
+// Cancel upload in progress.
+uploader.cancel();
 ```
 Kotlin
 ```kotlin
@@ -196,15 +207,25 @@ val client = UploadcareClient.demoClient()
 val context = ...// Context
 val fileUri = ...//resource representing file.
 val uploader = FileUploader(client, fileUri, context).store(true)
-uploader.uploadAsync(object : UploadcareFileCallback {
+uploader.uploadAsync(object : UploadFileCallback {
     override fun onFailure(e: UploadcareApiException) {
         //handle errors.
+    }
+
+    override fun onProgressUpdate(
+                        bytesWritten: Long,
+                        contentLength: Long,
+                        progress: Double) {
+        //progress info.
     }
 
     override fun onSuccess(result: UploadcareFile) {
         //successfully uploaded file to Uploadcare.
     }
 })
+
+// Cancel upload in progress.
+uploader.cancel()
 ```
 
 Synchronous upload file from Uri.
