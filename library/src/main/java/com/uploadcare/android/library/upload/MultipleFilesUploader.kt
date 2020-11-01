@@ -12,6 +12,7 @@ import com.uploadcare.android.library.data.UploadBaseData
 import com.uploadcare.android.library.data.UploadMultipartCompleteData
 import com.uploadcare.android.library.data.UploadMultipartStartData
 import com.uploadcare.android.library.exceptions.UploadFailureException
+import com.uploadcare.android.library.exceptions.UploadPausedException
 import com.uploadcare.android.library.upload.UploadUtils.Companion.chunkedSequence
 import com.uploadcare.android.library.urls.Urls
 import com.uploadcare.android.library.utils.CountingRequestBody
@@ -50,7 +51,30 @@ class MultipleFilesUploader : MultipleUploader {
 
     private var job: Job? = null
 
-    private var isCanceled: Boolean = false
+    private var size: Long = 0L
+
+    private var contentMediaType: MediaType? = null
+
+    private var multipartData: UploadMultipartStartData? = null
+
+    //when uploadFileNumber lower than 0, pause is not possible
+    private var uploadFileNumber: Int = -1
+
+    private var uploadChunkNumber: Int = -1
+
+    private var allBytesWritten: Long = 0L
+
+    private var resultCallback: UploadFilesCallback? = null
+
+    private val results = ArrayList<UploadcareFile>()
+
+    private var isAsyncUpload: Boolean = false
+
+    var isCanceled: Boolean = false
+        private set
+
+    var isPaused: Boolean = false
+        private set
 
     /**
      * Creates a new uploader from a list of files on disk
@@ -93,50 +117,114 @@ class MultipleFilesUploader : MultipleUploader {
      */
     @Throws(UploadFailureException::class)
     override fun upload(progressCallback: ProgressCallback?): List<UploadcareFile> {
-        val results = ArrayList<UploadcareFile>()
         totalFilesSize = calculateTotalSize()
+        uploadFileNumber = 0
+        uploadChunkNumber = 0
+        return uploadFiles(progressCallback)
+    }
+
+    /**
+     * Asynchronously uploads the files to Uploadcare.
+     *
+     * @param callback callback {@link UploadFilesCallback}
+     */
+    override fun uploadAsync(callback: UploadFilesCallback) {
+        isAsyncUpload = true
+        resultCallback = callback
+        job = GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val uploadedFiles = upload(callback)
+                withContext(Dispatchers.Main) {
+                    callback.onSuccess(uploadedFiles)
+                }
+            } catch (e: UploadPausedException) {
+                // Ignore.
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    callback.onFailure(UploadFailureException(e.message))
+                }
+            } catch (e: RuntimeException) {
+                withContext(Dispatchers.Main) {
+                    callback.onFailure(UploadFailureException(e.message))
+                }
+            }
+        }
+    }
+
+    private fun uploadFiles(progressCallback: ProgressCallback?): List<UploadcareFile> {
+        var resumed = false
         if (files != null) {
-            for (file in files) {
+            while (uploadFileNumber < files.size) {
+                if (isPaused) {
+                    uploadChunkNumber = -1
+                    throw UploadPausedException("Paused")
+                }
                 try {
+                    val file = files[uploadFileNumber]
                     val name = file.name
-                    val size = file.length()
+                    size = file.length()
                     val contentType = UploadUtils.getMimeType(file)
                             ?: throw UploadFailureException("Cannot get mime type for file: $name")
+                    contentMediaType = contentType
 
                     results.add(if (size > MIN_MULTIPART_SIZE) {
-                        // We can use multipart upload
-                        multipartUpload(
-                                name,
-                                size,
-                                contentType,
-                                file.chunkedSequence(CHUNK_SIZE),
-                                progressCallback)
+                        if (!resumed && uploadChunkNumber != -1) {
+                            uploadChunks(
+                                    multipartData!!,
+                                    contentType,
+                                    file.chunkedSequence(CHUNK_SIZE),
+                                    progressCallback)
+                        } else {
+                            // We can use multipart upload
+                            multipartUpload(
+                                    name,
+                                    contentType,
+                                    file.chunkedSequence(CHUNK_SIZE),
+                                    progressCallback)
+                        }
                     } else {
                         // We can use only direct upload
                         directUpload(name, file.asRequestBody(contentType), progressCallback)
                     })
                 } catch (e: UploadFailureException) {
                     e.printStackTrace()
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
+                resumed = true
+                uploadFileNumber += 1
             }
         } else if (context != null && uris != null) {
             val cr = context.contentResolver
-            for (uri in uris) {
+            while (uploadFileNumber < uris.size) {
+                if (isPaused) {
+                    uploadChunkNumber = -1
+                    throw UploadPausedException("Paused")
+                }
                 try {
+                    val uri = uris[uploadFileNumber]
                     val name = UploadUtils.getFileName(uri, context)
-                    val size = UploadUtils.getFileSize(uri, context)
+                    size = UploadUtils.getFileSize(uri, context)
                             ?: throw UploadFailureException("Cannot get file size for uri: $uri")
                     val contentType = UploadUtils.getMimeType(context.contentResolver, uri)
                             ?: throw UploadFailureException("Cannot get mime type for uri: $uri")
+                    contentMediaType = contentType
 
                     results.add(if (size > MIN_MULTIPART_SIZE) {
-                        // We can use multipart upload
-                        multipartUpload(
-                                name,
-                                size,
-                                contentType,
-                                uri.chunkedSequence(context, CHUNK_SIZE),
-                                progressCallback)
+                        if (!resumed && uploadChunkNumber != -1) {
+                            uploadChunks(
+                                    multipartData!!,
+                                    contentType,
+                                    uri.chunkedSequence(context, CHUNK_SIZE),
+                                    progressCallback)
+                        } else {
+                            // We can use multipart upload
+                            multipartUpload(
+                                    name,
+                                    contentType,
+                                    uri.chunkedSequence(context, CHUNK_SIZE),
+                                    progressCallback)
+                        }
                     } else {
                         // We can use only direct upload
                         val requestBody = try {
@@ -151,35 +239,17 @@ class MultipleFilesUploader : MultipleUploader {
                             throw UploadFailureException(e)
                         }
 
-                        directUpload(name, requestBody,progressCallback)
+                        directUpload(name, requestBody, progressCallback)
                     })
                 } catch (e: UploadFailureException) {
                     e.printStackTrace()
                 }
+                resumed = true
+                uploadFileNumber += 1
             }
         }
 
         return results
-    }
-
-    /**
-     * Asynchronously uploads the files to Uploadcare.
-     *
-     * @param callback callback {@link UploadFilesCallback}
-     */
-    override fun uploadAsync(callback: UploadFilesCallback) {
-        job = GlobalScope.launch(Dispatchers.IO) {
-            try {
-                val uploadedFiles = upload(callback)
-                withContext(Dispatchers.Main) {
-                    callback.onSuccess(uploadedFiles)
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    callback.onFailure(UploadFailureException(e.message))
-                }
-            }
-        }
     }
 
     /**
@@ -215,6 +285,76 @@ class MultipleFilesUploader : MultipleUploader {
         this.signature = signature
         this.expire = expire
         return this
+    }
+
+    /**
+     * Pause upload of the file. Only Async upload
+     * Only upload for file with size bigger than 10485760 bytes can be paused/resumed.
+     *
+     * @return {@code true} when successfully paused upload. {@code false} If pause not supported.
+     */
+    fun pause(): Boolean {
+        if (isPaused) {
+            return true
+        }
+
+        if (!isPauseResumeSupported()) {
+            return false
+        }
+
+        if (uploadFileNumber < 0) {
+            return false
+        }
+
+        isPaused = true
+        return true
+    }
+
+    /**
+     * Resume upload of the file that was previously paused.
+     * Only upload for file with size bigger than 10485760 bytes can be paused/resumed.
+     *
+     * @return {@code true} when successfully resumed upload. {@code false} If resume not supported.
+     */
+    fun resume(): Boolean {
+        if (!isPaused) {
+            return true
+        }
+
+        if (!isPauseResumeSupported()) {
+            return false
+        }
+
+        isPaused = false
+        resultCallback?.let {
+            resumeUpload(it)
+            return true
+        } ?: return false
+    }
+
+    private fun resumeUpload(callback: UploadFilesCallback) {
+        job = GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val uploadedFiles = uploadFiles(callback)
+                withContext(Dispatchers.Main) {
+                    callback.onSuccess(uploadedFiles)
+                }
+            } catch (e: UploadPausedException) {
+                // Ignore.
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    callback.onFailure(UploadFailureException(e.message))
+                }
+            } catch (e: RuntimeException) {
+                withContext(Dispatchers.Main) {
+                    callback.onFailure(UploadFailureException(e.message))
+                }
+            }
+        }
+    }
+
+    private fun isPauseResumeSupported(): Boolean {
+        return isAsyncUpload
     }
 
     private fun directUpload(
@@ -254,32 +394,50 @@ class MultipleFilesUploader : MultipleUploader {
     }
 
     private fun multipartUpload(name: String,
-                                size: Long,
                                 contentType: MediaType,
                                 chunkedSequence: Sequence<ByteArray>,
                                 progressCallback: ProgressCallback?): UploadcareFile {
         // start multipart upload
-        val multipartData = startMultipartUpload(name, size, contentType)
-
+        val multipartDataResult = startMultipartUpload(name, size, contentType)
+        multipartData = multipartDataResult
         // upload parts
-        var i = 0
-        var fileBytesWritten = 0L
-        chunkedSequence.forEach {
-            checkUploadCanceled()
+        uploadChunkNumber = 0
+        allBytesWritten = 0L
+        return uploadChunks(
+                multipartDataResult,
+                contentType,
+                chunkedSequence,
+                progressCallback)
+    }
 
-            val requestBody = it.toRequestBody(contentType)
-            val chunk = CountingRequestBody(requestBody){ bytesWritten, contentLength ->
-                checkUploadCanceled()
-                fileBytesWritten += bytesWritten
-                if (fileBytesWritten > size) {
-                    fileBytesWritten = size
-                }
-                updateProgress(fileBytesWritten, size, progressCallback)
+    private fun uploadChunks(multipartData: UploadMultipartStartData,
+                             contentType: MediaType,
+                             chunkedSequence: Sequence<ByteArray>,
+                             progressCallback: ProgressCallback?): UploadcareFile {
+        // upload parts starting from uploadChunkNumber
+        val chunks = chunkedSequence.toList()
+        while (uploadChunkNumber < chunks.count()) {
+            checkUploadCanceled()
+            if (isPaused) {
+                throw UploadPausedException("Paused")
             }
-            val partUrl = multipartData.parts[i]
+
+            val requestBody = chunks[uploadChunkNumber].toRequestBody(contentType)
+            val chunk = CountingRequestBody(requestBody) { bytesWritten, contentLength ->
+                checkUploadCanceled()
+                allBytesWritten += bytesWritten
+                if (allBytesWritten > size) {
+                    allBytesWritten = size
+                }
+                updateProgress(allBytesWritten, size, progressCallback)
+            }
+
+            val partUrl = multipartData.parts[uploadChunkNumber]
             client.requestHelper.executeCommand(RequestHelper.REQUEST_PUT, partUrl, false, chunk)
-            i += 1
+            uploadChunkNumber += 1
         }
+
+        uploadChunkNumber = -1
 
         val multipartComplete = completeMultipartUpload(multipartData.uuid)
 
