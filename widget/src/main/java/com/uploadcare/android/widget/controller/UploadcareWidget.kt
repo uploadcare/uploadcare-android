@@ -30,6 +30,7 @@ import java.util.*
  *
  * Replace variables in res/strings.xml file with you public/private keys from Uploadcare console.
  */
+@Suppress("unused")
 class UploadcareWidget private constructor(context: Context) {
 
     val uploadcareClient = UploadcareClient(
@@ -39,7 +40,7 @@ class UploadcareWidget private constructor(context: Context) {
                 context.getString(R.string.uploadcare_private_key)
             } else null)
 
-    val socialApi: SocialApi by lazy {
+    internal val socialApi: SocialApi by lazy {
         val retrofit = Retrofit.Builder()
                 .baseUrl(BuildConfig.SOCIAL_API_ENDPOINT)
                 .client(uploadcareClient.httpClient)
@@ -289,6 +290,7 @@ class UploadcareWidget private constructor(context: Context) {
     }
 }
 
+@Suppress("unused")
 enum class SocialNetwork constructor(val rawValue: String) {
     SOCIAL_NETWORK_FACEBOOK("facebook"),
     SOCIAL_NETWORK_INSTAGRAM("instagram"),
@@ -307,6 +309,7 @@ enum class SocialNetwork constructor(val rawValue: String) {
     SOCIAL_NETWORK_FILE("file")
 }
 
+@Suppress("EnumEntryName")
 enum class FileType {
     any, image, video
 }
@@ -314,7 +317,7 @@ enum class FileType {
 /**
  * Data class that holds result/error for select file request.
  */
-@Parcelize
+@Parcelize @Suppress("unused")
 data class UploadcareWidgetResult(val uploadcareFile: UploadcareFile? = null,
                                   val backgroundUploadUUID: UUID? = null,
                                   val exception: UploadcareException? = null) : Parcelable {

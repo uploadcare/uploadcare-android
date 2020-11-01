@@ -8,6 +8,7 @@ import com.uploadcare.android.widget.controller.FileType
 import com.uploadcare.android.widget.data.Action
 import com.uploadcare.android.widget.data.Thing
 
+@SuppressWarnings("WeakerAccess")
 abstract class FilesAdapter<VH : BaseViewHolder<Thing>>(private val fileType: FileType)
     : RecyclerView.Adapter<VH>() {
 

@@ -1,5 +1,6 @@
 package com.uploadcare.android.widget.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -32,6 +33,7 @@ class UploadcareAuthFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = UcwFragmentAuthBinding.inflate(inflater, container, false)

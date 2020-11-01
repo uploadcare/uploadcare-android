@@ -79,17 +79,17 @@ class UploadcareChunkViewModel(application: Application) : AndroidViewModel(appl
                     .append("/")
             stringBuilder.append("-").append("/").append(query)
         } else if (isSearch.value == true && loadMore) {
-            stringBuilder.append(chunks.get(currentChunk).pathChunk)
+            stringBuilder.append(chunks[currentChunk].pathChunk)
         } else if (isRoot) {
-            stringBuilder.append(chunks.get(currentChunk).pathChunk)
+            stringBuilder.append(chunks[currentChunk].pathChunk)
         } else {
             stringBuilder.append(socialSource?.rootChunks?.get(currentChunk)?.pathChunk)
                     .append("/")
             for (i in chunks.indices) {
                 if (i != chunks.size - 1) {
-                    stringBuilder.append(chunks.get(i).pathChunk).append("/")
+                    stringBuilder.append(chunks[i].pathChunk).append("/")
                 } else {
-                    stringBuilder.append(chunks.get(i).pathChunk)
+                    stringBuilder.append(chunks[i].pathChunk)
                 }
             }
         }
@@ -143,9 +143,9 @@ class UploadcareChunkViewModel(application: Application) : AndroidViewModel(appl
         nextPath?.chunks?.let {
             for (i in it.indices) {
                 if (i != it.size - 1) {
-                    stringBuilder.append(it.get(i).pathChunk).append("/")
+                    stringBuilder.append(it[i].pathChunk).append("/")
                 } else {
-                    stringBuilder.append(it.get(i).pathChunk)
+                    stringBuilder.append(it[i].pathChunk)
                 }
             }
         }

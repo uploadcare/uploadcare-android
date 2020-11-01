@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.GridLayoutManager
@@ -89,10 +88,10 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
             }
         }
 
-        viewModel.things.observe(this.viewLifecycleOwner, Observer { things ->
+        viewModel.things.observe(this.viewLifecycleOwner, { things ->
             mAdapter?.updateItems(things)
         })
-        viewModel.allowLoadMore.observe(this.viewLifecycleOwner, Observer { allowLoadMore ->
+        viewModel.allowLoadMore.observe(this.viewLifecycleOwner, { allowLoadMore ->
             if (allowLoadMore) {
                 mOnScrollListener?.let {
                     it.clear()
@@ -102,10 +101,10 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
                 binding.ucwRecyclerView.clearOnScrollListeners()
             }
         })
-        viewModel.errorCommand.observe(this.viewLifecycleOwner, Observer { exception ->
+        viewModel.errorCommand.observe(this.viewLifecycleOwner, { exception ->
             exception?.let { mOnFileActionsListener.onError(it) }
         })
-        viewModel.needAuthCommand.observe(this.viewLifecycleOwner, Observer { loginLink ->
+        viewModel.needAuthCommand.observe(this.viewLifecycleOwner, { loginLink ->
             loginLink?.let { mOnFileActionsListener.onAuthorizationNeeded(loginLink) }
         })
 

@@ -7,6 +7,7 @@ import com.uploadcare.android.widget.dialogs.ProgressDialog
 import com.uploadcare.android.widget.dialogs.SocialSourcesDialog
 import com.uploadcare.android.widget.viewmodels.ProgressData
 
+@Suppress("unused")
 class NavigationHelper private constructor() {
 
     companion object {

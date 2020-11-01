@@ -178,8 +178,4 @@ class UploadcareFragment : Fragment(), SocialSourcesListener, CancelUploadListen
         private const val CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200
         private const val CHOOSE_FILE_ACTIVITY_REQUEST_CODE = 300
     }
-
-    private enum class MEDIA_TYPE {
-        IMAGE, VIDEO
-    }
 }

@@ -2,12 +2,12 @@ package com.uploadcare.android.widget.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 
 /**
  * An image view which always remains square with respect to its width.
  */
-class SquaredImageView : ImageView {
+class SquaredImageView : AppCompatImageView {
 
     constructor(context: Context) : super(context)
 

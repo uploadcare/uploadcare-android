@@ -4,7 +4,6 @@
     <color name="ucw_primary_700">#263238</color>
     <color name="ucw_secondary_200">#ffcd80</color>
     <color name="ucw_secondary_500">#f57d00</color>
-    <color name="ucw_transparent">#00FFFFFF</color>
 
     <color name="ucw_on_primary">#fff</color>
     <color name="ucw_on_secondary">#000</color>
