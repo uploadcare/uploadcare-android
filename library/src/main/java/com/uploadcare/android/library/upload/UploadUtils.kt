@@ -10,6 +10,7 @@ import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.File
 import java.io.InputStream
+import java.util.*
 
 class UploadUtils {
     companion object {
@@ -20,26 +21,25 @@ class UploadUtils {
             return inputStream?.readBytes()
         }
 
+        @Throws(UploadFailureException::class)
         fun getFileName(uri: Uri, context: Context): String {
             var result: String? = null
             if (uri.scheme == "content") {
                 val cursor = context.contentResolver.query(uri, null, null, null, null)
-                try {
-                    if (cursor != null && cursor.moveToFirst()) {
-                        result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                cursor.use { crsr ->
+                    if (crsr != null && crsr.moveToFirst()) {
+                        result = crsr.getString(crsr.getColumnIndex(OpenableColumns.DISPLAY_NAME))
                     }
-                } finally {
-                    cursor?.close()
                 }
             }
             if (result == null) {
                 result = uri.path
-                val cut = result!!.lastIndexOf('/')
-                if (cut != -1) {
-                    result = result.substring(cut + 1)
+                val cut = result?.lastIndexOf('/')?:-1
+                if (cut != 1.unaryMinus()) {
+                    result = result?.substring(cut + 1)
                 }
             }
-            return result
+            return result?: throw UploadFailureException("Cannot get file name, from Uri")
         }
 
         fun getFileSize(uri: Uri, context: Context): Long? {
@@ -47,12 +47,10 @@ class UploadUtils {
 
             if (uri.scheme == "content") {
                 val cursor = context.contentResolver.query(uri, null, null, null, null)
-                try {
+                cursor.use { cursor ->
                     if (cursor != null && cursor.moveToFirst()) {
                         result = cursor.getLong(cursor.getColumnIndex(OpenableColumns.SIZE))
                     }
-                } finally {
-                    cursor?.close()
                 }
             }
 
@@ -74,7 +72,7 @@ class UploadUtils {
 
             val mime = MimeTypeMap.getSingleton()
             val index = fileName.lastIndexOf('.') + 1
-            val ext = fileName.substring(index).toLowerCase()
+            val ext = fileName.substring(index).toLowerCase(Locale.ROOT)
             val type = mime.getMimeTypeFromExtension(ext) ?: return MEDIA_TYPE_TEXT_PLAIN
             return type.toMediaTypeOrNull()
         }
@@ -163,8 +161,3 @@ class UploadUtils {
         }
     }
 }
-
-internal data class UploadProgress(
-        val bytesWritten: Long,
-        val contentLength: Long,
-        val progress: Double)

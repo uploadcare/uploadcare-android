@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit
  * @param simpleAuth If {@code false}, HMAC-based authentication is used, otherwise simple
  * authentication is used.
  */
+@Suppress("unused") @SuppressWarnings("WeakerAccess")
 class UploadcareClient constructor(val publicKey: String,
                                    val secretKey: String? = null,
                                    val simpleAuth: Boolean = false) {
@@ -874,7 +875,7 @@ class UploadcareClient constructor(val publicKey: String,
             multipartBuilder.addFormDataPart("expire", expire!!)
         }
 
-        for (i in 0 until fileIds.size) {
+        for (i in fileIds.indices) {
             multipartBuilder.addFormDataPart("files[$i]", fileIds[i])
         }
 
@@ -889,7 +890,7 @@ class UploadcareClient constructor(val publicKey: String,
                                                fileIds: List<String>): Response? {
         val url = Urls.apiFilesBatch()
         var lastResponse: Response? = null
-        for (offset in 0 until fileIds.size step MAX_SAVE_DELETE_BATCH_SIZE) {
+        for (offset in fileIds.indices step MAX_SAVE_DELETE_BATCH_SIZE) {
             val endIndex = if (offset + MAX_SAVE_DELETE_BATCH_SIZE >= fileIds.size)
                 fileIds.size - 1
             else offset + (MAX_SAVE_DELETE_BATCH_SIZE - 1)

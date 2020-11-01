@@ -7,8 +7,9 @@ import com.uploadcare.android.library.api.UploadcareFile
  *
  * @param file File to be used for the path
  *
- * @see com.uploadcare.android.library.data.UploadcareFile.cdnPath
+ * @see com.uploadcare.android.library.api.UploadcareFile.cdnPath
  */
+@Suppress("unused")
 class CdnPathBuilder internal constructor(private val file: UploadcareFile) {
 
     private val sb = StringBuilder("/")
@@ -306,10 +307,12 @@ class CdnPathBuilder internal constructor(private val file: UploadcareFile) {
     }
 }
 
+@Suppress("unused")
 enum class ImageFormat constructor(val rawValue: String) {
     FORMAT_JPEG("jpeg"), FORMAT_PNG("png")
 }
 
+@Suppress("unused")
 enum class ImageQuality constructor(val rawValue: String) {
     QUALITY_NORMAL("normal"),
     QUALITY_BETTER("better"),

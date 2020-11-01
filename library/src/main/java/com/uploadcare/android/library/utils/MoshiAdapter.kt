@@ -4,6 +4,7 @@ import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
 import java.net.URI
 
+@Suppress("unused")
 class MoshiAdapter {
     @FromJson
     fun uriFromJson(uriJson: String): URI {

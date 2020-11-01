@@ -17,6 +17,7 @@ import java.util.*
  * <p>
  * {@link UploadcareFile}
  */
+@Suppress("unused")
 class FilesQueryBuilder(private val client: UploadcareClient)
     : PaginatedQueryBuilder<UploadcareFile> {
 

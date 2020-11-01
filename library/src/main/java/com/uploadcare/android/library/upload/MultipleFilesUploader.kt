@@ -29,6 +29,7 @@ import java.util.*
 /**
  * Uploadcare uploader for multiple files.
  */
+@Suppress("unused") @SuppressWarnings("WeakerAccess")
 class MultipleFilesUploader : MultipleUploader {
 
     private val client: UploadcareClient

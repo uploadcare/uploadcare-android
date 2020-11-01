@@ -14,9 +14,9 @@ class AsStringAdapter : JsonAdapter<String>() {
 
     companion object {
 
-        var FACTORY: JsonAdapter.Factory = Factory { type, annotations, moshi ->
+        var FACTORY: Factory = Factory { type, annotations, moshi ->
             val nextAnnotations = Types.nextAnnotations(annotations, AsString::class.java)
-            if (nextAnnotations == null || !nextAnnotations.isEmpty())
+            if (nextAnnotations == null || nextAnnotations.isNotEmpty())
                 null else {
                 AsStringAdapter()
             }

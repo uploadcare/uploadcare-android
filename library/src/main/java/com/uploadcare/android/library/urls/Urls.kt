@@ -7,6 +7,7 @@ import java.net.URI
 /**
  * Uploadcare API URL factory methods.
  */
+@Suppress("unused")
 class Urls private constructor() {
 
     companion object {

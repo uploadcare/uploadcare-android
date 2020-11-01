@@ -10,6 +10,7 @@ import com.uploadcare.android.library.urls.*
 import java.net.URI
 import java.util.*
 
+@Suppress("unused")
 class GroupsQueryBuilder(private val client: UploadcareClient)
     : PaginatedQueryBuilder<UploadcareGroup> {
 

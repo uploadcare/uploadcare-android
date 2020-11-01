@@ -29,6 +29,7 @@ import java.io.InputStream
 /**
  * Uploadcare uploader for files and binary data.
  */
+@Suppress("unused") @SuppressWarnings("WeakerAccess")
 class FileUploader : Uploader {
 
     private val client: UploadcareClient

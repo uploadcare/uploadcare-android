@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 import java.net.URI
 import java.util.*
 
-@Parcelize
+@Parcelize @Suppress("unused") @SuppressWarnings("WeakerAccess")
 data class UploadcareFile(val uuid: String,
                           val url: URI? = null,
                           val size: Int,
@@ -140,6 +140,7 @@ data class Video(val bitrate: Int,
                  val width: Int,
                  @Json(name = "frame_rate") val frameRate: Float) : Parcelable
 
+@Suppress("unused")
 enum class ColorMode {
     RGB, RGBA, RGBa, RGBX, L, LA, La, P, PA, CMYK, YCbCr, HSV, LAB
 }

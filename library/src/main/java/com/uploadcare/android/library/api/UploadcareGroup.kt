@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 import java.net.URI
 import java.util.*
 
-@Parcelize
+@Parcelize @Suppress("unused")
 data class UploadcareGroup(val id: String,
                            val url: URI,
                            val files: List<UploadcareFile>? = null,

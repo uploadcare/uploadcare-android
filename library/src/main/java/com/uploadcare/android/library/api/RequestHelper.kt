@@ -33,9 +33,8 @@ import javax.crypto.spec.SecretKeySpec
 
 /**
  * A helper class for doing API calls to the Uploadcare API. Supports API version 0.6.
- * <p>
- * TODO Support of throttled requests needs to be added
  */
+@Suppress("unused")
 class RequestHelper(private val client: UploadcareClient) {
 
     @Throws(NoSuchAlgorithmException::class, InvalidKeyException::class, UploadcareApiException::class)
@@ -50,8 +49,8 @@ class RequestHelper(private val client: UploadcareClient) {
         val uri = url.substring(uriStartIndex, url.length)
         val sb = StringBuilder()
         sb.append(requestType)
-                .append("\n").append(requestBodyMD5?.let { it } ?: "".md5())
-                .append("\n").append(contentType?.let { it } ?: JSON_CONTENT_TYPE)
+                .append("\n").append(requestBodyMD5 ?: "".md5())
+                .append("\n").append(contentType ?: JSON_CONTENT_TYPE)
                 .append("\n").append(date)
                 .append("\n").append(uri)
         val secretKeyBytes = client.secretKey.toByteArray()
@@ -72,7 +71,7 @@ class RequestHelper(private val client: UploadcareClient) {
         val calendar = GregorianCalendar(GMT)
         val formattedDate = rfc2822(calendar.time)
 
-        requestBuilder.addHeader("Content-Type", contentType?.let { it } ?: JSON_CONTENT_TYPE)
+        requestBuilder.addHeader("Content-Type", contentType ?: JSON_CONTENT_TYPE)
         requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.6+json")
         requestBuilder.addHeader("Date", formattedDate)
         requestBuilder.addHeader("User-Agent",
@@ -225,8 +224,8 @@ class RequestHelper(private val client: UploadcareClient) {
                 try {
                     checkResponseStatus(response)
 
-                    response.body?.string()?.let {
-                        val result = client.objectMapper.fromJson(it, dataClass)
+                    response.body?.string()?.let { responseString ->
+                        val result = client.objectMapper.fromJson(responseString, dataClass)
                         mainHandler.post {
                             result?.let {
                                 callback?.onSuccess(it)
@@ -287,8 +286,8 @@ class RequestHelper(private val client: UploadcareClient) {
                 try {
                     checkResponseStatus(response)
 
-                    response.body?.string()?.let {
-                        val result = client.objectMapper.fromJson<T>(it, dataType)
+                    response.body?.string()?.let { responseString ->
+                        val result = client.objectMapper.fromJson<T>(responseString, dataType)
                         mainHandler.post {
                             result?.let {
                                 callback?.onSuccess(it)

@@ -17,6 +17,7 @@ import java.util.*
 /**
  * Uploadcare uploader for multiple URLs.
  */
+@Suppress("unused")
 class MultipleUrlsUploader constructor(private val client: UploadcareClient,
                                        private val sourceUrls: List<String>) : MultipleUploader {
 
@@ -190,8 +191,8 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
             val statusUrl = Urls.uploadFromUrlStatus(token)
 
             var waitTime = pollingInterval
-            var retries: Int = 0
-            var progress: Double = 0.0
+            var retries = 0
+            var progress = 0.0
 
             while (true) {
                 checkUploadCanceled()

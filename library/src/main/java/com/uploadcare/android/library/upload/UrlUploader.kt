@@ -17,6 +17,7 @@ import kotlin.math.pow
 /**
  * Uploadcare uploader for URLs.
  */
+@Suppress("unused")
 class UrlUploader(private val client: UploadcareClient, private val sourceUrl: String) : Uploader {
 
     private var store = "auto"
@@ -174,8 +175,8 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
         val statusUrl = Urls.uploadFromUrlStatus(token)
 
         var waitTime = pollingInterval
-        var retries: Int = 0
-        var progress : Double = 0.0
+        var retries = 0
+        var progress = 0.0
 
         while (true) {
             checkUploadCanceled()
