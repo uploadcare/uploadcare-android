@@ -30,3 +30,5 @@ class UploadFailureException : UploadcareApiException {
     constructor(cause: Throwable) : super(cause)
     constructor(message: String, cause: Throwable) : super(message, cause)
 }
+
+internal class UploadPausedException(message: String?): UploadcareApiException(message)
