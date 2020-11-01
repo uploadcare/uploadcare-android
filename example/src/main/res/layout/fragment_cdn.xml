@@ -53,7 +53,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn1_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn1_title"
@@ -89,7 +90,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn2_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/file_description" />
+                    app:layout_constraintTop_toBottomOf="@+id/file_description"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn2_title"
@@ -111,7 +113,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn3_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn2_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/cdn2_title"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn3_title"
@@ -133,7 +136,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn4_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn3_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/cdn3_title"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn4_title"
@@ -155,7 +159,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn5_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn4_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/cdn4_title"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn5_title"
@@ -177,7 +182,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn6_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn5_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/cdn5_title"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn6_title"
@@ -199,7 +205,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn7_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn6_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/cdn6_title"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn7_title"

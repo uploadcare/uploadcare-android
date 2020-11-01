@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!--Replace with your public/private keys to use UploadcareWidget-->
     <string name="uploadcare_public_key" translatable="false">demopublickey</string>
     <string name="uploadcare_private_key" translatable="false">demosecretkey</string>
@@ -8,7 +8,6 @@
     <string name="fragment_files_title">Get files example</string>
     <string name="fragment_cdn_title">CDN URLs example</string>
     <string name="activity_main_btn_get_files">Get files/ CDN URLs</string>
-    <string name="activity_main_btn_upload_file">Upload file</string>
     <string name="activity_main_btn_upload_files">Upload file/files</string>
     <string name="activity_main_hint_upload_url">Enter Url to upload from</string>
     <string name="activity_main_btn_upload_url">Upload from url</string>
@@ -18,7 +17,6 @@
     <string name="activity_main_btn_upload_widget_dropbox">Upload file from Dropbox </string>
     <string name="activity_main_choose_file">Choose file for upload</string>
     <string name="activity_main_status_uploading">Uploading…</string>
-    <string name="activity_files_status_loading">Loading…</string>
     <string name="activity_files_status_start">Select filters and options and click \'Apply\'</string>
     <string name="activity_files_btn_apply">Apply</string>
     <string name="activity_files_btn_from">From date</string>
@@ -28,7 +26,6 @@
     <string name="activity_files_cancelable">Cancelable</string>
     <string name="activity_files_progress">Show Progress</string>
     <string name="activity_files_background">Background Upload</string>
-    <string name="activity_files_no_items">No more items</string>
     <string name="activity_cdn_original">Original</string>
     <string name="activity_cdn_grayscale">Grayscale</string>
     <string name="activity_cdn_flip">Flip</string>
@@ -40,7 +37,6 @@
     <string name="activity_main_title_widget">Widget demos</string>
     <string name="activity_files_from_text">From date: %s</string>
     <string name="activity_files_order_text">Order: %s</string>
-    <string name="order_dialog_title">Select Order</string>
     <string name="activity_main_btn_cancel_upload">Cancel Upload</string>
     <string name="activity_main_btn_pause_upload">Pause Upload</string>
     <string name="activity_main_btn_resume_upload">Resume Upload</string>

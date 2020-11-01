@@ -27,20 +27,19 @@ class OrderDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialog.Builder(context!!).apply {
+        return AlertDialog.Builder(requireContext()).apply {
             setItems(R.array.orders) { dialog, which -> orderSelected(which) }
             setNegativeButton(android.R.string.cancel, null)
         }.create()
     }
 
     private fun orderSelected(position: Int) {
-        val order: Order
-        when (position) {
-            1 -> order = Order.UPLOAD_TIME_DESC
-            2 -> order = Order.SIZE_ASC
-            3 -> order = Order.SIZE_DESC
-            0 -> order = Order.UPLOAD_TIME_ASC
-            else -> order = Order.UPLOAD_TIME_ASC
+        val order: Order = when (position) {
+            1 -> Order.UPLOAD_TIME_DESC
+            2 -> Order.SIZE_ASC
+            3 -> Order.SIZE_DESC
+            0 -> Order.UPLOAD_TIME_ASC
+            else -> Order.UPLOAD_TIME_ASC
         }
         listener.onOrderSelected(order)
     }

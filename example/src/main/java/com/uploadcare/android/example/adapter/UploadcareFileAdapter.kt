@@ -9,6 +9,7 @@ import com.uploadcare.android.example.databinding.FileItemBinding
 import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.urls.Urls
 
+@Suppress("unused")
 class UploadcareFileAdapter(private val clickObserver: ((UploadcareFile) -> Unit)? = null)
     : RecyclerView.Adapter<UploadcareFileViewHolder>() {
 
