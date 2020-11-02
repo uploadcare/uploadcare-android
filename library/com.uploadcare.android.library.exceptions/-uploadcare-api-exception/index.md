@@ -1,0 +1,57 @@
+---
+title: UploadcareApiException -
+---
+//[library](../../index.md)/[com.uploadcare.android.library.exceptions](../index.md)/[UploadcareApiException](index.md)
+
+
+
+# UploadcareApiException  
+ [androidJvm] open class [UploadcareApiException](index.md) : [RuntimeException](https://developer.android.com/reference/kotlin/java/lang/RuntimeException.html)
+
+A generic error of the uploadcare API.
+
+   
+
+
+## Constructors  
+  
+|  Name|  Summary| 
+|---|---|
+| <a name="com.uploadcare.android.library.exceptions/UploadcareApiException/UploadcareApiException/#kotlin.String?/PointingToDeclaration/"></a>[UploadcareApiException](-uploadcare-api-exception.md)| <a name="com.uploadcare.android.library.exceptions/UploadcareApiException/UploadcareApiException/#kotlin.String?/PointingToDeclaration/"></a> [androidJvm] fun [UploadcareApiException](-uploadcare-api-exception.md)(message: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)? = null)   <br>
+| <a name="com.uploadcare.android.library.exceptions/UploadcareApiException/UploadcareApiException/#kotlin.Throwable/PointingToDeclaration/"></a>[UploadcareApiException](-uploadcare-api-exception.md)| <a name="com.uploadcare.android.library.exceptions/UploadcareApiException/UploadcareApiException/#kotlin.Throwable/PointingToDeclaration/"></a> [androidJvm] fun [UploadcareApiException](-uploadcare-api-exception.md)(cause: [Throwable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html))   <br>
+| <a name="com.uploadcare.android.library.exceptions/UploadcareApiException/UploadcareApiException/#kotlin.String#kotlin.Throwable/PointingToDeclaration/"></a>[UploadcareApiException](-uploadcare-api-exception.md)| <a name="com.uploadcare.android.library.exceptions/UploadcareApiException/UploadcareApiException/#kotlin.String#kotlin.Throwable/PointingToDeclaration/"></a> [androidJvm] fun [UploadcareApiException](-uploadcare-api-exception.md)(message: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), cause: [Throwable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html))   <br>
+
+
+## Functions  
+  
+|  Name|  Summary| 
+|---|---|
+| <a name="kotlin/Throwable/addSuppressed/#kotlin.Throwable/PointingToDeclaration/"></a>[addSuppressed](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FaddSuppressed%2F%23kotlin.Throwable%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Throwable/addSuppressed/#kotlin.Throwable/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [addSuppressed](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FaddSuppressed%2F%23kotlin.Throwable%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(p0: [Throwable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html))  <br><br><br>
+| <a name="kotlin/Any/equals/#kotlin.Any?/PointingToDeclaration/"></a>[equals](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Any/equals/#kotlin.Any?/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open operator fun [equals](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(other: [Any](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html)?): [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)  <br><br><br>
+| <a name="kotlin/Throwable/fillInStackTrace/#/PointingToDeclaration/"></a>[fillInStackTrace](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FfillInStackTrace%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Throwable/fillInStackTrace/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open fun [fillInStackTrace](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FfillInStackTrace%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(): [Throwable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html)  <br><br><br>
+| <a name="kotlin/Throwable/getLocalizedMessage/#/PointingToDeclaration/"></a>[getLocalizedMessage](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FgetLocalizedMessage%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Throwable/getLocalizedMessage/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open fun [getLocalizedMessage](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FgetLocalizedMessage%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)  <br><br><br>
+| <a name="kotlin/Throwable/getStackTrace/#/PointingToDeclaration/"></a>[getStackTrace](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FgetStackTrace%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Throwable/getStackTrace/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open fun [getStackTrace](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FgetStackTrace%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(): [Array](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)<[StackTraceElement](https://developer.android.com/reference/kotlin/java/lang/StackTraceElement.html)>  <br><br><br>
+| <a name="kotlin/Throwable/getSuppressed/#/PointingToDeclaration/"></a>[getSuppressed](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FgetSuppressed%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Throwable/getSuppressed/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [getSuppressed](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FgetSuppressed%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(): [Array](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)<[Throwable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html)>  <br><br><br>
+| <a name="kotlin/Any/hashCode/#/PointingToDeclaration/"></a>[hashCode](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Any/hashCode/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open fun [hashCode](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)  <br><br><br>
+| <a name="kotlin/Throwable/initCause/#kotlin.Throwable/PointingToDeclaration/"></a>[initCause](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FinitCause%2F%23kotlin.Throwable%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Throwable/initCause/#kotlin.Throwable/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open fun [initCause](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FinitCause%2F%23kotlin.Throwable%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(p0: [Throwable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html)): [Throwable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html)  <br><br><br>
+| <a name="kotlin/Throwable/printStackTrace/#/PointingToDeclaration/"></a>[printStackTrace](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FprintStackTrace%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Throwable/printStackTrace/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open fun [printStackTrace](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FprintStackTrace%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)()  <br>open fun [printStackTrace](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FprintStackTrace%2F%23java.io.PrintStream%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(p0: [PrintStream](https://developer.android.com/reference/kotlin/java/io/PrintStream.html))  <br>open fun [printStackTrace](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FprintStackTrace%2F%23java.io.PrintWriter%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(p0: [PrintWriter](https://developer.android.com/reference/kotlin/java/io/PrintWriter.html))  <br><br><br>
+| <a name="kotlin/Throwable/setStackTrace/#kotlin.Array[java.lang.StackTraceElement]/PointingToDeclaration/"></a>[setStackTrace](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FsetStackTrace%2F%23kotlin.Array%5Bjava.lang.StackTraceElement%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Throwable/setStackTrace/#kotlin.Array[java.lang.StackTraceElement]/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open fun [setStackTrace](../-upload-failure-exception/index.md#%5Bkotlin%2FThrowable%2FsetStackTrace%2F%23kotlin.Array%5Bjava.lang.StackTraceElement%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(p0: [Array](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)<[StackTraceElement](https://developer.android.com/reference/kotlin/java/lang/StackTraceElement.html)>)  <br><br><br>
+| <a name="kotlin/Any/toString/#/PointingToDeclaration/"></a>[toString](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Any/toString/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open fun [toString](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)  <br><br><br>
+
+
+## Properties  
+  
+|  Name|  Summary| 
+|---|---|
+| <a name="com.uploadcare.android.library.exceptions/UploadcareApiException/cause/#/PointingToDeclaration/"></a>[cause](cause.md)| <a name="com.uploadcare.android.library.exceptions/UploadcareApiException/cause/#/PointingToDeclaration/"></a> [androidJvm] open val [cause](cause.md): [Throwable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html)?   <br>
+| <a name="com.uploadcare.android.library.exceptions/UploadcareApiException/message/#/PointingToDeclaration/"></a>[message](message.md)| <a name="com.uploadcare.android.library.exceptions/UploadcareApiException/message/#/PointingToDeclaration/"></a> [androidJvm] open val [message](message.md): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?   <br>
+
+
+## Inheritors  
+  
+|  Name| 
+|---|
+| <a name="com.uploadcare.android.library.exceptions/UploadcareAuthenticationException///PointingToDeclaration/"></a>[UploadcareAuthenticationException](../-uploadcare-authentication-exception/index.md)
+| <a name="com.uploadcare.android.library.exceptions/UploadcareInvalidRequestException///PointingToDeclaration/"></a>[UploadcareInvalidRequestException](../-uploadcare-invalid-request-exception/index.md)
+| <a name="com.uploadcare.android.library.exceptions/UploadFailureException///PointingToDeclaration/"></a>[UploadFailureException](../-upload-failure-exception/index.md)
+

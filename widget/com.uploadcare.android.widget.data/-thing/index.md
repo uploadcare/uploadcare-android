@@ -1,0 +1,45 @@
+---
+title: Thing -
+---
+//[widget](../../index.md)/[com.uploadcare.android.widget.data](../index.md)/[Thing](index.md)
+
+
+
+# Thing  
+ [androidJvm] data class [Thing](index.md)(@Json(name = "obj_type")**objectType**: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), **mimetype**: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?, **title**: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?, **action**: [Action](../-action/index.md)?, **thumbnail**: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?) : [Parcelable](https://developer.android.com/reference/kotlin/android/os/Parcelable.html)   
+
+
+## Types  
+  
+|  Name|  Summary| 
+|---|---|
+| <a name="com.uploadcare.android.widget.data/Thing.Companion///PointingToDeclaration/"></a>[Companion](-companion/index.md)| <a name="com.uploadcare.android.widget.data/Thing.Companion///PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>object [Companion](-companion/index.md)  <br><br><br>
+
+
+## Functions  
+  
+|  Name|  Summary| 
+|---|---|
+| <a name="com.uploadcare.android.widget.data/Thing/component1/#/PointingToDeclaration/"></a>[component1](component1.md)| <a name="com.uploadcare.android.widget.data/Thing/component1/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>operator fun [component1](component1.md)(): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)  <br><br><br>
+| <a name="com.uploadcare.android.widget.data/Thing/component2/#/PointingToDeclaration/"></a>[component2](component2.md)| <a name="com.uploadcare.android.widget.data/Thing/component2/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>operator fun [component2](component2.md)(): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?  <br><br><br>
+| <a name="com.uploadcare.android.widget.data/Thing/component3/#/PointingToDeclaration/"></a>[component3](component3.md)| <a name="com.uploadcare.android.widget.data/Thing/component3/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>operator fun [component3](component3.md)(): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?  <br><br><br>
+| <a name="com.uploadcare.android.widget.data/Thing/component4/#/PointingToDeclaration/"></a>[component4](component4.md)| <a name="com.uploadcare.android.widget.data/Thing/component4/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>operator fun [component4](component4.md)(): [Action](../-action/index.md)?  <br><br><br>
+| <a name="com.uploadcare.android.widget.data/Thing/component5/#/PointingToDeclaration/"></a>[component5](component5.md)| <a name="com.uploadcare.android.widget.data/Thing/component5/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>operator fun [component5](component5.md)(): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?  <br><br><br>
+| <a name="com.uploadcare.android.widget.data/Thing/copy/#kotlin.String#kotlin.String?#kotlin.String?#com.uploadcare.android.widget.data.Action?#kotlin.String?/PointingToDeclaration/"></a>[copy](copy.md)| <a name="com.uploadcare.android.widget.data/Thing/copy/#kotlin.String#kotlin.String?#kotlin.String?#com.uploadcare.android.widget.data.Action?#kotlin.String?/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [copy](copy.md)(@Json(name = "obj_type")objectType: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), mimetype: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?, title: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?, action: [Action](../-action/index.md)?, thumbnail: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)? = null): [Thing](index.md)  <br><br><br>
+| <a name="android.os/Parcelable/describeContents/#/PointingToDeclaration/"></a>[describeContents](../-social-sources-response/index.md#%5Bandroid.os%2FParcelable%2FdescribeContents%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F814613827)| <a name="android.os/Parcelable/describeContents/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>abstract fun [describeContents](../-social-sources-response/index.md#%5Bandroid.os%2FParcelable%2FdescribeContents%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F814613827)(): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)  <br><br><br>
+| <a name="kotlin/Any/equals/#kotlin.Any?/PointingToDeclaration/"></a>[equals](../../com.uploadcare.android.widget.worker/-uploadcare-work-manager-initializer/index.md#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F814613827)| <a name="kotlin/Any/equals/#kotlin.Any?/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open operator override fun [equals](../../com.uploadcare.android.widget.worker/-uploadcare-work-manager-initializer/index.md#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F814613827)(other: [Any](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html)?): [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)  <br><br><br>
+| <a name="kotlin/Any/hashCode/#/PointingToDeclaration/"></a>[hashCode](../../com.uploadcare.android.widget.worker/-uploadcare-work-manager-initializer/index.md#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F814613827)| <a name="kotlin/Any/hashCode/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open override fun [hashCode](../../com.uploadcare.android.widget.worker/-uploadcare-work-manager-initializer/index.md#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F814613827)(): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)  <br><br><br>
+| <a name="kotlin/Any/toString/#/PointingToDeclaration/"></a>[toString](../../com.uploadcare.android.widget.worker/-uploadcare-work-manager-initializer/index.md#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F814613827)| <a name="kotlin/Any/toString/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open override fun [toString](../../com.uploadcare.android.widget.worker/-uploadcare-work-manager-initializer/index.md#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F814613827)(): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)  <br><br><br>
+| <a name="android.os/Parcelable/writeToParcel/#android.os.Parcel#kotlin.Int/PointingToDeclaration/"></a>[writeToParcel](../-social-sources-response/index.md#%5Bandroid.os%2FParcelable%2FwriteToParcel%2F%23android.os.Parcel%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F814613827)| <a name="android.os/Parcelable/writeToParcel/#android.os.Parcel#kotlin.Int/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>abstract fun [writeToParcel](../-social-sources-response/index.md#%5Bandroid.os%2FParcelable%2FwriteToParcel%2F%23android.os.Parcel%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F814613827)(p0: [Parcel](https://developer.android.com/reference/kotlin/android/os/Parcel.html), p1: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html))  <br><br><br>
+
+
+## Properties  
+  
+|  Name|  Summary| 
+|---|---|
+| <a name="com.uploadcare.android.widget.data/Thing/action/#/PointingToDeclaration/"></a>[action](action.md)| <a name="com.uploadcare.android.widget.data/Thing/action/#/PointingToDeclaration/"></a> [androidJvm] val [action](action.md): [Action](../-action/index.md)?   <br>
+| <a name="com.uploadcare.android.widget.data/Thing/mimetype/#/PointingToDeclaration/"></a>[mimetype](mimetype.md)| <a name="com.uploadcare.android.widget.data/Thing/mimetype/#/PointingToDeclaration/"></a> [androidJvm] val [mimetype](mimetype.md): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?   <br>
+| <a name="com.uploadcare.android.widget.data/Thing/objectType/#/PointingToDeclaration/"></a>[objectType](object-type.md)| <a name="com.uploadcare.android.widget.data/Thing/objectType/#/PointingToDeclaration/"></a> [androidJvm] val [objectType](object-type.md): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)   <br>
+| <a name="com.uploadcare.android.widget.data/Thing/thumbnail/#/PointingToDeclaration/"></a>[thumbnail](thumbnail.md)| <a name="com.uploadcare.android.widget.data/Thing/thumbnail/#/PointingToDeclaration/"></a> [androidJvm] val [thumbnail](thumbnail.md): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)? = null   <br>
+| <a name="com.uploadcare.android.widget.data/Thing/title/#/PointingToDeclaration/"></a>[title](title.md)| <a name="com.uploadcare.android.widget.data/Thing/title/#/PointingToDeclaration/"></a> [androidJvm] val [title](title.md): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?   <br>
+

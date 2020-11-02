@@ -1,0 +1,56 @@
+---
+title: FileUploader -
+---
+//[library](../../index.md)/[com.uploadcare.android.library.upload](../index.md)/[FileUploader](index.md)
+
+
+
+# FileUploader  
+ [androidJvm] class [FileUploader](index.md) : [Uploader](../-uploader/index.md)
+
+Uploadcare uploader for files and binary data.
+
+   
+
+
+## Constructors  
+  
+|  Name|  Summary| 
+|---|---|
+| <a name="com.uploadcare.android.library.upload/FileUploader/FileUploader/#com.uploadcare.android.library.api.UploadcareClient#java.io.File/PointingToDeclaration/"></a>[FileUploader](-file-uploader.md)| <a name="com.uploadcare.android.library.upload/FileUploader/FileUploader/#com.uploadcare.android.library.api.UploadcareClient#java.io.File/PointingToDeclaration/"></a> [androidJvm] fun [FileUploader](-file-uploader.md)(client: [UploadcareClient](../../com.uploadcare.android.library.api/-uploadcare-client/index.md), file: [File](https://developer.android.com/reference/kotlin/java/io/File.html))Creates a new uploader from a file on disk (not to be confused with a file resource from Uploadcare API).   <br>
+| <a name="com.uploadcare.android.library.upload/FileUploader/FileUploader/#com.uploadcare.android.library.api.UploadcareClient#android.net.Uri#android.content.Context/PointingToDeclaration/"></a>[FileUploader](-file-uploader.md)| <a name="com.uploadcare.android.library.upload/FileUploader/FileUploader/#com.uploadcare.android.library.api.UploadcareClient#android.net.Uri#android.content.Context/PointingToDeclaration/"></a> [androidJvm] fun [FileUploader](-file-uploader.md)(client: [UploadcareClient](../../com.uploadcare.android.library.api/-uploadcare-client/index.md), uri: [Uri](https://developer.android.com/reference/kotlin/android/net/Uri.html), context: [Context](https://developer.android.com/reference/kotlin/android/content/Context.html))Creates a new uploader from a [android.net.Uri](https://developer.android.com/reference/kotlin/android/net/Uri.html) object reference.   <br>
+| <a name="com.uploadcare.android.library.upload/FileUploader/FileUploader/#com.uploadcare.android.library.api.UploadcareClient#java.io.InputStream#kotlin.String/PointingToDeclaration/"></a>[FileUploader](-file-uploader.md)| <a name="com.uploadcare.android.library.upload/FileUploader/FileUploader/#com.uploadcare.android.library.api.UploadcareClient#java.io.InputStream#kotlin.String/PointingToDeclaration/"></a> [androidJvm] fun [FileUploader](-file-uploader.md)(client: [UploadcareClient](../../com.uploadcare.android.library.api/-uploadcare-client/index.md), stream: [InputStream](https://developer.android.com/reference/kotlin/java/io/InputStream.html), filename: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = DEFAULT_FILE_NAME)Creates a new uploader from InputStream.   <br>
+| <a name="com.uploadcare.android.library.upload/FileUploader/FileUploader/#com.uploadcare.android.library.api.UploadcareClient#kotlin.ByteArray#kotlin.String/PointingToDeclaration/"></a>[FileUploader](-file-uploader.md)| <a name="com.uploadcare.android.library.upload/FileUploader/FileUploader/#com.uploadcare.android.library.api.UploadcareClient#kotlin.ByteArray#kotlin.String/PointingToDeclaration/"></a> [androidJvm] fun [FileUploader](-file-uploader.md)(client: [UploadcareClient](../../com.uploadcare.android.library.api/-uploadcare-client/index.md), bytes: [ByteArray](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html), filename: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = DEFAULT_FILE_NAME)Creates a new uploader from binary data.   <br>
+| <a name="com.uploadcare.android.library.upload/FileUploader/FileUploader/#com.uploadcare.android.library.api.UploadcareClient#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[FileUploader](-file-uploader.md)| <a name="com.uploadcare.android.library.upload/FileUploader/FileUploader/#com.uploadcare.android.library.api.UploadcareClient#kotlin.String#kotlin.String/PointingToDeclaration/"></a> [androidJvm] fun [FileUploader](-file-uploader.md)(client: [UploadcareClient](../../com.uploadcare.android.library.api/-uploadcare-client/index.md), content: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), filename: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) = DEFAULT_FILE_NAME)Creates a new uploader from binary data.   <br>
+
+
+## Types  
+  
+|  Name|  Summary| 
+|---|---|
+| <a name="com.uploadcare.android.library.upload/FileUploader.Companion///PointingToDeclaration/"></a>[Companion](-companion/index.md)| <a name="com.uploadcare.android.library.upload/FileUploader.Companion///PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>object [Companion](-companion/index.md)  <br><br><br>
+
+
+## Functions  
+  
+|  Name|  Summary| 
+|---|---|
+| <a name="com.uploadcare.android.library.upload/FileUploader/cancel/#/PointingToDeclaration/"></a>[cancel](cancel.md)| <a name="com.uploadcare.android.library.upload/FileUploader/cancel/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open override fun [cancel](cancel.md)()  <br>More info  <br>Cancel upload of the file.  <br><br><br>
+| <a name="kotlin/Any/equals/#kotlin.Any?/PointingToDeclaration/"></a>[equals](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Any/equals/#kotlin.Any?/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open operator fun [equals](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(other: [Any](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html)?): [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)  <br><br><br>
+| <a name="kotlin/Any/hashCode/#/PointingToDeclaration/"></a>[hashCode](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Any/hashCode/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open fun [hashCode](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)  <br><br><br>
+| <a name="com.uploadcare.android.library.upload/FileUploader/pause/#/PointingToDeclaration/"></a>[pause](pause.md)| <a name="com.uploadcare.android.library.upload/FileUploader/pause/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [pause](pause.md)(): [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)  <br>More info  <br>Pause upload of the file.  <br><br><br>
+| <a name="com.uploadcare.android.library.upload/FileUploader/resume/#/PointingToDeclaration/"></a>[resume](resume.md)| <a name="com.uploadcare.android.library.upload/FileUploader/resume/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [resume](resume.md)(): [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)  <br>More info  <br>Resume upload of the file that was previously paused.  <br><br><br>
+| <a name="com.uploadcare.android.library.upload/FileUploader/signedUpload/#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[signedUpload](signed-upload.md)| <a name="com.uploadcare.android.library.upload/FileUploader/signedUpload/#kotlin.String#kotlin.String/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [signedUpload](signed-upload.md)(signature: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), expire: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): [FileUploader](index.md)  <br>More info  <br>Signed Upload - let you control who and when can upload files to a specified Uploadcare project.  <br><br><br>
+| <a name="com.uploadcare.android.library.upload/FileUploader/store/#kotlin.Boolean/PointingToDeclaration/"></a>[store](store.md)| <a name="com.uploadcare.android.library.upload/FileUploader/store/#kotlin.Boolean/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open override fun [store](store.md)(store: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)): [FileUploader](index.md)  <br>More info  <br>Store the file upon uploading.  <br><br><br>
+| <a name="kotlin/Any/toString/#/PointingToDeclaration/"></a>[toString](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Any/toString/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open fun [toString](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)  <br><br><br>
+| <a name="com.uploadcare.android.library.upload/FileUploader/upload/#com.uploadcare.android.library.callbacks.ProgressCallback?/PointingToDeclaration/"></a>[upload](upload.md)| <a name="com.uploadcare.android.library.upload/FileUploader/upload/#com.uploadcare.android.library.callbacks.ProgressCallback?/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open override fun [upload](upload.md)(progressCallback: [ProgressCallback](../../com.uploadcare.android.library.callbacks/-progress-callback/index.md)?): [UploadcareFile](../../com.uploadcare.android.library.api/-uploadcare-file/index.md)  <br>More info  <br>Synchronously uploads the file to Uploadcare.  <br><br><br>
+| <a name="com.uploadcare.android.library.upload/FileUploader/uploadAsync/#com.uploadcare.android.library.callbacks.UploadFileCallback/PointingToDeclaration/"></a>[uploadAsync](upload-async.md)| <a name="com.uploadcare.android.library.upload/FileUploader/uploadAsync/#com.uploadcare.android.library.callbacks.UploadFileCallback/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open override fun [uploadAsync](upload-async.md)(callback: [UploadFileCallback](../../com.uploadcare.android.library.callbacks/-upload-file-callback/index.md))  <br>More info  <br>Asynchronously uploads the file to Uploadcare.  <br><br><br>
+
+
+## Properties  
+  
+|  Name|  Summary| 
+|---|---|
+| <a name="com.uploadcare.android.library.upload/FileUploader/isCanceled/#/PointingToDeclaration/"></a>[isCanceled](is-canceled.md)| <a name="com.uploadcare.android.library.upload/FileUploader/isCanceled/#/PointingToDeclaration/"></a> [androidJvm] var [isCanceled](is-canceled.md): [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false   <br>
+| <a name="com.uploadcare.android.library.upload/FileUploader/isPaused/#/PointingToDeclaration/"></a>[isPaused](is-paused.md)| <a name="com.uploadcare.android.library.upload/FileUploader/isPaused/#/PointingToDeclaration/"></a> [androidJvm] var [isPaused](is-paused.md): [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = false   <br>
+

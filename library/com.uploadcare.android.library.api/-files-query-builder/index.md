@@ -1,0 +1,43 @@
+---
+title: FilesQueryBuilder -
+---
+//[library](../../index.md)/[com.uploadcare.android.library.api](../index.md)/[FilesQueryBuilder](index.md)
+
+
+
+# FilesQueryBuilder  
+ [androidJvm] class [FilesQueryBuilder](index.md)(**client**: [UploadcareClient](../-uploadcare-client/index.md)) : [PaginatedQueryBuilder](../-paginated-query-builder/index.md)<[UploadcareFile](../-uploadcare-file/index.md)> 
+
+File resource request builder.
+
+
+
+<p> Allows to specify some file filters and get results. <p> {@link UploadcareFile}
+
+   
+
+
+## Constructors  
+  
+|  Name|  Summary| 
+|---|---|
+| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/FilesQueryBuilder/#com.uploadcare.android.library.api.UploadcareClient/PointingToDeclaration/"></a>[FilesQueryBuilder](-files-query-builder.md)| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/FilesQueryBuilder/#com.uploadcare.android.library.api.UploadcareClient/PointingToDeclaration/"></a> [androidJvm] fun [FilesQueryBuilder](-files-query-builder.md)(client: [UploadcareClient](../-uploadcare-client/index.md))   <br>
+
+
+## Functions  
+  
+|  Name|  Summary| 
+|---|---|
+| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/addFields/#kotlin.String/PointingToDeclaration/"></a>[addFields](add-fields.md)| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/addFields/#kotlin.String/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [addFields](add-fields.md)(fields: [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)): [FilesQueryBuilder](index.md)  <br>More info  <br>Add special fields to the file object in the result.  <br><br><br>
+| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/asIterable/#/PointingToDeclaration/"></a>[asIterable](as-iterable.md)| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/asIterable/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open override fun [asIterable](as-iterable.md)(): [Iterable](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html)<[UploadcareFile](../-uploadcare-file/index.md)>  <br>More info  <br>Returns a resource iterable for lazy loading.  <br><br><br>
+| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/asList/#/PointingToDeclaration/"></a>[asList](as-list.md)| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/asList/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open override fun [asList](as-list.md)(): [List](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html)<[UploadcareFile](../-uploadcare-file/index.md)>  <br>More info  <br>Iterates through all resources and returns a complete list.  <br><br><br>
+| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/asListAsync/#com.uploadcare.android.library.callbacks.UploadcareAllFilesCallback?/PointingToDeclaration/"></a>[asListAsync](as-list-async.md)| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/asListAsync/#com.uploadcare.android.library.callbacks.UploadcareAllFilesCallback?/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [asListAsync](as-list-async.md)(callback: [UploadcareAllFilesCallback](../../com.uploadcare.android.library.callbacks/-uploadcare-all-files-callback/index.md)?)  <br>More info  <br>Iterates through all resources and returns a complete list Asynchronously.  <br><br><br>[androidJvm]  <br>Content  <br>fun [asListAsync](as-list-async.md)(context: [Context](https://developer.android.com/reference/kotlin/android/content/Context.html), limit: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html), next: [URI](https://developer.android.com/reference/kotlin/java/net/URI.html)?, callback: [UploadcareFilesCallback](../../com.uploadcare.android.library.callbacks/-uploadcare-files-callback/index.md)?)  <br>More info  <br>Returns a limited amount of resources with specified offset Asynchronously.  <br><br><br>
+| <a name="kotlin/Any/equals/#kotlin.Any?/PointingToDeclaration/"></a>[equals](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Any/equals/#kotlin.Any?/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open operator fun [equals](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(other: [Any](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html)?): [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)  <br><br><br>
+| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/from/#java.util.Date/PointingToDeclaration/"></a>[from](from.md)| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/from/#java.util.Date/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [from](from.md)(fromDate: [Date](https://developer.android.com/reference/kotlin/java/util/Date.html)): [FilesQueryBuilder](index.md)  <br>fun [from](from.md)(fromSize: [Long](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)): [FilesQueryBuilder](index.md)  <br>More info  <br>Adds a filter for datetime from objects will be returned.  <br><br><br>
+| <a name="kotlin/Any/hashCode/#/PointingToDeclaration/"></a>[hashCode](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Any/hashCode/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open fun [hashCode](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(): [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)  <br><br><br>
+| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/ordering/#com.uploadcare.android.library.urls.Order/PointingToDeclaration/"></a>[ordering](ordering.md)| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/ordering/#com.uploadcare.android.library.urls.Order/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [ordering](ordering.md)(order: [Order](../../com.uploadcare.android.library.urls/-order/index.md)): [FilesQueryBuilder](index.md)  <br>More info  <br>Specifies the way files are sorted.  <br><br><br>
+| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/removed/#kotlin.Boolean/PointingToDeclaration/"></a>[removed](removed.md)| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/removed/#kotlin.Boolean/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [removed](removed.md)(removed: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)): [FilesQueryBuilder](index.md)  <br>More info  <br>Adds a filter for removed files.  <br><br><br>
+| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/stored/#kotlin.Boolean/PointingToDeclaration/"></a>[stored](stored.md)| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/stored/#kotlin.Boolean/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [stored](stored.md)(stored: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)): [FilesQueryBuilder](index.md)  <br>More info  <br>Adds a filter for stored files.  <br><br><br>
+| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/to/#java.util.Date/PointingToDeclaration/"></a>[to](to.md)| <a name="com.uploadcare.android.library.api/FilesQueryBuilder/to/#java.util.Date/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>fun [to](to.md)(toDate: [Date](https://developer.android.com/reference/kotlin/java/util/Date.html)): [FilesQueryBuilder](index.md)  <br>fun [to](to.md)(toSize: [Long](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)): [FilesQueryBuilder](index.md)  <br>More info  <br>Adds a filter for datetime to which objects will be returned.  <br><br><br>
+| <a name="kotlin/Any/toString/#/PointingToDeclaration/"></a>[toString](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)| <a name="kotlin/Any/toString/#/PointingToDeclaration/"></a>[androidJvm]  <br>Content  <br>open fun [toString](../../com.uploadcare.android.library.utils/-moshi-adapter/index.md#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2103969333)(): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)  <br><br><br>
+
