@@ -1,4 +1,4 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
 
 com.uploadcare.android.library.api
@@ -8,3 +8,4 @@ com.uploadcare.android.library.exceptions
 com.uploadcare.android.library.upload
 com.uploadcare.android.library.urls
 com.uploadcare.android.library.utils
+

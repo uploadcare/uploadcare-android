@@ -1,214 +1,724 @@
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>CdnPathBuilder - library</title>
-<link rel="stylesheet" href="../../../style.css">
-</HEAD>
-<BODY>
-<a href="../../index.html">library</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.library.urls</a>&nbsp;/&nbsp;<a href="./index.html">CdnPathBuilder</a><br/>
-<br/>
-<h1>CdnPathBuilder</h1>
-<code><span class="keyword">class </span><span class="identifier">CdnPathBuilder</span></code>
-<p>Creates a new CDN path builder for some image file.</p>
-<h3>Parameters</h3>
-<p><a name="file"></a>
-<code>file</code> - File to be used for the path</p>
-<p><strong>See Also</strong><br/>
-<p><a href="#">com.uploadcare.android.library.data.UploadcareFile.cdnPath</a></p>
-</p>
-<h3>Constructors</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="-init-.html">&lt;init&gt;</a></p>
-</td>
-<td>
-<code><span class="identifier">CdnPathBuilder</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$<init>(com.uploadcare.android.library.api.UploadcareFile)/file">file</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.api/-uploadcare-file/index.html"><span class="identifier">UploadcareFile</span></a><span class="symbol">)</span></code>
-<p>Creates a new CDN path builder for some image file.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<h3>Functions</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="blur.html">blur</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">blur</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code><br/>
-<code><span class="keyword">fun </span><span class="identifier">blur</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$blur(kotlin.Int)/strength">strength</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Performs Gaussian blur on result image.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="build.html">build</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
-<p>Returns the current CDN path as a string.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="crop.html">crop</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">crop</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$crop(kotlin.Int, kotlin.Int)/width">width</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$crop(kotlin.Int, kotlin.Int)/height">height</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Adds top-left-aligned crop.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="crop-center.html">cropCenter</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">cropCenter</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$cropCenter(kotlin.Int, kotlin.Int)/width">width</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$cropCenter(kotlin.Int, kotlin.Int)/height">height</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Adds center-aligned crop.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="crop-center-color.html">cropCenterColor</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">cropCenterColor</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$cropCenterColor(kotlin.Int, kotlin.Int, kotlin.String)/width">width</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$cropCenterColor(kotlin.Int, kotlin.Int, kotlin.String)/height">height</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$cropCenterColor(kotlin.Int, kotlin.Int, kotlin.String)/color">color</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Adds center-aligned crop with a filled background.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="crop-color.html">cropColor</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">cropColor</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$cropColor(kotlin.Int, kotlin.Int, kotlin.String)/width">width</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$cropColor(kotlin.Int, kotlin.Int, kotlin.String)/height">height</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$cropColor(kotlin.Int, kotlin.Int, kotlin.String)/color">color</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Adds top-left-aligned crop with a filled background.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="flip.html">flip</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">flip</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Flips the image.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="format.html">format</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$format(com.uploadcare.android.library.urls.ImageFormat)/format">format</span><span class="symbol">:</span>&nbsp;<a href="../-image-format/index.html"><span class="identifier">ImageFormat</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Turn an image to one of the following formats: FORMAT_JPEG or FORMAT_PNG.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="grayscale.html">grayscale</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">grayscale</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Adds a grayscale effect.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="invert.html">invert</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">invert</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Inverts colors.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="mirror.html">mirror</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">mirror</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Horizontally mirror image.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="preview.html">preview</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">preview</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$preview(kotlin.Int, kotlin.Int)/width">width</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$preview(kotlin.Int, kotlin.Int)/height">height</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Reduces an image proportionally in order to fit it into given dimensions.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="quality.html">quality</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">quality</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$quality(com.uploadcare.android.library.urls.ImageQuality)/quality">quality</span><span class="symbol">:</span>&nbsp;<a href="../-image-quality/index.html"><span class="identifier">ImageQuality</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Image quality affects size of image and loading speed. Has no effect on non-JPEG images, but does not force format to JPEG.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="resize.html">resize</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">resize</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$resize(kotlin.Int, kotlin.Int)/width">width</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$resize(kotlin.Int, kotlin.Int)/height">height</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Resizes width and height</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="resize-height.html">resizeHeight</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">resizeHeight</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$resizeHeight(kotlin.Int)/height">height</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Resizes height, keeping the aspect ratio.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="resize-width.html">resizeWidth</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">resizeWidth</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$resizeWidth(kotlin.Int)/width">width</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Resizes width, keeping the aspect ratio.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="scale-crop.html">scaleCrop</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">scaleCrop</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$scaleCrop(kotlin.Int, kotlin.Int)/width">width</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$scaleCrop(kotlin.Int, kotlin.Int)/height">height</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Scales the image until one of the dimensions fits,
-then crops the bottom or right side.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="scale-crop-center.html">scaleCropCenter</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">scaleCropCenter</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$scaleCropCenter(kotlin.Int, kotlin.Int)/width">width</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$scaleCropCenter(kotlin.Int, kotlin.Int)/height">height</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Scales the image until one of the dimensions fits,
-centers it, then crops the rest.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="sharp.html">sharp</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">sharp</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code><br/>
-<code><span class="keyword">fun </span><span class="identifier">sharp</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.urls.CdnPathBuilder$sharp(kotlin.Int)/strength">strength</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">CdnPathBuilder</span></a></code>
-<p>Performs sharpening on result image. This can be useful after scaling down.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</BODY>
-</HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CdnPathBuilder</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+    <link href="../../../styles/style.css" rel="Stylesheet">
+    <link href="../../../styles/logo-styles.css" rel="Stylesheet">
+    <link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+    <link href="../../../styles/main.css" rel="Stylesheet">
+    <script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+    <script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+    <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+    <script type="text/javascript" src="../../../scripts/main.js" async="async"></script>
+    <script>var pathToRoot = "../../../";</script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="leftColumn">
+        <div id="logo"></div>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <div id="leftToggler"><span class="icon-toggler"></span></div>
+        <div id="searchBar"></div>
+        <script type="text/javascript" src="../../../scripts/pages.js"></script>
+        <script type="text/javascript" src="../../../scripts/main.js"></script>
+        <div id="content" pageIds="com.uploadcare.android.library.urls/CdnPathBuilder///PointingToDeclaration//-1902968132">
+          <div class="breadcrumbs"><a href="../../index.html">library</a>/<a href="../index.html">com.uploadcare.android.library.urls</a>/<a href="index.html">CdnPathBuilder</a></div>
+          <div class="cover ">
+            <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":library:dokkaHtml/release">androidJvm</button></div>
+            <h1 class="cover"><span>Cdn</span><wbr></wbr><span>Path</span><wbr></wbr><span>Builder</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">class <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Creates a new CDN path builder for some image file.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Parameters">Parameters</button><button class="section-tab" data-togglable="See also">See also</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">See also</h2>
+              <div data-togglable="See also">
+                <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="See also"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div data-togglable="See also"><div class="table" data-togglable="See also"><div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="main-subrow keyValue WithExtraAttributes RowTitle"><div class=""><span class="inline-flex"><a href="../../com.uploadcare.android.library.api/-uploadcare-file/cdn-path.html">com.uploadcare.android.library.api.UploadcareFile.cdnPath</a></span><span class="inline-flex"><div data-togglable="See also"></div></span></div><div></div></div></div></div></div></div></div>
+              </div>
+              <h2 class="">Parameters</h2>
+              <div data-togglable="Parameters">
+                <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex">file</span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">File to be used for the path</p></div></div></div></div></div></div></div></div></div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23%2FPointingToDeclaration%2F%2C+com.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="blur" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23%2FPointingToDeclaration%2F%2C+com.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="blur.html">blur</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23%2FPointingToDeclaration%2F%2C+com.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="blur.html">blur</a>(): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="blur" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="blur" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Performs Gaussian blur on result image.</div></div>
+<div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="blur.html">blur</a>(strength: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="blur" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="blur" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fblur%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Performs Gaussian blur on result image.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="build" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="build.html">build</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="build.html">build</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="build" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="build" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Returns the current CDN path as a string.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fcrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="crop" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fcrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="crop.html">crop</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fcrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="crop.html">crop</a>(width: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, height: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fcrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="crop" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fcrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fcrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="crop" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fcrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Adds top-left-aligned crop.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="cropCenter" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="crop-center.html">cropCenter</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="crop-center.html">cropCenter</a>(width: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, height: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="cropCenter" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="cropCenter" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Adds center-aligned crop.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenterColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="cropCenterColor" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenterColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="crop-center-color.html">cropCenterColor</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenterColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="crop-center-color.html">cropCenterColor</a>(width: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, height: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, color: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenterColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="cropCenterColor" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenterColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenterColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="cropCenterColor" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropCenterColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Adds center-aligned crop with a filled background.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="cropColor" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="crop-color.html">cropColor</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="crop-color.html">cropColor</a>(width: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, height: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, color: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="cropColor" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="cropColor" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FcropColor%2F%23kotlin.Int%23kotlin.Int%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Adds top-left-aligned crop with a filled background.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="equals" id="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.uploadcare.android.library.utils/-moshi-adapter/index.html#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132">equals</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">open operator fun <a href="../../com.uploadcare.android.library.utils/-moshi-adapter/index.html#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132">equals</a>(other: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fflip%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="flip" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fflip%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="flip.html">flip</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fflip%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="flip.html">flip</a>(): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fflip%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="flip" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fflip%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fflip%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="flip" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fflip%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Flips the image.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fformat%2F%23com.uploadcare.android.library.urls.ImageFormat%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="format" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fformat%2F%23com.uploadcare.android.library.urls.ImageFormat%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="format.html">format</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fformat%2F%23com.uploadcare.android.library.urls.ImageFormat%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="format.html">format</a>(format: <a href="../-image-format/index.html">ImageFormat</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fformat%2F%23com.uploadcare.android.library.urls.ImageFormat%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="format" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fformat%2F%23com.uploadcare.android.library.urls.ImageFormat%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fformat%2F%23com.uploadcare.android.library.urls.ImageFormat%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="format" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fformat%2F%23com.uploadcare.android.library.urls.ImageFormat%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Turn an image to one of the following formats: FORMAT_JPEG or FORMAT_PNG.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fgrayscale%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="grayscale" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fgrayscale%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="grayscale.html">grayscale</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fgrayscale%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="grayscale.html">grayscale</a>(): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fgrayscale%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="grayscale" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fgrayscale%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fgrayscale%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="grayscale" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fgrayscale%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Adds a grayscale effect.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="hashCode" id="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.uploadcare.android.library.utils/-moshi-adapter/index.html#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132">hashCode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">open fun <a href="../../com.uploadcare.android.library.utils/-moshi-adapter/index.html#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132">hashCode</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Finvert%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="invert" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Finvert%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="invert.html">invert</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Finvert%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="invert.html">invert</a>(): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Finvert%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="invert" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Finvert%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Finvert%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="invert" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Finvert%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Inverts colors.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fmirror%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="mirror" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fmirror%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="mirror.html">mirror</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fmirror%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="mirror.html">mirror</a>(): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fmirror%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="mirror" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fmirror%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fmirror%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="mirror" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fmirror%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Horizontally mirror image.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fpreview%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="preview" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fpreview%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="preview.html">preview</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fpreview%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="preview.html">preview</a>(width: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, height: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fpreview%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="preview" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fpreview%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fpreview%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="preview" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fpreview%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Reduces an image proportionally in order to fit it into given dimensions.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fquality%2F%23com.uploadcare.android.library.urls.ImageQuality%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="quality" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fquality%2F%23com.uploadcare.android.library.urls.ImageQuality%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="quality.html">quality</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fquality%2F%23com.uploadcare.android.library.urls.ImageQuality%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="quality.html">quality</a>(quality: <a href="../-image-quality/index.html">ImageQuality</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fquality%2F%23com.uploadcare.android.library.urls.ImageQuality%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="quality" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fquality%2F%23com.uploadcare.android.library.urls.ImageQuality%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fquality%2F%23com.uploadcare.android.library.urls.ImageQuality%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="quality" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fquality%2F%23com.uploadcare.android.library.urls.ImageQuality%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Image quality affects size of image and loading speed.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fresize%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="resize" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fresize%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="resize.html">resize</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fresize%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="resize.html">resize</a>(width: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, height: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fresize%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="resize" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fresize%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fresize%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="resize" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fresize%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Resizes width and height</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeHeight%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="resizeHeight" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeHeight%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="resize-height.html">resizeHeight</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeHeight%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="resize-height.html">resizeHeight</a>(height: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeHeight%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="resizeHeight" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeHeight%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeHeight%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="resizeHeight" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeHeight%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Resizes height, keeping the aspect ratio.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeWidth%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="resizeWidth" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeWidth%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="resize-width.html">resizeWidth</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeWidth%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="resize-width.html">resizeWidth</a>(width: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeWidth%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="resizeWidth" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeWidth%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeWidth%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="resizeWidth" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FresizeWidth%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Resizes width, keeping the aspect ratio.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="scaleCrop" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="scale-crop.html">scaleCrop</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="scale-crop.html">scaleCrop</a>(width: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, height: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="scaleCrop" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="scaleCrop" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCrop%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Scales the image until one of the dimensions fits, then crops the bottom or right side.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="scaleCropCenter" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="scale-crop-center.html">scaleCropCenter</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="scale-crop-center.html">scaleCropCenter</a>(width: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, height: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="scaleCropCenter" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="scaleCropCenter" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2FscaleCropCenter%2F%23kotlin.Int%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Scales the image until one of the dimensions fits, centers it, then crops the rest.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23%2FPointingToDeclaration%2F%2C+com.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="sharp" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23%2FPointingToDeclaration%2F%2C+com.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="sharp.html">sharp</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23%2FPointingToDeclaration%2F%2C+com.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="sharp.html">sharp</a>(): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="sharp" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="sharp" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Performs sharpening on result image.</div></div>
+<div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="sharp.html">sharp</a>(strength: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="index.html">CdnPathBuilder</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="sharp" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="sharp" id="%5Bcom.uploadcare.android.library.urls%2FCdnPathBuilder%2Fsharp%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Performs sharpening on result image.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="toString" id="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.uploadcare.android.library.utils/-moshi-adapter/index.html#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132">toString</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">open fun <a href="../../com.uploadcare.android.library.utils/-moshi-adapter/index.html#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132">toString</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#container"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11.3337 9.66683H0.666992L6.00033 3.66683L11.3337 9.66683Z" fill="black"/>
+    <path d="M0.666992 0.333496H11.3337V1.66683H0.666992V0.333496Z" fill="black"/>
+</svg></a></span><span>© 2020 Copyright</span><span class="pull-right"><span>Sponsored and developed by dokka</span><a href="https://github.com/Kotlin/dokka"><span class="padded-icon"><svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 0H2.3949L4.84076 2.44586L0 7.28662L0.713376 8L5.55414 3.15924L8 5.6051V0Z" fill="black"/>
+</svg></span></a></span></div>
+      </div>
+    </div>
+  </body>
+</html>
+

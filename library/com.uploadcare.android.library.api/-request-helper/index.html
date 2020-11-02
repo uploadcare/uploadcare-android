@@ -1,202 +1,472 @@
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>RequestHelper - library</title>
-<link rel="stylesheet" href="../../../style.css">
-</HEAD>
-<BODY>
-<a href="../../index.html">library</a>&nbsp;/&nbsp;<a href="../index.html">com.uploadcare.android.library.api</a>&nbsp;/&nbsp;<a href="./index.html">RequestHelper</a><br/>
-<br/>
-<h1>RequestHelper</h1>
-<code><span class="keyword">class </span><span class="identifier">RequestHelper</span></code>
-<p>A helper class for doing API calls to the Uploadcare API. Supports API version 0.5.</p>
-<h3>Constructors</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="-init-.html">&lt;init&gt;</a></p>
-</td>
-<td>
-<code><span class="identifier">RequestHelper</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$<init>(com.uploadcare.android.library.api.UploadcareClient)/client">client</span><span class="symbol">:</span>&nbsp;<a href="../-uploadcare-client/index.html"><span class="identifier">UploadcareClient</span></a><span class="symbol">)</span></code>
-<p>A helper class for doing API calls to the Uploadcare API. Supports API version 0.5.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<h3>Functions</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="execute-command.html">executeCommand</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">executeCommand</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommand(kotlin.String, kotlin.String, kotlin.Boolean, okhttp3.RequestBody)/requestType">requestType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommand(kotlin.String, kotlin.String, kotlin.Boolean, okhttp3.RequestBody)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommand(kotlin.String, kotlin.String, kotlin.Boolean, okhttp3.RequestBody)/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommand(kotlin.String, kotlin.String, kotlin.Boolean, okhttp3.RequestBody)/requestBody">requestBody</span><span class="symbol">:</span>&nbsp;<span class="identifier">RequestBody</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Response</span></code>
-<p>Executes the request et the Uploadcare API and return the HTTP Response object.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="execute-command-async.html">executeCommandAsync</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">executeCommandAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommandAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, com.uploadcare.android.library.callbacks.RequestCallback, okhttp3.RequestBody)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommandAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, com.uploadcare.android.library.callbacks.RequestCallback, okhttp3.RequestBody)/requestType">requestType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommandAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, com.uploadcare.android.library.callbacks.RequestCallback, okhttp3.RequestBody)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommandAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, com.uploadcare.android.library.callbacks.RequestCallback, okhttp3.RequestBody)/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommandAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, com.uploadcare.android.library.callbacks.RequestCallback, okhttp3.RequestBody)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-request-callback.html"><span class="identifier">RequestCallback</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeCommandAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, com.uploadcare.android.library.callbacks.RequestCallback, okhttp3.RequestBody)/requestBody">requestBody</span><span class="symbol">:</span>&nbsp;<span class="identifier">RequestBody</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>Executes the request et the Uploadcare API and return the HTTP Response object.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="execute-groups-paginated-query-with-offset-limit-async.html">executeGroupsPaginatedQueryWithOffsetLimitAsync</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">executeGroupsPaginatedQueryWithOffsetLimitAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeGroupsPaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeGroupsPaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/net/URI.html"><span class="identifier">URI</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeGroupsPaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/urlParameters">urlParameters</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html"><span class="identifier">UrlParameter</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeGroupsPaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeGroupsPaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareGroupsCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-uploadcare-groups-callback.html"><span class="identifier">UploadcareGroupsCallback</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="execute-paginated-query.html">executePaginatedQuery</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">executePaginatedQuery</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQuery(java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.data.PageData((com.uploadcare.android.library.api.RequestHelper.executePaginatedQuery.T)))))/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/net/URI.html"><span class="identifier">URI</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQuery(java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.data.PageData((com.uploadcare.android.library.api.RequestHelper.executePaginatedQuery.T)))))/urlParameters">urlParameters</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html"><span class="identifier">UrlParameter</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQuery(java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.data.PageData((com.uploadcare.android.library.api.RequestHelper.executePaginatedQuery.T)))))/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQuery(java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.data.PageData((com.uploadcare.android.library.api.RequestHelper.executePaginatedQuery.T)))))/dataClass">dataClass</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="../../com.uploadcare.android.library.data/-page-data/index.html"><span class="identifier">PageData</span></a><span class="symbol">&lt;</span><a href="execute-paginated-query.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="execute-paginated-query.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="execute-paginated-query-with-offset-limit-async.html">executePaginatedQueryWithOffsetLimitAsync</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">executePaginatedQueryWithOffsetLimitAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareFilesCallback)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareFilesCallback)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/net/URI.html"><span class="identifier">URI</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareFilesCallback)/urlParameters">urlParameters</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html"><span class="identifier">UrlParameter</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareFilesCallback)/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executePaginatedQueryWithOffsetLimitAsync(android.content.Context, java.net.URI, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)), kotlin.Boolean, com.uploadcare.android.library.callbacks.UploadcareFilesCallback)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-uploadcare-files-callback.html"><span class="identifier">UploadcareFilesCallback</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="execute-query.html">executeQuery</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">executeQuery</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQuery(kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQuery.T)), okhttp3.RequestBody)/requestType">requestType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQuery(kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQuery.T)), okhttp3.RequestBody)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQuery(kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQuery.T)), okhttp3.RequestBody)/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQuery(kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQuery.T)), okhttp3.RequestBody)/dataClass">dataClass</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="execute-query.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQuery(kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQuery.T)), okhttp3.RequestBody)/requestBody">requestBody</span><span class="symbol">:</span>&nbsp;<span class="identifier">RequestBody</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="execute-query.html#T"><span class="identifier">T</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="execute-query-async.html">executeQueryAsync</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">executeQueryAsync</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/requestType">requestType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/apiHeaders">apiHeaders</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/dataClass">dataClass</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="execute-query-async.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-base-callback/index.html"><span class="identifier">BaseCallback</span></a><span class="symbol">&lt;</span><a href="execute-query-async.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$executeQueryAsync(android.content.Context, kotlin.String, kotlin.String, kotlin.Boolean, java.lang.Class((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), com.uploadcare.android.library.callbacks.BaseCallback((com.uploadcare.android.library.api.RequestHelper.executeQueryAsync.T)), okhttp3.RequestBody)/requestBody">requestBody</span><span class="symbol">:</span>&nbsp;<span class="identifier">RequestBody</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="make-signature.html">makeSignature</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">makeSignature</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$makeSignature(kotlin.String, kotlin.String, kotlin.String)/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$makeSignature(kotlin.String, kotlin.String, kotlin.String)/date">date</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$makeSignature(kotlin.String, kotlin.String, kotlin.String)/requestType">requestType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="set-api-headers.html">setApiHeaders</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">setApiHeaders</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$setApiHeaders(okhttp3.Request.Builder, kotlin.String, kotlin.String, com.uploadcare.android.library.callbacks.BaseCallback((kotlin.Any)))/requestBuilder">requestBuilder</span><span class="symbol">:</span>&nbsp;<span class="identifier">Builder</span><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$setApiHeaders(okhttp3.Request.Builder, kotlin.String, kotlin.String, com.uploadcare.android.library.callbacks.BaseCallback((kotlin.Any)))/url">url</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$setApiHeaders(okhttp3.Request.Builder, kotlin.String, kotlin.String, com.uploadcare.android.library.callbacks.BaseCallback((kotlin.Any)))/requestType">requestType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper$setApiHeaders(okhttp3.Request.Builder, kotlin.String, kotlin.String, com.uploadcare.android.library.callbacks.BaseCallback((kotlin.Any)))/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="../../com.uploadcare.android.library.callbacks/-base-callback/index.html"><span class="identifier">BaseCallback</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
-</tr>
-</tbody>
-</table>
-<h3>Companion Object Properties</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="-d-a-t-e_-f-o-r-m-a-t.html">DATE_FORMAT</a></p>
-</td>
-<td>
-<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">DATE_FORMAT</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="-d-a-t-e_-f-o-r-m-a-t_-i-s-o_8601.html">DATE_FORMAT_ISO_8601</a></p>
-</td>
-<td>
-<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">DATE_FORMAT_ISO_8601</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="-d-i-g-i-t-s_-u-p-p-e-r.html">DIGITS_UPPER</a></p>
-</td>
-<td>
-<code><span class="keyword">val </span><span class="identifier">DIGITS_UPPER</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/index.html"><span class="identifier">CharArray</span></a></code>
-<p>Used to build output as Hex</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="-r-e-q-u-e-s-t_-d-e-l-e-t-e.html">REQUEST_DELETE</a></p>
-</td>
-<td>
-<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_DELETE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="-r-e-q-u-e-s-t_-g-e-t.html">REQUEST_GET</a></p>
-</td>
-<td>
-<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_GET</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="-r-e-q-u-e-s-t_-p-o-s-t.html">REQUEST_POST</a></p>
-</td>
-<td>
-<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_POST</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="-r-e-q-u-e-s-t_-p-u-t.html">REQUEST_PUT</a></p>
-</td>
-<td>
-<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_PUT</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="-u-t-c.html">UTC</a></p>
-</td>
-<td>
-<code><span class="keyword">val </span><span class="identifier">UTC</span><span class="symbol">: </span><a href="https://developer.android.com/reference/java/util/TimeZone.html"><span class="identifier">TimeZone</span></a><span class="symbol">!</span></code></td>
-</tr>
-</tbody>
-</table>
-<h3>Companion Object Functions</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="encode-hex.html">encodeHex</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">encodeHex</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper.Companion$encodeHex(kotlin.ByteArray)/data">data</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-array/index.html"><span class="identifier">CharArray</span></a></code><ul><li>Converts an array of bytes into an array of characters representing the hexadecimal values
-of each byte in order.
-The returned array will be double the length of the passed array, as it takes two characters
-to represent any
-given byte.</li>
-</ul>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="iso8601.html">iso8601</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">iso8601</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper.Companion$iso8601(java.util.Date)/date">date</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/util/Date.html"><span class="identifier">Date</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="rfc2822.html">rfc2822</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">rfc2822</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper.Companion$rfc2822(java.util.Date)/date">date</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/util/Date.html"><span class="identifier">Date</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">!</span></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="set-query-parameters.html">setQueryParameters</a></p>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">setQueryParameters</span><span class="symbol">(</span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper.Companion$setQueryParameters(android.net.Uri.Builder, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)))/builder">builder</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/net/Uri/Builder.html"><span class="identifier">Builder</span></a><span class="symbol">, </span><span class="identifier" id="com.uploadcare.android.library.api.RequestHelper.Companion$setQueryParameters(android.net.Uri.Builder, kotlin.collections.List((com.uploadcare.android.library.urls.UrlParameter)))/parameters">parameters</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html"><span class="identifier">UrlParameter</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
-</tr>
-</tbody>
-</table>
-</BODY>
-</HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>RequestHelper</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+    <link href="../../../styles/style.css" rel="Stylesheet">
+    <link href="../../../styles/logo-styles.css" rel="Stylesheet">
+    <link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+    <link href="../../../styles/main.css" rel="Stylesheet">
+    <script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+    <script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+    <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+    <script type="text/javascript" src="../../../scripts/main.js" async="async"></script>
+    <script>var pathToRoot = "../../../";</script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="leftColumn">
+        <div id="logo"></div>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <div id="leftToggler"><span class="icon-toggler"></span></div>
+        <div id="searchBar"></div>
+        <script type="text/javascript" src="../../../scripts/pages.js"></script>
+        <script type="text/javascript" src="../../../scripts/main.js"></script>
+        <div id="content" pageIds="com.uploadcare.android.library.api/RequestHelper///PointingToDeclaration//-1902968132">
+          <div class="breadcrumbs"><a href="../../index.html">library</a>/<a href="../index.html">com.uploadcare.android.library.api</a>/<a href="index.html">RequestHelper</a></div>
+          <div class="cover ">
+            <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":library:dokkaHtml/release">androidJvm</button></div>
+            <h1 class="cover"><span>Request</span><wbr></wbr><span>Helper</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">class <a href="index.html">RequestHelper</a>(client: <a href="../-uploadcare-client/index.html">UploadcareClient</a>)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A helper class for doing API calls to the Uploadcare API. Supports API version 0.6.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button></div>
+            <div class="tabs-section-body">
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FRequestHelper%2F%23com.uploadcare.android.library.api.UploadcareClient%2FPointingToDeclaration%2F%5D%2FConstructors%2F-1902968132" anchor-label="RequestHelper" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FRequestHelper%2F%23com.uploadcare.android.library.api.UploadcareClient%2FPointingToDeclaration%2F%5D%2FConstructors%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex"><a href="-request-helper.html">RequestHelper</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FRequestHelper%2F%23com.uploadcare.android.library.api.UploadcareClient%2FPointingToDeclaration%2F%5D%2FConstructors%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="-request-helper.html">RequestHelper</a>(client: <a href="../-uploadcare-client/index.html">UploadcareClient</a>)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Types</h2>
+              <div class="table" data-togglable="Types"><a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper.Companion%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F-1902968132" anchor-label="Companion" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper.Companion%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-companion/index.html">Companion</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.api%2FRequestHelper.Companion%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">object <a href="-companion/index.html">Companion</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="equals" id="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.uploadcare.android.library.utils/-moshi-adapter/index.html#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132">equals</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">open operator fun <a href="../../com.uploadcare.android.library.utils/-moshi-adapter/index.html#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132">equals</a>(other: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommand%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="executeCommand" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommand%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="execute-command.html">executeCommand</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommand%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="execute-command.html">executeCommand</a>(requestType: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, url: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, apiHeaders: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, requestBody: <span data-unresolved-link="okhttp3/RequestBody///PointingToDeclaration/">RequestBody</span>? = null, requestBodyMD5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null): <span data-unresolved-link="okhttp3/Response///PointingToDeclaration/">Response</span><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommand%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="executeCommand" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommand%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommand%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="executeCommand" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommand%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Executes the request et the Uploadcare API and return the HTTP Response object.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommandAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.RequestCallback%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="executeCommandAsync" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommandAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.RequestCallback%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="execute-command-async.html">executeCommandAsync</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommandAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.RequestCallback%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="execute-command-async.html">executeCommandAsync</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, requestType: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, url: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, apiHeaders: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, callback: <a href="../../com.uploadcare.android.library.callbacks/-request-callback/index.html">RequestCallback</a>? = null, requestBody: <span data-unresolved-link="okhttp3/RequestBody///PointingToDeclaration/">RequestBody</span>? = null, requestBodyMD5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommandAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.RequestCallback%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="executeCommandAsync" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommandAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.RequestCallback%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a><div class="brief "><a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommandAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.RequestCallback%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="executeCommandAsync" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteCommandAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.RequestCallback%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>Executes the request et the Uploadcare API and return the HTTP Response object.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteGroupsPaginatedQueryWithOffsetLimitAsync%2F%23android.content.Context%23java.net.URI%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.UploadcareGroupsCallback%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="executeGroupsPaginatedQueryWithOffsetLimitAsync" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteGroupsPaginatedQueryWithOffsetLimitAsync%2F%23android.content.Context%23java.net.URI%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.UploadcareGroupsCallback%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="execute-groups-paginated-query-with-offset-limit-async.html">executeGroupsPaginatedQueryWithOffsetLimitAsync</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteGroupsPaginatedQueryWithOffsetLimitAsync%2F%23android.content.Context%23java.net.URI%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.UploadcareGroupsCallback%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="execute-groups-paginated-query-with-offset-limit-async.html">executeGroupsPaginatedQueryWithOffsetLimitAsync</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, url: <a href="https://developer.android.com/reference/kotlin/java/net/URI.html">URI</a>, urlParameters: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html">Collection</a>&lt;<a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html">UrlParameter</a>&gt;, apiHeaders: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, callback: <a href="../../com.uploadcare.android.library.callbacks/-uploadcare-groups-callback/index.html">UploadcareGroupsCallback</a>?)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecutePaginatedQuery%2F%23java.net.URI%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%23kotlin.Boolean%23java.lang.Class%5Bcom.uploadcare.android.library.data.PageData%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="executePaginatedQuery" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecutePaginatedQuery%2F%23java.net.URI%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%23kotlin.Boolean%23java.lang.Class%5Bcom.uploadcare.android.library.data.PageData%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="execute-paginated-query.html">executePaginatedQuery</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecutePaginatedQuery%2F%23java.net.URI%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%23kotlin.Boolean%23java.lang.Class%5Bcom.uploadcare.android.library.data.PageData%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun &lt;<a href="execute-paginated-query.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="execute-paginated-query.html">executePaginatedQuery</a>(url: <a href="https://developer.android.com/reference/kotlin/java/net/URI.html">URI</a>, urlParameters: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html">Collection</a>&lt;<a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html">UrlParameter</a>&gt;, apiHeaders: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, dataClass: <a href="https://developer.android.com/reference/kotlin/java/lang/Class.html">Class</a>&lt;out <a href="../../com.uploadcare.android.library.data/-page-data/index.html">PageData</a>&lt;<a href="execute-paginated-query.html">T</a>&gt;&gt;): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>&lt;<a href="execute-paginated-query.html">T</a>&gt;<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecutePaginatedQueryWithOffsetLimitAsync%2F%23android.content.Context%23java.net.URI%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.UploadcareFilesCallback%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="executePaginatedQueryWithOffsetLimitAsync" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecutePaginatedQueryWithOffsetLimitAsync%2F%23android.content.Context%23java.net.URI%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.UploadcareFilesCallback%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="execute-paginated-query-with-offset-limit-async.html">executePaginatedQueryWithOffsetLimitAsync</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecutePaginatedQueryWithOffsetLimitAsync%2F%23android.content.Context%23java.net.URI%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%23kotlin.Boolean%23com.uploadcare.android.library.callbacks.UploadcareFilesCallback%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="execute-paginated-query-with-offset-limit-async.html">executePaginatedQueryWithOffsetLimitAsync</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, url: <a href="https://developer.android.com/reference/kotlin/java/net/URI.html">URI</a>, urlParameters: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html">Collection</a>&lt;<a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html">UrlParameter</a>&gt;, apiHeaders: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, callback: <a href="../../com.uploadcare.android.library.callbacks/-uploadcare-files-callback/index.html">UploadcareFilesCallback</a>? = null)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteQuery%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23okhttp3.RequestBody%3F%23kotlin.String%3F%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%3F%2FPointingToDeclaration%2F%2C+com.uploadcare.android.library.api%2FRequestHelper%2FexecuteQuery%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23java.lang.reflect.ParameterizedType%23okhttp3.RequestBody%3F%23kotlin.String%3F%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="executeQuery" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteQuery%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23okhttp3.RequestBody%3F%23kotlin.String%3F%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%3F%2FPointingToDeclaration%2F%2C+com.uploadcare.android.library.api%2FRequestHelper%2FexecuteQuery%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23java.lang.reflect.ParameterizedType%23okhttp3.RequestBody%3F%23kotlin.String%3F%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="execute-query.html">executeQuery</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteQuery%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23okhttp3.RequestBody%3F%23kotlin.String%3F%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%3F%2FPointingToDeclaration%2F%2C+com.uploadcare.android.library.api%2FRequestHelper%2FexecuteQuery%2F%23kotlin.String%23kotlin.String%23kotlin.Boolean%23java.lang.reflect.ParameterizedType%23okhttp3.RequestBody%3F%23kotlin.String%3F%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun &lt;<a href="execute-query.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="execute-query.html">executeQuery</a>(requestType: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, url: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, apiHeaders: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, dataClass: <a href="https://developer.android.com/reference/kotlin/java/lang/Class.html">Class</a>&lt;<a href="execute-query.html">T</a>&gt;, requestBody: <span data-unresolved-link="okhttp3/RequestBody///PointingToDeclaration/">RequestBody</span>? = null, requestBodyMD5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, urlParameters: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html">Collection</a>&lt;<a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html">UrlParameter</a>&gt;? = null): <a href="execute-query.html">T</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">fun &lt;<a href="execute-query.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="execute-query.html">executeQuery</a>(requestType: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, url: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, apiHeaders: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, dataType: <a href="https://developer.android.com/reference/kotlin/java/lang/reflect/ParameterizedType.html">ParameterizedType</a>, requestBody: <span data-unresolved-link="okhttp3/RequestBody///PointingToDeclaration/">RequestBody</span>? = null, requestBodyMD5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, urlParameters: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html">Collection</a>&lt;<a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html">UrlParameter</a>&gt;? = null): <a href="execute-query.html">T</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteQueryAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23com.uploadcare.android.library.callbacks.BaseCallback%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%3F%2FPointingToDeclaration%2F%2C+com.uploadcare.android.library.api%2FRequestHelper%2FexecuteQueryAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23java.lang.reflect.ParameterizedType%23com.uploadcare.android.library.callbacks.BaseCallback%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="executeQueryAsync" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteQueryAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23com.uploadcare.android.library.callbacks.BaseCallback%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%3F%2FPointingToDeclaration%2F%2C+com.uploadcare.android.library.api%2FRequestHelper%2FexecuteQueryAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23java.lang.reflect.ParameterizedType%23com.uploadcare.android.library.callbacks.BaseCallback%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="execute-query-async.html">executeQueryAsync</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FexecuteQueryAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23com.uploadcare.android.library.callbacks.BaseCallback%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%3F%2FPointingToDeclaration%2F%2C+com.uploadcare.android.library.api%2FRequestHelper%2FexecuteQueryAsync%2F%23android.content.Context%23kotlin.String%23kotlin.String%23kotlin.Boolean%23java.lang.reflect.ParameterizedType%23com.uploadcare.android.library.callbacks.BaseCallback%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%3F%23okhttp3.RequestBody%3F%23kotlin.String%3F%23kotlin.collections.Collection%5Bcom.uploadcare.android.library.urls.UrlParameter%5D%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun &lt;<a href="execute-query-async.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="execute-query-async.html">executeQueryAsync</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, requestType: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, url: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, apiHeaders: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, dataClass: <a href="https://developer.android.com/reference/kotlin/java/lang/Class.html">Class</a>&lt;<a href="execute-query-async.html">T</a>&gt;, callback: <a href="../../com.uploadcare.android.library.callbacks/-base-callback/index.html">BaseCallback</a>&lt;<a href="execute-query-async.html">T</a>&gt;? = null, requestBody: <span data-unresolved-link="okhttp3/RequestBody///PointingToDeclaration/">RequestBody</span>? = null, requestBodyMD5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, urlParameters: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html">Collection</a>&lt;<a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html">UrlParameter</a>&gt;? = null)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">fun &lt;<a href="execute-query-async.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="execute-query-async.html">executeQueryAsync</a>(context: <a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a>, requestType: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, url: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, apiHeaders: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, dataType: <a href="https://developer.android.com/reference/kotlin/java/lang/reflect/ParameterizedType.html">ParameterizedType</a>, callback: <a href="../../com.uploadcare.android.library.callbacks/-base-callback/index.html">BaseCallback</a>&lt;<a href="execute-query-async.html">T</a>&gt;? = null, requestBody: <span data-unresolved-link="okhttp3/RequestBody///PointingToDeclaration/">RequestBody</span>? = null, requestBodyMD5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, urlParameters: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html">Collection</a>&lt;<a href="../../com.uploadcare.android.library.urls/-url-parameter/index.html">UrlParameter</a>&gt;? = null)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="hashCode" id="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.uploadcare.android.library.utils/-moshi-adapter/index.html#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132">hashCode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">open fun <a href="../../com.uploadcare.android.library.utils/-moshi-adapter/index.html#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132">hashCode</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FmakeSignature%2F%23kotlin.String%23kotlin.String%23kotlin.String%23kotlin.String%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="makeSignature" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FmakeSignature%2F%23kotlin.String%23kotlin.String%23kotlin.String%23kotlin.String%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="make-signature.html">makeSignature</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FmakeSignature%2F%23kotlin.String%23kotlin.String%23kotlin.String%23kotlin.String%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="make-signature.html">makeSignature</a>(url: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, date: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, requestType: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, requestBodyMD5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, contentType: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FsetApiHeaders%2F%23okhttp3.Request.Builder%23kotlin.String%23kotlin.String%23com.uploadcare.android.library.callbacks.BaseCallback%5Bkotlin.Any%5D%3F%23kotlin.String%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="setApiHeaders" id="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FsetApiHeaders%2F%23okhttp3.Request.Builder%23kotlin.String%23kotlin.String%23com.uploadcare.android.library.callbacks.BaseCallback%5Bkotlin.Any%5D%3F%23kotlin.String%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="set-api-headers.html">setApiHeaders</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.uploadcare.android.library.api%2FRequestHelper%2FsetApiHeaders%2F%23okhttp3.Request.Builder%23kotlin.String%23kotlin.String%23com.uploadcare.android.library.callbacks.BaseCallback%5Bkotlin.Any%5D%3F%23kotlin.String%3F%23kotlin.String%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">fun <a href="set-api-headers.html">setApiHeaders</a>(requestBuilder: <span data-unresolved-link="okhttp3/Request.Builder///PointingToDeclaration/">Request.Builder</span>, url: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, requestType: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, callback: <a href="../../com.uploadcare.android.library.callbacks/-base-callback/index.html">BaseCallback</a>&lt;out <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt;? = null, requestBodyMD5: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null, contentType: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>? = null)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" anchor-label="toString" id="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132" data-filterable-set=":library:dokkaHtml/release"></a>
+                <div class="table-row" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../com.uploadcare.android.library.utils/-moshi-adapter/index.html#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132">toString</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
+    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
+</svg></span>
+                          <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag jvm-like">androidJvm</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":library:dokkaHtml/release" data-filterable-set=":library:dokkaHtml/release"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":library:dokkaHtml/release"><div class="symbol monospace">open fun <a href="../../com.uploadcare.android.library.utils/-moshi-adapter/index.html#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1902968132">toString</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
+                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
+</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#container"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11.3337 9.66683H0.666992L6.00033 3.66683L11.3337 9.66683Z" fill="black"/>
+    <path d="M0.666992 0.333496H11.3337V1.66683H0.666992V0.333496Z" fill="black"/>
+</svg></a></span><span>© 2020 Copyright</span><span class="pull-right"><span>Sponsored and developed by dokka</span><a href="https://github.com/Kotlin/dokka"><span class="padded-icon"><svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 0H2.3949L4.84076 2.44586L0 7.28662L0.713376 8L5.55414 3.15924L8 5.6051V0Z" fill="black"/>
+</svg></span></a></span></div>
+      </div>
+    </div>
+  </body>
+</html>
+

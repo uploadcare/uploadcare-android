@@ -1,4 +1,4 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
 
 com.uploadcare.android.widget.activity
@@ -12,3 +12,5 @@ com.uploadcare.android.widget.interfaces
 com.uploadcare.android.widget.utils
 com.uploadcare.android.widget.view
 com.uploadcare.android.widget.viewmodels
+com.uploadcare.android.widget.worker
+
