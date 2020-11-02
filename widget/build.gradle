@@ -14,7 +14,7 @@ android {
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
         versionCode 10
-        versionName "3.0.0"
+        versionName "3.0.1"
     }
 
     buildFeatures {

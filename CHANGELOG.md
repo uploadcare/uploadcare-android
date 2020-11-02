@@ -1,6 +1,10 @@
 # Changelog
 
 # History
+## 3.0.1
+- Widget:
+    - Fix proper reference to Uploadcare Library dependency.
+
 ## 3.0.0
 - Example:
     - Add Background upload example.
