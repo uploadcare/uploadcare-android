@@ -141,7 +141,7 @@ bintray {
 }
 
 dependencies {
-    api project(':library')
+    api 'com.uploadcare.android.library:uploadcare-android:3.0.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin_version"
