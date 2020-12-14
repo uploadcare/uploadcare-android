@@ -48,6 +48,8 @@ interface UploadcareAllGroupsCallback : BaseListCallback<UploadcareGroup>
 
 interface UploadFilesCallback : BaseListCallback<UploadcareFile>, ProgressCallback
 
+interface ConversionFilesCallback : BaseListCallback<UploadcareFile>
+
 interface UploadcareWebhookCallback : BaseCallback<UploadcareWebhook>
 
 interface UploadcareWebhooksCallback : BaseListCallback<UploadcareWebhook>

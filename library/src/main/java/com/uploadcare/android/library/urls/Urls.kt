@@ -306,5 +306,49 @@ class Urls private constructor() {
         fun uploadMultipartComplete(): URI {
             return URI.create("$UPLOAD_BASE/multipart/complete/")
         }
+
+        /**
+         * Creates a URL to the document conversion.
+         *
+         * @see com.uploadcare.android.library.conversion.DocumentConverter
+         */
+        @JvmStatic
+        fun apiConvertDocument(): URI {
+            return URI.create("$API_BASE/convert/document/")
+        }
+
+        /**
+         * Creates a URL to the document conversion status.
+         *
+         * @param token Token, received after a Convert Document request.
+         *
+         * @see com.uploadcare.android.library.conversion.DocumentConverter
+         */
+        @JvmStatic
+        fun apiConvertDocumentStatus(token: Int): URI {
+            return URI.create("$API_BASE/convert/document/status/$token/")
+        }
+
+        /**
+         * Creates a URL to the video conversion.
+         *
+         * @see com.uploadcare.android.library.conversion.VideoConverter
+         */
+        @JvmStatic
+        fun apiConvertVideo(): URI {
+            return URI.create("$API_BASE/convert/video/")
+        }
+
+        /**
+         * Creates a URL to the video conversion status.
+         *
+         * @param token Token, received after a Convert Video request.
+         *
+         * @see com.uploadcare.android.library.conversion.VideoConverter
+         */
+        @JvmStatic
+        fun apiConvertVideoStatus(token: Int): URI {
+            return URI.create("$API_BASE/convert/video/status/$token/")
+        }
     }
 }
