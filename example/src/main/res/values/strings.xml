@@ -41,6 +41,14 @@
     <string name="activity_main_btn_pause_upload">Pause Upload</string>
     <string name="activity_main_btn_resume_upload">Resume Upload</string>
 
+    <string name="cdn_status_conversion_doc">Converting document…</string>
+    <string name="cdn_status_conversion_vid">Converting video…</string>
+    <string name="cdn_status_sucess">Successfully converted</string>
+    <string name="cdn_cancel_conversion">Cancel</string>
+
+    <string name="action_convert_document">Convert Document</string>
+    <string name="action_convert_video">Convert Video</string>
+
     <array name="orders">
         <item>Upload time, Ascending (Default)</item>
         <item>Upload time, Descending</item>

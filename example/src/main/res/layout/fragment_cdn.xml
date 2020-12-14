@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="uploadcareFile"
-            type="com.uploadcare.android.library.api.UploadcareFile" />
+            name="viewModel"
+            type="com.uploadcare.android.example.viewmodels.CdnViewModel" />
 
     </data>
 
@@ -29,12 +29,40 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:contentInsetStartWithNavigation="0dp" />
+                app:contentInsetStartWithNavigation="0dp"
+                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
         </com.google.android.material.appbar.AppBarLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:isVisible="@{viewModel.loading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_cancel_conversion"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.cancelConversion()}"
+            android:text="@string/cdn_cancel_conversion"
+            app:isVisible="@{viewModel.loading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0"
+            android:layout_margin="@dimen/ucw_extra"
+            app:layout_constraintTop_toBottomOf="@+id/progress" />
 
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:isVisible="@{!viewModel.loading}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +73,22 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/ucw_standard">
 
+                <TextView
+                    android:id="@+id/status"
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="@{viewModel.status}"
+                    android:textAlignment="gravity"
+                    app:isVisible="@{viewModel.status!=null}"
+                    app:layout_constraintBottom_toTopOf="@+id/cdn1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Test"
+                    tools:visibility="visible" />
+
                 <ImageView
                     android:id="@+id/cdn1"
                     android:layout_width="match_parent"
@@ -53,7 +97,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn1_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/status"
                     tools:ignore="ContentDescription" />
 
                 <TextView
@@ -74,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
-                    android:text="@{uploadcareFile.toString()}"
+                    android:text="@{viewModel.uploadcareFile.toString()}"
                     android:textAlignment="textStart"
                     app:layout_constraintBottom_toTopOf="@+id/cdn2"
                     app:layout_constraintEnd_toEndOf="parent"

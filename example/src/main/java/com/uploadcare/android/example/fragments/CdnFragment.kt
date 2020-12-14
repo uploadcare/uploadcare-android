@@ -2,11 +2,11 @@ package com.uploadcare.android.example.fragments
 
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.squareup.picasso.Picasso
 import com.uploadcare.android.example.R
 import com.uploadcare.android.example.databinding.FragmentCdnBinding
+import com.uploadcare.android.example.viewmodels.CdnViewModel
 import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.urls.Urls
 
@@ -23,12 +24,22 @@ import com.uploadcare.android.library.urls.Urls
 class CdnFragment : Fragment() {
 
     private lateinit var binding: FragmentCdnBinding
+    private lateinit var viewModel: CdnViewModel
 
     private val args: CdnFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = FragmentCdnBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get()
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
 
         (activity as AppCompatActivity).let {
             it.setSupportActionBar(binding.toolbar)
@@ -36,10 +47,31 @@ class CdnFragment : Fragment() {
             binding.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
         }
 
-        binding.uploadcareFile = args.uploadcareFile
-        loadImages(args.uploadcareFile)
+        viewModel.uploadcareFile.observe(this.viewLifecycleOwner, { uploadcareFile ->
+            uploadcareFile?.let { loadImages(it) }
+        })
+        viewModel.setFile(args.uploadcareFile)
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.cdn_file_actions, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action__convert_document -> {
+                viewModel.convertDocument()
+                true
+            }
+            R.id.action__convert_video -> {
+                viewModel.convertVideo()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     /**
