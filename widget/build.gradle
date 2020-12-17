@@ -13,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
-        versionCode 10
-        versionName "3.0.1"
+        versionCode 11
+        versionName "3.1.0"
     }
 
     buildFeatures {
@@ -141,7 +141,7 @@ bintray {
 }
 
 dependencies {
-    api 'com.uploadcare.android.library:uploadcare-android:3.0.0'
+    api 'com.uploadcare.android.library:uploadcare-android:3.1.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin_version"

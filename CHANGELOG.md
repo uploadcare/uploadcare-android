@@ -1,6 +1,14 @@
 # Changelog
 
 # History
+
+## 3.1.0
+- Widget:
+    - Update documentation
+- Library:
+    - Add ability to convert documents/videos.
+    - Update documentation
+
 ## 3.0.1
 - Widget:
     - Fix proper reference to Uploadcare Library dependency.
