@@ -24,7 +24,10 @@
 
 # Library - UPLOAD API Documentation
 
-// todo
+* [Initialization Upload](#initialization-upload)
+* [Upload File](#upload-file-api-reference)
+* [Upload File from Url](#upload-file-url-api-reference)
+* [Create files group](#create-files-group-api-reference)
 
 ## Initialization
 
@@ -1002,4 +1005,265 @@ CdnPathBuilder builder = file.cdnPath()
 URI urlAkamai = Urls.cdn(domain, builder, token, expire);
 // or
 URI urlKeyCDN = Urls.cdn(domain, builder, token, expire);
+```
+
+## Initialization Upload
+
+##### Upload API requires only public key, if you use REST API, you should specify "YOUR_SECRET_KEY" also.
+
+Kotlin
+```kotlin
+val uploadcare = UploadcareClient("YOUR_PUBLIC_KEY")
+```
+Java
+```java
+UploadcareClient uploadcare = new UploadcareClient("YOUR_PUBLIC_KEY");
+```
+
+# Library - UPLOAD API Documentation
+
+
+## Upload File ([API Reference](https://uploadcare.com/api-refs/upload-api/)) ##
+
+##### Asynchronous upload file.
+
+Kotlin
+```kotlin
+val context = ...// Context
+val fileUri = ...//resource representing file (File/Uri/InputStream/ByteArray/String types are supported).
+val uploader = FileUploader(uploadcare, fileUri, context) // Use "MultipleFilesUploader" for multiple files.
+    .store(true)
+    // Other upload parameters.
+
+uploader.uploadAsync(object : UploadFileCallback {
+    override fun onFailure(e: UploadcareApiException) {
+        // Handle errors.
+    }
+
+    override fun onProgressUpdate(
+                        bytesWritten: Long,
+                        contentLength: Long,
+                        progress: Double) {
+        // Upload progress info.
+    }
+
+    override fun onSuccess(result: UploadcareFile) {
+        // Successfully uploaded file to Uploadcare.
+    }
+})
+
+// Cancel upload in progress.
+uploader.cancel()
+```
+Java
+```java
+Context context = ...// Context
+Uri fileUri = ...//resource representing file (File/Uri/InputStream/ByteArray/String types are supported).
+Uploader uploader = new FileUploader(uploadcare, fileUri, context) // Use "MultipleFilesUploader" for multiple files.
+    .store(true);
+    // Other upload parameters.
+
+uploader.uploadAsync(new UploadFileCallback() {
+    @Override
+    public void onFailure(UploadcareApiException e) {
+        // Handle errors.
+    }
+
+    @Override
+    public void onProgressUpdate(
+                        Long bytesWritten,
+                        Long contentLength,
+                        Double progress) {
+        // Upload progress info.
+    }
+
+    @Override
+    public void onSuccess(UploadcareFile file) {
+        // Successfully uploaded file to Uploadcare.
+    }
+});
+
+// Cancel upload in progress.
+uploader.cancel();
+```
+
+##### Synchronous upload file.
+
+Kotlin
+```kotlin
+val context = ...// Context
+val fileUri = ...//resource representing file (File/Uri/InputStream/ByteArray/String types are supported).
+val uploader = FileUploader(uploadcare, fileUri, context) // Use "MultipleFilesUploader" for multiple files.
+    .store(true)
+    // Other upload parameters.
+
+try {
+    val file = uploader.upload()
+    // Successfully uploaded file to Uploadcare.
+} catch (e: UploadFailureException) {
+    // Handle errors.
+}
+```
+Java
+```java
+Context context = ...// Context
+Uri fileUri = ...//resource representing file (File/Uri/InputStream/ByteArray/String types are supported).
+Uploader uploader = new FileUploader(uploadcare, fileUri, context) // Use "MultipleFilesUploader" for multiple files.
+    .store(true);
+    // Other upload parameters.
+
+try {
+    UploadcareFile file = uploader.upload();
+    // Successfully uploaded file to Uploadcare.
+} catch (UploadFailureException e) {
+    // Handle errors.
+}
+```
+
+## Upload File from Url ([API Reference](https://uploadcare.com/api-refs/upload-api/#operation/fromURLUpload)) ##
+
+##### Asynchronous upload file from Uri.
+
+Kotlin
+```kotlin
+val sourceUrl = "YOU_FILE_URL"
+val uploader = UrlUploader(uploadcare, sourceUrl) // Use "MultipleUrlsUploader" for multiple files.
+    .store(true)
+    // Other upload parameters.
+
+uploader.uploadAsync(object : UploadFileCallback {
+    override fun onFailure(e: UploadcareApiException) {
+        // Handle errors.
+    }
+
+    override fun onProgressUpdate(
+                        bytesWritten: Long,
+                        contentLength: Long,
+                        progress: Double) {
+        // Upload progress info.
+    }
+
+    override fun onSuccess(result: UploadcareFile) {
+        // Successfully uploaded file to Uploadcare.
+    }
+})
+
+// Cancel upload in progress.
+uploader.cancel()
+```
+Java
+```java
+String sourceUrl = "YOU_FILE_URL";
+Uploader uploader = new UrlUploader(uploadcare, sourceUrl) // Use "MultipleUrlsUploader" for multiple files.
+    .store(true);
+    // Other upload parameters.
+
+uploader.uploadAsync(new UploadFileCallback() {
+    @Override
+    public void onFailure(UploadcareApiException e) {
+        // Handle errors.
+    }
+
+    @Override
+    public void onProgressUpdate(
+                        Long bytesWritten,
+                        Long contentLength,
+                        Double progress) {
+        // Upload progress info.
+    }
+
+    @Override
+    public void onSuccess(UploadcareFile file) {
+        // Successfully uploaded file to Uploadcare.
+    }
+});
+
+// Cancel upload in progress.
+uploader.cancel();
+```
+
+##### Synchronous upload file from Uri.
+
+Kotlin
+```kotlin
+val sourceUrl = "YOU_FILE_URL"
+val uploader = UrlUploader(uploadcare, sourceUrl) // Use "MultipleUrlsUploader" for multiple files.
+    .store(true)
+    // Other upload parameters.
+
+try {
+    val file = uploader.upload()
+    // Successfully uploaded file to Uploadcare.
+} catch (e: UploadFailureException) {
+    // Handle errors.
+}
+```
+Java
+```java
+String sourceUrl = "YOU_FILE_URL";
+Uploader uploader = new UrlUploader(uploadcare, sourceUrl) // Use "MultipleUrlsUploader" for multiple files.
+    .store(true);
+    // Other upload parameters.
+
+try {
+    UploadcareFile file = uploader.upload();
+    // Successfully uploaded file to Uploadcare.
+} catch (UploadFailureException e) {
+    // Handle errors.
+}
+```
+
+## Create files group ([API Reference](https://uploadcare.com/api-refs/upload-api/#operation/createFilesGroup)) ##
+
+##### Asynchronous create files group.
+
+Kotlin
+```kotlin
+val fileIds = listOf("YOUR_FILE_UUID_1", "YOUR_FILE_UUID_2", "YOUR_FILE_UUID_3")
+
+uploadcare.createGroupAsync(
+        fileIds,
+        callback = object : UploadcareGroupCallback {
+            override fun onFailure(e: UploadcareApiException) {
+                // Handle errors.
+            }
+
+            override fun onSuccess(result: UploadcareGroup) {
+                // Successfully created files group.
+            }
+        })
+```
+Java
+```java
+List<String> fileIds = ... // list of file uuid's
+
+uploadcare.createGroupAsync(
+        fileIds,
+        null,
+        new UploadcareGroupCallback() {
+            @Override
+            public void onFailure(@NotNull UploadcareApiException e) {
+                // Handle errors.
+            }
+
+            @Override
+            public void onSuccess(@NonNull UploadcareGroup result) {
+                // Successfully created files group.
+            }
+        });
+```
+
+##### Synchronous create files group.
+
+Kotlin
+```kotlin
+val fileIds = listOf("YOUR_FILE_UUID_1", "YOUR_FILE_UUID_2", "YOUR_FILE_UUID_3")
+
+val uploadcareGroup = uploadcare.createGroup(fileIds)
+```
+Java
+```java
+List<String> fileIds = ... // list of file uuid's
+
+UploadcareGroup uploadcareGroup = uploadcare.createGroup(fileIds, null);
 ```
