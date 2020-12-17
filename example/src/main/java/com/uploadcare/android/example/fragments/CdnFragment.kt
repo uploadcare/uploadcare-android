@@ -2,11 +2,11 @@ package com.uploadcare.android.example.fragments
 
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.squareup.picasso.Picasso
 import com.uploadcare.android.example.R
 import com.uploadcare.android.example.databinding.FragmentCdnBinding
+import com.uploadcare.android.example.viewmodels.CdnViewModel
 import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.urls.Urls
 
@@ -23,12 +24,22 @@ import com.uploadcare.android.library.urls.Urls
 class CdnFragment : Fragment() {
 
     private lateinit var binding: FragmentCdnBinding
+    private lateinit var viewModel: CdnViewModel
 
     private val args: CdnFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = FragmentCdnBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get()
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
 
         (activity as AppCompatActivity).let {
             it.setSupportActionBar(binding.toolbar)
@@ -36,9 +47,31 @@ class CdnFragment : Fragment() {
             binding.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
         }
 
-        loadImages(args.uploadcareFile)
+        viewModel.uploadcareFile.observe(this.viewLifecycleOwner, { uploadcareFile ->
+            uploadcareFile?.let { loadImages(it) }
+        })
+        viewModel.setFile(args.uploadcareFile)
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.cdn_file_actions, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action__convert_document -> {
+                viewModel.convertDocument()
+                true
+            }
+            R.id.action__convert_video -> {
+                viewModel.convertVideo()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     /**
@@ -55,37 +88,37 @@ class CdnFragment : Fragment() {
             when (i) {
                 0 -> {
                     val url = Urls.cdn(builder)
-                    Picasso.with(context).load(url.toString()).into(binding.cdn1)
+                    Picasso.get().load(url.toString()).into(binding.cdn1)
                 }
                 1 -> {
                     builder.grayscale()
                     val url2 = Urls.cdn(builder)
-                    Picasso.with(context).load(url2.toString()).into(binding.cdn2)
+                    Picasso.get().load(url2.toString()).into(binding.cdn2)
                 }
                 2 -> {
                     builder.flip()
                     val url3 = Urls.cdn(builder)
-                    Picasso.with(context).load(url3.toString()).into(binding.cdn3)
+                    Picasso.get().load(url3.toString()).into(binding.cdn3)
                 }
                 3 -> {
                     builder.invert()
                     val url4 = Urls.cdn(builder)
-                    Picasso.with(context).load(url4.toString()).into(binding.cdn4)
+                    Picasso.get().load(url4.toString()).into(binding.cdn4)
                 }
                 4 -> {
                     builder.mirror()
                     val url5 = Urls.cdn(builder)
-                    Picasso.with(context).load(url5.toString()).into(binding.cdn5)
+                    Picasso.get().load(url5.toString()).into(binding.cdn5)
                 }
                 5 -> {
                     builder.blur(100)
                     val url6 = Urls.cdn(builder)
-                    Picasso.with(context).load(url6.toString()).into(binding.cdn6)
+                    Picasso.get().load(url6.toString()).into(binding.cdn6)
                 }
                 6 -> {
                     builder.sharp(10)
                     val url7 = Urls.cdn(builder)
-                    Picasso.with(context).load(url7.toString()).into(binding.cdn7)
+                    Picasso.get().load(url7.toString()).into(binding.cdn7)
                 }
             }
         }

@@ -4,7 +4,7 @@ import android.os.Parcelable
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
+@Parcelize @Suppress("unused")
 data class Action(@Json(name = "obj_type") val objectType: String,
                   val action: String?,
                   val url: String?,

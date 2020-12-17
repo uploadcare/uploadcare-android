@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="adapter"
-            type="com.uploadcare.android.widget.adapter.SocialNetworksAdapter"/>
+            type="com.uploadcare.android.widget.adapter.SocialNetworksAdapter" />
 
         <variable
             name="socialSource"
-            type="com.uploadcare.android.widget.data.SocialSource"/>
+            type="com.uploadcare.android.widget.data.SocialSource" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,17 +28,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/ucw_extra"
-            android:tint="@color/ucw_black_text_87"
             app:imageDrawable="@{socialSource.getNetworkIconResource()}"
             app:isVisible="@{socialSource.getNetworkIconResource()!=-1}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints"/>
+            app:tint="?attr/colorOnBackground"
+            tools:ignore="ContentDescription,MissingConstraints" />
 
         <TextView
             android:id="@+id/ucw_network_name"
-            style="@style/TextAppearance.AppCompat.Subhead"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/ucw_extra_3x"
@@ -47,11 +47,10 @@
             android:gravity="center_vertical|start"
             android:singleLine="true"
             android:text="@{socialSource.getNetworkNameResource()}"
-            android:textColor="@color/ucw_black_text_87"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
@@ -42,6 +41,7 @@ class FilesFragment : Fragment(), OrderDialogListener, DatePickerDialog.OnDateSe
         binding = FragmentFilesBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get()
 
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         (activity as AppCompatActivity).let {
@@ -63,10 +63,10 @@ class FilesFragment : Fragment(), OrderDialogListener, DatePickerDialog.OnDateSe
             }
         }
 
-        viewModel.files.observe(this.viewLifecycleOwner, Observer { files ->
+        viewModel.files.observe(this.viewLifecycleOwner, { files ->
             mAdapter?.updateFiles(files)
         })
-        viewModel.allowLoadMore.observe(this.viewLifecycleOwner, Observer { allowLoadMore ->
+        viewModel.allowLoadMore.observe(this.viewLifecycleOwner, { allowLoadMore ->
             if (allowLoadMore) {
                 mOnScrollListener?.let {
                     it.clear()
@@ -76,28 +76,32 @@ class FilesFragment : Fragment(), OrderDialogListener, DatePickerDialog.OnDateSe
                 binding.recyclerView.clearOnScrollListeners()
             }
         })
-        viewModel.errorCommand.observe(this.viewLifecycleOwner, Observer { message ->
+        viewModel.errorCommand.observe(this.viewLifecycleOwner, { message ->
             Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
         })
-        viewModel.launchFromPickerCommand.observe(this.viewLifecycleOwner, Observer {
+        viewModel.launchFromPickerCommand.observe(this.viewLifecycleOwner, {
             showDateDialog()
         })
-        viewModel.launchOrderPickerCommand.observe(this.viewLifecycleOwner, Observer {
+        viewModel.launchOrderPickerCommand.observe(this.viewLifecycleOwner, {
             showOrderDialog()
         })
+
+        if (savedInstanceState == null) {
+            viewModel.apply()
+        }
 
         return binding.root
     }
 
     override fun onOrderSelected(order: Order) {
-        viewModel.filterOrder.set(order)
+        viewModel.filterOrder.value = order
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
         try {
             val fromDate = dateFormat.parse("$year-${(month + 1)}-$dayOfMonth}")
-            viewModel.filterFromDate.set(fromDate)
+            viewModel.filterFromDate.value = fromDate
         } catch (e: ParseException) {
             e.printStackTrace()
         }

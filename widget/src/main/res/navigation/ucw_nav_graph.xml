@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation android:id="@+id/ucw_nav_graph.xml"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            app:startDestination="@id/uploadcareFragment">
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ucw_nav_graph.xml"
+    app:startDestination="@id/uploadcareFragment">
 
     <fragment
         android:id="@+id/uploadcareFragment"
@@ -11,7 +11,7 @@
         tools:layout="@layout/ucw_fragment_uploadcare">
         <action
             android:id="@+id/action_uploadcareFragment_to_uploadcareFilesFragment"
-            app:destination="@id/uploadcareFilesFragment"/>
+            app:destination="@id/uploadcareFilesFragment" />
     </fragment>
     <fragment
         android:id="@+id/uploadcareFilesFragment"
@@ -19,13 +19,25 @@
         tools:layout="@layout/ucw_fragment_files">
         <argument
             android:name="socialsource"
-            app:argType="com.uploadcare.android.widget.data.SocialSource"/>
+            app:argType="com.uploadcare.android.widget.data.SocialSource" />
         <action
             android:id="@+id/action_uploadcareFilesFragment_to_uploadcareFilesFragment"
-            app:destination="@id/uploadcareFilesFragment"/>
+            app:destination="@id/uploadcareFilesFragment" />
         <argument
             android:name="store"
             android:defaultValue="true"
-            app:argType="boolean"/>
+            app:argType="boolean" />
+        <argument
+            android:name="cancelable"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="showProgress"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="backgroundUpload"
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
 </navigation>

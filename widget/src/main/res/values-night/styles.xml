@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="UploadcareWidget" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:background">@null</item>
+
+        <item name="colorPrimary">?attr/uploadcareColorPrimary</item>
+        <item name="colorPrimaryVariant">?attr/uploadcareColorPrimaryVariant</item>
+        <item name="colorSecondary">?attr/uploadcareColorSecondary</item>
+        <item name="colorSecondaryVariant">@color/ucw_secondary_500</item>
+        <item name="colorSurface">@color/ucw_background</item>
+
+        <item name="colorOnPrimary">@color/ucw_on_primary</item>
+        <item name="colorOnSecondary">@color/ucw_on_secondary</item>
+        <item name="colorOnSurface">@color/ucw_on_surface</item>
+        <item name="colorOnBackground">@color/ucw_on_background</item>
+
+        <item name="android:colorBackground">@color/ucw_background</item>
+        <item name="android:statusBarColor">@android:color/black</item>
+    </style>
+
+    <style name="UploadcareWidget.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@null</item>
+        <item name="android:animationDuration">0</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="colorPrimary">?attr/uploadcareColorPrimary</item>
+        <item name="colorPrimaryVariant">?attr/uploadcareColorPrimaryVariant</item>
+        <item name="colorSecondary">?attr/uploadcareColorSecondary</item>
+        <item name="colorSecondaryVariant">@color/ucw_secondary_500</item>
+        <item name="colorSurface">@color/ucw_background</item>
+
+        <item name="colorOnPrimary">@color/ucw_on_primary</item>
+        <item name="colorOnSecondary">@color/ucw_on_secondary</item>
+        <item name="colorOnSurface">@color/ucw_on_surface</item>
+        <item name="colorOnBackground">@color/ucw_on_background</item>
+
+        <item name="android:statusBarColor">@android:color/black</item>
+    </style>
+
+    <style name="UploadcareWidget.PopupOverlay" parent="ThemeOverlay.MaterialComponents" />
+</resources>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.uploadcare.android.example.fragments.FilesFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.uploadcare.android.example.fragments.FilesFragment">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.uploadcare.android.example.viewmodels.FilesViewModel"/>
+            type="com.uploadcare.android.example.viewmodels.FilesViewModel" />
 
     </data>
 
@@ -16,27 +16,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:contentInsetStartWithNavigation="0dp"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetStartWithNavigation="0dp" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@android:color/darker_gray"
+            android:background="@color/colorBackgroundHalf"
             app:layout_constraintBottom_toTopOf="@+id/recycler_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+            app:layout_constraintTop_toBottomOf="@+id/app_bar_layout" />
 
         <CheckBox
             android:id="@+id/stored"
@@ -48,7 +51,7 @@
             app:layout_constraintEnd_toStartOf="@+id/removed"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+            app:layout_constraintTop_toBottomOf="@+id/app_bar_layout" />
 
         <CheckBox
             android:id="@+id/removed"
@@ -59,7 +62,7 @@
             android:text="@string/activity_files_removed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/stored"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+            app:layout_constraintTop_toBottomOf="@+id/app_bar_layout" />
 
         <Button
             android:id="@+id/btn_from"
@@ -69,7 +72,7 @@
             android:text="@string/activity_files_btn_from"
             app:layout_constraintEnd_toStartOf="@+id/btn_order"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stored"/>
+            app:layout_constraintTop_toBottomOf="@+id/stored" />
 
         <Button
             android:id="@+id/btn_order"
@@ -79,7 +82,7 @@
             android:text="@string/activity_files_btn_order"
             app:layout_constraintEnd_toStartOf="@+id/btn_apply"
             app:layout_constraintStart_toEndOf="@+id/btn_from"
-            app:layout_constraintTop_toBottomOf="@+id/stored"/>
+            app:layout_constraintTop_toBottomOf="@+id/stored" />
 
         <Button
             android:id="@+id/btn_apply"
@@ -89,11 +92,11 @@
             android:text="@string/activity_files_btn_apply"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_order"
-            app:layout_constraintTop_toBottomOf="@+id/stored"/>
+            app:layout_constraintTop_toBottomOf="@+id/stored" />
 
         <TextView
             android:id="@+id/date_filter"
-            style="@style/Base.TextAppearance.AppCompat.Body2"
+            style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="@dimen/ucw_standard"
@@ -102,11 +105,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_from"
-            tools:text="Date"/>
+            tools:text="Date" />
 
         <TextView
             android:id="@+id/order_filter"
-            style="@style/Base.TextAppearance.AppCompat.Body2"
+            style="@style/TextAppearance.MaterialComponents.Body2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="@dimen/ucw_standard"
@@ -115,7 +118,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/date_filter"
-            tools:text="Order"/>
+            tools:text="Order" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -127,22 +130,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_filter"/>
+            app:layout_constraintTop_toBottomOf="@+id/order_filter" />
 
         <TextView
             android:id="@+id/status_text"
-            style="@style/Base.TextAppearance.AppCompat.Subhead"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/activity_files_status_start"
-            android:textColor="@android:color/black"
+            android:textColor="@color/onBackground"
             android:visibility="visible"
             app:isVisible="@{!viewModel.loading &amp;&amp; viewModel.isEmpty}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/recycler_view"/>
+            app:layout_constraintTop_toTopOf="@+id/recycler_view" />
 
         <ProgressBar
             android:id="@+id/progress"
@@ -153,7 +156,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

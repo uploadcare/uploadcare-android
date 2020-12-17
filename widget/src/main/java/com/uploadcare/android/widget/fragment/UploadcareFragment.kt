@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.NavOptions
@@ -20,12 +19,13 @@ import com.uploadcare.android.widget.controller.FileType
 import com.uploadcare.android.widget.controller.UploadcareWidgetResult
 import com.uploadcare.android.widget.data.SocialSource
 import com.uploadcare.android.widget.databinding.UcwFragmentUploadcareBinding
+import com.uploadcare.android.widget.dialogs.CancelUploadListener
 import com.uploadcare.android.widget.dialogs.SocialSourcesListener
 import com.uploadcare.android.widget.utils.NavigationHelper
 import com.uploadcare.android.widget.viewmodels.MediaType
 import com.uploadcare.android.widget.viewmodels.UploadcareViewModel
 
-class UploadcareFragment : Fragment(), SocialSourcesListener {
+class UploadcareFragment : Fragment(), SocialSourcesListener, CancelUploadListener {
 
     private lateinit var binding: UcwFragmentUploadcareBinding
     private lateinit var viewModel: UploadcareViewModel
@@ -34,40 +34,55 @@ class UploadcareFragment : Fragment(), SocialSourcesListener {
                               savedInstanceState: Bundle?): View {
         binding = UcwFragmentUploadcareBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get()
-        viewModel.progressDialogCommand.observe(this.viewLifecycleOwner, Observer { pait ->
-            if (pait.first) {
-                NavigationHelper.showProgressDialog(childFragmentManager, pait.second)
+        viewModel.progressDialogCommand.observe(this.viewLifecycleOwner, { progressData ->
+            if (progressData.show) {
+                NavigationHelper.showProgressDialog(childFragmentManager, progressData)
             } else {
                 NavigationHelper.dismissProgressDialog(childFragmentManager)
             }
         })
-        viewModel.showSocialSourcesCommand.observe(this.viewLifecycleOwner, Observer { pair ->
+        viewModel.uploadProgress.observe(this.viewLifecycleOwner, { progress ->
+            NavigationHelper.updateProgressDialogProgress(childFragmentManager, progress)
+        })
+
+        viewModel.showSocialSourcesCommand.observe(this.viewLifecycleOwner, { pair ->
             NavigationHelper.showSocialSourcesDialog(childFragmentManager,
                     pair.first,
                     getString(R.string.ucw_action_select_network),
                     pair.second)
         })
-        viewModel.launchSocialSourceCommand.observe(this.viewLifecycleOwner, Observer { pair ->
+        viewModel.launchSocialSourceCommand.observe(this.viewLifecycleOwner, { socialData ->
             findNavController().navigate(UploadcareFragmentDirections
-                    .actionUploadcareFragmentToUploadcareFilesFragment(pair.first, pair.second),
+                    .actionUploadcareFragmentToUploadcareFilesFragment(
+                            socialData.socialSource,
+                            socialData.storeUponUpload,
+                            socialData.cancelable,
+                            socialData.showProgress,
+                            socialData.backgroundUpload),
                     NavOptions.Builder().setPopUpTo(R.id.uploadcareFragment, true).build())
         })
-        viewModel.launchCamera.observe(this.viewLifecycleOwner, Observer { mediaType ->
+        viewModel.launchCamera.observe(this.viewLifecycleOwner, { mediaType ->
             launchCamera(mediaType.first, mediaType.second)
         })
-        viewModel.launchFilePicker.observe(this.viewLifecycleOwner, Observer { fileType ->
+        viewModel.launchFilePicker.observe(this.viewLifecycleOwner, { fileType ->
             launchFilePicker(fileType)
         })
-        viewModel.closeWidgetCommand.observe(this.viewLifecycleOwner, Observer { exception ->
+        viewModel.closeWidgetCommand.observe(this.viewLifecycleOwner, { exception ->
             activity?.setResult(RESULT_OK, Intent().apply {
                 putExtra("result",
                         UploadcareWidgetResult(exception = UploadcareException(exception?.message)))
             })
             activity?.finish()
         })
-        viewModel.uploadCompleteCommand.observe(this.viewLifecycleOwner, Observer { uploadcareFile ->
+        viewModel.uploadCompleteCommand.observe(this.viewLifecycleOwner, { uploadcareFile ->
             activity?.setResult(RESULT_OK, Intent().apply {
                 putExtra("result", UploadcareWidgetResult(uploadcareFile = uploadcareFile))
+            })
+            activity?.finish()
+        })
+        viewModel.uploadingInBackgroundCommand.observe(this.viewLifecycleOwner, { uuid ->
+            activity?.setResult(RESULT_OK, Intent().apply {
+                putExtra("result", UploadcareWidgetResult(backgroundUploadUUID = uuid))
             })
             activity?.finish()
         })
@@ -91,6 +106,10 @@ class UploadcareFragment : Fragment(), SocialSourcesListener {
         activity?.finish()
     }
 
+    override fun onCancelUpload() {
+        viewModel.canlcelUpload()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode != RESULT_OK) {
             activity?.finish()
@@ -105,6 +124,13 @@ class UploadcareFragment : Fragment(), SocialSourcesListener {
             }
             CHOOSE_FILE_ACTIVITY_REQUEST_CODE -> {
                 val fileUri = data?.data
+                fileUri?.let {
+                    context?.contentResolver?.takePersistableUriPermission(
+                            it,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                    or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                }
+
                 fileUri?.let { viewModel.uploadFile(it) } ?: activity?.finish()
             }
         }
@@ -129,7 +155,7 @@ class UploadcareFragment : Fragment(), SocialSourcesListener {
     }
 
     private fun launchFilePicker(fileType: FileType) {
-        val chooseFile = Intent(Intent.ACTION_GET_CONTENT).apply {
+        val chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             type = getTypeForFileChooser(fileType)
             putExtra(Intent.EXTRA_LOCAL_ONLY, true)
         }
@@ -151,9 +177,5 @@ class UploadcareFragment : Fragment(), SocialSourcesListener {
         private const val CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100
         private const val CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200
         private const val CHOOSE_FILE_ACTIVITY_REQUEST_CODE = 300
-    }
-
-    private enum class MEDIA_TYPE {
-        IMAGE, VIDEO
     }
 }

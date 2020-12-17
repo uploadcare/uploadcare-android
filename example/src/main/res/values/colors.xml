@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryVariant">#303F9F</color>
+    <color name="colorSecondary">#FF4081</color>
+    <color name="colorBackground">#fff</color>
+    <color name="colorBackgroundHalf">#E0E0E0</color>
+    <color name="onPrimary">#fff</color>
+    <color name="onSecondary">#fff</color>
+    <color name="onBackground">#000</color>
+    <color name="statusBarColor">@color/colorPrimaryVariant</color>
 
+<!--    custom Uploadcare widget theme colors-->
     <color name="colorGreenPrimary">#4CAF50</color>
-    <color name="colorGreenPrimaryDark">#388E3C</color>
-    <color name="colorRedAccent">#FF1744</color>
+    <color name="colorGreenPrimaryVariant">#388E3C</color>
+    <color name="colorRedSecondary">#FF1744</color>
 </resources>

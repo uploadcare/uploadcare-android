@@ -5,6 +5,7 @@ import com.squareup.moshi.Json
 /**
  * The resource for project, associated with the connecting account.
  */
+@Suppress("unused")
 data class Project(val name: String,
                    @Json(name = "pub_key") val pubKey: String,
                    val collaborators: List<Collaborator>,

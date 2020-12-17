@@ -3,6 +3,7 @@ package com.uploadcare.android.widget.exceptions
 /**
  * Error returned by uploadcare Widget.
  */
+@Suppress("unused")
 class UploadcareWidgetException : RuntimeException {
     constructor(message: String? = null) : super(message)
     constructor(cause: Throwable) : super(cause)

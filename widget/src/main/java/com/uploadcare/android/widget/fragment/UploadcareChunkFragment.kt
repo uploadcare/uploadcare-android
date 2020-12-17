@@ -2,13 +2,11 @@ package com.uploadcare.android.widget.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.recyclerview.widget.GridLayoutManager
@@ -56,15 +54,16 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
                               savedInstanceState: Bundle?): View {
         binding = UcwFragmentChunkBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get()
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val socialSource = arguments?.getParcelable("socialSource") as SocialSource
+        val socialSource = arguments?.getParcelable("socialSource") as SocialSource?
         binding.ucwRecyclerView.apply {
-            if (socialSource.name == SocialNetwork.SOCIAL_NETWORK_BOX.rawValue
-                    || socialSource.name == SocialNetwork.SOCIAL_NETWORK_DROPBOX.rawValue
-                    || socialSource.name == SocialNetwork.SOCIAL_NETWORK_EVERNOTE.rawValue
-                    || socialSource.name == SocialNetwork.SOCIAL_NETWORK_SKYDRIVE.rawValue
-                    || socialSource.name == SocialNetwork.SOCIAL_NETWORK_GDRIVE.rawValue) {
+            if (socialSource?.name == SocialNetwork.SOCIAL_NETWORK_BOX.rawValue
+                    || socialSource?.name == SocialNetwork.SOCIAL_NETWORK_DROPBOX.rawValue
+                    || socialSource?.name == SocialNetwork.SOCIAL_NETWORK_EVERNOTE.rawValue
+                    || socialSource?.name == SocialNetwork.SOCIAL_NETWORK_SKYDRIVE.rawValue
+                    || socialSource?.name == SocialNetwork.SOCIAL_NETWORK_GDRIVE.rawValue) {
                 layoutManager = LinearLayoutManager(context)
                 mAdapter = FilesLinearAdapter(FileType.any) { thing ->
                     itemSelected(thing)
@@ -89,10 +88,10 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
             }
         }
 
-        viewModel.things.observe(this.viewLifecycleOwner, Observer { things ->
+        viewModel.things.observe(this.viewLifecycleOwner, { things ->
             mAdapter?.updateItems(things)
         })
-        viewModel.allowLoadMore.observe(this.viewLifecycleOwner, Observer { allowLoadMore ->
+        viewModel.allowLoadMore.observe(this.viewLifecycleOwner, { allowLoadMore ->
             if (allowLoadMore) {
                 mOnScrollListener?.let {
                     it.clear()
@@ -102,10 +101,10 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
                 binding.ucwRecyclerView.clearOnScrollListeners()
             }
         })
-        viewModel.errorCommand.observe(this.viewLifecycleOwner, Observer { exception ->
+        viewModel.errorCommand.observe(this.viewLifecycleOwner, { exception ->
             exception?.let { mOnFileActionsListener.onError(it) }
         })
-        viewModel.needAuthCommand.observe(this.viewLifecycleOwner, Observer { loginLink ->
+        viewModel.needAuthCommand.observe(this.viewLifecycleOwner, { loginLink ->
             loginLink?.let { mOnFileActionsListener.onAuthorizationNeeded(loginLink) }
         })
 
@@ -147,7 +146,7 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
                 }
             }
             else -> {
-                Log.d("UploadcareChunkFragment", "Unknown thing type: ${thing.objectType}")
+                // unsupported
             }
         }
     }

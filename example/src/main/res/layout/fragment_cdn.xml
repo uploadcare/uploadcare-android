@@ -1,37 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.uploadcare.android.example.fragments.CdnFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.uploadcare.android.example.fragments.CdnFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.uploadcare.android.example.viewmodels.CdnViewModel" />
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetStartWithNavigation="0dp"
+                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:isVisible="@{viewModel.loading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_cancel_conversion"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.cancelConversion()}"
+            android:text="@string/cdn_cancel_conversion"
+            app:isVisible="@{viewModel.loading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0"
+            android:layout_margin="@dimen/ucw_extra"
+            app:layout_constraintTop_toBottomOf="@+id/progress" />
 
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:isVisible="@{!viewModel.loading}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+            app:layout_constraintTop_toBottomOf="@+id/app_bar_layout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/ucw_standard">
+
+                <TextView
+                    android:id="@+id/status"
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="@{viewModel.status}"
+                    android:textAlignment="gravity"
+                    app:isVisible="@{viewModel.status!=null}"
+                    app:layout_constraintBottom_toTopOf="@+id/cdn1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Test"
+                    tools:visibility="visible" />
 
                 <ImageView
                     android:id="@+id/cdn1"
@@ -41,19 +97,34 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn1_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@+id/status"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn1_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
                     android:text="@string/activity_cdn_original"
+                    app:layout_constraintBottom_toTopOf="@+id/file_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cdn1" />
+
+                <TextView
+                    android:id="@+id/file_description"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/ucw_standard"
+                    android:text="@{viewModel.uploadcareFile.toString()}"
+                    android:textAlignment="textStart"
                     app:layout_constraintBottom_toTopOf="@+id/cdn2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn1"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cdn1_title"
+                    tools:text="Test File description" />
 
                 <ImageView
                     android:id="@+id/cdn2"
@@ -63,11 +134,12 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn2_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn1_title"/>
+                    app:layout_constraintTop_toBottomOf="@+id/file_description"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn2_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -75,7 +147,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn2"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cdn2" />
 
                 <ImageView
                     android:id="@+id/cdn3"
@@ -85,11 +157,12 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn3_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn2_title"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cdn2_title"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn3_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -97,7 +170,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn3"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cdn3" />
 
                 <ImageView
                     android:id="@+id/cdn4"
@@ -107,11 +180,12 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn4_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn3_title"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cdn3_title"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn4_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -119,7 +193,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn4"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cdn4" />
 
                 <ImageView
                     android:id="@+id/cdn5"
@@ -129,11 +203,12 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn5_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn4_title"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cdn4_title"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn5_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -141,7 +216,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn5"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cdn5" />
 
                 <ImageView
                     android:id="@+id/cdn6"
@@ -151,11 +226,12 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn6_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn5_title"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cdn5_title"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn6_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -163,7 +239,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn7"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn6"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cdn6" />
 
                 <ImageView
                     android:id="@+id/cdn7"
@@ -173,11 +249,12 @@
                     app:layout_constraintBottom_toTopOf="@+id/cdn7_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn6_title"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cdn6_title"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/cdn7_title"
-                    style="@style/TextAppearance.AppCompat.Body2"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/ucw_standard"
@@ -185,7 +262,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cdn7"/>
+                    app:layout_constraintTop_toBottomOf="@+id/cdn7" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

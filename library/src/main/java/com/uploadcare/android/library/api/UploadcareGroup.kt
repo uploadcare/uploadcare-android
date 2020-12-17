@@ -6,16 +6,26 @@ import kotlinx.android.parcel.Parcelize
 import java.net.URI
 import java.util.*
 
-@Parcelize
+@Parcelize @Suppress("unused")
 data class UploadcareGroup(val id: String,
                            val url: URI,
                            val files: List<UploadcareFile>? = null,
-                           @Json(name = "datetime_created") val datetimeCreated: Date,
-                           @Json(name = "datetime_stored") val datetimeStored: Date,
-                           @Json(name = "files_count") val filesCount: Int,
+                           @Json(name = "datetime_created") val datetimeCreated: Date?,
+                           @Json(name = "datetime_stored") val datetimeStored: Date?,
+                           @Json(name = "files_count") val filesCount: Int = 0,
                            @Json(name = "cdn_url") val cdnUrl: URI) : Parcelable {
 
     fun hasFiles() = files != null
+
+    /**
+     * Mark all files in a group as stored. Sync operation.
+     *
+     * @return Updated Group resource instance
+     */
+    fun store(client: UploadcareClient): UploadcareGroup? {
+        client.storeGroup(id)
+        return client.getGroup(id)
+    }
 
     override fun toString(): String {
         val newline = System.getProperty("line.separator")

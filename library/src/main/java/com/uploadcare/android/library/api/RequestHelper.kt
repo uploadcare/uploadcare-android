@@ -20,6 +20,7 @@ import com.uploadcare.android.library.urls.Urls
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import java.io.IOException
+import java.lang.reflect.ParameterizedType
 import java.net.URI
 import java.security.GeneralSecurityException
 import java.security.InvalidKeyException
@@ -31,28 +32,29 @@ import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
 /**
- * A helper class for doing API calls to the Uploadcare API. Supports API version 0.5.
- * <p>
- * TODO Support of throttled requests needs to be added
+ * A helper class for doing API calls to the Uploadcare API. Supports API version 0.6.
  */
+@Suppress("unused")
 class RequestHelper(private val client: UploadcareClient) {
 
-    @Throws(NoSuchAlgorithmException::class, InvalidKeyException::class)
+    @Throws(NoSuchAlgorithmException::class, InvalidKeyException::class, UploadcareApiException::class)
     fun makeSignature(url: String,
                       date: String,
                       requestType: String,
                       requestBodyMD5: String? = null,
                       contentType: String? = null): String {
+        client.secretKey?: throw UploadcareApiException("Secret key is required for this request.")
+
         val uriStartIndex = url.indexOf(Urls.API_BASE) + Urls.API_BASE.length
         val uri = url.substring(uriStartIndex, url.length)
         val sb = StringBuilder()
         sb.append(requestType)
-                .append("\n").append(requestBodyMD5?.let { it } ?: "".md5())
-                .append("\n").append(contentType?.let { it } ?: JSON_CONTENT_TYPE)
+                .append("\n").append(requestBodyMD5 ?: "".md5())
+                .append("\n").append(contentType ?: JSON_CONTENT_TYPE)
                 .append("\n").append(date)
                 .append("\n").append(uri)
-        val privateKeyBytes = client.privateKey?.toByteArray() ?: "".toByteArray()
-        val signingKey = SecretKeySpec(privateKeyBytes, MAC_ALGORITHM)
+        val secretKeyBytes = client.secretKey.toByteArray()
+        val signingKey = SecretKeySpec(secretKeyBytes, MAC_ALGORITHM)
         val mac = Mac.getInstance(MAC_ALGORITHM)
         mac.init(signingKey)
         val hmacBytes = mac.doFinal(sb.toString().toByteArray())
@@ -69,15 +71,15 @@ class RequestHelper(private val client: UploadcareClient) {
         val calendar = GregorianCalendar(GMT)
         val formattedDate = rfc2822(calendar.time)
 
-        requestBuilder.addHeader("Content-Type", contentType?.let { it } ?: JSON_CONTENT_TYPE)
-        requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.5+json")
+        requestBuilder.addHeader("Content-Type", contentType ?: JSON_CONTENT_TYPE)
+        requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.6+json")
         requestBuilder.addHeader("Date", formattedDate)
         requestBuilder.addHeader("User-Agent",
                 String.format("javauploadcare-android/%s/%s", BuildConfig.VERSION_NAME,
                         client.publicKey))
         var authorization: String? = null
         if (client.simpleAuth) {
-            authorization = "Uploadcare.Simple " + client.publicKey + ":" + client.privateKey
+            authorization = "Uploadcare.Simple " + client.publicKey + ":" + client.secretKey
         } else {
             try {
                 val signature = makeSignature(url, formattedDate, requestType, requestBodyMD5,
@@ -97,16 +99,17 @@ class RequestHelper(private val client: UploadcareClient) {
         authorization?.let { requestBuilder.addHeader("Authorization", it) }
     }
 
+    @Throws(UploadcareApiException::class)
     fun <T : Any> executeQuery(requestType: String,
                                url: String,
                                apiHeaders: Boolean,
                                dataClass: Class<T>,
                                requestBody: RequestBody? = null,
                                requestBodyMD5: String? = null,
-                               urlParameters: List<UrlParameter>? = null): T {
+                               urlParameters: Collection<UrlParameter>? = null): T {
         val builder = Uri.parse(url).buildUpon()
         urlParameters?.let {
-            setQueryParameters(builder, urlParameters)
+            setQueryParameters(builder, it)
         }
         val pageUrl = trustedBuild(builder)
 
@@ -115,7 +118,7 @@ class RequestHelper(private val client: UploadcareClient) {
             REQUEST_GET -> requestBuilder.get()
             REQUEST_POST -> requestBody?.let { requestBuilder.post(it) }
             REQUEST_DELETE -> requestBody?.let { requestBuilder.delete(it) }
-                    ?: requestBuilder.delete()
+            REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
         }
         if (apiHeaders) {
             setApiHeaders(requestBuilder, url, requestType, requestBodyMD5 = requestBodyMD5,
@@ -123,7 +126,6 @@ class RequestHelper(private val client: UploadcareClient) {
         }
         try {
             val response = client.httpClient.newCall(requestBuilder.build()).execute()
-
             checkResponseStatus(response)
 
             response.body?.string()?.let {
@@ -131,7 +133,49 @@ class RequestHelper(private val client: UploadcareClient) {
                 result?.let { return result } ?: throw UploadcareApiException("Can't parse result")
             } ?: throw UploadcareApiException("No response")
         } catch (e: RuntimeException) {
-            throw UploadcareApiException(e)
+            throw UploadcareApiException(e.message)
+        } catch (e: IOException) {
+            throw UploadcareApiException(e.message)
+        }
+    }
+
+    @Throws(UploadcareApiException::class)
+    fun <T : Any> executeQuery(requestType: String,
+                               url: String,
+                               apiHeaders: Boolean,
+                               dataType: ParameterizedType,
+                               requestBody: RequestBody? = null,
+                               requestBodyMD5: String? = null,
+                               urlParameters: Collection<UrlParameter>? = null): T {
+        val builder = Uri.parse(url).buildUpon()
+        urlParameters?.let {
+            setQueryParameters(builder, it)
+        }
+        val pageUrl = trustedBuild(builder)
+
+        val requestBuilder = Request.Builder().url(pageUrl.toString())
+        when (requestType) {
+            REQUEST_GET -> requestBuilder.get()
+            REQUEST_POST -> requestBody?.let { requestBuilder.post(it) }
+            REQUEST_DELETE -> requestBody?.let { requestBuilder.delete(it) }
+            REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
+        }
+        if (apiHeaders) {
+            setApiHeaders(requestBuilder, url, requestType, requestBodyMD5 = requestBodyMD5,
+                    contentType = requestBody?.contentType().toString())
+        }
+        try {
+            val response = client.httpClient.newCall(requestBuilder.build()).execute()
+            checkResponseStatus(response)
+
+            response.body?.string()?.let {
+                val result = client.objectMapper.fromJson<T>(it, dataType)
+                result?.let { return result } ?: throw UploadcareApiException("Can't parse result")
+            } ?: throw UploadcareApiException("No response")
+        } catch (e: RuntimeException) {
+            throw UploadcareApiException(e.message)
+        } catch (e: IOException) {
+            throw UploadcareApiException(e.message)
         }
     }
 
@@ -142,13 +186,20 @@ class RequestHelper(private val client: UploadcareClient) {
                                     dataClass: Class<T>,
                                     callback: BaseCallback<T>? = null,
                                     requestBody: RequestBody? = null,
-                                    requestBodyMD5: String? = null) {
-        val requestBuilder = Request.Builder().url(url)
+                                    requestBodyMD5: String? = null,
+                                    urlParameters: Collection<UrlParameter>? = null) {
+        val builder = Uri.parse(url).buildUpon()
+        urlParameters?.let {
+            setQueryParameters(builder, it)
+        }
+        val pageUrl = trustedBuild(builder)
+
+        val requestBuilder = Request.Builder().url(pageUrl.toString())
         when (requestType) {
             REQUEST_GET -> requestBuilder.get()
             REQUEST_POST -> requestBody?.let { requestBuilder.post(it) }
             REQUEST_DELETE -> requestBody?.let { requestBuilder.delete(it) }
-                    ?: requestBuilder.delete()
+            REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
         }
         if (apiHeaders) {
             setApiHeaders(requestBuilder, url, requestType, callback, requestBodyMD5,
@@ -159,7 +210,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
             }
 
             @Throws(IOException::class)
@@ -173,8 +224,8 @@ class RequestHelper(private val client: UploadcareClient) {
                 try {
                     checkResponseStatus(response)
 
-                    response.body?.string()?.let {
-                        val result = client.objectMapper.fromJson(it, dataClass)
+                    response.body?.string()?.let { responseString ->
+                        val result = client.objectMapper.fromJson(responseString, dataClass)
                         mainHandler.post {
                             result?.let {
                                 callback?.onSuccess(it)
@@ -184,15 +235,77 @@ class RequestHelper(private val client: UploadcareClient) {
                             ?: mainHandler.post { callback?.onFailure(UploadcareApiException("No response")) }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                    mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
                 }
-
             }
         })
     }
 
+    fun <T : Any> executeQueryAsync(context: Context,
+                                    requestType: String,
+                                    url: String,
+                                    apiHeaders: Boolean,
+                                    dataType: ParameterizedType,
+                                    callback: BaseCallback<T>? = null,
+                                    requestBody: RequestBody? = null,
+                                    requestBodyMD5: String? = null,
+                                    urlParameters: Collection<UrlParameter>? = null) {
+        val builder = Uri.parse(url).buildUpon()
+        urlParameters?.let {
+            setQueryParameters(builder, it)
+        }
+        val pageUrl = trustedBuild(builder)
+
+        val requestBuilder = Request.Builder().url(pageUrl.toString())
+        when (requestType) {
+            REQUEST_GET -> requestBuilder.get()
+            REQUEST_POST -> requestBody?.let { requestBuilder.post(it) }
+            REQUEST_DELETE -> requestBody?.let { requestBuilder.delete(it) }
+            REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
+        }
+        if (apiHeaders) {
+            setApiHeaders(requestBuilder, url, requestType, callback, requestBodyMD5,
+                    requestBody?.contentType().toString())
+        }
+        client.httpClient.newCall(requestBuilder.build()).enqueue(object : Callback {
+            val mainHandler = Handler(context.mainLooper)
+
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful) {
+                    mainHandler.post {
+                        callback?.onFailure(UploadcareApiException("Unexpected code $response"))
+                    }
+                }
+
+                try {
+                    checkResponseStatus(response)
+
+                    response.body?.string()?.let { responseString ->
+                        val result = client.objectMapper.fromJson<T>(responseString, dataType)
+                        mainHandler.post {
+                            result?.let {
+                                callback?.onSuccess(it)
+                            } ?: callback?.onFailure(UploadcareApiException("Can't parse result"))
+                        }
+                    }
+                            ?: mainHandler.post { callback?.onFailure(UploadcareApiException("No response")) }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
+                }
+            }
+        })
+    }
+
+    @Throws(UploadcareApiException::class)
     fun <T : Any> executePaginatedQuery(url: URI,
-                                        urlParameters: List<UrlParameter>,
+                                        urlParameters: Collection<UrlParameter>,
                                         apiHeaders: Boolean,
                                         dataClass: Class<out PageData<T>>)
             : Iterable<T> {
@@ -250,7 +363,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
     fun executePaginatedQueryWithOffsetLimitAsync(context: Context,
                                                   url: URI,
-                                                  urlParameters: List<UrlParameter>,
+                                                  urlParameters: Collection<UrlParameter>,
                                                   apiHeaders: Boolean,
                                                   callback: UploadcareFilesCallback? = null) {
 
@@ -267,7 +380,7 @@ class RequestHelper(private val client: UploadcareClient) {
                 setApiHeaders(requestBuilder, pageUrl.toString(), REQUEST_GET, null)
             } catch (e: Exception) {
                 e.printStackTrace()
-                callback?.onFailure(UploadcareApiException(e))
+                callback?.onFailure(UploadcareApiException(e.message))
                 return
             }
 
@@ -277,7 +390,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
             }
 
             @Throws(IOException::class)
@@ -301,17 +414,16 @@ class RequestHelper(private val client: UploadcareClient) {
                             ?: mainHandler.post { callback?.onFailure(UploadcareApiException("No response")) }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                    mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
                 }
 
             }
         })
-
     }
 
     fun executeGroupsPaginatedQueryWithOffsetLimitAsync(context: Context,
                                                         url: URI,
-                                                        urlParameters: List<UrlParameter>,
+                                                        urlParameters: Collection<UrlParameter>,
                                                         apiHeaders: Boolean,
                                                         callback: UploadcareGroupsCallback?) {
 
@@ -328,7 +440,7 @@ class RequestHelper(private val client: UploadcareClient) {
                 setApiHeaders(requestBuilder, pageUrl.toString(), REQUEST_GET, null)
             } catch (e: Exception) {
                 e.printStackTrace()
-                callback?.onFailure(UploadcareApiException(e))
+                callback?.onFailure(UploadcareApiException(e.message))
                 return
             }
 
@@ -338,7 +450,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
             }
 
             @Throws(IOException::class)
@@ -362,7 +474,7 @@ class RequestHelper(private val client: UploadcareClient) {
                             ?: mainHandler.post { callback?.onFailure(UploadcareApiException("No response")) }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    mainHandler.post { callback?.onFailure(UploadcareApiException(e)) }
+                    mainHandler.post { callback?.onFailure(UploadcareApiException(e.message)) }
                 }
 
             }
@@ -384,6 +496,7 @@ class RequestHelper(private val client: UploadcareClient) {
      * @param requestBody body of POST request, used only with request type REQUEST_POST.
      * @return HTTP Response object
      */
+    @Throws(UploadcareApiException::class)
     fun executeCommand(requestType: String,
                        url: String,
                        apiHeaders: Boolean,
@@ -407,7 +520,7 @@ class RequestHelper(private val client: UploadcareClient) {
             checkResponseStatus(response)
             return response
         } catch (e: IOException) {
-            throw UploadcareApiException(e)
+            throw UploadcareApiException(e.message)
         }
     }
 
@@ -451,7 +564,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
             override fun onFailure(call: Call, e: IOException) {
                 if (callback != null) {
-                    mainHandler.post { callback.onFailure(UploadcareApiException(e)) }
+                    mainHandler.post { callback.onFailure(UploadcareApiException(e.message)) }
                 }
             }
 
@@ -460,9 +573,7 @@ class RequestHelper(private val client: UploadcareClient) {
                 if (!response.isSuccessful) {
                     if (callback != null) {
                         mainHandler.post {
-                            callback.onFailure(
-                                    UploadcareApiException(
-                                            "Unexpected code " + response.body?.string()))
+                            callback.onFailure(UploadcareApiException("Unexpected code $response"))
                         }
                     }
                 }
@@ -489,12 +600,12 @@ class RequestHelper(private val client: UploadcareClient) {
         if (statusCode in 200..299) {
             return
         } else if (statusCode == 401 || statusCode == 403) {
-            throw UploadcareAuthenticationException(response.body?.string())
+            throw UploadcareAuthenticationException("$response")
         } else if (statusCode == 400 || statusCode == 404) {
-            throw UploadcareInvalidRequestException(response.body?.string())
+            throw UploadcareInvalidRequestException("$response")
         } else {
             throw UploadcareApiException(
-                    "Unknown exception during an API call, response: ${response.body?.string()}")
+                    "Unknown exception during an API call, response: $response")
         }
     }
 
@@ -512,7 +623,7 @@ class RequestHelper(private val client: UploadcareClient) {
         val requestBody: String? = try {
             response.body?.string()
         } catch (e: IOException) {
-            callback?.onFailure(UploadcareApiException(e))
+            callback?.onFailure(UploadcareApiException(e.message))
             return
         }
 
@@ -540,7 +651,7 @@ class RequestHelper(private val client: UploadcareClient) {
 
         private const val DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss z"
 
-        private const val DATE_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        private const val DATE_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss"
 
         private val UTC = TimeZone.getTimeZone("UTC")
 
@@ -561,7 +672,7 @@ class RequestHelper(private val client: UploadcareClient) {
             timeZone = UTC
         }.format(date)
 
-        private fun setQueryParameters(builder: Uri.Builder, parameters: List<UrlParameter>) {
+        private fun setQueryParameters(builder: Uri.Builder, parameters: Collection<UrlParameter>) {
             for (parameter in parameters) {
                 builder.appendQueryParameter(parameter.getParam(), parameter.getValue())
             }

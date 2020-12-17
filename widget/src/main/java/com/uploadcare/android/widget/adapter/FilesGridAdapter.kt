@@ -33,11 +33,11 @@ class ThingGridViewHolder(private val binding: UcwFileItemBinding,
             } else {
                 thumbnail
             }
-            Picasso.with(binding.root.context)
+            Picasso.get()
                     .load(url)
                     .placeholder(placeHolderResource)
                     .into(binding.ucwItemTb)
-        } ?: Picasso.with(binding.root.context).load(placeHolderResource).into(binding.ucwItemTb)
+        } ?: Picasso.get().load(placeHolderResource).into(binding.ucwItemTb)
     }
 
     override fun getBinding(): ViewDataBinding {

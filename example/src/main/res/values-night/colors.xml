@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#9fa8da</color>
+    <color name="colorPrimaryVariant">#5c6bc0</color>
+    <color name="colorSecondary">#FF4081</color>
+
+    <color name="colorBackground">#121212</color>
+    <color name="colorBackgroundHalf">#616161</color>
+    <color name="onPrimary">#fff</color>
+    <color name="onSecondary">#fff</color>
+    <color name="onBackground">#fff</color>
+
+    <color name="colorGreenPrimary">#4CAF50</color>
+    <color name="colorGreenPrimaryVariant">#1b5e1f</color>
+    <color name="colorRedSecondary">#E53935</color>
+
+    <color name="statusBarColor">@android:color/black</color>
+</resources>

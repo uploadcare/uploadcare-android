@@ -29,4 +29,13 @@
     <string name="ucw_empty_content">Нет файлов</string>
     <string name="ucw_search_hint">Ввведите поисковый запрос</string>
     <string name="ucw_choose_file">Выберите файл для загрузки</string>
+
+    <string name="ucw_notification_channel_name">Загрузка файлов</string>
+    <string name="ucw_notification_channel_description">Нотификации во время загрузки файла.</string>
+    <string name="ucw_notification_cancel_download">Отмена</string>
+    <string name="ucw_notification_title">Загрузка файла</string>
+    <string name="ucw_notification_content_started">Начинаем загрузку</string>
+    <string name="ucw_notification_content_progress">Загружается…</string>
+    <string name="ucw_notification_content_error">Ошибка загрузки</string>
+    <string name="ucw_notification_content_completed">Загрузка завершена</string>
 </resources>

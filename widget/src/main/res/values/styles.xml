@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="UploadcareWidget" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="UploadcareWidget" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:background">@null</item>
+
         <item name="colorPrimary">?attr/uploadcareColorPrimary</item>
-        <item name="colorPrimaryDark">?attr/uploadcareColorPrimaryDark</item>
-        <item name="colorAccent">?attr/uploadcareColorAccent</item>
+        <item name="colorPrimaryVariant">?attr/uploadcareColorPrimaryVariant</item>
+        <item name="colorSecondary">?attr/uploadcareColorSecondary</item>
+        <item name="colorSecondaryVariant">@color/ucw_secondary_500</item>
+        <item name="colorSurface">@color/ucw_background</item>
+
+        <item name="colorOnPrimary">@color/ucw_on_primary</item>
+        <item name="colorOnSecondary">@color/ucw_on_secondary</item>
+        <item name="colorOnSurface">@color/ucw_on_surface</item>
+        <item name="colorOnBackground">@color/ucw_on_background</item>
+
+        <item name="android:colorBackground">@color/ucw_background</item>
+        <item name="android:statusBarColor">?attr/uploadcareColorPrimaryVariant</item>
     </style>
 
     <style name="UploadcareWidget.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
@@ -20,39 +29,53 @@
         <item name="android:windowExitAnimation">@null</item>
         <item name="android:animationDuration">0</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">?attr/uploadcareColorPrimaryDark</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
         <item name="colorPrimary">?attr/uploadcareColorPrimary</item>
-        <item name="colorPrimaryDark">?attr/uploadcareColorPrimaryDark</item>
-        <item name="colorAccent">?attr/uploadcareColorAccent</item>
+        <item name="colorPrimaryVariant">?attr/uploadcareColorPrimaryVariant</item>
+        <item name="colorSecondary">?attr/uploadcareColorSecondary</item>
+        <item name="colorSecondaryVariant">@color/ucw_secondary_500</item>
+        <item name="colorSurface">@color/ucw_background</item>
+
+        <item name="colorOnPrimary">@color/ucw_on_primary</item>
+        <item name="colorOnSecondary">@color/ucw_on_secondary</item>
+        <item name="colorOnSurface">@color/ucw_on_surface</item>
+        <item name="colorOnBackground">@color/ucw_on_background</item>
+
+        <item name="android:statusBarColor">?attr/uploadcareColorPrimaryVariant</item>
     </style>
 
-    <style name="UploadcareWidget.AppBarOverlay"
-           parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="UploadcareWidget.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="UploadcareWidget.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="UploadcareWidget.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
-    <style name="UploadcareWidget.Spinner"
-           parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
+    <style name="UploadcareWidget.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
         <item name="android:dropDownSelector">?attr/selectableItemBackground</item>
         <item name="android:divider">@null</item>
         <item name="android:overlapAnchor">true</item>
-        <item name="android:popupBackground">@color/ucw_solid_white</item>
+        <item name="android:popupBackground">@color/ucw_background</item>
     </style>
 
-    <style name="UploadcareWidget.AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">?attr/uploadcareColorAccent</item>
+    <style name="UploadcareWidget.AlertDialogStyle" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
         <item name="colorPrimary">?attr/uploadcareColorPrimary</item>
-        <item name="android:colorAccent">?attr/uploadcareColorAccent</item>
-        <item name="android:colorPrimary">?attr/uploadcareColorPrimary</item>
-        <item name="android:textColorPrimary">@color/ucw_solid_black</item>
-        <item name="android:textColorLink">?attr/uploadcareColorAccent</item>
-        <item name="android:background">@color/ucw_solid_white</item>
+        <item name="colorPrimaryVariant">?attr/uploadcareColorPrimaryVariant</item>
+        <item name="colorSecondary">?attr/uploadcareColorSecondary</item>
+        <item name="colorSecondaryVariant">@color/ucw_secondary_500</item>
+        <item name="android:textColorLink">?attr/colorSecondary</item>
+        <item name="colorSurface">@color/ucw_background</item>
+        <item name="android:colorBackground">@color/ucw_background</item>
+        <item name="colorOnPrimary">@color/ucw_on_primary</item>
+        <item name="colorOnSecondary">@color/ucw_on_secondary</item>
+        <item name="colorOnSurface">@color/ucw_on_surface</item>
+        <item name="colorOnBackground">@color/ucw_on_background</item>
     </style>
 
     <style name="UploadcareStyle">
-        <item name="uploadcareColorAccent">@color/ucw_accent_400</item>
         <item name="uploadcareColorPrimary">@color/ucw_primary_500</item>
-        <item name="uploadcareColorPrimaryDark">@color/ucw_primary_700</item>
+        <item name="uploadcareColorPrimaryVariant">@color/ucw_primary_700</item>
+        <item name="uploadcareColorSecondary">@color/ucw_secondary_200</item>
     </style>
 </resources>

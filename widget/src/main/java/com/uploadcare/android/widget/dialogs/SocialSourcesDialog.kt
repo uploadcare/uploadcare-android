@@ -33,10 +33,10 @@ class SocialSourcesDialog : DialogFragment() {
         val title = arguments?.getString(DIALOG_TITLE)
         val fileType = arguments?.getString(DIALOG_FILE_TYPE)?.let { FileType.valueOf(it) }
                 ?: FileType.any
-        val sources = arguments?.getParcelableArrayList<SocialSource>(DIALOG_SOUCES)
+        val sources = arguments?.getParcelableArrayList(DIALOG_SOUCES)
                 ?: listOf<SocialSource>()
 
-        val dialogBuilder = AlertDialog.Builder(context!!,
+        val dialogBuilder = AlertDialog.Builder(requireContext(),
                 R.style.UploadcareWidget_AlertDialogStyle).apply {
             setCancelable(true)
             setTitle(title)

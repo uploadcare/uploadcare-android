@@ -1,8 +1,9 @@
-<manifest package="com.uploadcare.android.widget"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.uploadcare.android.widget">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,7 @@
         <activity
             android:name=".activity.UploadcareActivity"
             android:label="@string/ucw_uploadcare_activity_title"
-            android:theme="@style/UploadcareWidget.NoActionBar"/>
+            android:theme="@style/UploadcareWidget.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -20,8 +21,19 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            tools:node="remove"
+            tools:ignore="ExportedContentProvider" />
+
+        <provider
+            android:name=".worker.UploadcareWorkManagerInitializer"
+            android:authorities="${applicationId}.UploadcareWorkManagerInitializer"
+            android:exported="false" />
     </application>
 
 </manifest>

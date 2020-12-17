@@ -19,7 +19,7 @@
 
         <TextView
             android:id="@+id/ucw_spinner_title"
-            style="@style/TextAppearance.AppCompat.Subhead"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
@@ -29,7 +29,7 @@
             android:paddingStart="@dimen/ucw_standard"
             android:text="@{text}"
             android:textAlignment="gravity"
-            android:textColor="@color/ucw_solid_black"
+            android:textColor="@color/ucw_on_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

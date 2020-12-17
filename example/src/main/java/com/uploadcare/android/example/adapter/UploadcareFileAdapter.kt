@@ -9,6 +9,7 @@ import com.uploadcare.android.example.databinding.FileItemBinding
 import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.urls.Urls
 
+@Suppress("unused")
 class UploadcareFileAdapter(private val clickObserver: ((UploadcareFile) -> Unit)? = null)
     : RecyclerView.Adapter<UploadcareFileViewHolder>() {
 
@@ -60,7 +61,7 @@ class UploadcareFileViewHolder(private val binding: FileItemBinding,
         builder.resizeWidth(250)
         builder.cropCenter(250, 250)
         val url = Urls.cdn(builder)
-        Picasso.with(binding.image.context).load(url.toString()).into(binding.image)
+        Picasso.get().load(url.toString()).into(binding.image)
     }
 
     fun select(uploadcareFile: UploadcareFile) {

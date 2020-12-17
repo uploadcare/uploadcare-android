@@ -2,25 +2,26 @@ package com.uploadcare.android.library.api
 
 import android.content.Context
 import android.os.AsyncTask
+import android.text.TextUtils
 import com.squareup.moshi.Types
 import com.uploadcare.android.library.BuildConfig
 import com.uploadcare.android.library.api.RequestHelper.Companion.md5
 import com.uploadcare.android.library.callbacks.*
-import com.uploadcare.android.library.data.CopyFileData
+import com.uploadcare.android.library.data.CopyOptionsData
 import com.uploadcare.android.library.data.ObjectMapper
+import com.uploadcare.android.library.data.WebhookOptionsData
+import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.exceptions.UploadcareApiException
-import com.uploadcare.android.library.urls.FileIdParameter
-import com.uploadcare.android.library.urls.PublicKeyParameter
-import com.uploadcare.android.library.urls.UrlParameter
+import com.uploadcare.android.library.urls.AddFieldsParameter
 import com.uploadcare.android.library.urls.Urls
-import okhttp3.FormBody
 import okhttp3.Interceptor
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import okio.ByteString.Companion.encodeUtf8
+import java.net.URI
 import java.util.concurrent.TimeUnit
 
 /**
@@ -28,17 +29,18 @@ import java.util.concurrent.TimeUnit
  * Can use simple or secure authentication.
  *
  * @param publicKey  Public key
- * @param privateKey Private key, required for any request to Uploadcare REST API.
+ * @param secretKey Private key, required for any request to Uploadcare REST API.
  * @param simpleAuth If {@code false}, HMAC-based authentication is used, otherwise simple
  * authentication is used.
  */
+@Suppress("unused") @SuppressWarnings("WeakerAccess")
 class UploadcareClient constructor(val publicKey: String,
-                                   val privateKey: String? = null,
+                                   val secretKey: String? = null,
                                    val simpleAuth: Boolean = false) {
 
     constructor(publicKey: String) : this(publicKey, null, false)
 
-    constructor(publicKey: String, privateKey: String) : this(publicKey, privateKey, false)
+    constructor(publicKey: String, secretKey: String) : this(publicKey, secretKey, false)
 
     val httpClient: OkHttpClient
     val requestHelper: RequestHelper
@@ -47,7 +49,7 @@ class UploadcareClient constructor(val publicKey: String,
     init {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = if (BuildConfig.DEBUG) {
-                HttpLoggingInterceptor.Level.BODY
+                HttpLoggingInterceptor.Level.BASIC
             } else {
                 HttpLoggingInterceptor.Level.NONE
             }
@@ -56,9 +58,9 @@ class UploadcareClient constructor(val publicKey: String,
         httpClient = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(PublicKeyInterceptor(publicKey))
-                .callTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .callTimeout(5, TimeUnit.MINUTES)
+                .writeTimeout(3, TimeUnit.MINUTES)
+                .readTimeout(1, TimeUnit.MINUTES)
                 .build()
 
         requestHelper = DefaultRequestHelperProvider().get(this)
@@ -89,17 +91,16 @@ class UploadcareClient constructor(val publicKey: String,
     }
 
     /**
-     * Request file data for uploaded file. Does not require "privatekey" set for UploadcareClient.
+     * Request file data for uploaded file. Does not require "secretKey" set for UploadcareClient.
+     *
+     * @param fileId Resource UUID
+     * @return UploadcareFile resource
      */
-    fun getUploadedFile(publicKey: String, fileId: String): UploadcareFile {
-        val url = Urls.apiUploadedFile(fileId)
-
-        val parameters: MutableList<UrlParameter> = mutableListOf()
-        parameters.add(PublicKeyParameter(publicKey))
-        parameters.add(FileIdParameter(fileId))
+    fun getUploadedFile(fileId: String): UploadcareFile {
+        val url = Urls.apiUploadedFile(publicKey, fileId)
 
         return requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(),
-                false, UploadcareFile::class.java, urlParameters = parameters)
+                false, UploadcareFile::class.java)
     }
 
     /**
@@ -129,6 +130,34 @@ class UploadcareClient constructor(val publicKey: String,
     }
 
     /**
+     * Requests file data, with Rekognition Info if available.
+     *
+     * @param fileId Resource UUID
+     * @return UploadcareFile resource
+     */
+    fun getFileWithRekognitionInfo(fileId: String): UploadcareFile {
+        val url = Urls.apiFile(fileId)
+        return requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(),
+                true, UploadcareFile::class.java,
+                urlParameters = listOf(AddFieldsParameter("rekognition_info")))
+    }
+
+    /**
+     * Requests file data, with Rekognition Info if available, Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param fileId   Resource UUID
+     * @param callback callback  [UploadcareFileCallback] with either
+     * an UploadcareFile response or a failure exception.
+     */
+    fun getFileWithRekognitionInfoAsync(context: Context, fileId: String, callback: UploadcareFileCallback? = null) {
+        val url = Urls.apiFile(fileId)
+        requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_GET, url.toString(), true,
+                UploadcareFile::class.java, callback,
+                urlParameters = listOf(AddFieldsParameter("rekognition_info")))
+    }
+
+    /**
      * Requests group data.
      *
      * @param groupId Group ID
@@ -138,6 +167,18 @@ class UploadcareClient constructor(val publicKey: String,
         val url = Urls.apiGroup(groupId)
         return requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(),
                 true, UploadcareGroup::class.java)
+    }
+
+    /**
+     * Request file data for uploaded file. Does not require "secretKey" set for UploadcareClient.
+     *
+     * @param groupId Group ID
+     */
+    fun getUploadedGroup(groupId: String): UploadcareGroup {
+        val url = Urls.apiUploadedGroup(publicKey, groupId)
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(),
+                false, UploadcareGroup::class.java)
     }
 
     /**
@@ -160,9 +201,9 @@ class UploadcareClient constructor(val publicKey: String,
      * @param groupId Group ID
      */
     fun storeGroup(groupId: String) {
-        val requestBody = groupId.toRequestBody("".toMediaTypeOrNull())
+        val requestBody = groupId.encodeUtf8().toRequestBody(RequestHelper.JSON)
         val url = Urls.apiGroupStorage(groupId)
-        requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, requestBody)
+        requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, requestBody, groupId.md5())
     }
 
     /**
@@ -174,10 +215,10 @@ class UploadcareClient constructor(val publicKey: String,
      * an HTTP response or a failure exception.
      */
     fun storeGroupAsync(context: Context, groupId: String, callback: RequestCallback? = null) {
-        val requestBody = groupId.toRequestBody("".toMediaTypeOrNull())
+        val requestBody = groupId.encodeUtf8().toRequestBody(RequestHelper.JSON)
         val url = Urls.apiGroupStorage(groupId)
         requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
-                true, callback, requestBody)
+                true, callback, requestBody, groupId.md5())
     }
 
     /**
@@ -419,49 +460,437 @@ class UploadcareClient constructor(val publicKey: String,
     }
 
     /**
-     * @param fileId  Resource UUID
-     * @param storage Target storage name
-     * @return An object containing the results of the copy request
+     * @deprecated Use {@link #copyFileLocalStorage(String, Boolean)}
+     * or {@link #copyFileRemoteStorage(String, String, Boolean, String)} instead.
+     *
+     * @param source  File Resource UUID or A CDN URL.
+     * @param storage Target storage name. If {@code null} local file copy will be executed,
+     * else remote file copy will be executed.
+     *
+     * @return UploadcareCopyFile resource with result of Copy operation
      */
-    fun copyFile(fileId: String, storage: String?): CopyFileData {
-        val url = Urls.apiFiles()
-
-        val formBuilder = FormBody.Builder().add("source", fileId)
-
-        if (storage != null && !storage.isEmpty()) {
-            formBuilder.add("target", storage)
+    @Deprecated(message = "Deprecated since v2.3.0", replaceWith = ReplaceWith("copyFileRemoteStorage(source, storage)"))
+    fun copyFile(source: String, storage: String? = null): UploadcareCopyFile {
+        return if (!TextUtils.isEmpty(storage)) {
+            copyFileRemoteStorage(source, storage)
+        } else {
+            copyFileLocalStorage(source)
         }
-        val formBody = formBuilder.build()
-        return requestHelper.executeQuery(RequestHelper.REQUEST_POST, url.toString(), true,
-                CopyFileData::class.java, formBody, formBody.md5())
     }
 
     /**
-     * @param context  Application context. @link android.content.Context
-     * @param fileId   Resource UUID
-     * @param storage  Target storage name
-     * @param callback callback  [CopyFileCallback] with either
-     * an CopyFileData response or a failure exception.
+     * Copy file to local storage. Copy original files or their modified versions to default storage. Source files MAY
+     * either be stored or just uploaded and MUST NOT be deleted.
+     *
+     * @param source     File Resource UUID or A CDN URL.
+     * @param store      The parameter only applies to the Uploadcare storage and MUST be either true or false.
+     *
+     * @return An object containing the results of the copy request
      */
-    fun copyFileAsync(context: Context, fileId: String, storage: String?,
-                      callback: CopyFileCallback? = null) {
-        val url = Urls.apiFiles()
+    fun copyFileLocalStorage(source: String, store: Boolean = true): UploadcareCopyFile {
+        val copyOptionsData = CopyOptionsData(source, store = store)
 
-        val formBuilder = FormBody.Builder().add("source", fileId)
-        if (storage != null && !storage.isEmpty()) {
-            formBuilder.add("target", storage)
+        val requestBodyContent = objectMapper.toJson(copyOptionsData, CopyOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+
+        val url = Urls.apiFileLocalCopy()
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_POST, url.toString(), true,
+                UploadcareCopyFile::class.java, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Copy file to remote storage. Copy original files or their modified versions to a custom storage. Source files
+     * MAY either be stored or just uploaded and MUST NOT be deleted.
+     *
+     * @param source     File Resource UUID or A CDN URL.
+     * @param target     Identifies a custom storage name related to your project. Implies you are copying a file to a
+     *                   specified custom storage. Keep in mind you can have multiple storages associated with a single
+     *                   S3 bucket.
+     * @param makePublic MUST be either true or false. true to make copied files available via public links, false to
+     *                   reverse the behavior.
+     * @param pattern    The parameter is used to specify file names Uploadcare passes to a custom storage. In case the
+     *                   parameter is omitted, we use pattern of your custom storage. Use any combination of allowed
+     *                   values.
+     *
+     * @return An object containing the results of the copy request
+     */
+    fun copyFileRemoteStorage(source: String,
+                              target: String? = null,
+                              makePublic: Boolean = true,
+                              pattern: String? = null): UploadcareCopyFile {
+        val copyOptionsData = CopyOptionsData(
+                source,
+                target = target,
+                makePublic = makePublic,
+                pattern = pattern)
+
+        val requestBodyContent = objectMapper.toJson(copyOptionsData, CopyOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+
+        val url = Urls.apiFileRemoteCopy()
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_POST, url.toString(), true,
+                UploadcareCopyFile::class.java, body, requestBodyContent.md5())
+    }
+
+    /**
+     * @deprecated Use {@link #copyFileLocalStorageAsync(Context, String, Boolean, Callback)}
+     * or {@link #copyFileRemoteStorageAsync(Context, String, String, Boolean, String, Callback)} instead.
+     *
+     * @param context  Application context. @link android.content.Context
+     * @param source  File Resource UUID or A CDN URL.
+     * @param storage Target storage name. If {@code null} local file copy will be executed,
+     * else remote file copy will be executed.
+     * @param callback callback  [CopyFileCallback] with either
+     * an UploadcareCopyFile response or a failure exception.
+     */
+    @Deprecated(message = "Deprecated since v2.3.0", replaceWith = ReplaceWith("copyFileRemoteStorageAsync(context, source, storage, callback)"))
+    fun copyFileAsync(context: Context,
+                      source: String,
+                      storage: String? = null,
+                      callback: CopyFileCallback? = null) {
+        if (!TextUtils.isEmpty(storage)) {
+            copyFileRemoteStorageAsync(context, source, storage, callback = callback)
+        } else {
+            copyFileLocalStorageAsync(context, source, callback = callback)
         }
-        val formBody = formBuilder.build()
+    }
+
+    /**
+     * Copy file to local storage. Copy original files or their modified versions to default storage. Source files MAY
+     * either be stored or just uploaded and MUST NOT be deleted.
+     *
+     * @param context  Application context. @link android.content.Context
+     * @param source     File Resource UUID or A CDN URL.
+     * @param store      The parameter only applies to the Uploadcare storage and MUST be either true or false.
+     * @param callback callback  [CopyFileCallback] with either
+     * an UploadcareCopyFile response or a failure exception.
+     */
+    fun copyFileLocalStorageAsync(context: Context,
+                                  source: String,
+                                  store: Boolean = true,
+                                  callback: CopyFileCallback? = null) {
+        val copyOptionsData = CopyOptionsData(source, store = store)
+
+        val requestBodyContent = objectMapper.toJson(copyOptionsData, CopyOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+
+        val url = Urls.apiFileLocalCopy()
 
         requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_POST, url.toString(), true,
-                CopyFileData::class.java, callback, formBody, formBody.md5())
+                UploadcareCopyFile::class.java, callback, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Copy file to remote storage. Copy original files or their modified versions to a custom storage. Source files
+     * MAY either be stored or just uploaded and MUST NOT be deleted.
+     *
+     * @param context  Application context. @link android.content.Context
+     * @param source     File Resource UUID or A CDN URL.
+     * @param target     Identifies a custom storage name related to your project. Implies you are copying a file to a
+     *                   specified custom storage. Keep in mind you can have multiple storages associated with a single
+     *                   S3 bucket.
+     * @param makePublic MUST be either true or false. true to make copied files available via public links, false to
+     *                   reverse the behavior.
+     * @param pattern    The parameter is used to specify file names Uploadcare passes to a custom storage. In case the
+     *                   parameter is omitted, we use pattern of your custom storage. Use any combination of allowed
+     *                   values.
+     * @param callback callback  [CopyFileCallback] with either
+     * an UploadcareCopyFile response or a failure exception.
+     */
+    fun copyFileRemoteStorageAsync(context: Context,
+                                   source: String,
+                                   target: String? = null,
+                                   makePublic: Boolean = true,
+                                   pattern: String? = null,
+                                   callback: CopyFileCallback? = null) {
+        val copyOptionsData = CopyOptionsData(
+                source,
+                target = target,
+                makePublic = makePublic,
+                pattern = pattern)
+
+        val requestBodyContent = objectMapper.toJson(copyOptionsData, CopyOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+
+        val url = Urls.apiFileRemoteCopy()
+
+        requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_POST, url.toString(), true,
+                UploadcareCopyFile::class.java, callback, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Create files group from a set of files by using their UUIDs.
+     *
+     * @param fileIds  That parameter defines a set of files you want to join in a group.
+     * @param jsonpCallback Sets the name of your JSONP callback function.
+     *
+     * @return New created Group resource instance.
+     */
+    fun createGroup(fileIds: List<String>, jsonpCallback: String? = null): UploadcareGroup {
+        return createGroupInternal(fileIds, jsonpCallback = jsonpCallback)
+    }
+
+    /**
+     * Create files group from a set of files by using their UUIDs. Using Signed Uploads.
+     *
+     * @param fileIds  That parameter defines a set of files you want to join in a group.
+     * @param signature is a string sent along with your upload request. It requires your Uploadcare
+     *                  project secret key and hence should be crafted on your back end.
+     * @param expire    sets the time until your signature is valid. It is a Unix time.(ex 1454902434)
+     * @param jsonpCallback Sets the name of your JSONP callback function.
+     *
+     * @return New created Group resource instance.
+     */
+    fun createGroupSigned(fileIds: List<String>,
+                          signature: String,
+                          expire: String,
+                          jsonpCallback: String? = null): UploadcareGroup {
+        return createGroupInternal(fileIds, jsonpCallback = jsonpCallback,
+                signature = signature, expire = expire)
+    }
+
+    /**
+     * Create files group from a set of files by using their UUIDs.
+     *
+     * @param fileIds  That parameter defines a set of files you want to join in a group.
+     * @param jsonpCallback Sets the name of your JSONP callback function.
+     * @param callback callback  [UploadcareGroupCallback] with either
+     * an UploadcareGroup response or a failure exception.
+     */
+    fun createGroupAsync(fileIds: List<String>,
+                         jsonpCallback: String? = null,
+                         callback: UploadcareGroupCallback? = null) {
+        CreateGroupTask(this, fileIds, jsonpCallback = jsonpCallback, callback = callback).execute()
+    }
+
+    /**
+     * Create files group from a set of files by using their UUIDs.
+     *
+     * @param fileIds  That parameter defines a set of files you want to join in a group.
+     * @param signature is a string sent along with your upload request. It requires your Uploadcare
+     *                  project secret key and hence should be crafted on your back end.
+     * @param expire    sets the time until your signature is valid. It is a Unix time.(ex 1454902434)
+     * @param jsonpCallback Sets the name of your JSONP callback function.
+     * @param callback callback  [UploadcareGroupCallback] with either
+     * an UploadcareGroup response or a failure exception.
+     */
+    fun createGroupSignedAsync(context: Context,
+                               fileIds: List<String>,
+                               signature: String,
+                               expire: String,
+                               jsonpCallback: String? = null,
+                               callback: UploadcareGroupCallback? = null) {
+        CreateGroupTask(
+                this,
+                fileIds,
+                jsonpCallback = jsonpCallback,
+                signature = signature,
+                expire = expire,
+                callback = callback)
+                .execute()
+    }
+
+    /**
+     * Requests Webhooks data.
+     *
+     * @return list of Webhooks resources.
+     */
+    fun getWebhooks(): List<UploadcareWebhook> {
+        val url = Urls.apiWebhooks()
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(), true,
+                Types.newParameterizedType(List::class.java, UploadcareWebhook::class.java))
+    }
+
+    /**
+     * Requests Webhooks data Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param callback callback  [UploadcareWebhooksCallback] with either
+     * a response with List of UploadcareWebhook or a failure exception.
+     */
+    fun getWebhooksAsync(context: Context, callback: UploadcareWebhooksCallback) {
+        val url = Urls.apiWebhooks()
+
+        requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_GET, url.toString(), true,
+                Types.newParameterizedType(List::class.java, UploadcareWebhook::class.java), callback)
+    }
+
+    /**
+     * Create and subscribe to webhook.
+     *
+     * @param targetUrl A URL that is triggered by an event.
+     * @param event An event you subscribe to. Only "file.uploaded" event supported.
+     * @param isActive Marks a subscription as either active or not.
+     *
+     * @return New created webhook resource instance.
+     */
+    fun createWebhook(targetUrl: URI, event: String, isActive: Boolean = true): UploadcareWebhook {
+        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive)
+
+        val requestBodyContent = objectMapper.toJson(webhookOptionsData,
+                WebhookOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = Urls.apiWebhooks()
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_POST, url.toString(), true,
+                UploadcareWebhook::class.java, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Create and subscribe to webhook Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param targetUrl A URL that is triggered by an event.
+     * @param event An event you subscribe to. Only "file.uploaded" event supported.
+     * @param isActive  Marks a subscription as either active or not. Default value is {@code true}.
+     * @param callback callback  [UploadcareWebhookCallback] with either
+     * a response with UploadcareWebhook or a failure exception.
+     */
+    fun createWebhookAsync(context: Context,
+                           targetUrl: URI,
+                           event: String,
+                           isActive: Boolean = true,
+                           callback: UploadcareWebhookCallback) {
+        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive)
+
+        val requestBodyContent = objectMapper.toJson(webhookOptionsData,
+                WebhookOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = Urls.apiWebhooks()
+
+        requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_POST, url.toString(), true,
+                UploadcareWebhook::class.java, callback, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Update webhook attributes.
+     *
+     * @param webhookId Webhook id. If {@code null} then this field won't be updated.
+     * @param targetUrl A URL that is triggered by an event. If {@code null} then this field won't be updated.
+     * @param event     An event you subscribe to. Only "file.uploaded" event supported. If {@code null} then this field
+     *                  won't be updated.
+     * @param isActive  Marks a subscription as either active or not. Default value is {@code true}.
+     *
+     * @return New webhook resource instance.
+     */
+    fun updateWebhook(webhookId: Int,
+                      targetUrl: URI,
+                      event: String,
+                      isActive: Boolean = true): UploadcareWebhook {
+        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive)
+
+        val requestBodyContent = objectMapper.toJson(webhookOptionsData,
+                WebhookOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = Urls.apiWebhook(webhookId)
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_PUT, url.toString(), true,
+                UploadcareWebhook::class.java, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Update webhook attributes Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param webhookId Webhook id. If {@code null} then this field won't be updated.
+     * @param targetUrl A URL that is triggered by an event. If {@code null} then this field won't be updated.
+     * @param event     An event you subscribe to. Only "file.uploaded" event supported. If {@code null} then this field
+     *                  won't be updated.
+     * @param isActive  Marks a subscription as either active or not. Default value is {@code true}.
+     * @param callback callback  [UploadcareWebhookCallback] with either
+     * a response with UploadcareWebhook or a failure exception.
+     */
+    fun updateWebhookAsync(context: Context,
+                           webhookId: Int,
+                           targetUrl: URI,
+                           event: String,
+                           isActive: Boolean = true,
+                           callback: UploadcareWebhookCallback) {
+        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive)
+
+        val requestBodyContent = objectMapper.toJson(webhookOptionsData,
+                WebhookOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = Urls.apiWebhook(webhookId)
+
+        requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_PUT, url.toString(), true,
+                UploadcareWebhook::class.java, callback, body, requestBodyContent.md5())
+    }
+
+    /**
+     * Unsubscribe and delete webhook.
+     *
+     * @param targetUrl A URL that is triggered by an event from Webhook.
+     *
+     * @return Response with result of the operation or information about failure.
+     */
+    fun deleteWebhook(targetUrl: URI): Response {
+        val webhookOptionsData = WebhookOptionsData(targetUrl = targetUrl)
+
+        val requestBodyContent = objectMapper.toJson(webhookOptionsData,
+                WebhookOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = Urls.apiDeleteWebhook()
+
+        return requestHelper.executeCommand(RequestHelper.REQUEST_DELETE, url.toString(), true, body,
+                requestBodyContent.md5())
+    }
+
+    /**
+     * Unsubscribe and delete webhook Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param targetUrl A URL that is triggered by an event from Webhook.
+     * @param callback callback  [RequestCallback] with a response result information.
+     */
+    fun deleteWebhookAsync(context: Context, targetUrl: URI, callback: RequestCallback? = null) {
+        val webhookOptionsData = WebhookOptionsData(targetUrl = targetUrl)
+
+        val requestBodyContent = objectMapper.toJson(webhookOptionsData,
+                WebhookOptionsData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = Urls.apiDeleteWebhook()
+
+        requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE, url.toString(),
+                true, callback, body, requestBodyContent.md5())
+    }
+
+    internal fun createGroupInternal(fileIds: List<String>,
+                                     jsonpCallback: String? = null,
+                                     signature: String? = null,
+                                     expire: String? = null): UploadcareGroup {
+        val multipartBuilder = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("pub_key", publicKey)
+
+        jsonpCallback?.let {
+            multipartBuilder.addFormDataPart("callback", it)
+        }
+
+        if (!TextUtils.isEmpty(signature) && !TextUtils.isEmpty(expire)) {
+            multipartBuilder.addFormDataPart("signature", signature!!)
+            multipartBuilder.addFormDataPart("expire", expire!!)
+        }
+
+        for (i in fileIds.indices) {
+            multipartBuilder.addFormDataPart("files[$i]", fileIds[i])
+        }
+
+        val url = Urls.apiCreateGroup()
+        val body = multipartBuilder.build()
+
+        return requestHelper.executeQuery(RequestHelper.REQUEST_POST,
+                url.toString(), false, UploadcareGroup::class.java, body)
     }
 
     internal fun executeSaveDeleteBatchCommand(requestType: String,
                                                fileIds: List<String>): Response? {
         val url = Urls.apiFilesBatch()
         var lastResponse: Response? = null
-        for (offset in 0 until fileIds.size step MAX_SAVE_DELETE_BATCH_SIZE) {
+        for (offset in fileIds.indices step MAX_SAVE_DELETE_BATCH_SIZE) {
             val endIndex = if (offset + MAX_SAVE_DELETE_BATCH_SIZE >= fileIds.size)
                 fileIds.size - 1
             else offset + (MAX_SAVE_DELETE_BATCH_SIZE - 1)
@@ -484,7 +913,7 @@ class UploadcareClient constructor(val publicKey: String,
 
         @JvmStatic
         fun demoClient(): UploadcareClient {
-            return UploadcareClient("demopublickey", "demoprivatekey")
+            return UploadcareClient("demopublickey", "demosecretkey")
         }
 
         @JvmStatic
@@ -527,4 +956,28 @@ private class SaveDeleteBatchTask(private val client: UploadcareClient,
         }
     }
 
+}
+
+private class CreateGroupTask(private val client: UploadcareClient,
+                              private val fileIds: List<String>,
+                              private val jsonpCallback: String? = null,
+                              private val signature: String? = null,
+                              private val expire: String? = null,
+                              private val callback: UploadcareGroupCallback? = null)
+    : AsyncTask<Void, Void, UploadcareGroup?>() {
+    override fun doInBackground(vararg p0: Void?): UploadcareGroup? {
+        return try {
+            client.createGroupInternal(fileIds, jsonpCallback, signature, expire)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    override fun onPostExecute(result: UploadcareGroup?) {
+        if (result != null) {
+            callback?.onSuccess(result)
+        } else {
+            callback?.onFailure(UploadFailureException())
+        }
+    }
 }

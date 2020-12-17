@@ -7,7 +7,6 @@ import android.view.*
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.navArgs
@@ -19,11 +18,12 @@ import com.uploadcare.android.widget.adapter.ToolbarSpinnerAdapter
 import com.uploadcare.android.widget.controller.UploadcareWidgetResult
 import com.uploadcare.android.widget.data.Chunk
 import com.uploadcare.android.widget.databinding.UcwFragmentFilesBinding
+import com.uploadcare.android.widget.dialogs.CancelUploadListener
 import com.uploadcare.android.widget.utils.NavigationHelper
 import com.uploadcare.android.widget.viewmodels.UploadcareFilesViewModel
 
 class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
-        OnFileActionsListener, OnAuthListener {
+        OnFileActionsListener, OnAuthListener, CancelUploadListener {
 
     private lateinit var binding: UcwFragmentFilesBinding
     private lateinit var viewModel: UploadcareFilesViewModel
@@ -39,6 +39,7 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
                               savedInstanceState: Bundle?): View {
         binding = UcwFragmentFilesBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get()
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         (activity as AppCompatActivity).let {
@@ -56,28 +57,42 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
             }
         }
 
-        viewModel.progressDialogCommand.observe(this.viewLifecycleOwner, Observer { pait ->
-            if (pait.first) {
-                NavigationHelper.showProgressDialog(childFragmentManager, pait.second)
+        viewModel.progressDialogCommand.observe(this.viewLifecycleOwner, { progressData ->
+            if (progressData.show) {
+                NavigationHelper.showProgressDialog(childFragmentManager, progressData)
             } else {
                 NavigationHelper.dismissProgressDialog(childFragmentManager)
             }
         })
-        viewModel.closeWidgetCommand.observe(this.viewLifecycleOwner, Observer { exception ->
+        viewModel.uploadProgress.observe(this.viewLifecycleOwner, { progress ->
+            NavigationHelper.updateProgressDialogProgress(childFragmentManager, progress)
+        })
+        viewModel.closeWidgetCommand.observe(this.viewLifecycleOwner, { exception ->
             activity?.setResult(Activity.RESULT_OK, Intent().apply {
                 putExtra("result",
                         UploadcareWidgetResult(exception = UploadcareException(exception?.message)))
             })
             activity?.finish()
         })
-        viewModel.uploadCompleteCommand.observe(this.viewLifecycleOwner, Observer { uploadcareFile ->
+        viewModel.uploadCompleteCommand.observe(this.viewLifecycleOwner, { uploadcareFile ->
             activity?.setResult(Activity.RESULT_OK, Intent().apply {
                 putExtra("result", UploadcareWidgetResult(uploadcareFile = uploadcareFile))
             })
             activity?.finish()
         })
+        viewModel.uploadingInBackgroundCommand.observe(this.viewLifecycleOwner, { uuid ->
+            activity?.setResult(Activity.RESULT_OK, Intent().apply {
+                putExtra("result", UploadcareWidgetResult(backgroundUploadUUID = uuid))
+            })
+            activity?.finish()
+        })
 
-        viewModel.start(args.socialsource, args.store)
+        viewModel.start(
+                args.socialsource,
+                args.store,
+                args.cancelable,
+                args.showProgress,
+                args.backgroundUpload)
 
         childFragmentManager.addOnBackStackChangedListener {
             val chunkFragment = childFragmentManager.findFragmentByTag(fragmentTag)
@@ -170,9 +185,13 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
         activity?.finish()
     }
 
+    override fun onCancelUpload() {
+        viewModel.canlcelUpload()
+    }
+
     private fun updateTitle(title: String?) {
         (activity as AppCompatActivity).let {
-            viewModel.isRoot.set(title == null)
+            viewModel.isRoot.value = (title == null)
             title?.let { updatedTitle ->
                 it.supportActionBar?.apply {
                     setTitle(updatedTitle)

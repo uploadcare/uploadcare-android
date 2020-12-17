@@ -4,12 +4,14 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.uploadcare.android.library.utils.AsStringAdapter
 
 import com.uploadcare.android.library.utils.MoshiAdapter
 import java.lang.reflect.Type
 import java.util.*
 import kotlin.reflect.KClass
 
+@Suppress("unused")
 class ObjectMapper(val moshi: Moshi) {
 
     fun <T : Any> fromJson(json: String, classOfT: Class<T>): T? {
@@ -35,6 +37,7 @@ class ObjectMapper(val moshi: Moshi) {
     companion object {
         fun build(): ObjectMapper {
             return ObjectMapper(Moshi.Builder()
+                    .add(AsStringAdapter.FACTORY)
                     .add(KotlinJsonAdapterFactory())
                     .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())//rfc2822
                     .add(MoshiAdapter())
