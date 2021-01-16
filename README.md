@@ -12,11 +12,11 @@ Check out [demo app](/example).
 Supported features:
 
 - Complete file, group and project API v0.6
-- Paginated resources fetching
+- Paginated resource fetching
 - CDN path builder
-- File uploads from file, byte array, Uri, and URL
-- All operations available in synchronous and asynchronous modes
-- Simple easy to use library without any extra resources or drawables
+- File uploading from a regular file, byte array, URI, and URL
+- Synchronous and asynchronous operation modes
+- A simple and easy-to-use library without extra resources and drawables
 
 [Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/library)
 
@@ -24,11 +24,11 @@ Supported features:
 
 Supported features:
 
-- Upload image/video/other files from Social networks/camera/local files to Uploadcare
-- Handle social networks authorization and file selection for you
-- Custom appearance of the widget with ability to customize styles
-- Includes Uploadcare Android library for direct access to Uploadcare APIs
-- Follows Material design guideline
+- Upload image, video & other files from a local disk, camera, social networks, and cloud services
+- Social network authorization and file selection
+- Widget appearance customization and styles
+- Uploadcare Android library for direct Uploadcare APIs access
+- Material design
 
 [Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/widget)
 
