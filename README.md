@@ -11,12 +11,12 @@ Check out [demo app](/example).
 
 Supported features:
 
-- File, group and project API v0.6 (full).
+- File, group, and project API v0.6.
 - Paginated resource fetching.
 - CDN path builder.
 - File uploading from a file, byte array, URL, and URI.
 - Synchronous and asynchronous operation modes.
-- A simple and easy-to-use library without extra resources and drawables.
+- Concise and easy-to-use library without extra resources and drawables.
 
 [Guide/Examples/Docs](https://github.com/uploadcare/uploadcare-android/blob/master/library)
 

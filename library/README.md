@@ -11,7 +11,7 @@ Supported features:
 - Paginated resources fetching.
 - CDN path builder.
 - File uploading from a file, byte array, URL, and URI.
-- Document/Video Conversion.
+- Document and Video Conversion.
 - Secure Delivery.
 - Synchronous and asynchronous operation modes.
 
@@ -19,9 +19,9 @@ Supported features:
 
 ## jCenter
 
-The latest stable version is available from jCenter.
+The latest stable version is available at jCenter.
 
-To include it in your Android project, add this line to the gradle.build file:
+To include it in your Android project, add this line to the 'gradle.build' file:
 
 ```
 implementation 'com.uploadcare.android.library:uploadcare-android:3.1.0'
