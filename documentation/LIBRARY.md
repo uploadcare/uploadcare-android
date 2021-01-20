@@ -26,8 +26,8 @@
 
 * [Initialization Upload](#initialization-upload)
 * [Upload File](#upload-file-api-reference)
-* [Upload File from Url](#upload-file-url-api-reference)
-* [Create files group](#create-files-group-api-reference)
+* [Upload File from URL](#upload-file-url-api-reference)
+* [Create file group](#create-files-group-api-reference)
 
 ## Initialization
 
@@ -1213,9 +1213,9 @@ try {
 }
 ```
 
-## Create files group ([API Reference](https://uploadcare.com/api-refs/upload-api/#operation/createFilesGroup)) ##
+## Create file group ([API Reference](https://uploadcare.com/api-refs/upload-api/#operation/createFilesGroup)) ##
 
-##### Asynchronous create files group.
+##### Asynchronous file group create.
 
 Kotlin
 ```kotlin
@@ -1229,7 +1229,7 @@ uploadcare.createGroupAsync(
             }
 
             override fun onSuccess(result: UploadcareGroup) {
-                // Successfully created files group.
+                // Successfully created file group.
             }
         })
 ```
@@ -1248,12 +1248,12 @@ uploadcare.createGroupAsync(
 
             @Override
             public void onSuccess(@NonNull UploadcareGroup result) {
-                // Successfully created files group.
+                // Successfully created file group.
             }
         });
 ```
 
-##### Synchronous create files group.
+##### Synchronous create file group.
 
 Kotlin
 ```kotlin

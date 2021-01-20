@@ -104,7 +104,7 @@ public void onActivityResult(int requestCode, int resultCode, @Nullable Intent d
 }
 ```
 
-##### Custom appearance of the widget with custom style. We only provide ability to set colors for Regular (Day) mode, Dark Mode will use default dark style.
+##### Custom widget appearance and style. We provide two color schemes, Regular (Day) mode, and Dark Mode.
 
 Paste in your /res/values/styles.xml
 ```xml
