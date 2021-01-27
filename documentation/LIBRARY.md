@@ -499,7 +499,7 @@ Java
 UploadcareGroup group = uploadcare.getGroup("YOUR_GROUP_UUID");
 ```
 
-## Store group ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#tag/Group/paths/~1groups~1%3CUUID%3E~1storage~1/put)) ##
+## Store group ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#tag/Group/paths/~1groups~1%3Cuuid%3E~1storage~1/put)) ##
 
 ##### Asynchronous group store.
 
@@ -1007,7 +1007,7 @@ URI urlAkamai = Urls.cdn(domain, builder, token, expire);
 URI urlKeyCDN = Urls.cdn(domain, builder, token, expire);
 ```
 
-## Upload Initialization
+## Upload initialization
 
 ##### Upload API requires just public key. For REST API, specify "YOUR_SECRET_KEY" as well.
 
