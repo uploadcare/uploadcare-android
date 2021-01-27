@@ -26,12 +26,12 @@
 
 * [Initialization Upload](#initialization-upload)
 * [Upload File](#upload-file-api-reference)
-* [Upload File from Url](#upload-file-url-api-reference)
-* [Create files group](#create-files-group-api-reference)
+* [Upload File from URL](#upload-file-url-api-reference)
+* [Create file group](#create-files-group-api-reference)
 
 ## Initialization
 
-##### REST API requires both public and secret keys, if you use Upload API only, you can specify only "YOUR_PUBLIC_KEY".
+##### REST API requires both public and secret keys. If you use Upload API only, you can specify just "YOUR_PUBLIC_KEY".
 
 Kotlin
 ```kotlin
@@ -44,7 +44,7 @@ UploadcareClient uploadcare = new UploadcareClient("YOUR_PUBLIC_KEY", "YOUR_SECR
 
 ## List of files ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/filesList)) ##
 
-##### Asynchronous fetch files.
+##### Asynchronous file fetch.
 
 Kotlin
 ```kotlin
@@ -54,7 +54,7 @@ val filesQueryBuilder = uploadcare.getFiles()
         .ordering(Order.SIZE_DESC)
         // other query parameters...
 
-// Get a complete files list Asynchronously.
+// Get a complete file list Asynchronously.
 filesQueryBuilder.asListAsync(object : UploadcareAllFilesCallback {
     override fun onFailure(e: UploadcareApiException) {
         // Handle errors.
@@ -73,7 +73,7 @@ FilesQueryBuilder filesQueryBuilder = uploadcare.getFiles()
         .ordering(Order.SIZE_DESC);
         // other query parameters...
 
-// Get a complete files list Asynchronously.
+// Get a file list asynchronously.
 filesQueryBuilder.asListAsync(new UploadcareAllFilesCallback() {
     @Override
     public void onFailure(@NotNull UploadcareApiException e) {
@@ -82,45 +82,45 @@ filesQueryBuilder.asListAsync(new UploadcareAllFilesCallback() {
 
     @Override
     public void onSuccess(@NonNull List<UploadcareFile> result) {
-        // Successfully fetched list of all files.
+        // Fetched list of all files successfully.
     }
 });
 ```
 
-##### Synchronous fetch files.
+##### Synchronous file fetch.
 
 Kotlin
 ```kotlin
-// Get a query object
+// Get a query object.
 val filesQueryBuilder = uploadcare.getFiles()
         .stored(true)
         .ordering(Order.SIZE_DESC)
         // other query parameters...
 
-// Get a complete files list Synchronously.
+// Get a complete file list Synchronously.
 val files = filesQueryBuilder.asList()
 ```
 Java
 ```java
-// Get a query object
+// Get a query object.
 FilesQueryBuilder filesQueryBuilder = uploadcare.getFiles()
         .stored(true)
         .ordering(Order.SIZE_DESC);
         // other query parameters...
 
-// Get a complete files list Synchronously.
+// Get a complete file list Synchronously.
 List<UploadcareFile> files = filesQueryBuilder.asList();
 ```
 
 ## File info ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/fileInfo)) ##
 
-##### Asynchronous fetch file info.
+##### Asynchronous file info fetch.
 
 Kotlin
 ```kotlin
 uploadcare.getFileAsync(
         context, // Context
-        "YOUR_FILE_UUID", // File uuid
+        "YOUR_FILE_UUID", // File UUID
         object : UploadcareFileCallback {
             override fun onFailure(e: UploadcareApiException) {
                 // Handle errors.
@@ -135,7 +135,7 @@ Java
 ```java
 uploadcare.getFileAsync(
         context, // Context
-        "YOUR_FILE_UUID", // File uuid
+        "YOUR_FILE_UUID", // File UUID
         new UploadcareFileCallback() {
             @Override
             public void onFailure(@NotNull UploadcareApiException e) {
@@ -149,7 +149,7 @@ uploadcare.getFileAsync(
         });
 ```
 
-##### Synchronous fetch file info.
+##### Synchronous file info fetch.
 
 Kotlin
 ```kotlin
@@ -160,9 +160,9 @@ Java
 UploadcareFile file = uploadcare.getFile("YOUR_FILE_UUID");
 ```
 
-## Store file ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/storeFile)) ##
+## Store a file ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/storeFile)) ##
 
-##### Asynchronous store an individual file.
+##### Asynchronous file store.
 
 Kotlin
 ```kotlin
@@ -173,7 +173,7 @@ Java
 uploadcare.saveFileAsync(context, "YOUR_FILE_UUID");
 ```
 
-##### Synchronous store an individual file.
+##### Synchronous file store.
 
 Kotlin
 ```kotlin
@@ -184,9 +184,9 @@ Java
 uploadcare.saveFile("YOUR_FILE_UUID");
 ```
 
-## Batch Store files ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/filesStoring)) ##
+## Batch file store ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/filesStoring)) ##
 
-##### Asynchronous store multiple files.
+##### Asynchronous multiple files store.
 
 Kotlin
 ```kotlin
@@ -195,11 +195,11 @@ uploadcare.saveFilesAsync(context, fileIds)
 ```
 Java
 ```java
-List<String> fileIds = ... // list of file uuid's
+List<String> fileIds = ... // list of file UUID's
 uploadcare.saveFilesAsync(context, fileIds);
 ```
 
-##### Synchronous store multiple files.
+##### Synchronous multiple files store.
 
 Kotlin
 ```kotlin
@@ -208,13 +208,13 @@ uploadcare.saveFiles(fileIds)
 ```
 Java
 ```java
-List<String> fileIds = ... // list of file uuid's
+List<String> fileIds = ... // list of file UUID's
 uploadcare.saveFiles(fileIds);
 ```
 
 ## Delete file ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/deleteFile)) ##
 
-##### Asynchronous delete an individual file.
+##### Asynchronous file delete.
 
 Kotlin
 ```kotlin
@@ -225,7 +225,7 @@ Java
 uploadcare.deleteFileAsync(context, "YOUR_FILE_UUID");
 ```
 
-##### Synchronous delete an individual file.
+##### Synchronous file delete.
 
 Kotlin
 ```kotlin
@@ -236,9 +236,9 @@ Java
 uploadcare.deleteFile("YOUR_FILE_UUID");
 ```
 
-## Batch Delete files ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/filesDelete)) ##
+## Batch file delete ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/filesDelete)) ##
 
-##### Asynchronous delete multiple files.
+##### Asynchronous multiple files delete.
 
 Kotlin
 ```kotlin
@@ -247,11 +247,11 @@ uploadcare.deleteFilesAsync(context, fileIds)
 ```
 Java
 ```java
-List<String> fileIds = ... // list of file uuid's
+List<String> fileIds = ... // list of file UUID's
 uploadcare.deleteFilesAsync(context, fileIds);
 ```
 
-##### Synchronous delete multiple files.
+##### Synchronous multiple files delete.
 
 Kotlin
 ```kotlin
@@ -260,13 +260,13 @@ uploadcare.deleteFiles(fileIds)
 ```
 Java
 ```java
-List<String> fileIds = ... // list of file uuid's
+List<String> fileIds = ... // list of file UUID's
 uploadcare.deleteFiles(fileIds);
 ```
 
 ## Copy file to local storage ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/copyFileLocal)) ##
 
-##### Asynchronous copy file to local storage.
+##### Asynchronous file copy to local storage.
 
 Kotlin
 ```kotlin
@@ -367,7 +367,7 @@ uploadcare.copyFileRemoteStorageAsync(
         });
 ```
 
-##### Synchronous copy file to remote storage.
+##### Synchronous file copy to remote storage.
 
 Kotlin
 ```kotlin
@@ -387,7 +387,7 @@ UploadcareCopyFile copyResult = uploadcare.copyFileRemoteStorage(source, target,
 
 ## List of groups ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/groupsList)) ##
 
-##### Asynchronous fetch groups.
+##### Asynchronous group list fetch.
 
 Kotlin
 ```kotlin
@@ -396,7 +396,7 @@ val groupsQueryBuilder = uploadcare.getGroups()
         .from(...) // Datetime from objects will be returned.
         .ordering(Order.SIZE_DESC)
 
-// Get a complete groups list Asynchronously.
+// Get a complete group list Asynchronously.
 groupsQueryBuilder.asListAsync(object : UploadcareAllGroupsCallback {
     override fun onFailure(e: UploadcareApiException) {
         // Handle errors.
@@ -428,7 +428,7 @@ groupsQueryBuilder.asListAsync(new UploadcareAllGroupsCallback() {
 });
 ```
 
-##### Synchronous fetch groups.
+##### Synchronous group list fetch.
 
 Kotlin
 ```kotlin
@@ -453,13 +453,13 @@ List<UploadcareGroup> groups = groupsQueryBuilder.asList();
 
 ## Group info ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/groupInfo)) ##
 
-##### Asynchronous fetch group info.
+##### Asynchronous group info fetch.
 
 Kotlin
 ```kotlin
 uploadcare.getGroupAsync(
         context, // Context
-        "YOUR_GROUP_UUID", // group uuid
+        "YOUR_GROUP_UUID", // group UUID
         object : UploadcareGroupCallback {
             override fun onFailure(e: UploadcareApiException) {
                 // Handle errors.
@@ -474,7 +474,7 @@ Java
 ```java
 uploadcare.getGroupAsync(
         context, // Context
-        "YOUR_GROUP_UUID", // group uuid
+        "YOUR_GROUP_UUID", // group UUID
         new UploadcareGroupCallback() {
             @Override
             public void onFailure(@NotNull UploadcareApiException e) {
@@ -488,7 +488,7 @@ uploadcare.getGroupAsync(
         });
 ```
 
-##### Synchronous fetch group info.
+##### Synchronous group info fetch.
 
 Kotlin
 ```kotlin
@@ -501,7 +501,7 @@ UploadcareGroup group = uploadcare.getGroup("YOUR_GROUP_UUID");
 
 ## Store group ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#tag/Group/paths/~1groups~1%3Cuuid%3E~1storage~1/put)) ##
 
-##### Asynchronous store group.
+##### Asynchronous group store.
 
 Kotlin
 ```kotlin
@@ -512,7 +512,7 @@ Java
 uploadcare.storeGroupAsync(context, "YOUR_GROUP_UUID", null); // callback is optional
 ```
 
-##### Synchronous store group.
+##### Synchronous group store.
 
 Kotlin
 ```kotlin
@@ -525,7 +525,7 @@ uploadcare.storeGroup("YOUR_GROUP_UUID");
 
 ## Project info ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/projectInfo)) ##
 
-##### Asynchronous fetch project info.
+##### Asynchronous project info fetch.
 
 Kotlin
 ```kotlin
@@ -558,7 +558,7 @@ uploadcare.getProjectAsync(
         });
 ```
 
-##### Synchronous fetch project info.
+##### Synchronous project info fetch.
 
 Kotlin
 ```kotlin
@@ -571,7 +571,7 @@ Project project = uploadcare.getProject();
 
 ## List of webhooks ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/webhooksList)) ##
 
-##### Asynchronous fetch webhooks.
+##### Asynchronous webhook list fetch.
 
 Kotlin
 ```kotlin
@@ -604,7 +604,7 @@ uploadcare.getWebhooksAsync(
         });
 ```
 
-##### Synchronous fetch webhooks.
+##### Synchronous webhook list fetch.
 
 Kotlin
 ```kotlin
@@ -617,7 +617,7 @@ List<UploadcareWebhook> webhooks = uploadcare.getWebhooks();
 
 ## Create webhook ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/webhookCreate)) ##
 
-##### Asynchronous create webhook.
+##### Asynchronous webhook create.
 
 Kotlin
 ```kotlin
@@ -655,7 +655,7 @@ uploadcare.createWebhookAsync(
         });
 ```
 
-##### Synchronous create webhook.
+##### Synchronous webhook create.
 
 Kotlin
 ```kotlin
@@ -676,7 +676,7 @@ UploadcareWebhook webhook = uploadcare.createWebhook(
 
 ## Update webhook ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/updateWebhook)) ##
 
-##### Asynchronous update webhook.
+##### Asynchronous webhook update.
 
 Kotlin
 ```kotlin
@@ -716,7 +716,7 @@ uploadcare.updateWebhookAsync(
         });
 ```
 
-##### Synchronous update webhook.
+##### Synchronous webhook update.
 
 Kotlin
 ```kotlin
@@ -739,7 +739,7 @@ UploadcareWebhook webhook = uploadcare.updateWebhook(
 
 ## Delete webhook ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/webhookUnsubscribe)) ##
 
-##### Asynchronous delete webhook.
+##### Asynchronous webhook delete.
 
 Kotlin
 ```kotlin
@@ -750,7 +750,7 @@ Java
 uploadcare.deleteWebhookAsync(context, URI.create("YOUR_WEBHOOK_URL"), null); //callback is optional
 ```
 
-##### Synchronous delete webhook.
+##### Synchronous webhook delete.
 
 Kotlin
 ```kotlin
@@ -763,7 +763,7 @@ uploadcare.deleteWebhook(URI.create("YOUR_WEBHOOK_URL"));
 
 ## Convert documents ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/documentConvert)) ##
 
-##### Asynchronous convert documents.
+##### Asynchronous documents convert.
 
 Kotlin
 ```kotlin
@@ -816,7 +816,7 @@ converter.convertAsync(
         });
 ```
 
-##### Synchronous convert documents.
+##### Synchronous documents convert.
 
 Kotlin
 ```kotlin
@@ -852,7 +852,7 @@ List<UploadcareFile> result = converter.convert();
 
 ## Convert videos ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/videoConvert)) ##
 
-##### Asynchronous convert videos.
+##### Asynchronous videos convert.
 
 Kotlin
 ```kotlin
@@ -907,7 +907,7 @@ converter.convertAsync(
         });
 ```
 
-##### Synchronous convert videos.
+##### Synchronous videos convert.
 
 Kotlin
 ```kotlin
@@ -945,7 +945,7 @@ List<UploadcareFile> result = converter.convert();
 
 ## Content delivery ([Reference](https://uploadcare.com/docs/delivery/cdn/)) ##
 
-##### Building CDN URLs.
+##### CDN URLs build.
 
 Kotlin
 ```kotlin
@@ -972,7 +972,7 @@ URI url = Urls.cdn(builder);
 
 ## Secure Content delivery ([Reference](https://uploadcare.com/docs/security/secure_delivery/)) ##
 
-##### Building Secure CDN URLs.
+##### Secure CDN URLs build.
 
 Kotlin
 ```kotlin
@@ -1007,9 +1007,9 @@ URI urlAkamai = Urls.cdn(domain, builder, token, expire);
 URI urlKeyCDN = Urls.cdn(domain, builder, token, expire);
 ```
 
-## Initialization Upload
+## Upload initialization
 
-##### Upload API requires only public key, if you use REST API, you should specify "YOUR_SECRET_KEY" also.
+##### Upload API requires just public key. For REST API, specify "YOUR_SECRET_KEY" as well.
 
 Kotlin
 ```kotlin
@@ -1025,7 +1025,7 @@ UploadcareClient uploadcare = new UploadcareClient("YOUR_PUBLIC_KEY");
 
 ## Upload File ([API Reference](https://uploadcare.com/api-refs/upload-api/)) ##
 
-##### Asynchronous upload file.
+##### Asynchronous file upload.
 
 Kotlin
 ```kotlin
@@ -1087,7 +1087,7 @@ uploader.uploadAsync(new UploadFileCallback() {
 uploader.cancel();
 ```
 
-##### Synchronous upload file.
+##### Synchronous file upload.
 
 Kotlin
 ```kotlin
@@ -1122,7 +1122,7 @@ try {
 
 ## Upload File from Url ([API Reference](https://uploadcare.com/api-refs/upload-api/#operation/fromURLUpload)) ##
 
-##### Asynchronous upload file from Uri.
+##### Asynchronous file upload from URI.
 
 Kotlin
 ```kotlin
@@ -1182,7 +1182,7 @@ uploader.uploadAsync(new UploadFileCallback() {
 uploader.cancel();
 ```
 
-##### Synchronous upload file from Uri.
+##### Synchronous file upload from URI.
 
 Kotlin
 ```kotlin
@@ -1213,9 +1213,9 @@ try {
 }
 ```
 
-## Create files group ([API Reference](https://uploadcare.com/api-refs/upload-api/#operation/createFilesGroup)) ##
+## Create file group ([API Reference](https://uploadcare.com/api-refs/upload-api/#operation/createFilesGroup)) ##
 
-##### Asynchronous create files group.
+##### Asynchronous file group create.
 
 Kotlin
 ```kotlin
@@ -1229,13 +1229,13 @@ uploadcare.createGroupAsync(
             }
 
             override fun onSuccess(result: UploadcareGroup) {
-                // Successfully created files group.
+                // Successfully created file group.
             }
         })
 ```
 Java
 ```java
-List<String> fileIds = ... // list of file uuid's
+List<String> fileIds = ... // list of file UUID's
 
 uploadcare.createGroupAsync(
         fileIds,
@@ -1248,12 +1248,12 @@ uploadcare.createGroupAsync(
 
             @Override
             public void onSuccess(@NonNull UploadcareGroup result) {
-                // Successfully created files group.
+                // Successfully created file group.
             }
         });
 ```
 
-##### Synchronous create files group.
+##### Synchronous file group create.
 
 Kotlin
 ```kotlin
@@ -1263,7 +1263,7 @@ val uploadcareGroup = uploadcare.createGroup(fileIds)
 ```
 Java
 ```java
-List<String> fileIds = ... // list of file uuid's
+List<String> fileIds = ... // list of file UUID's
 
 UploadcareGroup uploadcareGroup = uploadcare.createGroup(fileIds, null);
 ```

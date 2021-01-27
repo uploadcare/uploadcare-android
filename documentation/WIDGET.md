@@ -54,7 +54,7 @@ public void onActivityResult(int requestCode, int resultCode, @Nullable Intent d
 }
 ```
 
-##### Select and upload Video file to Uploadcare from Facebook network. Cancelable and showing progress UI.
+##### Select and upload Video from Facebook with a progress bar and an option to cancel upload.
 
 Kotlin
 ```kotlin
@@ -104,7 +104,7 @@ public void onActivityResult(int requestCode, int resultCode, @Nullable Intent d
 }
 ```
 
-##### Custom appearance of the widget with custom style. We only provide ability to set colors for Regular (Day) mode, Dark Mode will use default dark style.
+##### Custom widget appearance and style. Two color scheme presets: Regular (Day), and Dark modes.
 
 Paste in your /res/values/styles.xml
 ```xml
