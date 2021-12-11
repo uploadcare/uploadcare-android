@@ -33,7 +33,8 @@ import java.util.concurrent.TimeUnit
  * @param simpleAuth If {@code false}, HMAC-based authentication is used, otherwise simple
  * authentication is used.
  */
-@Suppress("unused") @SuppressWarnings("WeakerAccess")
+@Suppress("unused")
+@SuppressWarnings("WeakerAccess")
 class UploadcareClient constructor(val publicKey: String,
                                    val secretKey: String? = null,
                                    val simpleAuth: Boolean = false) {
@@ -724,11 +725,18 @@ class UploadcareClient constructor(val publicKey: String,
      * @param targetUrl A URL that is triggered by an event.
      * @param event An event you subscribe to. Only "file.uploaded" event supported.
      * @param isActive Marks a subscription as either active or not.
+     * @param signingSecret Optional HMAC/SHA-256 secret that, if set, will be used to calculate
+     * signatures for the webhook payloads sent to the target_url. (Should be <= 32 characters)
      *
      * @return New created webhook resource instance.
      */
-    fun createWebhook(targetUrl: URI, event: String, isActive: Boolean = true): UploadcareWebhook {
-        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive)
+    fun createWebhook(
+            targetUrl: URI,
+            event: String,
+            isActive: Boolean = true,
+            signingSecret: String? = null
+    ): UploadcareWebhook {
+        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive, signingSecret)
 
         val requestBodyContent = objectMapper.toJson(webhookOptionsData,
                 WebhookOptionsData::class.java)
@@ -746,6 +754,8 @@ class UploadcareClient constructor(val publicKey: String,
      * @param targetUrl A URL that is triggered by an event.
      * @param event An event you subscribe to. Only "file.uploaded" event supported.
      * @param isActive  Marks a subscription as either active or not. Default value is {@code true}.
+     * @param signingSecret Optional HMAC/SHA-256 secret that, if set, will be used to calculate
+     * signatures for the webhook payloads sent to the target_url. (Should be <= 32 characters)
      * @param callback callback  [UploadcareWebhookCallback] with either
      * a response with UploadcareWebhook or a failure exception.
      */
@@ -753,8 +763,9 @@ class UploadcareClient constructor(val publicKey: String,
                            targetUrl: URI,
                            event: String,
                            isActive: Boolean = true,
+                           signingSecret: String? = null,
                            callback: UploadcareWebhookCallback) {
-        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive)
+        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive, signingSecret)
 
         val requestBodyContent = objectMapper.toJson(webhookOptionsData,
                 WebhookOptionsData::class.java)
@@ -773,14 +784,18 @@ class UploadcareClient constructor(val publicKey: String,
      * @param event     An event you subscribe to. Only "file.uploaded" event supported. If {@code null} then this field
      *                  won't be updated.
      * @param isActive  Marks a subscription as either active or not. Default value is {@code true}.
+     * @param signingSecret Optional HMAC/SHA-256 secret that, if set, will be used to calculate
+     * signatures for the webhook payloads sent to the target_url. (Should be <= 32 characters)
      *
      * @return New webhook resource instance.
      */
     fun updateWebhook(webhookId: Int,
                       targetUrl: URI,
                       event: String,
-                      isActive: Boolean = true): UploadcareWebhook {
-        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive)
+                      isActive: Boolean = true,
+                      signingSecret: String? = null
+    ): UploadcareWebhook {
+        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive, signingSecret)
 
         val requestBodyContent = objectMapper.toJson(webhookOptionsData,
                 WebhookOptionsData::class.java)
@@ -800,6 +815,8 @@ class UploadcareClient constructor(val publicKey: String,
      * @param event     An event you subscribe to. Only "file.uploaded" event supported. If {@code null} then this field
      *                  won't be updated.
      * @param isActive  Marks a subscription as either active or not. Default value is {@code true}.
+     * @param signingSecret Optional HMAC/SHA-256 secret that, if set, will be used to calculate
+     * signatures for the webhook payloads sent to the target_url. (Should be <= 32 characters)
      * @param callback callback  [UploadcareWebhookCallback] with either
      * a response with UploadcareWebhook or a failure exception.
      */
@@ -808,8 +825,9 @@ class UploadcareClient constructor(val publicKey: String,
                            targetUrl: URI,
                            event: String,
                            isActive: Boolean = true,
+                           signingSecret: String? = null,
                            callback: UploadcareWebhookCallback) {
-        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive)
+        val webhookOptionsData = WebhookOptionsData(targetUrl, event, isActive, signingSecret)
 
         val requestBodyContent = objectMapper.toJson(webhookOptionsData,
                 WebhookOptionsData::class.java)
