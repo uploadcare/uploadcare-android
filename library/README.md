@@ -13,6 +13,7 @@ Supported features:
 - File uploading from a file, byte array, URL, and URI.
 - Document and Video Conversion.
 - Secure Delivery.
+- Secure Webhooks.
 - Synchronous and asynchronous operation modes.
 
 [Documentation](https://github.com/uploadcare/uploadcare-android/blob/master/documentation/LIBRARY.md)
@@ -24,6 +25,6 @@ The latest stable version is available at jCenter.
 To include it in your Android project, add this line to the 'gradle.build' file:
 
 ```
-implementation 'com.uploadcare.android.library:uploadcare-android:3.1.0'
+implementation 'com.uploadcare.android.library:uploadcare-android:3.1.1'
 
 ```

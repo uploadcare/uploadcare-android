@@ -12,9 +12,9 @@ android {
     defaultConfig {
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
-        versionCode 12
-        versionName "3.1.0"
-        buildConfigField 'String', 'VERSION_NAME', "\"3.1.0\""
+        versionCode 13
+        versionName "3.1.1"
+        buildConfigField 'String', 'VERSION_NAME', "\"3.1.1\""
     }
 
     androidExtensions {

@@ -2,6 +2,10 @@
 
 # History
 
+## 3.1.1
+- Library:
+    - Add support for "Secure Webhooks" (signingSecret parameter).
+
 ## 3.1.0
 - Widget:
     - Update documentation

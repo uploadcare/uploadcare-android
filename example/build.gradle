@@ -11,8 +11,8 @@ android {
         applicationId "com.uploadcare.android.example"
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
-        versionCode 8
-        versionName "3.1.0"
+        versionCode 9
+        versionName "3.1.1"
     }
 
     buildFeatures {
