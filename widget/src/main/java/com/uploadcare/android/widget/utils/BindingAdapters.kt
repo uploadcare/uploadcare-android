@@ -27,8 +27,13 @@ class BindingAdapters private constructor() {
         @BindingAdapter("imageDrawable")
         @JvmStatic
         fun setImageBitmap(view: ImageView, drawableRes: Int?) {
-            drawableRes?.let {
-                view.setImageResource(it)
+            drawableRes?.let { resource ->
+                if (resource < 0) {
+                    view.setImageDrawable(null)
+                    return
+                }
+
+                view.setImageResource(resource)
                 view.requestLayout()
             } ?: view.setImageDrawable(null)
         }
