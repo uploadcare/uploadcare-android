@@ -29,7 +29,8 @@ import java.io.InputStream
 /**
  * Uploadcare uploader for files and binary data.
  */
-@Suppress("unused") @SuppressWarnings("WeakerAccess")
+@Suppress("unused")
+@SuppressWarnings("WeakerAccess")
 class FileUploader : Uploader {
 
     private val client: UploadcareClient
@@ -76,6 +77,7 @@ class FileUploader : Uploader {
 
     var isPaused: Boolean = false
         private set
+
     /**
      * Creates a new uploader from a file on disk
      * (not to be confused with a file resource from Uploadcare API).
@@ -124,7 +126,11 @@ class FileUploader : Uploader {
      * @param stream   InputStream
      * @param filename Original filename
      */
-    constructor(client: UploadcareClient, stream: InputStream, filename: String = DEFAULT_FILE_NAME) {
+    constructor(
+        client: UploadcareClient,
+        stream: InputStream,
+        filename: String = DEFAULT_FILE_NAME
+    ) {
         this.client = client
         this.file = null
         this.stream = stream
@@ -191,36 +197,37 @@ class FileUploader : Uploader {
                 name = file.name
                 size = file.length()
                 contentType = UploadUtils.getMimeType(file)
-                        ?: throw UploadFailureException("Cannot get mime type for file: $name")
+                    ?: throw UploadFailureException("Cannot get mime type for file: $name")
             }
 
             uri != null && context != null -> {
                 name = UploadUtils.getFileName(uri, context)
                 size = UploadUtils.getFileSize(uri, context)
-                        ?: throw UploadFailureException("Cannot get file size for uri: $uri")
+                    ?: throw UploadFailureException("Cannot get file size for uri: $uri")
                 contentType = UploadUtils.getMimeType(context.contentResolver, uri)
-                        ?: throw UploadFailureException("Cannot get mime type for uri: $uri")
+                    ?: throw UploadFailureException("Cannot get mime type for uri: $uri")
             }
 
             content != null && filename != null -> {
                 name = filename
                 size = content.length.toLong()
                 contentType = UploadUtils.getMimeType(filename)
-                        ?: throw UploadFailureException("Cannot get mime type for file: $filename")
+                    ?: throw UploadFailureException("Cannot get mime type for file: $filename")
             }
 
             stream != null && filename != null -> {
                 name = filename
-                size = 0L // InputStream upload only supported for data less than MIN_MULTIPART_SIZE, multipart upload is not supported for InputStream.
+                size =
+                    0L // InputStream upload only supported for data less than MIN_MULTIPART_SIZE, multipart upload is not supported for InputStream.
                 contentType = UploadUtils.getMimeType(filename)
-                        ?: throw UploadFailureException("Cannot get mime type for file: $filename")
+                    ?: throw UploadFailureException("Cannot get mime type for file: $filename")
             }
 
             bytes != null && filename != null -> {
                 name = filename
                 size = bytes.size.toLong()
                 contentType = UploadUtils.getMimeType(filename)
-                        ?: throw UploadFailureException("Cannot get mime type for file: $filename")
+                    ?: throw UploadFailureException("Cannot get mime type for file: $filename")
             }
 
             else -> throw UploadFailureException(IllegalArgumentException())
@@ -253,6 +260,10 @@ class FileUploader : Uploader {
                 }
             } catch (e: UploadPausedException) {
                 // Ignore.
+            } catch (e: UploadFailureException) {
+                withContext(Dispatchers.Main) {
+                    callback.onFailure(UploadFailureException(e.message))
+                }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     callback.onFailure(UploadFailureException(e.message))
@@ -268,7 +279,7 @@ class FileUploader : Uploader {
     /**
      * Cancel upload of the file.
      */
-    override fun cancel(){
+    override fun cancel() {
         isCanceled = true
         job?.cancel("canceled", UploadFailureException("Canceled"))
         job = null
@@ -366,26 +377,28 @@ class FileUploader : Uploader {
         }
     }
 
-    private fun isPauseResumeSupported():Boolean{
+    private fun isPauseResumeSupported(): Boolean {
         return (size > MIN_MULTIPART_SIZE) && isAsyncUpload
     }
 
-    private fun directUpload(name: String,
-                             contentType: MediaType,
-                             progressCallback: ProgressCallback?): UploadcareFile {
+    private fun directUpload(
+        name: String,
+        contentType: MediaType,
+        progressCallback: ProgressCallback?
+    ): UploadcareFile {
         val uploadUrl = Urls.uploadBase()
 
         val multipartBuilder = MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
-                .addFormDataPart("UPLOADCARE_STORE", store)
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
+            .addFormDataPart("UPLOADCARE_STORE", store)
 
         if (!TextUtils.isEmpty(signature) && !TextUtils.isEmpty(expire)) {
             multipartBuilder.addFormDataPart("signature", signature!!)
             multipartBuilder.addFormDataPart("expire", expire!!)
         }
         val requestBody = getRequestBody(name, contentType)
-                ?: throw UploadFailureException("Cannot read file: $name")
+            ?: throw UploadFailureException("Cannot read file: $name")
 
         val countingRequestBody = CountingRequestBody(requestBody) { bytesWritten, contentLength ->
             checkUploadCanceled()
@@ -395,8 +408,10 @@ class FileUploader : Uploader {
         multipartBuilder.addFormDataPart("file", name, countingRequestBody)
         val body = multipartBuilder.build()
 
-        val fileId = client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
-                uploadUrl.toString(), false, UploadBaseData::class.java, body).file
+        val fileId = client.requestHelper.executeQuery(
+            RequestHelper.REQUEST_POST,
+            uploadUrl.toString(), false, UploadBaseData::class.java, body
+        ).file
 
         checkUploadCanceled()
 
@@ -441,9 +456,10 @@ class FileUploader : Uploader {
         }
     }
 
-    private fun multipartUpload(name: String,
-                                contentType: MediaType,
-                                progressCallback: ProgressCallback?
+    private fun multipartUpload(
+        name: String,
+        contentType: MediaType,
+        progressCallback: ProgressCallback?
     ): UploadcareFile {
         // start multipart upload
         val multipartDataResult = startMultipartUpload(name, size, contentType)
@@ -454,10 +470,12 @@ class FileUploader : Uploader {
         return uploadChunks(multipartDataResult, size, contentType, progressCallback)
     }
 
-    private fun uploadChunks(multipartData: UploadMultipartStartData,
-                             size: Long,
-                             contentType: MediaType,
-                             progressCallback: ProgressCallback?): UploadcareFile {
+    private fun uploadChunks(
+        multipartData: UploadMultipartStartData,
+        size: Long,
+        contentType: MediaType,
+        progressCallback: ProgressCallback?
+    ): UploadcareFile {
         // upload parts starting from uploadChunkNumber
         val chunkSequence = getChunkedSequence().toList()
         while (uploadChunkNumber < chunkSequence.count()) {
@@ -497,15 +515,17 @@ class FileUploader : Uploader {
         }
     }
 
-    private fun startMultipartUpload(name: String,
-                                     size: Long,
-                                     contentType: MediaType): UploadMultipartStartData {
+    private fun startMultipartUpload(
+        name: String,
+        size: Long,
+        contentType: MediaType
+    ): UploadMultipartStartData {
         checkUploadCanceled()
 
         val multipartBuilder = MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
-                .addFormDataPart("UPLOADCARE_STORE", store)
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
+            .addFormDataPart("UPLOADCARE_STORE", store)
 
         if (!TextUtils.isEmpty(signature) && !TextUtils.isEmpty(expire)) {
             multipartBuilder.addFormDataPart("signature", signature!!)
@@ -519,24 +539,31 @@ class FileUploader : Uploader {
         val uploadUrl = Urls.uploadMultipartStart()
         val multipartBody = multipartBuilder.build()
 
-        return client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
-                uploadUrl.toString(), false, UploadMultipartStartData::class.java, multipartBody)
+        return client.requestHelper.executeQuery(
+            RequestHelper.REQUEST_POST,
+            uploadUrl.toString(), false, UploadMultipartStartData::class.java, multipartBody
+        )
     }
 
     private fun completeMultipartUpload(uuid: String): UploadMultipartCompleteData {
         checkUploadCanceled()
 
         val multipartBuilder = MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("UPLOADCARE_PUB_KEY", client.publicKey)
 
         multipartBuilder.addFormDataPart("uuid", uuid)
 
         val uploadCompleteUrl = Urls.uploadMultipartComplete()
         val multipartBody = multipartBuilder.build()
 
-        return client.requestHelper.executeQuery(RequestHelper.REQUEST_POST,
-                uploadCompleteUrl.toString(), false, UploadMultipartCompleteData::class.java, multipartBody)
+        return client.requestHelper.executeQuery(
+            RequestHelper.REQUEST_POST,
+            uploadCompleteUrl.toString(),
+            false,
+            UploadMultipartCompleteData::class.java,
+            multipartBody
+        )
     }
 
     private fun getChunkedSequence(): Sequence<ByteArray> {

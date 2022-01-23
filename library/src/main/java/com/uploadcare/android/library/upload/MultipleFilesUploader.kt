@@ -140,6 +140,10 @@ class MultipleFilesUploader : MultipleUploader {
                 }
             } catch (e: UploadPausedException) {
                 // Ignore.
+            } catch (e: UploadFailureException) {
+                withContext(Dispatchers.Main) {
+                    callback.onFailure(UploadFailureException(e.message))
+                }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     callback.onFailure(UploadFailureException(e.message))

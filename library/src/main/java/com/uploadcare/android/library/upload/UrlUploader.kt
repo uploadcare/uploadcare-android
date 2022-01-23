@@ -57,6 +57,10 @@ class UrlUploader(private val client: UploadcareClient, private val sourceUrl: S
                 withContext(Dispatchers.Main) {
                     callback.onSuccess(uploadedFiles)
                 }
+            } catch (e: UploadFailureException) {
+                withContext(Dispatchers.Main) {
+                    callback.onFailure(UploadFailureException(e.message))
+                }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     callback.onFailure(UploadFailureException(e.message))
