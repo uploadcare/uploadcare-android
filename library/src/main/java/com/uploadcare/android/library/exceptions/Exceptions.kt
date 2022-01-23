@@ -1,7 +1,7 @@
 package com.uploadcare.android.library.exceptions
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UploadcareException(val message: String? = "Upload failed") : Parcelable

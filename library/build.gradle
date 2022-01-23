@@ -1,10 +1,12 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'org.jetbrains.dokka'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'maven-publish'
+    id 'com.jfrog.bintray'
+    id 'org.jetbrains.dokka'
+}
 
 android {
     compileSdkVersion versions.compile_sdk
@@ -15,12 +17,6 @@ android {
         versionCode 13
         versionName "3.1.1"
         buildConfigField 'String', 'VERSION_NAME', "\"3.1.1\""
-    }
-
-    androidExtensions {
-        // Enable experimental Kotlin features in gradle to enable Parcelize
-        // https://github.com/Kotlin/KEEP/blob/master/proposals/extensions/android-parcelable.md
-        experimental = true
     }
 
     buildTypes {
@@ -42,12 +38,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = '11'
     }
 
     dokkaHtml.configure {

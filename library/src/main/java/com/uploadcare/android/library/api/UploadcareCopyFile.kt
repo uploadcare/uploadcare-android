@@ -3,13 +3,14 @@ package com.uploadcare.android.library.api
 import android.os.Parcelable
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.utils.AsString
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.net.URI
 
 /**
  * Result of the file copy operation
  */
-@Parcelize @Suppress("unused")
+@Parcelize
+@Suppress("unused")
 data class UploadcareCopyFile(private val type: String,
                               @AsString private val result: String) : Parcelable {
 

@@ -2,9 +2,10 @@ package com.uploadcare.android.widget.data
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
-@Parcelize @Suppress("unused")
+@Parcelize
+@Suppress("unused")
 data class Action(@Json(name = "obj_type") val objectType: String,
                   val action: String?,
                   val url: String?,
