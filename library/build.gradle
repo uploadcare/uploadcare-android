@@ -96,13 +96,13 @@ afterEvaluate {
                 groupId = project.group
                 artifactId = "uploadcare-android"
                 version = project.version
-                description = "Android client library for the Uploadcare API."
 
                 //withBuildIdentifier(), available in newer gradle versions.
 
                 pom {
                     name.set("uploadcare-android")
                     url.set("https://github.com/uploadcare/uploadcare-android")
+                    description.set("Android client library for the Uploadcare API.")
                     issueManagement {
                         url.set("https://github.com/uploadcare/uploadcare-android/issues")
                     }
@@ -116,6 +116,14 @@ afterEvaluate {
                         connection.set("scm:git:git://github.com/uploadcare/uploadcare-android.git")
                         developerConnection.set("scm:git:ssh://github.com/uploadcare/uploadcare-android.git")
                         url.set("https://github.com/uploadcare/uploadcare-android")
+                    }
+                    developers {
+                        developer {
+                            name.set("raphaelnew")
+                            email.set("iraphaele@gmail.com")
+                            organization.set("Uploadcare")
+                            url.set("https://github.com/raphaelnew")
+                        }
                     }
                 }
             }

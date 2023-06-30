@@ -145,6 +145,7 @@ afterEvaluate {
                 pom {
                     name.set("uploadcare-android-widget")
                     url.set("https://github.com/uploadcare/uploadcare-android")
+                    description.set("Android widget for the Uploadcare API.")
                     issueManagement {
                         url.set("https://github.com/uploadcare/uploadcare-android/issues")
                     }
@@ -158,6 +159,14 @@ afterEvaluate {
                         connection.set("scm:git:git://github.com/uploadcare/uploadcare-android.git")
                         developerConnection.set("scm:git:ssh://github.com/uploadcare/uploadcare-android.git")
                         url.set("https://github.com/uploadcare/uploadcare-android")
+                    }
+                    developers {
+                        developer {
+                            name.set("raphaelnew")
+                            email.set("iraphaele@gmail.com")
+                            organization.set("Uploadcare")
+                            url.set("https://github.com/raphaelnew")
+                        }
                     }
                 }
             }
