@@ -46,12 +46,9 @@ Supported features:
 
 ## Developer's guide
 
-This guide is meant for the developers of the library and/or contributors.
-
 ### Pre-requisites
 
 * Gradle 7.6
 * JDK 11
 * Android SDK 30
 
-### IntelliJ setup
