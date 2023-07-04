@@ -43,3 +43,12 @@ Supported features:
 [Contributing guide](https://github.com/uploadcare/.github/blob/master/CONTRIBUTING.md)  
 [Security policy](https://github.com/uploadcare/uploadcare-android/security/policy)  
 [Support](https://github.com/uploadcare/.github/blob/master/SUPPORT.md)  
+
+## Developer's guide
+
+### Pre-requisites
+
+* Gradle 7.6
+* JDK 11
+* Android SDK 30
+

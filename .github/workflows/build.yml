@@ -1,0 +1,46 @@
+name: Build and test
+on:
+  # Build PRs and branches.
+  pull_request:
+    paths-ignore:
+      - .github/workflows/deploy-tagged.yml
+  push:
+    tags-ignore:
+      - '**'
+    paths-ignore:
+      - .github/workflows/deploy-tagged.yml
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: '1'
+
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: "temurin"
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          # The Gradle wrapper's version (already the default, putting it here to clarity)
+          gradle-version: wrapper
+          # Removing unused files from Gradle User Home before saving to cache (i.e. older versions of gradle)
+          gradle-home-cache-cleanup: true
+          # Cache downloaded JDKs in addition to the default directories.
+          gradle-home-cache-includes: |
+            caches
+            notifications
+            jdks
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Build and test
+        run: ./gradlew build --warn --stacktrace

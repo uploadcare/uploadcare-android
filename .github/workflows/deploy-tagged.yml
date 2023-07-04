@@ -1,0 +1,79 @@
+name: Deploy tagged release
+run-name: Deploying tagged release ${{ inputs.TAG != '' && format('refs/tags/{0}', inputs.TAG) || github.ref }}
+
+on:
+  push:
+    # Pattern matched against refs/tags
+    tags:
+      - '*' # Only tags excluding "/" sign (i.e. 1.2.3, v1.2.3, etc)
+
+  workflow_dispatch:
+    inputs:
+      TAG:
+        required: true
+        description: The tag to build and publish (as is)
+
+
+env:
+  TAG: ${{ inputs.TAG != '' && format('refs/tags/{0}', inputs.TAG) || github.ref }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.TAG }}
+
+      - name: Version check
+        run: |
+          REF=${{ env.TAG }}
+          VERSION=$(cat gradle.properties | grep -iE "version([ ]*)=" | cut -f 2 -d "=")          
+          echo $REF
+          echo $VERSION
+          if [[ "$REF" != "refs/tags/$VERSION" ]]; then
+            echo "Version mismatch - gradle.properties contains a different version than the git tag! Exiting!"
+            exit 1
+          fi
+
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: "temurin"
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          # The Gradle wrapper's version (already the default, putting it here to clarity)
+          gradle-version: wrapper
+          # Removing unused files from Gradle User Home before saving to cache (i.e. older versions of gradle)
+          gradle-home-cache-cleanup: true
+          # Cache downloaded JDKs in addition to the default directories.
+          gradle-home-cache-includes: |
+            caches
+            notifications
+            jdks
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Setup key
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          fingerprint: ${{ secrets.GPG_KEY_ID }}
+          passphrase: ${{ secrets.GPG_PASS }}
+          trust_level: 5
+
+      - name: Build and deploy
+        env:
+          UPLOADCARE_PUBLISH_SONATYPE_USER: "${{ secrets.UPLOADCARE_PUBLISH_SONATYPE_USER }}"
+          UPLOADCARE_PUBLISH_SONATYPE_PASS: "${{ secrets.UPLOADCARE_PUBLISH_SONATYPE_PASS }}"
+        run: ./gradlew build publish --warn --stacktrace
+
+      - name: Find signed files.
+        if: ${{ always() }}
+        run: |
+          find . -type f -name "*.asc"

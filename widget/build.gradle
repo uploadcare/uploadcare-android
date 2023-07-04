@@ -1,20 +1,24 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs.kotlin"
-apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'org.jetbrains.dokka'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id "androidx.navigation.safeargs.kotlin"
+    id 'maven-publish'
+    id 'org.jetbrains.dokka'
+}
+
+group = "com.uploadcare.android.widget"
 
 android {
+
     compileSdkVersion versions.compile_sdk
 
     defaultConfig {
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
         versionCode 11
-        versionName "3.1.0"
+        versionName "${version}"
     }
 
     buildFeatures {
@@ -59,12 +63,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility versions.jdk
+        targetCompatibility versions.jdk
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = versions.jdk
     }
 
     dokkaHtml.configure {
@@ -80,68 +84,8 @@ android {
     }
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
-                // Applies the component for the release build variant.
-                from components.release
-
-                // You can then customize attributes of the publication as shown below.
-                groupId = 'com.uploadcare.android.widget'
-                artifactId = 'uploadcare-android-widget'
-                version = android.defaultConfig.versionName
-
-                // Define this explicitly if using implementation or api configurations
-                pom.withXml {
-                    def dependenciesNode = asNode().getAt('dependencies')[0] ?: asNode().appendNode('dependencies')
-
-                    // Iterate over the implementation dependencies (we don't want the test ones), adding a <dependency> node for each
-                    configurations.implementation.allDependencies.each {
-                        // Ensure dependencies such as fileTree are not included.
-                        if (it.name != 'unspecified') {
-                            def dependencyNode = dependenciesNode.appendNode('dependency')
-                            dependencyNode.appendNode('groupId', it.group)
-                            dependencyNode.appendNode('artifactId', it.name)
-                            dependencyNode.appendNode('version', it.version)
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-bintray {
-    Properties properties = new Properties()
-    if (project.rootProject.file('local.properties').exists()) {
-        properties.load(project.rootProject.file('local.properties').newDataInputStream())
-    }
-    user = properties.containsKey('bintray.user') ? properties.getProperty("bintray.user") : ""
-    key = properties.containsKey('bintray.key') ? properties.getProperty("bintray.key") : ""
-
-    publications = ['release']
-    dryRun = true
-    publish = true
-
-    pkg {
-        repo = 'maven'
-        name = 'uploadcare-android-widget'
-        licenses = ['Apache-2.0']
-        desc = 'Android client widget library for the Uploadcare API.'
-        websiteUrl = 'https://github.com/uploadcare/uploadcare-android'
-        issueTrackerUrl = 'https://github.com/uploadcare/uploadcare-android/issues'
-        vcsUrl = 'https://github.com/uploadcare/uploadcare-android.git'
-
-        version {
-            name = android.defaultConfig.versionName
-        }
-    }
-}
-
 dependencies {
-    api 'com.uploadcare.android.library:uploadcare-android:3.1.0'
+    implementation project (':library')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin_version"
@@ -179,4 +123,53 @@ dependencies {
 
     androidTestImplementation "androidx.test:runner:$versions.test_runner"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso_core"
+}
+
+// Make sure unit tests always run when we are building the code.
+tasks.named("build") {
+    dependsOn(tasks.named("check"))
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from(components["release"])
+
+                groupId = project.group
+                artifactId = "uploadcare-android-widget"
+                version = project.version
+
+                //withBuildIdentifier(), available in newer gradle versions.
+
+                pom {
+                    name.set("uploadcare-android-widget")
+                    url.set("https://github.com/uploadcare/uploadcare-android")
+                    description.set("Android widget for the Uploadcare API.")
+                    issueManagement {
+                        url.set("https://github.com/uploadcare/uploadcare-android/issues")
+                    }
+                    licenses {
+                        license {
+                            name.set("The Apache License, Version 2.0")
+                            url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                        }
+                    }
+                    scm {
+                        connection.set("scm:git:git://github.com/uploadcare/uploadcare-android.git")
+                        developerConnection.set("scm:git:ssh://github.com/uploadcare/uploadcare-android.git")
+                        url.set("https://github.com/uploadcare/uploadcare-android")
+                    }
+                    developers {
+                        developer {
+                            name.set("raphaelnew")
+                            email.set("iraphaele@gmail.com")
+                            organization.set("Uploadcare")
+                            url.set("https://github.com/raphaelnew")
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
