@@ -17,7 +17,7 @@ buildscript {
     versions.lifecycle = "2.2.0"
     versions.constraintlayout = "2.0.2"
     versions.annotation = '1.1.0'
-    versions.appcompat = "1.2.0"
+    versions.appcompat = "1.6.1"
     versions.fragment = "1.2.5"
     versions.work = "2.4.0"
 
