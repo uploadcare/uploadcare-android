@@ -32,7 +32,7 @@ jobs:
           VERSION=$(cat gradle.properties | grep -iE "version([ ]*)=" | cut -f 2 -d "=")          
           echo $REF
           echo $VERSION
-          if [[ "$REF" != "refs/tags/$VERSION" ]]; then
+          if [[ "$REF" != "refs/tags/$VERSION" && "$REF" != "refs/tags/v$VERSION" ]]; then
             echo "Version mismatch - gradle.properties contains a different version than the git tag! Exiting!"
             exit 1
           fi
