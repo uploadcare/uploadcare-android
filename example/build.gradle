@@ -1,13 +1,14 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id "androidx.navigation.safeargs.kotlin"
 }
 
 android {
     compileSdkVersion versions.compile_sdk
+    namespace "com.uploadcare.android.example"
 
     defaultConfig {
         applicationId "com.uploadcare.android.example"
@@ -18,6 +19,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         dataBinding = true
     }
 

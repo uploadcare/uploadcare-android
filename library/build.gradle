@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'maven-publish'
     id 'org.jetbrains.dokka'
@@ -11,6 +11,7 @@ group = "com.uploadcare.android.library"
 
 android {
     compileSdkVersion versions.compile_sdk
+    namespace "com.uploadcare.android.library"
 
     defaultConfig {
         minSdkVersion versions.min_sdk
@@ -18,12 +19,6 @@ android {
         versionCode 12
         versionName "${version}"
         buildConfigField 'String', 'VERSION_NAME', "\"${version}\""
-    }
-
-    androidExtensions {
-        // Enable experimental Kotlin features in gradle to enable Parcelize
-        // https://github.com/Kotlin/KEEP/blob/master/proposals/extensions/android-parcelable.md
-        experimental = true
     }
 
     buildTypes {
@@ -38,6 +33,10 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/DEPENDENCIES'
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     lintOptions {

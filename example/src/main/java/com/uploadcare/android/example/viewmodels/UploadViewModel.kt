@@ -8,7 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.switchMap
 import com.google.android.material.textfield.TextInputEditText
 import com.uploadcare.android.example.R
 import com.uploadcare.android.example.fragments.UploadFragment
@@ -41,13 +41,12 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     val status = MutableLiveData<String>()
 
     private val backgroundUploadUUID = MutableLiveData<UUID>()
-    val backgroundUploadResult : LiveData<UploadcareWidgetResult> =
-            Transformations.switchMap(backgroundUploadUUID){
-                uuid->
-                UploadcareWidget
-                        .getInstance()
-                        .backgroundUploadResult(application.applicationContext, uuid)
-    }
+    val backgroundUploadResult: LiveData<UploadcareWidgetResult> =
+        backgroundUploadUUID.switchMap { uuid ->
+            UploadcareWidget
+                .getInstance()
+                .backgroundUploadResult(application.applicationContext, uuid)
+        }
 
     val launchGetFilesCommand = SingleLiveEvent<Void>()
     val launchFilePickerCommand = SingleLiveEvent<Void>()
@@ -78,10 +77,10 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
 
     fun uploadWidgetAny(fragment: UploadFragment) {
         val selectFileBuilder = UploadcareWidget
-                .getInstance()
-                .selectFile(fragment)
-                .cancelable(allowUploadCancelWidget.value ?: false)
-                .showProgress(showUploadProgressWidget.value ?: false)
+            .getInstance()
+            .selectFile(fragment)
+            .cancelable(allowUploadCancelWidget.value ?: false)
+            .showProgress(showUploadProgressWidget.value ?: false)
 
         if (backgroundUploadWidget.value == true) {
             selectFileBuilder.backgroundUpload()
@@ -92,12 +91,12 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
 
     fun uploadWidgetInstagram(fragment: UploadFragment) {
         val selectFileBuilder = UploadcareWidget
-                .getInstance()
-                .selectFile(fragment)
-                .style(R.style.CustomUploadCareIndigoPink)
-                .from(SocialNetwork.SOCIAL_NETWORK_INSTAGRAM)
-                .cancelable(allowUploadCancelWidget.value ?: false)
-                .showProgress(showUploadProgressWidget.value ?: false)
+            .getInstance()
+            .selectFile(fragment)
+            .style(R.style.CustomUploadCareIndigoPink)
+            .from(SocialNetwork.SOCIAL_NETWORK_INSTAGRAM)
+            .cancelable(allowUploadCancelWidget.value ?: false)
+            .showProgress(showUploadProgressWidget.value ?: false)
 
         if (backgroundUploadWidget.value == true) {
             selectFileBuilder.backgroundUpload()
@@ -108,12 +107,12 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
 
     fun uploadWidgetFacebook(fragment: UploadFragment) {
         val selectFileBuilder = UploadcareWidget
-                .getInstance()
-                .selectFile(fragment)
-                .style(R.style.CustomUploadCareGreenRed)
-                .from(SocialNetwork.SOCIAL_NETWORK_FACEBOOK)
-                .cancelable(allowUploadCancelWidget.value ?: false)
-                .showProgress(showUploadProgressWidget.value ?: false)
+            .getInstance()
+            .selectFile(fragment)
+            .style(R.style.CustomUploadCareGreenRed)
+            .from(SocialNetwork.SOCIAL_NETWORK_FACEBOOK)
+            .cancelable(allowUploadCancelWidget.value ?: false)
+            .showProgress(showUploadProgressWidget.value ?: false)
 
         if (backgroundUploadWidget.value == true) {
             selectFileBuilder.backgroundUpload()
@@ -124,11 +123,11 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
 
     fun uploadWidgetDropbox(fragment: UploadFragment) {
         val selectFileBuilder = UploadcareWidget
-                .getInstance()
-                .selectFile(fragment)
-                .from(SocialNetwork.SOCIAL_NETWORK_DROPBOX)
-                .cancelable(allowUploadCancelWidget.value ?: false)
-                .showProgress(showUploadProgressWidget.value ?: false)
+            .getInstance()
+            .selectFile(fragment)
+            .from(SocialNetwork.SOCIAL_NETWORK_DROPBOX)
+            .cancelable(allowUploadCancelWidget.value ?: false)
+            .showProgress(showUploadProgressWidget.value ?: false)
 
         if (backgroundUploadWidget.value == true) {
             selectFileBuilder.backgroundUpload()
@@ -142,10 +141,12 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
             if (result.uploadcareFile != null) {
                 showProgressOrResult(false, result.uploadcareFile.toString())
             } else if (result.backgroundUploadUUID != null) {
-                showProgressOrResult(false,
-                        "Uploading in background: ${result.backgroundUploadUUID.toString()}")
+                showProgressOrResult(
+                    false,
+                    "Uploading in background: ${result.backgroundUploadUUID.toString()}"
+                )
 
-                if(result.backgroundUploadUUID != backgroundUploadUUID.value){
+                if (result.backgroundUploadUUID != backgroundUploadUUID.value) {
                     backgroundUploadUUID.value = result.backgroundUploadUUID
                 }
             }
@@ -163,16 +164,17 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
         showProgressOrResult(true, getContext().getString(R.string.activity_main_status_uploading))
         allowUploadPause.value = true
         uploader = FileUploader(client, fileUri, getContext()).store(true)
-        uploader!!.uploadAsync(object : UploadFileCallback {
+        uploader?.uploadAsync(object : UploadFileCallback {
             override fun onFailure(e: UploadcareApiException) {
                 allowUploadPause.value = false
                 showProgressOrResult(false, e.message ?: "")
             }
 
             override fun onProgressUpdate(
-                    bytesWritten: Long,
-                    contentLength: Long,
-                    progress: Double) {
+                bytesWritten: Long,
+                contentLength: Long,
+                progress: Double
+            ) {
                 if (showUploadProgress.value == true) {
                     uploadProgress.value = (progress * 100).roundToInt()
                 }
@@ -194,7 +196,7 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
         showProgressOrResult(true, getContext().getString(R.string.activity_main_status_uploading))
         allowUploadPause.value = true
         multipleUploader = MultipleFilesUploader(client, filesUriList, getContext()).store(true)
-        multipleUploader!!.uploadAsync(object : UploadFilesCallback {
+        multipleUploader?.uploadAsync(object : UploadFilesCallback {
 
             override fun onFailure(e: UploadcareApiException) {
                 allowUploadPause.value = false
@@ -202,9 +204,10 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
             }
 
             override fun onProgressUpdate(
-                    bytesWritten: Long,
-                    contentLength: Long,
-                    progress: Double) {
+                bytesWritten: Long,
+                contentLength: Long,
+                progress: Double
+            ) {
                 if (showUploadProgress.value == true) {
                     uploadProgress.value = (progress * 100).roundToInt()
                 }
@@ -215,15 +218,15 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
                 val resultStringBuilder = StringBuilder()
                 for (file in result) {
                     resultStringBuilder.append(file.toString())
-                            .append(System.getProperty("line.separator"))
-                            .append(System.getProperty("line.separator"))
+                        .append(System.getProperty("line.separator"))
+                        .append(System.getProperty("line.separator"))
                 }
                 showProgressOrResult(false, resultStringBuilder.toString())
             }
         })
     }
 
-    fun cancelUpload(){
+    fun cancelUpload() {
         uploader?.cancel()
         multipleUploader?.cancel()
         uploader = null
@@ -243,8 +246,8 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
             uploadPaused.value = uploader.isPaused
         }
 
-        val multipleFilesUploader: MultipleFilesUploader?
-                = multipleUploader as? MultipleFilesUploader
+        val multipleFilesUploader: MultipleFilesUploader? =
+            multipleUploader as? MultipleFilesUploader
         multipleFilesUploader?.let {
             if (multipleFilesUploader.isPaused) {
                 multipleFilesUploader.resume()
@@ -264,15 +267,16 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     private fun uploadFromUrl(client: UploadcareClient, sourceUrl: String) {
         showProgressOrResult(true, getContext().getString(R.string.activity_main_status_uploading))
         uploader = UrlUploader(client, sourceUrl).store(true)
-        uploader!!.uploadAsync(object : UploadFileCallback {
+        uploader?.uploadAsync(object : UploadFileCallback {
             override fun onFailure(e: UploadcareApiException) {
                 showProgressOrResult(false, e.message ?: "")
             }
 
             override fun onProgressUpdate(
-                    bytesWritten: Long,
-                    contentLength: Long,
-                    progress: Double) {
+                bytesWritten: Long,
+                contentLength: Long,
+                progress: Double
+            ) {
                 if (showUploadProgress.value == true) {
                     uploadProgress.value = (progress * 100).roundToInt()
                 }
@@ -291,7 +295,7 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
      */
     private fun checkUrl(url: String?): Boolean {
         return if (url != null && url.isNotEmpty()) {
-            urlError.value = null
+            urlError.value = ""
             true
         } else {
             urlError.value = getContext().getString(R.string.activity_main_hint_upload_url)
