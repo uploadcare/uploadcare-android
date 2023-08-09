@@ -147,7 +147,7 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
                 )
 
                 if (result.backgroundUploadUUID != backgroundUploadUUID.value) {
-                    backgroundUploadUUID.value = result.backgroundUploadUUID
+                    backgroundUploadUUID.value = result.backgroundUploadUUID!!
                 }
             }
         } else {
@@ -163,28 +163,31 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     fun uploadFile(fileUri: Uri) {
         showProgressOrResult(true, getContext().getString(R.string.activity_main_status_uploading))
         allowUploadPause.value = true
-        uploader = FileUploader(client, fileUri, getContext()).store(true)
-        uploader?.uploadAsync(object : UploadFileCallback {
-            override fun onFailure(e: UploadcareApiException) {
-                allowUploadPause.value = false
-                showProgressOrResult(false, e.message ?: "")
-            }
+        uploader = FileUploader(client, fileUri, getContext())
+            .store(true)
+            .also { fileUploader ->
+                fileUploader.uploadAsync(object : UploadFileCallback {
+                    override fun onFailure(e: UploadcareApiException) {
+                        allowUploadPause.value = false
+                        showProgressOrResult(false, e.message ?: "")
+                    }
 
-            override fun onProgressUpdate(
-                bytesWritten: Long,
-                contentLength: Long,
-                progress: Double
-            ) {
-                if (showUploadProgress.value == true) {
-                    uploadProgress.value = (progress * 100).roundToInt()
-                }
-            }
+                    override fun onProgressUpdate(
+                        bytesWritten: Long,
+                        contentLength: Long,
+                        progress: Double
+                    ) {
+                        if (showUploadProgress.value == true) {
+                            uploadProgress.value = (progress * 100).roundToInt()
+                        }
+                    }
 
-            override fun onSuccess(result: UploadcareFile) {
-                allowUploadPause.value = false
-                showProgressOrResult(false, result.toString())
+                    override fun onSuccess(result: UploadcareFile) {
+                        allowUploadPause.value = false
+                        showProgressOrResult(false, result.toString())
+                    }
+                })
             }
-        })
     }
 
     /**
@@ -195,35 +198,37 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
     fun uploadFiles(filesUriList: List<Uri>) {
         showProgressOrResult(true, getContext().getString(R.string.activity_main_status_uploading))
         allowUploadPause.value = true
-        multipleUploader = MultipleFilesUploader(client, filesUriList, getContext()).store(true)
-        multipleUploader?.uploadAsync(object : UploadFilesCallback {
+        multipleUploader = MultipleFilesUploader(client, filesUriList, getContext())
+            .store(true)
+            .also { multipleFilesUploader ->
+                multipleFilesUploader.uploadAsync(object : UploadFilesCallback {
+                    override fun onFailure(e: UploadcareApiException) {
+                        allowUploadPause.value = false
+                        showProgressOrResult(false, e.message ?: "")
+                    }
 
-            override fun onFailure(e: UploadcareApiException) {
-                allowUploadPause.value = false
-                showProgressOrResult(false, e.message ?: "")
-            }
+                    override fun onProgressUpdate(
+                        bytesWritten: Long,
+                        contentLength: Long,
+                        progress: Double
+                    ) {
+                        if (showUploadProgress.value == true) {
+                            uploadProgress.value = (progress * 100).roundToInt()
+                        }
+                    }
 
-            override fun onProgressUpdate(
-                bytesWritten: Long,
-                contentLength: Long,
-                progress: Double
-            ) {
-                if (showUploadProgress.value == true) {
-                    uploadProgress.value = (progress * 100).roundToInt()
-                }
+                    override fun onSuccess(result: List<UploadcareFile>) {
+                        allowUploadPause.value = false
+                        val resultStringBuilder = StringBuilder()
+                        for (file in result) {
+                            resultStringBuilder.append(file.toString())
+                                .append(System.getProperty("line.separator"))
+                                .append(System.getProperty("line.separator"))
+                        }
+                        showProgressOrResult(false, resultStringBuilder.toString())
+                    }
+                })
             }
-
-            override fun onSuccess(result: List<UploadcareFile>) {
-                allowUploadPause.value = false
-                val resultStringBuilder = StringBuilder()
-                for (file in result) {
-                    resultStringBuilder.append(file.toString())
-                        .append(System.getProperty("line.separator"))
-                        .append(System.getProperty("line.separator"))
-                }
-                showProgressOrResult(false, resultStringBuilder.toString())
-            }
-        })
     }
 
     fun cancelUpload() {
@@ -266,26 +271,29 @@ class UploadViewModel(application: Application) : AndroidViewModel(application) 
      */
     private fun uploadFromUrl(client: UploadcareClient, sourceUrl: String) {
         showProgressOrResult(true, getContext().getString(R.string.activity_main_status_uploading))
-        uploader = UrlUploader(client, sourceUrl).store(true)
-        uploader?.uploadAsync(object : UploadFileCallback {
-            override fun onFailure(e: UploadcareApiException) {
-                showProgressOrResult(false, e.message ?: "")
-            }
+        uploader = UrlUploader(client, sourceUrl)
+            .store(true)
+            .also { urlUploader ->
+                urlUploader.uploadAsync(object : UploadFileCallback {
+                    override fun onFailure(e: UploadcareApiException) {
+                        showProgressOrResult(false, e.message ?: "")
+                    }
 
-            override fun onProgressUpdate(
-                bytesWritten: Long,
-                contentLength: Long,
-                progress: Double
-            ) {
-                if (showUploadProgress.value == true) {
-                    uploadProgress.value = (progress * 100).roundToInt()
-                }
-            }
+                    override fun onProgressUpdate(
+                        bytesWritten: Long,
+                        contentLength: Long,
+                        progress: Double
+                    ) {
+                        if (showUploadProgress.value == true) {
+                            uploadProgress.value = (progress * 100).roundToInt()
+                        }
+                    }
 
-            override fun onSuccess(result: UploadcareFile) {
-                showProgressOrResult(false, result.toString())
+                    override fun onSuccess(result: UploadcareFile) {
+                        showProgressOrResult(false, result.toString())
+                    }
+                })
             }
-        })
     }
 
     /**
