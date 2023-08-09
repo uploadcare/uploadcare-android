@@ -6,8 +6,8 @@ import android.preference.PreferenceManager
 import android.webkit.CookieManager
 import com.squareup.moshi.Json
 import com.uploadcare.android.widget.R
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class SocialSource(@Json(name = "root_chunks") val rootChunks: List<Chunk>,
