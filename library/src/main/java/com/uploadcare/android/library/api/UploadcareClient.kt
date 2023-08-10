@@ -1,7 +1,6 @@
 package com.uploadcare.android.library.api
 
 import android.content.Context
-import android.os.AsyncTask
 import android.text.TextUtils
 import com.squareup.moshi.Types
 import com.uploadcare.android.library.BuildConfig
@@ -23,6 +22,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import okio.ByteString.Companion.encodeUtf8
 import java.net.URI
 import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Initializes a client with custom access keys.
@@ -42,6 +46,8 @@ class UploadcareClient constructor(val publicKey: String,
     constructor(publicKey: String) : this(publicKey, null, false)
 
     constructor(publicKey: String, secretKey: String) : this(publicKey, secretKey, false)
+
+    private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     val httpClient: OkHttpClient
     val requestHelper: RequestHelper
@@ -314,7 +320,7 @@ class UploadcareClient constructor(val publicKey: String,
                     url.toString(), true, null, body, requestBodyContent.md5())
         } else {
             // Make batch requests.
-            SaveDeleteBatchTask(this, RequestHelper.REQUEST_DELETE, fileIds).execute()
+            executeSaveDeleteBatchCommandAsync(RequestHelper.REQUEST_DELETE, fileIds)
         }
     }
 
@@ -339,7 +345,7 @@ class UploadcareClient constructor(val publicKey: String,
                     url.toString(), true, callback, body, requestBodyContent.md5())
         } else {
             // Make batch requests.
-            SaveDeleteBatchTask(this, RequestHelper.REQUEST_DELETE, fileIds, callback).execute()
+            executeSaveDeleteBatchCommandAsync(RequestHelper.REQUEST_DELETE, fileIds, callback)
         }
     }
 
@@ -430,7 +436,7 @@ class UploadcareClient constructor(val publicKey: String,
                     true, null, body, requestBodyContent.md5())
         } else {
             // Make batch requests.
-            SaveDeleteBatchTask(this, RequestHelper.REQUEST_PUT, fileIds).execute()
+            executeSaveDeleteBatchCommandAsync(RequestHelper.REQUEST_PUT, fileIds)
         }
     }
 
@@ -456,7 +462,29 @@ class UploadcareClient constructor(val publicKey: String,
                     true, callback, body, requestBodyContent.md5())
         } else {
             // Make batch requests.
-            SaveDeleteBatchTask(this, RequestHelper.REQUEST_PUT, fileIds, callback).execute()
+            executeSaveDeleteBatchCommandAsync(RequestHelper.REQUEST_PUT, fileIds, callback)
+        }
+    }
+
+    private fun executeSaveDeleteBatchCommandAsync(
+        requestType: String,
+        fileIds: List<String>,
+        callback: RequestCallback? = null
+    ) {
+        coroutineScope.launch {
+            val result = try {
+                executeSaveDeleteBatchCommand(requestType, fileIds)
+            } catch (e: Exception) {
+                null
+            }
+
+            withContext(Dispatchers.Main) {
+                if (result != null) {
+                    callback?.onSuccess(result)
+                } else {
+                    callback?.onFailure(UploadcareApiException())
+                }
+            }
         }
     }
 
@@ -663,7 +691,11 @@ class UploadcareClient constructor(val publicKey: String,
     fun createGroupAsync(fileIds: List<String>,
                          jsonpCallback: String? = null,
                          callback: UploadcareGroupCallback? = null) {
-        CreateGroupTask(this, fileIds, jsonpCallback = jsonpCallback, callback = callback).execute()
+        createGroupInternalAsync(
+            fileIds = fileIds,
+            jsonpCallback = jsonpCallback,
+            callback = callback
+        )
     }
 
     /**
@@ -683,14 +715,37 @@ class UploadcareClient constructor(val publicKey: String,
                                expire: String,
                                jsonpCallback: String? = null,
                                callback: UploadcareGroupCallback? = null) {
-        CreateGroupTask(
-                this,
-                fileIds,
-                jsonpCallback = jsonpCallback,
-                signature = signature,
-                expire = expire,
-                callback = callback)
-                .execute()
+        createGroupInternalAsync(
+            fileIds = fileIds,
+            jsonpCallback = jsonpCallback,
+            signature = signature,
+            expire = expire,
+            callback = callback
+        )
+    }
+
+    private fun createGroupInternalAsync(
+        fileIds: List<String>,
+        jsonpCallback: String? = null,
+        signature: String? = null,
+        expire: String? = null,
+        callback: UploadcareGroupCallback? = null
+    ) {
+        coroutineScope.launch {
+            val result = try {
+                createGroupInternal(fileIds, jsonpCallback, signature, expire)
+            } catch (e: Exception) {
+                null
+            }
+
+            withContext(Dispatchers.Main) {
+                if (result != null) {
+                    callback?.onSuccess(result)
+                } else {
+                    callback?.onFailure(UploadFailureException())
+                }
+            }
+        }
     }
 
     /**
@@ -950,52 +1005,5 @@ private class PublicKeyInterceptor constructor(private val publicKey: String)
         requestBuilder.addHeader("X-Uploadcare-PublicKey", publicKey)
 
         return chain.proceed(requestBuilder.build())
-    }
-}
-
-private class SaveDeleteBatchTask(private val client: UploadcareClient,
-                                  private val requestType: String,
-                                  private val fileIds: List<String>,
-                                  private val callback: RequestCallback? = null)
-    : AsyncTask<Void, Void, Response?>() {
-    override fun doInBackground(vararg params: Void?): Response? {
-        return try {
-            client.executeSaveDeleteBatchCommand(requestType, fileIds)
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    override fun onPostExecute(result: Response?) {
-        if (result != null) {
-            callback?.onSuccess(result)
-        } else {
-            callback?.onFailure(UploadcareApiException())
-        }
-    }
-
-}
-
-private class CreateGroupTask(private val client: UploadcareClient,
-                              private val fileIds: List<String>,
-                              private val jsonpCallback: String? = null,
-                              private val signature: String? = null,
-                              private val expire: String? = null,
-                              private val callback: UploadcareGroupCallback? = null)
-    : AsyncTask<Void, Void, UploadcareGroup?>() {
-    override fun doInBackground(vararg p0: Void?): UploadcareGroup? {
-        return try {
-            client.createGroupInternal(fileIds, jsonpCallback, signature, expire)
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    override fun onPostExecute(result: UploadcareGroup?) {
-        if (result != null) {
-            callback?.onSuccess(result)
-        } else {
-            callback?.onFailure(UploadFailureException())
-        }
     }
 }
