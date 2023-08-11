@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -30,9 +31,24 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     private val args: UploadcareFilesFragmentArgs by navArgs()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+    private val menuProvider = object : MenuProvider {
+
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.ucw_social_actions, menu)
+        }
+
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
+            when (menuItem.itemId) {
+                android.R.id.home -> {
+                    checkBackStack()
+                    true
+                }
+                R.id.ucw_action_sign_out -> {
+                    viewModel.signOut()
+                    true
+                }
+                else -> false
+            }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -115,23 +131,11 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.ucw_social_actions, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                checkBackStack()
-                true
-            }
-            R.id.ucw_action_sign_out -> {
-                viewModel.signOut()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        requireActivity().addMenuProvider(
+            menuProvider,
+            viewLifecycleOwner
+        )
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -28,9 +29,24 @@ class CdnFragment : Fragment() {
 
     private val args: CdnFragmentArgs by navArgs()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+    private val menuProvider = object : MenuProvider {
+
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.cdn_file_actions, menu)
+        }
+
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
+            when (menuItem.itemId) {
+                R.id.action__convert_document -> {
+                    viewModel.convertDocument()
+                    true
+                }
+                R.id.action__convert_video -> {
+                    viewModel.convertVideo()
+                    true
+                }
+                else -> false
+            }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -55,23 +71,11 @@ class CdnFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.cdn_file_actions, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action__convert_document -> {
-                viewModel.convertDocument()
-                true
-            }
-            R.id.action__convert_video -> {
-                viewModel.convertVideo()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        requireActivity().addMenuProvider(
+            menuProvider,
+            viewLifecycleOwner
+        )
     }
 
     /**
