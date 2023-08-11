@@ -20,6 +20,7 @@ buildscript {
     versions.appcompat = "1.6.1"
     versions.fragment = "1.6.1"
     versions.work = "2.8.1"
+    versions.preference = "1.2.1"
 
     versions.okhttp = "4.11.0"
     versions.retrofit = "2.9.0"
