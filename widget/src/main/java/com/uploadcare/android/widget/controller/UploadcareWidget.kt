@@ -18,7 +18,7 @@ import com.uploadcare.android.widget.activity.UploadcareActivity
 import com.uploadcare.android.widget.interfaces.SocialApi
 import com.uploadcare.android.widget.utils.SingletonHolder
 import com.uploadcare.android.widget.worker.FileUploadWorker
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.*
