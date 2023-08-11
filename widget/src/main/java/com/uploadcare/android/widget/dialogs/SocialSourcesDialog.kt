@@ -10,6 +10,7 @@ import com.uploadcare.android.widget.R
 import com.uploadcare.android.widget.adapter.SocialNetworksAdapter
 import com.uploadcare.android.widget.controller.FileType
 import com.uploadcare.android.widget.data.SocialSource
+import com.uploadcare.android.widget.utils.tryGetParcelableArrayListSafely
 
 class SocialSourcesDialog : DialogFragment() {
 
@@ -33,8 +34,10 @@ class SocialSourcesDialog : DialogFragment() {
         val title = arguments?.getString(DIALOG_TITLE)
         val fileType = arguments?.getString(DIALOG_FILE_TYPE)?.let { FileType.valueOf(it) }
                 ?: FileType.any
-        val sources = arguments?.getParcelableArrayList(DIALOG_SOUCES)
-                ?: listOf<SocialSource>()
+        val sources = arguments?.tryGetParcelableArrayListSafely(
+            DIALOG_SOURCES,
+            SocialSource::class.java
+        ) ?: listOf()
 
         val dialogBuilder = AlertDialog.Builder(requireContext(),
                 R.style.UploadcareWidget_AlertDialogStyle).apply {
@@ -72,7 +75,7 @@ class SocialSourcesDialog : DialogFragment() {
 
         private const val DIALOG_TITLE = "extras.dialog_title"
         private const val DIALOG_FILE_TYPE = "extras.dialog_file_type"
-        private const val DIALOG_SOUCES = "extras.dialog_sources"
+        private const val DIALOG_SOURCES = "extras.dialog_sources"
 
         fun newInstance(sources: List<SocialSource>,
                         title: String,
@@ -80,7 +83,7 @@ class SocialSourcesDialog : DialogFragment() {
             val arguments = Bundle().apply {
                 putString(DIALOG_TITLE, title)
                 putString(DIALOG_FILE_TYPE, fileType.name)
-                putParcelableArrayList(DIALOG_SOUCES, ArrayList(sources))
+                putParcelableArrayList(DIALOG_SOURCES, ArrayList(sources))
             }
 
             val fragment = SocialSourcesDialog()
