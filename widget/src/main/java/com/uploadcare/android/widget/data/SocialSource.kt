@@ -7,12 +7,11 @@ import android.webkit.CookieManager
 import com.squareup.moshi.Json
 import com.uploadcare.android.widget.R
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class SocialSource(@Json(name = "root_chunks") val rootChunks: List<Chunk>,
                         val name: String,
-                        val urls: @RawValue Urls) : Parcelable {
+                        val urls: Urls) : Parcelable {
 
     fun saveCookie(context: Context, cookie: String) {
         PreferenceManager.getDefaultSharedPreferences(context)
