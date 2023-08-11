@@ -2,8 +2,8 @@ package com.uploadcare.android.widget.data
 
 import android.content.Context
 import android.os.Parcelable
-import android.preference.PreferenceManager
 import android.webkit.CookieManager
+import androidx.preference.PreferenceManager
 import com.squareup.moshi.Json
 import com.uploadcare.android.widget.R
 import kotlinx.android.parcel.Parcelize

@@ -97,6 +97,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "com.google.android.material:material:$versions.material"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+    implementation "androidx.preference:preference-ktx:$versions.preference"
 
     implementation "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
