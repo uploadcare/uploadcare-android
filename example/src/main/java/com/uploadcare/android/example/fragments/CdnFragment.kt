@@ -22,32 +22,12 @@ import com.uploadcare.android.library.urls.Urls
 /**
  * Fragment showcase different CdnPathBuilder options for image files.
  */
-class CdnFragment : Fragment() {
+class CdnFragment : Fragment(), MenuProvider {
 
     private lateinit var binding: FragmentCdnBinding
     private lateinit var viewModel: CdnViewModel
 
     private val args: CdnFragmentArgs by navArgs()
-
-    private val menuProvider = object : MenuProvider {
-
-        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            menuInflater.inflate(R.menu.cdn_file_actions, menu)
-        }
-
-        override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
-            when (menuItem.itemId) {
-                R.id.action__convert_document -> {
-                    viewModel.convertDocument()
-                    true
-                }
-                R.id.action__convert_video -> {
-                    viewModel.convertVideo()
-                    true
-                }
-                else -> false
-            }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -73,10 +53,27 @@ class CdnFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().addMenuProvider(
-            menuProvider,
+            this,
             viewLifecycleOwner
         )
     }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.cdn_file_actions, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
+        when (menuItem.itemId) {
+            R.id.action__convert_document -> {
+                viewModel.convertDocument()
+                true
+            }
+            R.id.action__convert_video -> {
+                viewModel.convertVideo()
+                true
+            }
+            else -> false
+        }
 
     /**
      * Populates views. Generates different CDN urls for various effects and loads images to views.

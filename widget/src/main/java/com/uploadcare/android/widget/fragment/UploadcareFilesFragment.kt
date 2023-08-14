@@ -24,32 +24,12 @@ import com.uploadcare.android.widget.utils.NavigationHelper
 import com.uploadcare.android.widget.viewmodels.UploadcareFilesViewModel
 
 class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
-        OnFileActionsListener, OnAuthListener, CancelUploadListener {
+        OnFileActionsListener, OnAuthListener, CancelUploadListener, MenuProvider {
 
     private lateinit var binding: UcwFragmentFilesBinding
     private lateinit var viewModel: UploadcareFilesViewModel
 
     private val args: UploadcareFilesFragmentArgs by navArgs()
-
-    private val menuProvider = object : MenuProvider {
-
-        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            menuInflater.inflate(R.menu.ucw_social_actions, menu)
-        }
-
-        override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
-            when (menuItem.itemId) {
-                android.R.id.home -> {
-                    checkBackStack()
-                    true
-                }
-                R.id.ucw_action_sign_out -> {
-                    viewModel.signOut()
-                    true
-                }
-                else -> false
-            }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -133,10 +113,27 @@ class UploadcareFilesFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().addMenuProvider(
-            menuProvider,
+            this,
             viewLifecycleOwner
         )
     }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.ucw_social_actions, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
+        when (menuItem.itemId) {
+            android.R.id.home -> {
+                checkBackStack()
+                true
+            }
+            R.id.ucw_action_sign_out -> {
+                viewModel.signOut()
+                true
+            }
+            else -> false
+        }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         // Ignore.
