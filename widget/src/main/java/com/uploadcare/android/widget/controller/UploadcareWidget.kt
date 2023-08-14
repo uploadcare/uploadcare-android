@@ -17,7 +17,7 @@ import com.uploadcare.android.widget.R
 import com.uploadcare.android.widget.activity.UploadcareActivity
 import com.uploadcare.android.widget.interfaces.SocialApi
 import com.uploadcare.android.widget.utils.SingletonHolder
-import com.uploadcare.android.widget.utils.tryGetParcelableSafely
+import com.uploadcare.android.widget.utils.getSupportParcelable
 import com.uploadcare.android.widget.worker.FileUploadWorker
 import kotlinx.android.parcel.Parcelize
 import retrofit2.Retrofit
@@ -336,6 +336,6 @@ data class UploadcareWidgetResult(val uploadcareFile: UploadcareFile? = null,
 
         @JvmStatic
         fun fromIntent(intent: Intent?): UploadcareWidgetResult? =
-            intent?.extras?.tryGetParcelableSafely(KEY_RESULT, UploadcareWidgetResult::class.java)
+            intent?.extras?.getSupportParcelable(KEY_RESULT, UploadcareWidgetResult::class.java)
     }
 }

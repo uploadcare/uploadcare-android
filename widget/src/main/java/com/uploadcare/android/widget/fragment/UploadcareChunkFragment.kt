@@ -24,7 +24,7 @@ import com.uploadcare.android.widget.data.SocialSource
 import com.uploadcare.android.widget.data.Thing
 import com.uploadcare.android.widget.databinding.UcwFragmentChunkBinding
 import com.uploadcare.android.widget.utils.RecyclerViewOnScrollListener
-import com.uploadcare.android.widget.utils.tryGetParcelableSafely
+import com.uploadcare.android.widget.utils.getSupportParcelable
 import com.uploadcare.android.widget.viewmodels.UploadcareChunkViewModel
 
 class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -58,7 +58,7 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val socialSource = arguments?.tryGetParcelableSafely(
+        val socialSource = arguments?.getSupportParcelable(
             KEY_SOCIAL_SOURCE,
             SocialSource::class.java
         )

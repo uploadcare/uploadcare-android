@@ -5,7 +5,7 @@ import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.os.Parcelable
 
-internal fun <T : Parcelable> Bundle.tryGetParcelableSafely(key: String, clazz: Class<T>): T? =
+internal fun <T : Parcelable> Bundle.getSupportParcelable(key: String, clazz: Class<T>): T? =
     if (VERSION.SDK_INT >= VERSION_CODES.TIRAMISU) {
         getParcelable(key, clazz)
     } else {
@@ -13,7 +13,7 @@ internal fun <T : Parcelable> Bundle.tryGetParcelableSafely(key: String, clazz: 
         getParcelable(key)
     }
 
-internal fun <T : Parcelable> Bundle.tryGetParcelableArrayListSafely(
+internal fun <T : Parcelable> Bundle.getSupportParcelableArrayList(
     key: String,
     clazz: Class<T>
 ): ArrayList<T>? =

@@ -10,7 +10,7 @@ import com.uploadcare.android.widget.R
 import com.uploadcare.android.widget.adapter.SocialNetworksAdapter
 import com.uploadcare.android.widget.controller.FileType
 import com.uploadcare.android.widget.data.SocialSource
-import com.uploadcare.android.widget.utils.tryGetParcelableArrayListSafely
+import com.uploadcare.android.widget.utils.getSupportParcelableArrayList
 
 class SocialSourcesDialog : DialogFragment() {
 
@@ -34,7 +34,7 @@ class SocialSourcesDialog : DialogFragment() {
         val title = arguments?.getString(DIALOG_TITLE)
         val fileType = arguments?.getString(DIALOG_FILE_TYPE)?.let { FileType.valueOf(it) }
                 ?: FileType.any
-        val sources = arguments?.tryGetParcelableArrayListSafely(
+        val sources = arguments?.getSupportParcelableArrayList(
             DIALOG_SOURCES,
             SocialSource::class.java
         ) ?: listOf()
