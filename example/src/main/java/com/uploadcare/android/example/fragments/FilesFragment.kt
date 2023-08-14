@@ -111,7 +111,7 @@ class FilesFragment : Fragment(), OrderDialogListener, DatePickerDialog.OnDateSe
         var dialog = childFragmentManager
                 .findFragmentByTag(OrderDialogFragment::class.java.simpleName)
                 as OrderDialogFragment?
-        if (dialog != null || fragmentManager?.isStateSaved == true) {
+        if (dialog != null || parentFragmentManager.isStateSaved) {
             return
         }
 
