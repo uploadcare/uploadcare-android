@@ -72,7 +72,7 @@ class UploadUtils {
 
             val mime = MimeTypeMap.getSingleton()
             val index = fileName.lastIndexOf('.') + 1
-            val ext = fileName.substring(index).toLowerCase(Locale.ROOT)
+            val ext = fileName.substring(index).lowercase(Locale.ROOT)
             val type = mime.getMimeTypeFromExtension(ext) ?: return MEDIA_TYPE_TEXT_PLAIN
             return type.toMediaTypeOrNull()
         }
