@@ -1,5 +1,8 @@
 package com.uploadcare.android.example.fragments
 
+import android.app.Service
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.*
@@ -79,9 +82,7 @@ class CdnFragment : Fragment(), MenuProvider {
      * Populates views. Generates different CDN urls for various effects and loads images to views.
      */
     private fun loadImages(uploadcareFile: UploadcareFile) {
-        val displaymetrics = DisplayMetrics()
-        activity?.windowManager?.defaultDisplay?.getMetrics(displaymetrics)
-        val width = displaymetrics.widthPixels
+        val width = requireContext().getDisplayMetrics().widthPixels
 
         for (i in 0..6) {
             val builder = uploadcareFile.cdnPath()
@@ -123,5 +124,21 @@ class CdnFragment : Fragment(), MenuProvider {
                 }
             }
         }
+    }
+
+    private fun Context.getDisplayMetrics(): DisplayMetrics {
+        val displayMetrics = DisplayMetrics()
+        val windowManager = getSystemService(Service.WINDOW_SERVICE) as WindowManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            with(windowManager.currentWindowMetrics.bounds) {
+                displayMetrics.widthPixels = width()
+                displayMetrics.heightPixels = height()
+            }
+        } else {
+            @Suppress("DEPRECATION")
+            windowManager.defaultDisplay.getRealMetrics(displayMetrics)
+        }
+        displayMetrics.densityDpi = resources.configuration.densityDpi
+        return displayMetrics
     }
 }
