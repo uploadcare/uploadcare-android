@@ -60,6 +60,10 @@ class UploadcareWidget private constructor(context: Context) {
      * @return Builder where you can specify all required parameters and launch selection
      * and upload.
      */
+    @Deprecated(
+        "Use UploadcareContract with registerForActivityResult(ActivityResultContract, ActivityResultCallback) from Activity or Fragment",
+        ReplaceWith("registerForActivityResult(UploadcareContract) {}", "com.uploadcare.android.widget.controller.UploadcareContract")
+    )
     fun selectFile(activity: Activity): Builder {
         return Builder(activity)
     }
@@ -72,6 +76,10 @@ class UploadcareWidget private constructor(context: Context) {
      * @return Builder where you can specify all required parameters and launch selection
      * and upload.
      */
+    @Deprecated(
+        "Use UploadcareContract with registerForActivityResult(ActivityResultContract, ActivityResultCallback) from Activity or Fragment",
+        ReplaceWith("registerForActivityResult(UploadcareContract) {}", "com.uploadcare.android.widget.controller.UploadcareContract")
+    )
     fun selectFile(fragment: Fragment): Builder {
         return Builder(fragment)
     }
@@ -138,6 +146,10 @@ class UploadcareWidget private constructor(context: Context) {
         return result
     }
 
+    @Deprecated(
+        "Use UploadcareContract with registerForActivityResult(ActivityResultContract, ActivityResultCallback) from Activity or Fragment",
+        ReplaceWith("registerForActivityResult(UploadcareContract) {}", "com.uploadcare.android.widget.controller.UploadcareContract")
+    )
     class Builder private constructor(private val fragment: Fragment? = null,
                                       private val activity: Activity? = null) {
 
