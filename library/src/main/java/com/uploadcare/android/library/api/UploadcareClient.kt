@@ -24,7 +24,7 @@ import java.net.URI
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -47,7 +47,7 @@ class UploadcareClient constructor(val publicKey: String,
 
     constructor(publicKey: String, secretKey: String) : this(publicKey, secretKey, false)
 
-    private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val coroutineScope: CoroutineScope = MainScope()
 
     val httpClient: OkHttpClient
     val requestHelper: RequestHelper
@@ -472,18 +472,18 @@ class UploadcareClient constructor(val publicKey: String,
         callback: RequestCallback? = null
     ) {
         coroutineScope.launch {
-            val result = try {
-                executeSaveDeleteBatchCommand(requestType, fileIds)
-            } catch (e: Exception) {
-                null
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    executeSaveDeleteBatchCommand(requestType, fileIds)
+                } catch (e: Exception) {
+                    null
+                }
             }
 
-            withContext(Dispatchers.Main) {
-                if (result != null) {
-                    callback?.onSuccess(result)
-                } else {
-                    callback?.onFailure(UploadcareApiException())
-                }
+            if (result != null) {
+                callback?.onSuccess(result)
+            } else {
+                callback?.onFailure(UploadcareApiException())
             }
         }
     }
@@ -732,18 +732,18 @@ class UploadcareClient constructor(val publicKey: String,
         callback: UploadcareGroupCallback? = null
     ) {
         coroutineScope.launch {
-            val result = try {
-                createGroupInternal(fileIds, jsonpCallback, signature, expire)
-            } catch (e: Exception) {
-                null
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    createGroupInternal(fileIds, jsonpCallback, signature, expire)
+                } catch (e: Exception) {
+                    null
+                }
             }
 
-            withContext(Dispatchers.Main) {
-                if (result != null) {
-                    callback?.onSuccess(result)
-                } else {
-                    callback?.onFailure(UploadFailureException())
-                }
+            if (result != null) {
+                callback?.onSuccess(result)
+            } else {
+                callback?.onFailure(UploadFailureException())
             }
         }
     }

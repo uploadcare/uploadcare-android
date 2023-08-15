@@ -10,7 +10,7 @@ import java.net.URI
 import java.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -27,7 +27,7 @@ class FilesQueryBuilder(private val client: UploadcareClient)
 
     private val parameters: MutableMap<String, UrlParameter> = mutableMapOf()
 
-    private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val coroutineScope: CoroutineScope = MainScope()
 
     /**
      * Adds a filter for removed files.
@@ -158,17 +158,17 @@ class FilesQueryBuilder(private val client: UploadcareClient)
      */
     fun asListAsync(callback: UploadcareAllFilesCallback?) {
         coroutineScope.launch {
-            val result = try {
-                asList()
-            } catch (e: Exception) {
-                e.printStackTrace()
-                null
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    asList()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    null
+                }
             }
 
-            withContext(Dispatchers.Main) {
-                result?.let { callback?.onSuccess(result) }
-                    ?: callback?.onFailure(UploadcareApiException("Unexpected error"))
-            }
+            result?.let { callback?.onSuccess(result) }
+                ?: callback?.onFailure(UploadcareApiException("Unexpected error"))
         }
     }
 
