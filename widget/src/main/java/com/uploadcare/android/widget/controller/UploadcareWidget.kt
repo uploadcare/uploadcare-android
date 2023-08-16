@@ -61,8 +61,8 @@ class UploadcareWidget private constructor(context: Context) {
      * and upload.
      */
     @Deprecated(
-        "Use UploadcareContract with registerForActivityResult(ActivityResultContract, ActivityResultCallback) from Activity or Fragment",
-        ReplaceWith("registerForActivityResult(UploadcareContract) {}", "com.uploadcare.android.widget.controller.UploadcareContract")
+        "Use UploadcareActivityResultContract with registerForActivityResult(ActivityResultContract, ActivityResultCallback) from Activity or Fragment",
+        ReplaceWith("registerForActivityResult(UploadcareActivityResultContract) {}", "com.uploadcare.android.widget.controller.UploadcareActivityResultContract")
     )
     fun selectFile(activity: Activity): Builder {
         return Builder(activity)
@@ -77,8 +77,8 @@ class UploadcareWidget private constructor(context: Context) {
      * and upload.
      */
     @Deprecated(
-        "Use UploadcareContract with registerForActivityResult(ActivityResultContract, ActivityResultCallback) from Activity or Fragment",
-        ReplaceWith("registerForActivityResult(UploadcareContract) {}", "com.uploadcare.android.widget.controller.UploadcareContract")
+        "Use UploadcareActivityResultContract with registerForActivityResult(ActivityResultContract, ActivityResultCallback) from Activity or Fragment",
+        ReplaceWith("registerForActivityResult(UploadcareActivityResultContract) {}", "com.uploadcare.android.widget.controller.UploadcareActivityResultContract")
     )
     fun selectFile(fragment: Fragment): Builder {
         return Builder(fragment)
@@ -147,8 +147,8 @@ class UploadcareWidget private constructor(context: Context) {
     }
 
     @Deprecated(
-        "Use UploadcareContract with registerForActivityResult(ActivityResultContract, ActivityResultCallback) from Activity or Fragment",
-        ReplaceWith("registerForActivityResult(UploadcareContract) {}", "com.uploadcare.android.widget.controller.UploadcareContract")
+        "Use UploadcareActivityResultContract with registerForActivityResult(ActivityResultContract, ActivityResultCallback) from Activity or Fragment",
+        ReplaceWith("registerForActivityResult(UploadcareActivityResultContract) {}", "com.uploadcare.android.widget.controller.UploadcareActivityResultContract")
     )
     class Builder private constructor(private val fragment: Fragment? = null,
                                       private val activity: Activity? = null) {
@@ -256,6 +256,10 @@ class UploadcareWidget private constructor(context: Context) {
          * To get result with info about uploaded file or error, override onActivityResult() method,
          * and use code below to get result
          * val result = UploadcareWidgetResult.fromIntent(data)
+         *
+         * Notice: Since [androidx.fragment.app.Fragment.startActivityForResult] was deprecated, you
+         * should use [androidx.fragment.app.Fragment.registerForActivityResult] with
+         * [com.uploadcare.android.widget.controller.UploadcareActivityResultContract] instead.
          */
         fun launch() {
             if (fragment != null) {

@@ -15,7 +15,7 @@ import com.uploadcare.android.example.R
 import com.uploadcare.android.example.databinding.FragmentUploadBinding
 import com.uploadcare.android.example.utils.GetMultipleContentsLocally
 import com.uploadcare.android.example.viewmodels.UploadViewModel
-import com.uploadcare.android.widget.controller.UploadcareContract
+import com.uploadcare.android.widget.controller.UploadcareActivityResultContract
 
 class UploadFragment : Fragment() {
 
@@ -30,7 +30,7 @@ class UploadFragment : Fragment() {
         }
     }
 
-    private val uploadcareLauncher = registerForActivityResult(UploadcareContract) { result ->
+    private val uploadcareLauncher = registerForActivityResult(UploadcareActivityResultContract) { result ->
         result?.let { viewModel.onUploadResult(result) }
     }
 

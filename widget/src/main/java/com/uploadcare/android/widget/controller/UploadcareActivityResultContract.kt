@@ -6,8 +6,10 @@ import androidx.activity.result.contract.ActivityResultContract
 import com.uploadcare.android.widget.activity.UploadcareActivity
 import com.uploadcare.android.widget.utils.getSupportParcelable
 
-// TODO: @CheK539 add javadoc or update documentation/WIDGET.md
-object UploadcareContract :
+/**
+ * Launches selection and upload of the file, with specified parameters.
+ */
+object UploadcareActivityResultContract :
     ActivityResultContract<UploadcareWidgetParams, UploadcareWidgetResult?>() {
 
     private const val KEY_RESULT = "result"

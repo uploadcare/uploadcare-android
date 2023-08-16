@@ -133,3 +133,38 @@ UploadcareWidget.getInstance()
                 //...
                 .launch()
 ```
+
+> **Notice**
+> Since `androidx.fragment.app.Fragment.startActivityForResult` was deprecated, you should use
+> `androidx.fragment.app.Fragment.registerForActivityResult` with
+> `com.uploadcare.android.widget.controller.UploadcareActivityResultContract` instead as described
+> in section below.
+
+##### Support Activity Result APIs
+
+Kotlin
+```kotlin
+// Register Activity Result Launcher
+val uploadcareLauncher = registerForActivityResult(UploadcareActivityResultContract) { result ->
+    result?.let { 
+    //handle result.
+    }
+}
+
+// Launch UploadcareWidget
+val params = UploadcareWidgetParams() // set parameters for upload
+uploadcareLauncher.launch(params)
+```
+Java
+```java
+// Register Activity Result Launcher
+ActivityResultLauncher<UploadcareWidgetParams> uploadcareLauncher = registerForActivityResult(UploadcareActivityResultContract.INSTANCE, result -> {
+        if (result != null) {
+            // handle result.
+        }
+        });
+
+// Launch UploadcareWidget
+UploadcareWidgetParams params = new UploadcareWidgetParams(); // set parameters for upload
+uploadcareLauncher.launch(params);
+```
