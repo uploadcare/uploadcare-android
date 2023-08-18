@@ -7,12 +7,14 @@
     <data>
 
         <variable
-            name="fragment"
-            type="com.uploadcare.android.example.fragments.UploadFragment" />
+            name="uploadcareLauncher"
+            type="androidx.activity.result.ActivityResultLauncher&lt;UploadcareWidgetParams&gt;" />
 
         <variable
             name="viewModel"
             type="com.uploadcare.android.example.viewmodels.UploadViewModel" />
+
+        <import type="com.uploadcare.android.widget.controller.UploadcareWidgetParams"/>
 
     </data>
 
@@ -203,7 +205,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.uploadWidgetAny(fragment)}"
+                    android:onClick="@{() -> viewModel.uploadWidgetAny(uploadcareLauncher)}"
                     android:text="@string/activity_main_btn_upload_widget"
                     app:isVisible="@{!viewModel.loading}"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -215,7 +217,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.uploadWidgetInstagram(fragment)}"
+                    android:onClick="@{() -> viewModel.uploadWidgetInstagram(uploadcareLauncher)}"
                     android:text="@string/activity_main_btn_upload_widget_in"
                     app:isVisible="@{!viewModel.loading}"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -227,7 +229,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.uploadWidgetFacebook(fragment)}"
+                    android:onClick="@{() -> viewModel.uploadWidgetFacebook(uploadcareLauncher)}"
                     android:text="@string/activity_main_btn_upload_widget_fa"
                     app:isVisible="@{!viewModel.loading}"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -239,7 +241,7 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.uploadWidgetDropbox(fragment)}"
+                    android:onClick="@{() -> viewModel.uploadWidgetDropbox(uploadcareLauncher)}"
                     android:text="@string/activity_main_btn_upload_widget_dropbox"
                     app:isVisible="@{!viewModel.loading}"
                     app:layout_constraintEnd_toEndOf="parent"
