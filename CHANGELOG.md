@@ -2,6 +2,20 @@
 
 # History
 
+## 3.2.0
+- Example:
+    - Update dependencies
+    - Replace deprecated dependencies
+- Widget:
+    - Update dependencies
+    - Update documentation
+    - Replace deprecated dependencies
+    - Deprecate `UploadcareWidget.selectFile()`
+    - Add `UploadcareActivityResultContract` for support Activity Result APIs
+- Library:
+    - Update dependencies
+    - Replace deprecated dependencies
+
 ## 3.1.0
 - Widget:
     - Update documentation
