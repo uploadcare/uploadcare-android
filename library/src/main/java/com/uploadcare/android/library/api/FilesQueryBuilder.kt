@@ -56,7 +56,6 @@ class FilesQueryBuilder(private val client: UploadcareClient)
      */
     fun ordering(order: Order): FilesQueryBuilder {
         parameters["ordering"] = FilesOrderParameter(order)
-        parameters.remove("from")
         return this
     }
 
