@@ -3,18 +3,17 @@
 # History
 
 ## 3.2.0
-- Example:
-    - Update dependencies
-    - Replace deprecated dependencies
 - Widget:
+    - `UploadcareWidget.selectFile()` was deprecated since `Fragment.startActivityForResult` was deprecated.
+      We provide a new way via `Fragment.registerForActivityResult` and `Activity.registerForActivityResult`
+      with `UploadcareActivityResultContract`
+    - Update information about using widget via `registerForActivityResult` with `UploadcareActivityResultContract`
+      in documentation
+- Example, Widget, Library:
+    - Replace deprecated dependencies and methods usage under the hood
+    - Update target sdk version to 33
+    - Update AGP version to 8.1.0 and Gradle version to 8.1
     - Update dependencies
-    - Update documentation
-    - Replace deprecated dependencies
-    - Deprecate `UploadcareWidget.selectFile()`
-    - Add `UploadcareActivityResultContract` for support Activity Result APIs
-- Library:
-    - Update dependencies
-    - Replace deprecated dependencies
 
 ## 3.1.0
 - Widget:
