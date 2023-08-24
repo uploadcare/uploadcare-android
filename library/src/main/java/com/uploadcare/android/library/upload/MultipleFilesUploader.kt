@@ -153,7 +153,6 @@ class MultipleFilesUploader : MultipleUploader {
     }
 
     private fun uploadFiles(progressCallback: ProgressCallback?): List<UploadcareFile> {
-        var resumed = false
         if (files != null) {
             while (uploadFileNumber < files.size) {
                 if (isPaused) {
@@ -169,20 +168,12 @@ class MultipleFilesUploader : MultipleUploader {
                     contentMediaType = contentType
 
                     results.add(if (size > MIN_MULTIPART_SIZE) {
-                        if (!resumed && uploadChunkNumber != -1) {
-                            uploadChunks(
-                                    multipartData!!,
-                                    contentType,
-                                    file.chunkedSequence(CHUNK_SIZE),
-                                    progressCallback)
-                        } else {
-                            // We can use multipart upload
-                            multipartUpload(
-                                    name,
-                                    contentType,
-                                    file.chunkedSequence(CHUNK_SIZE),
-                                    progressCallback)
-                        }
+                        multipartUpload(
+                                name,
+                                contentType,
+                                file.chunkedSequence(CHUNK_SIZE),
+                                progressCallback
+                        )
                     } else {
                         // We can use only direct upload
                         directUpload(name, file.asRequestBody(contentType), progressCallback)
@@ -192,7 +183,6 @@ class MultipleFilesUploader : MultipleUploader {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-                resumed = true
                 uploadFileNumber += 1
             }
         } else if (context != null && uris != null) {
@@ -212,20 +202,12 @@ class MultipleFilesUploader : MultipleUploader {
                     contentMediaType = contentType
 
                     results.add(if (size > MIN_MULTIPART_SIZE) {
-                        if (!resumed && uploadChunkNumber != -1) {
-                            uploadChunks(
-                                    multipartData!!,
-                                    contentType,
-                                    uri.chunkedSequence(context, CHUNK_SIZE),
-                                    progressCallback)
-                        } else {
-                            // We can use multipart upload
-                            multipartUpload(
-                                    name,
-                                    contentType,
-                                    uri.chunkedSequence(context, CHUNK_SIZE),
-                                    progressCallback)
-                        }
+                        // We can use multipart upload
+                        multipartUpload(
+                            name,
+                            contentType,
+                            uri.chunkedSequence(context, CHUNK_SIZE),
+                            progressCallback)
                     } else {
                         // We can use only direct upload
                         val requestBody = try {
@@ -245,7 +227,6 @@ class MultipleFilesUploader : MultipleUploader {
                 } catch (e: UploadFailureException) {
                     e.printStackTrace()
                 }
-                resumed = true
                 uploadFileNumber += 1
             }
         }
