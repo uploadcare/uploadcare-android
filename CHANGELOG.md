@@ -7,8 +7,7 @@
     - `UploadcareWidget.selectFile()` was deprecated since `Fragment.startActivityForResult` was deprecated.
       We provide a new way via `Fragment.registerForActivityResult` and `Activity.registerForActivityResult`
       with `UploadcareActivityResultContract`
-    - Update information about using widget via `registerForActivityResult` with `UploadcareActivityResultContract`
-      in documentation
+    - Documentation about using widget via `registerForActivityResult` with `UploadcareActivityResultContract` is updated accordingly
 - Dependencies:
     - Replace deprecated dependencies and methods usage under the hood
     - Update the target SDK version to 33
