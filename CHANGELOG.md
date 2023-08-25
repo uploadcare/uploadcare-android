@@ -11,7 +11,7 @@
       in documentation
 - Example, Widget, Library:
     - Replace deprecated dependencies and methods usage under the hood
-    - Update target sdk version to 33
+    - Update the target SDK version to 33
     - Update AGP version to 8.1.0 and Gradle version to 8.1
     - Update dependencies
 
