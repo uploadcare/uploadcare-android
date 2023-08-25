@@ -9,7 +9,7 @@
       with `UploadcareActivityResultContract`
     - Update information about using widget via `registerForActivityResult` with `UploadcareActivityResultContract`
       in documentation
-- Example, Widget, Library:
+- Dependencies:
     - Replace deprecated dependencies and methods usage under the hood
     - Update the target SDK version to 33
     - Update AGP version to 8.1.0 and Gradle version to 8.1
