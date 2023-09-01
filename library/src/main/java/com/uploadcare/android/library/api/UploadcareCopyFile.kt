@@ -3,7 +3,7 @@ package com.uploadcare.android.library.api
 import android.os.Parcelable
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.utils.AsString
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.net.URI
 
 /**

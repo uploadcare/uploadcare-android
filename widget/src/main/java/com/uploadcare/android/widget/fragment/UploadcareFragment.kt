@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,9 @@ import com.uploadcare.android.widget.data.SocialSource
 import com.uploadcare.android.widget.databinding.UcwFragmentUploadcareBinding
 import com.uploadcare.android.widget.dialogs.CancelUploadListener
 import com.uploadcare.android.widget.dialogs.SocialSourcesListener
+import com.uploadcare.android.widget.utils.CaptureMedia
 import com.uploadcare.android.widget.utils.NavigationHelper
+import com.uploadcare.android.widget.utils.OpenDocumentLocally
 import com.uploadcare.android.widget.viewmodels.MediaType
 import com.uploadcare.android.widget.viewmodels.UploadcareViewModel
 
@@ -29,6 +30,26 @@ class UploadcareFragment : Fragment(), SocialSourcesListener, CancelUploadListen
 
     private lateinit var binding: UcwFragmentUploadcareBinding
     private lateinit var viewModel: UploadcareViewModel
+
+    private val captureMediaLauncher = registerForActivityResult(CaptureMedia) { success ->
+        if (success) {
+            viewModel.uploadFile()
+        } else {
+            activity?.finish()
+        }
+    }
+
+    private val filePickerLauncher = registerForActivityResult(OpenDocumentLocally) { fileUri ->
+        fileUri?.let {
+            context?.contentResolver?.takePersistableUriPermission(
+                fileUri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            )
+
+            viewModel.uploadFile(fileUri)
+        } ?: activity?.finish()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -110,58 +131,12 @@ class UploadcareFragment : Fragment(), SocialSourcesListener, CancelUploadListen
         viewModel.canlcelUpload()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode != RESULT_OK) {
-            activity?.finish()
-            super.onActivityResult(requestCode, resultCode, data)
-            return
-        }
-
-        when (requestCode) {
-            CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE,
-            CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE -> {
-                viewModel.uploadFile()
-            }
-            CHOOSE_FILE_ACTIVITY_REQUEST_CODE -> {
-                val fileUri = data?.data
-                fileUri?.let {
-                    context?.contentResolver?.takePersistableUriPermission(
-                            it,
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION
-                                    or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-                }
-
-                fileUri?.let { viewModel.uploadFile(it) } ?: activity?.finish()
-            }
-        }
-    }
-
     private fun launchCamera(uri: Uri, mediaType: MediaType) {
-        when (mediaType) {
-            MediaType.IMAGE -> {
-                val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-                    putExtra(MediaStore.EXTRA_OUTPUT, uri)
-                }
-                startActivityForResult(cameraIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE)
-            }
-            else -> {
-                val videoIntent = Intent(MediaStore.ACTION_VIDEO_CAPTURE).apply {
-                    putExtra(MediaStore.EXTRA_OUTPUT, uri)
-                    putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1)
-                }
-                startActivityForResult(videoIntent, CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE)
-            }
-        }
+        captureMediaLauncher.launch(uri to mediaType)
     }
 
     private fun launchFilePicker(fileType: FileType) {
-        val chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-            type = getTypeForFileChooser(fileType)
-            putExtra(Intent.EXTRA_LOCAL_ONLY, true)
-        }
-
-        val intentFile = Intent.createChooser(chooseFile, getString(R.string.ucw_choose_file))
-        startActivityForResult(intentFile, CHOOSE_FILE_ACTIVITY_REQUEST_CODE)
+        filePickerLauncher.launch(arrayOf(getTypeForFileChooser(fileType)))
     }
 
     private fun getTypeForFileChooser(fileType: FileType): String {
@@ -170,12 +145,5 @@ class UploadcareFragment : Fragment(), SocialSourcesListener, CancelUploadListen
             FileType.video -> "video/*"
             else -> "*/*"
         }
-    }
-
-    companion object {
-
-        private const val CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100
-        private const val CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200
-        private const val CHOOSE_FILE_ACTIVITY_REQUEST_CODE = 300
     }
 }

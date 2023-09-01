@@ -1,8 +1,5 @@
 package com.uploadcare.android.example.fragments
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,20 +13,33 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.uploadcare.android.example.R
 import com.uploadcare.android.example.databinding.FragmentUploadBinding
+import com.uploadcare.android.example.utils.GetMultipleContentsLocally
 import com.uploadcare.android.example.viewmodels.UploadViewModel
-import com.uploadcare.android.widget.controller.UploadcareWidgetResult
+import com.uploadcare.android.widget.controller.UploadcareActivityResultContract
 
 class UploadFragment : Fragment() {
 
     private lateinit var binding: FragmentUploadBinding
     private lateinit var viewModel: UploadViewModel
 
+    private val selectFilesLauncher = registerForActivityResult(
+        GetMultipleContentsLocally
+    ) { uris ->
+        if (uris.isNotEmpty()) {
+            viewModel.uploadFiles(uris)
+        }
+    }
+
+    private val uploadcareLauncher = registerForActivityResult(UploadcareActivityResultContract) { result ->
+        result?.let { viewModel.onUploadResult(result) }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         binding = FragmentUploadBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get()
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.fragment = this
+        binding.uploadcareLauncher = uploadcareLauncher
         binding.viewModel = viewModel
 
         (activity as AppCompatActivity).let {
@@ -53,51 +63,9 @@ class UploadFragment : Fragment() {
     }
 
     /**
-     * Handles results from Uploadcare Widget social network file upload, file/files pick intent.
-     */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-
-            // Check file/files pick intent results.
-            if (requestCode == ACTIVITY_CHOOSE_FILE) {
-                if (data?.data != null) {
-                    // Upload 1 file.
-                    viewModel.uploadFile(data.data!!)
-                    return
-                } else if (data?.clipData != null) {
-                    // Upload multiple files.
-                    val count = data.clipData?.itemCount ?: 0
-                    val uriList = mutableListOf<Uri>()
-                    for (i in 0 until count) {
-                        data.clipData?.getItemAt(i)?.uri?.let { uriList.add(it) }
-                    }
-                    viewModel.uploadFiles(uriList)
-                    return
-                }
-            }
-
-            // Check Uploadcare Widget social network file upload result
-            val result = UploadcareWidgetResult.fromIntent(data)
-            result?.let { viewModel.onUploadResult(it) }
-        }
-    }
-
-    /**
      * Launches file/files pick intent.
      */
     private fun selectFilesForUpload() {
-        val chooseFile = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = "image/*"
-            putExtra(Intent.EXTRA_LOCAL_ONLY, true)
-            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        }
-        val intent = Intent.createChooser(chooseFile,
-                resources.getString(R.string.activity_main_choose_file))
-        startActivityForResult(intent, ACTIVITY_CHOOSE_FILE)
-    }
-
-    companion object {
-        private const val ACTIVITY_CHOOSE_FILE = 101
+        selectFilesLauncher.launch("image/*")
     }
 }

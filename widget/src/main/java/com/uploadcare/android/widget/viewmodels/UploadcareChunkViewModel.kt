@@ -8,6 +8,8 @@ import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.widget.controller.UploadcareWidget
 import com.uploadcare.android.widget.data.*
 import com.uploadcare.android.widget.utils.SingleLiveEvent
+import com.uploadcare.android.widget.utils.getSupportParcelable
+import com.uploadcare.android.widget.utils.getSupportParcelableArrayList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,8 +36,12 @@ class UploadcareChunkViewModel(application: Application) : AndroidViewModel(appl
 
     fun start(arguments: Bundle) {
         currentChunk = arguments.getInt("currentChunk", 0)
-        socialSource = arguments.getParcelable("socialSource")
-        chunks = arguments.getParcelableArrayList<Chunk>("chunks")?.toList() ?: listOf()
+        socialSource = arguments.getSupportParcelable(
+            KEY_SOCIAL_SOURCE,
+            SocialSource::class.java
+        )
+        chunks = arguments.getSupportParcelableArrayList(KEY_CHUNKS, Chunk::class.java)
+            ?: listOf()
         title = arguments.getString("title")
         isRoot = arguments.getBoolean("isRoot", false)
 
@@ -151,5 +157,11 @@ class UploadcareChunkViewModel(application: Application) : AndroidViewModel(appl
         }
 
         return stringBuilder.toString()
+    }
+
+    companion object {
+
+        private const val KEY_SOCIAL_SOURCE = "socialSource"
+        private const val KEY_CHUNKS = "chunks"
     }
 }

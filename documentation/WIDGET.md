@@ -16,92 +16,67 @@
 
 Kotlin
 ```kotlin
-// Launch UploadcareWidget
-val fragment = this //or val activity = this;
-UploadcareWidget.getInstance()
-                .selectFile(fragment)
-                //set other parameters for upload
-                .launch()
-
-// Handle result
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-
-    val result = UploadcareWidgetResult.fromIntent(data)
+// Register Activity Result Launcher
+val uploadcareLauncher = registerForActivityResult(UploadcareActivityResultContract) { result ->
     result?.let {
         //handle result.
     }
 }
+
+// Launch UploadcareWidget
+val params = UploadcareWidgetParams() // set parameters for upload
+uploadcareLauncher.launch(params)
 ```
 Java
 ```java
-// Launch UploadcareWidget
-Fragment fragment = this; //or Activity activity = this;
-UploadcareWidget.getInstance()
-                .selectFile(fragment)
-                //set other parameters for upload
-                .launch();
-
-// Handle result
-@Override
-public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-
-    UploadcareWidgetResult result = UploadcareWidgetResult.fromIntent(data);
-    if(result != null){
-        //handle result.
+// Register Activity Result Launcher
+ActivityResultLauncher<UploadcareWidgetParams> uploadcareLauncher = registerForActivityResult(UploadcareActivityResultContract.INSTANCE, result -> {
+    if (result != null) {
+        // handle result.
     }
-}
+});
+
+// Launch UploadcareWidget
+UploadcareWidgetParams params = new UploadcareWidgetParams(); // set parameters for upload
+uploadcareLauncher.launch(params);
 ```
 
 ##### Select and upload Video from Facebook with a progress bar and an option to cancel upload.
 
 Kotlin
 ```kotlin
-// Launch UploadcareWidget
-val fragment = this //or val activity = this;
-UploadcareWidget.getInstance()
-                .selectFile(fragment)
-                .from(SocialNetwork.SOCIAL_NETWORK_FACEBOOK)
-                .fileType(FileType.video)
-                .cancelable(true) // Allows user to cancel upload.
-                .showProgress(true) // Shows progress UI so user can see upload progress.
-                //set other parameters for upload
-                .launch()
-
-// Handle result
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-
-    val result = UploadcareWidgetResult.fromIntent(data)
+// Register Activity Result Launcher
+val uploadcareLauncher = registerForActivityResult(UploadcareActivityResultContract) { result ->
     result?.let {
         //handle result.
     }
 }
+
+// Launch UploadcareWidget
+val params = UploadcareWidgetParams(
+    network = SocialNetwork.SOCIAL_NETWORK_FACEBOOK,
+    fileType = FileType.video,
+    cancelable = true,
+    showProgress = true,
+) // set parameters for upload
+uploadcareLauncher.launch(params)
 ```
 Java
 ```java
-// Launch UploadcareWidget
-Fragment fragment = this; //or Activity activity = this;
-UploadcareWidget.getInstance()
-                .selectFile(fragment)
-                .from(SocialNetwork.SOCIAL_NETWORK_FACEBOOK)
-                .fileType(FileType.video)
-                .cancelable(true) // Allows user to cancel upload.
-                .showProgress(true) // Shows progress UI so user can see upload progress.
-                //set other parameters for upload
-                .launch();
-
-// Handle result
-@Override
-public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-
-    UploadcareWidgetResult result = UploadcareWidgetResult.fromIntent(data);
-    if(result != null){
-        //handle result.
+// Register Activity Result Launcher
+ActivityResultLauncher<UploadcareWidgetParams> uploadcareLauncher = registerForActivityResult(UploadcareActivityResultContract.INSTANCE, result -> {
+    if (result != null) {
+        // handle result.
     }
-}
+});
+
+// Launch UploadcareWidget
+UploadcareWidgetParams params = new UploadcareWidgetParams();
+params.setNetwork(SocialNetwork.SOCIAL_NETWORK_FACEBOOK); // set parameters for upload
+params.setFileType(FileType.video);
+params.setCancelable(true);
+params.setShowProgress(true);
+uploadcareLauncher.launch(params);
 ```
 
 ##### Custom widget appearance and style. Two color scheme presets: Regular (Day), and Dark modes.
@@ -119,17 +94,16 @@ Paste in your /res/values/styles.xml
 
 Kotlin
 ```kotlin
-UploadcareWidget.getInstance()
-                .selectFile(fragment) //or Activity
-                .style(R.style.CustomUploadCareStyle)
-                //...
-                .launch()
+val params = UploadcareWidgetParams(
+    style = R.style.CustomUploadCareStyle,
+    // ...
+)
+uploadcareLauncher.launch(params)
 ```
 Java
 ```java
-UploadcareWidget.getInstance()
-                .selectFile(fragment) //or Activity
-                .style(R.style.CustomUploadCareStyle);
-                //...
-                .launch()
+UploadcareWidgetParams params = new UploadcareWidgetParams();
+params.setStyle(R.style.CustomUploadCareStyle);
+// ...
+uploadcareLauncher.launch(params);
 ```

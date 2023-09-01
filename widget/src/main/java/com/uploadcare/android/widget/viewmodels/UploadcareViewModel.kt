@@ -24,6 +24,7 @@ import com.uploadcare.android.widget.controller.UploadcareWidget
 import com.uploadcare.android.widget.data.SocialSource
 import com.uploadcare.android.widget.data.SocialSourcesResponse
 import com.uploadcare.android.widget.utils.SingleLiveEvent
+import com.uploadcare.android.widget.utils.getSupportParcelableArrayList
 import com.uploadcare.android.widget.worker.FileUploadWorker
 import retrofit2.Call
 import retrofit2.Callback
@@ -78,8 +79,10 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun onRestoreInstanceState(bundle: Bundle) {
-        sources = bundle
-                .getParcelableArrayList("${UploadcareViewModel::class.simpleName}_socialSource")
+        sources = bundle.getSupportParcelableArrayList(
+            "${UploadcareViewModel::class.simpleName}_socialSource",
+            SocialSource::class.java
+        )
         bundle.getString("${UploadcareViewModel::class.simpleName}_tempFileUri")?.let {
             tempFileUri = Uri.parse(it)
         }
