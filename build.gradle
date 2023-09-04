@@ -33,7 +33,7 @@ buildscript {
     versions.test_runner = "1.5.2"
     versions.espresso_core = "3.5.1"
 
-    versions.dokka = "1.8.20"
+    versions.dokka = "1.9.0"
 
     ext.versions = versions
 
