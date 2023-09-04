@@ -2,6 +2,11 @@
 
 # History
 
+## 3.2.1
+- Library:
+    - Fix filter for datetime
+    - Fix uploading of big files
+
 ## 3.2.0
 - Widget:
     - The methods `UploadcareWidget.selectFile()` and `Fragment.startActivityForResult` have been deprecated.
