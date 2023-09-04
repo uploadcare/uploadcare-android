@@ -2,7 +2,7 @@
 
 buildscript {
     def versions = [:]
-    versions.kotlin_version = '1.8.21'
+    versions.kotlin_version = '1.9.10'
     versions.kotlin_coroutines = '1.7.3'
     versions.min_sdk = 22
     versions.target_sdk = 33
