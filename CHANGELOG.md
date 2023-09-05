@@ -4,8 +4,8 @@
 
 ## 3.2.1
 - Library:
-    - Fix filter for datetime
-    - Fix uploading of big files
+    - Fixed an issue with filtering for datetime.
+    - Improved handling of large file uploads.
 
 ## 3.2.0
 - Widget:
