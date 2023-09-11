@@ -16,7 +16,7 @@ buildscript {
     versions.navigation = "2.6.0"
     versions.lifecycle = "2.6.1"
     versions.constraintlayout = "2.1.4"
-    versions.annotation = '1.6.0'
+    versions.annotation = '1.7.0'
     versions.appcompat = "1.6.1"
     versions.fragment = "1.6.1"
     versions.work = "2.8.1"
