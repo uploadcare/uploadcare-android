@@ -13,7 +13,7 @@ buildscript {
 
     versions.androidx_core = "1.10.1"
     versions.material = "1.9.0"
-    versions.navigation = "2.6.0"
+    versions.navigation = "2.7.2"
     versions.lifecycle = "2.6.1"
     versions.constraintlayout = "2.1.4"
     versions.annotation = '1.6.0'
