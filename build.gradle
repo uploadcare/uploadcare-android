@@ -2,36 +2,38 @@
 
 buildscript {
     def versions = [:]
-    versions.kotlin_version = '1.6.10'
-    versions.kotlin_coroutines = '1.6.0'
+    versions.kotlin_version = '1.8.21'
+    versions.kotlin_coroutines = '1.7.3'
     versions.min_sdk = 22
-    versions.target_sdk = 30
-    versions.compile_sdk = 30
+    versions.target_sdk = 33
+    versions.compile_sdk = 33
+    versions.jdk = JavaVersion.VERSION_17
 
-    versions.gradle_version = '7.0.4'
+    versions.gradle_version = '8.1.0'
 
-    versions.core = "1.3.2"
-    versions.material = "1.3.0-alpha03"
-    versions.navigation = "2.3.1"
-    versions.lifecycle = "2.2.0"
-    versions.constraintlayout = "2.0.2"
-    versions.annotation = '1.1.0'
-    versions.appcompat = "1.2.0"
-    versions.fragment = "1.2.5"
-    versions.work = "2.4.0"
+    versions.androidx_core = "1.10.1"
+    versions.material = "1.9.0"
+    versions.navigation = "2.6.0"
+    versions.lifecycle = "2.6.1"
+    versions.constraintlayout = "2.1.4"
+    versions.annotation = '1.6.0'
+    versions.appcompat = "1.6.1"
+    versions.fragment = "1.6.1"
+    versions.work = "2.8.1"
+    versions.preference = "1.2.1"
 
-    versions.okhttp = "4.9.0"
+    versions.okhttp = "4.11.0"
     versions.retrofit = "2.9.0"
 
     versions.picasso = "2.71828"
 
-    versions.moshi = "1.13.0"
+    versions.moshi = "1.15.0"
 
-    versions.junit = "4.12"
-    versions.test_runner = "1.3.0"
-    versions.espresso_core = "3.3.0"
+    versions.junit = "4.13.2"
+    versions.test_runner = "1.5.2"
+    versions.espresso_core = "3.5.1"
 
-    versions.dokka = "1.4.10.2"
+    versions.dokka = "1.8.20"
 
     ext.versions = versions
 
@@ -39,7 +41,6 @@ buildscript {
         maven { url "https://maven.google.com" }
         google()
         mavenCentral()
-        jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$versions.gradle_version"
@@ -50,13 +51,75 @@ buildscript {
     }
 }
 
+plugins {
+    id 'base'
+    id 'signing'
+    id 'maven-publish'
+}
+
 allprojects {
     repositories {
-        jcenter()
+        mavenLocal() // look into local .m2 cache.
         google()
+        mavenCentral()
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+subprojects {
+
+    // apply publishing plugins to all subprojects to global control of publishing repositories.
+    apply plugin: "base"
+    apply plugin: "signing"
+    apply plugin: "maven-publish"
+
+    def isReleaseVersion = !version.toString().toLowerCase().endsWith("snapshot")
+
+    tasks {
+        // Always run tests as part of the `build` task.
+        if(findByName("test")) {
+            named("check") {
+                dependOn(named("test"))
+            }
+        }
+    }
+
+    // Setup global publishing repository settings.
+    signing {
+        useGpgCmd()
+        sign(publishing.publications)
+    }
+
+    publishing {
+        repositories {
+            maven {
+                // Dynamically select either Maven Central or na Internal repository depending on the value of uploadcare.publish.type / UPLOADCARE_PUBLISH_TYPE
+                name = "selected"
+
+                // Allow deploying to a custom repository (for testing purposes)
+                def publishInternally = project.findProperty("uploadcare.publish.type")?.toString() == "internal"
+                def repositoryUrl
+
+                if (isReleaseVersion) {
+                    def releaseMavenCentral = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                    def releaseInternal = (project.findProperty("uploadcare.publish.internal.release") ?: System.getenv("UPLOADCARE_PUBLISH_INTERNAL_RELEASE") ?: "") as String
+                    repositoryUrl = (releaseInternal != "" && publishInternally) ? releaseInternal: releaseMavenCentral
+                } else {
+                    def snapshotMavenCentral = "https://oss.sonatype.org/content/repositories/snapshots/"
+                    def snapshotInternal = (project.findProperty("uploadcare.publish.internal.snapshot") ?: System.getenv("UPLOADCARE_PUBLISH_INTERNAL_SNAPSHOT") ?: "") as String
+                    repositoryUrl = (snapshotInternal != "" && publishInternally) ? snapshotInternal : snapshotMavenCentral
+                }
+
+                url = uri(repositoryUrl)
+
+                credentials {
+                    def mavenCentralUser = (project.findProperty("uploadcare.publish.sonatype.user") ?: System.getenv("UPLOADCARE_PUBLISH_SONATYPE_USER") ?: "") as String
+                    def mavenCentralPass = (project.findProperty("uploadcare.publish.sonatype.pass") ?: System.getenv("UPLOADCARE_PUBLISH_SONATYPE_PASS") ?: "") as String
+                    def internalUser = (project.findProperty("uploadcare.publish.internal.user") ?: System.getenv("UPLOADCARE_PUBLISH_INTERNAL_USER") ?: "") as String
+                    def internalPass = (project.findProperty("uploadcare.publish.internal.pass") ?: System.getenv("UPLOADCARE_PUBLISH_INTERNAL_PASS") ?: "") as String
+                    username = (publishInternally) ? internalUser : mavenCentralUser
+                    password = (publishInternally) ? internalPass : mavenCentralPass
+                }
+            }
+        }
+    }
 }

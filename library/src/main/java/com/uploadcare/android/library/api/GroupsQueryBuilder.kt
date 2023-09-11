@@ -1,7 +1,6 @@
 package com.uploadcare.android.library.api
 
 import android.content.Context
-import android.os.AsyncTask
 import com.uploadcare.android.library.callbacks.UploadcareAllGroupsCallback
 import com.uploadcare.android.library.callbacks.UploadcareGroupsCallback
 import com.uploadcare.android.library.data.GroupPageData
@@ -9,12 +8,19 @@ import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.urls.*
 import java.net.URI
 import java.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Suppress("unused")
 class GroupsQueryBuilder(private val client: UploadcareClient)
     : PaginatedQueryBuilder<UploadcareGroup> {
 
     private val parameters: MutableList<UrlParameter> = mutableListOf()
+
+    private val coroutineScope: CoroutineScope = MainScope()
 
     /**
      * Adds a filter for datetime from objects will be returned.
@@ -76,26 +82,19 @@ class GroupsQueryBuilder(private val client: UploadcareClient)
      * @param callback [UploadcareAllGroupsCallback].
      */
     fun asListAsync(callback: UploadcareAllGroupsCallback?) {
-        PaginatedGroupQueryTask(this, callback).execute()
-    }
+        coroutineScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    asList()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    null
+                }
+            }
 
-}
-
-private class PaginatedGroupQueryTask(private val queryBuilder: GroupsQueryBuilder,
-                                      private val callback: UploadcareAllGroupsCallback?)
-    : AsyncTask<Void, Void, List<UploadcareGroup>?>() {
-
-    override fun doInBackground(vararg params: Void?): List<UploadcareGroup>? {
-        return try {
-            queryBuilder.asList()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
+            result?.let { callback?.onSuccess(result) }
+                ?: callback?.onFailure(UploadcareApiException("Unexpected error"))
         }
     }
 
-    override fun onPostExecute(result: List<UploadcareGroup>?) {
-        result?.let { callback?.onSuccess(result) }
-                ?: callback?.onFailure(UploadcareApiException("Unexpected error"))
-    }
 }

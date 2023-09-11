@@ -2,18 +2,17 @@ package com.uploadcare.android.widget.data
 
 import android.content.Context
 import android.os.Parcelable
-import android.preference.PreferenceManager
 import android.webkit.CookieManager
+import androidx.preference.PreferenceManager
 import com.squareup.moshi.Json
 import com.uploadcare.android.widget.R
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class SocialSource(
     @Json(name = "root_chunks") val rootChunks: List<Chunk>,
     val name: String,
-    val urls: @RawValue Urls
+    val urls: Urls
 ) : Parcelable {
 
     fun saveCookie(context: Context, cookie: String) {

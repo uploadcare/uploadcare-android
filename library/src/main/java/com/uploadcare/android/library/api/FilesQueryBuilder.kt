@@ -1,7 +1,6 @@
 package com.uploadcare.android.library.api
 
 import android.content.Context
-import android.os.AsyncTask
 import com.uploadcare.android.library.callbacks.UploadcareAllFilesCallback
 import com.uploadcare.android.library.callbacks.UploadcareFilesCallback
 import com.uploadcare.android.library.data.FilePageData
@@ -9,6 +8,11 @@ import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.urls.*
 import java.net.URI
 import java.util.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * File resource request builder.
@@ -22,6 +26,8 @@ class FilesQueryBuilder(private val client: UploadcareClient)
     : PaginatedQueryBuilder<UploadcareFile> {
 
     private val parameters: MutableMap<String, UrlParameter> = mutableMapOf()
+
+    private val coroutineScope: CoroutineScope = MainScope()
 
     /**
      * Adds a filter for removed files.
@@ -50,7 +56,6 @@ class FilesQueryBuilder(private val client: UploadcareClient)
      */
     fun ordering(order: Order): FilesQueryBuilder {
         parameters["ordering"] = FilesOrderParameter(order)
-        parameters.remove("from")
         return this
     }
 
@@ -151,26 +156,19 @@ class FilesQueryBuilder(private val client: UploadcareClient)
      * @param callback [UploadcareAllFilesCallback].
      */
     fun asListAsync(callback: UploadcareAllFilesCallback?) {
-        PaginatedQueryTask(this, callback).execute()
-    }
+        coroutineScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                try {
+                    asList()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    null
+                }
+            }
 
-}
-
-private class PaginatedQueryTask(private val queryBuilder: FilesQueryBuilder,
-                                 private val callback: UploadcareAllFilesCallback?)
-    : AsyncTask<Void, Void, List<UploadcareFile>?>() {
-
-    override fun doInBackground(vararg params: Void?): List<UploadcareFile>? {
-        return try {
-            queryBuilder.asList()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
+            result?.let { callback?.onSuccess(result) }
+                ?: callback?.onFailure(UploadcareApiException("Unexpected error"))
         }
     }
 
-    override fun onPostExecute(result: List<UploadcareFile>?) {
-        result?.let { callback?.onSuccess(result) }
-                ?: callback?.onFailure(UploadcareApiException("Unexpected error"))
-    }
 }

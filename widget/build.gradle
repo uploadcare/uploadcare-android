@@ -1,24 +1,29 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
     id "androidx.navigation.safeargs.kotlin"
     id 'maven-publish'
 }
 
+group = "com.uploadcare.android.widget"
+
 android {
+
     compileSdkVersion versions.compile_sdk
+    namespace "com.uploadcare.android.widget"
 
     defaultConfig {
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
         versionCode 12
-        versionName "3.1.1"
+        versionName "${version}"
     }
 
     buildFeatures {
-        dataBinding true
+        buildConfig = true
+        dataBinding = true
     }
 
     buildTypes {
@@ -53,12 +58,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility versions.jdk
+        targetCompatibility versions.jdk
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = versions.jdk
     }
 }
 
@@ -70,7 +75,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlin_coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.kotlin_coroutines"
 
-    implementation "androidx.core:core-ktx:$versions.core"
+    implementation "androidx.core:core-ktx:$versions.androidx_core"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
@@ -79,6 +84,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "com.google.android.material:material:$versions.material"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+    implementation "androidx.preference:preference-ktx:$versions.preference"
 
     implementation "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
@@ -101,4 +107,53 @@ dependencies {
 
     androidTestImplementation "androidx.test:runner:$versions.test_runner"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso_core"
+}
+
+// Make sure unit tests always run when we are building the code.
+tasks.named("build") {
+    dependsOn(tasks.named("check"))
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from(components["release"])
+
+                groupId = project.group
+                artifactId = "uploadcare-android-widget"
+                version = project.version
+
+                //withBuildIdentifier(), available in newer gradle versions.
+
+                pom {
+                    name.set("uploadcare-android-widget")
+                    url.set("https://github.com/uploadcare/uploadcare-android")
+                    description.set("Android widget for the Uploadcare API.")
+                    issueManagement {
+                        url.set("https://github.com/uploadcare/uploadcare-android/issues")
+                    }
+                    licenses {
+                        license {
+                            name.set("The Apache License, Version 2.0")
+                            url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                        }
+                    }
+                    scm {
+                        connection.set("scm:git:git://github.com/uploadcare/uploadcare-android.git")
+                        developerConnection.set("scm:git:ssh://github.com/uploadcare/uploadcare-android.git")
+                        url.set("https://github.com/uploadcare/uploadcare-android")
+                    }
+                    developers {
+                        developer {
+                            name.set("raphaelnew")
+                            email.set("iraphaele@gmail.com")
+                            organization.set("Uploadcare")
+                            url.set("https://github.com/raphaelnew")
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

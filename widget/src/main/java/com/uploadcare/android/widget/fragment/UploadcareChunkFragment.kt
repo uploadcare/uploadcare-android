@@ -24,6 +24,7 @@ import com.uploadcare.android.widget.data.SocialSource
 import com.uploadcare.android.widget.data.Thing
 import com.uploadcare.android.widget.databinding.UcwFragmentChunkBinding
 import com.uploadcare.android.widget.utils.RecyclerViewOnScrollListener
+import com.uploadcare.android.widget.utils.getSupportParcelable
 import com.uploadcare.android.widget.viewmodels.UploadcareChunkViewModel
 
 class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -57,7 +58,10 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val socialSource = arguments?.getParcelable("socialSource") as SocialSource?
+        val socialSource = arguments?.getSupportParcelable(
+            KEY_SOCIAL_SOURCE,
+            SocialSource::class.java
+        )
         binding.ucwRecyclerView.apply {
             if (socialSource?.name == SocialNetwork.SOCIAL_NETWORK_BOX.rawValue
                     || socialSource?.name == SocialNetwork.SOCIAL_NETWORK_DROPBOX.rawValue
@@ -152,6 +156,8 @@ class UploadcareChunkFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     companion object {
+
+        private const val KEY_SOCIAL_SOURCE = "socialSource"
 
         /**
          * Create a new instance of UploadcareChunkFragment, initialized to

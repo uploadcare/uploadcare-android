@@ -1,9 +1,13 @@
 package com.uploadcare.android.example.fragments
 
+import android.app.Service
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -21,17 +25,12 @@ import com.uploadcare.android.library.urls.Urls
 /**
  * Fragment showcase different CdnPathBuilder options for image files.
  */
-class CdnFragment : Fragment() {
+class CdnFragment : Fragment(), MenuProvider {
 
     private lateinit var binding: FragmentCdnBinding
     private lateinit var viewModel: CdnViewModel
 
     private val args: CdnFragmentArgs by navArgs()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -55,13 +54,19 @@ class CdnFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.cdn_file_actions, menu)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        requireActivity().addMenuProvider(
+            this,
+            viewLifecycleOwner
+        )
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.cdn_file_actions, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
+        when (menuItem.itemId) {
             R.id.action__convert_document -> {
                 viewModel.convertDocument()
                 true
@@ -70,17 +75,14 @@ class CdnFragment : Fragment() {
                 viewModel.convertVideo()
                 true
             }
-            else -> super.onOptionsItemSelected(item)
+            else -> false
         }
-    }
 
     /**
      * Populates views. Generates different CDN urls for various effects and loads images to views.
      */
     private fun loadImages(uploadcareFile: UploadcareFile) {
-        val displaymetrics = DisplayMetrics()
-        activity?.windowManager?.defaultDisplay?.getMetrics(displaymetrics)
-        val width = displaymetrics.widthPixels
+        val width = requireContext().getDisplayMetrics().widthPixels
 
         for (i in 0..6) {
             val builder = uploadcareFile.cdnPath()
@@ -122,5 +124,21 @@ class CdnFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun Context.getDisplayMetrics(): DisplayMetrics {
+        val displayMetrics = DisplayMetrics()
+        val windowManager = getSystemService(Service.WINDOW_SERVICE) as WindowManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            with(windowManager.currentWindowMetrics.bounds) {
+                displayMetrics.widthPixels = width()
+                displayMetrics.heightPixels = height()
+            }
+        } else {
+            @Suppress("DEPRECATION")
+            windowManager.defaultDisplay.getRealMetrics(displayMetrics)
+        }
+        displayMetrics.densityDpi = resources.configuration.densityDpi
+        return displayMetrics
     }
 }
