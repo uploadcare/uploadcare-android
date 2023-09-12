@@ -2,10 +2,15 @@
 
 # History
 
-## 3.2.1
+## 3.3.0
 - Library:
-    - Fixed an issue with filtering for datetime.
-    - Improved handling of large file uploads.
+  - Add support for "Secure Webhooks" (signingSecret parameter).
+  - Fixed an issue with filtering for datetime.
+  - Improved handling of large file uploads.
+- Dependencies:
+  - Update the target SDK version to 34
+  - Update AGP version to 8.1.1
+  - Update dependencies
 
 ## 3.2.0
 - Widget:
@@ -18,10 +23,6 @@
     - Update the target SDK version to 33
     - Update AGP version to 8.1.0 and Gradle version to 8.1
     - Update dependencies
-
-## 3.1.1
-- Library:
-    - Add support for "Secure Webhooks" (signingSecret parameter).
 
 ## 3.1.0
 - Widget:
