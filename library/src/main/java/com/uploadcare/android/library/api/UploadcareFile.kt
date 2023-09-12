@@ -7,7 +7,8 @@ import kotlinx.parcelize.Parcelize
 import java.net.URI
 import java.util.*
 
-@Parcelize @Suppress("unused") @SuppressWarnings("WeakerAccess")
+@Parcelize
+@Suppress("unused") @SuppressWarnings("WeakerAccess")
 data class UploadcareFile(val uuid: String,
                           val url: URI? = null,
                           val size: Int,

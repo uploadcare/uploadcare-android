@@ -9,20 +9,22 @@ import com.uploadcare.android.widget.R
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class SocialSource(@Json(name = "root_chunks") val rootChunks: List<Chunk>,
-                        val name: String,
-                        val urls: Urls) : Parcelable {
+data class SocialSource(
+    @Json(name = "root_chunks") val rootChunks: List<Chunk>,
+    val name: String,
+    val urls: Urls
+) : Parcelable {
 
     fun saveCookie(context: Context, cookie: String) {
         PreferenceManager.getDefaultSharedPreferences(context)
-                .edit()
-                .putString("UCW_PREF_$name", cookie)
-                .apply()
+            .edit()
+            .putString("UCW_PREF_$name", cookie)
+            .apply()
     }
 
     fun getCookie(context: Context): String {
         return PreferenceManager.getDefaultSharedPreferences(context)
-                .getString("UCW_PREF_$name", null) ?: ""
+            .getString("UCW_PREF_$name", null) ?: ""
     }
 
     fun deleteCookie(context: Context) {
@@ -52,6 +54,27 @@ data class SocialSource(@Json(name = "root_chunks") val rootChunks: List<Chunk>,
         }
     }
 
+    fun isSupported(): Boolean {
+        return when (name) {
+            "facebook",
+            "instagram",
+            "vk",
+            "box",
+            "huddle",
+            "flickr",
+            "evernote",
+            "skydrive",
+            "dropbox",
+            "gdrive",
+            "video",
+            "image",
+            "file",
+            "onedrive",
+            "gphotos" -> true
+            else -> false
+        }
+    }
+
     fun getNetworkIconResource(): Int {
         return when (name) {
             "facebook" -> R.drawable.ucw_facebook_icon
@@ -75,6 +98,8 @@ data class SocialSource(@Json(name = "root_chunks") val rootChunks: List<Chunk>,
 }
 
 @Parcelize
-data class Urls(@Json(name = "source_base") val sourceBase: String,
-                val session: String,
-                val done: String) : Parcelable
+data class Urls(
+    @Json(name = "source_base") val sourceBase: String,
+    val session: String,
+    val done: String
+) : Parcelable

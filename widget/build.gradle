@@ -5,7 +5,6 @@ plugins {
     id 'kotlin-kapt'
     id "androidx.navigation.safeargs.kotlin"
     id 'maven-publish'
-    id 'org.jetbrains.dokka'
 }
 
 group = "com.uploadcare.android.widget"
@@ -18,7 +17,7 @@ android {
     defaultConfig {
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
-        versionCode 11
+        versionCode 12
         versionName "${version}"
     }
 
@@ -65,18 +64,6 @@ android {
 
     kotlinOptions {
         jvmTarget = versions.jdk
-    }
-
-    dokkaHtml.configure {
-        dokkaSourceSets {
-            named("main") {
-                outputDirectory.set(buildDir.resolve("javadoc"))
-                sourceRoots.setFrom(file("src/main/java"))
-                noAndroidSdkLink.set(false)
-                skipEmptyPackages.set(true)
-                includeNonPublic.set(false)
-            }
-        }
     }
 }
 

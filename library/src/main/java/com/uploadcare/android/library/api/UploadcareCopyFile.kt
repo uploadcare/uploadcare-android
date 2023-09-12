@@ -9,7 +9,8 @@ import java.net.URI
 /**
  * Result of the file copy operation
  */
-@Parcelize @Suppress("unused")
+@Parcelize
+@Suppress("unused")
 data class UploadcareCopyFile(private val type: String,
                               @AsString private val result: String) : Parcelable {
 

@@ -4,7 +4,6 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'maven-publish'
-    id 'org.jetbrains.dokka'
 }
 
 group = "com.uploadcare.android.library"
@@ -16,7 +15,7 @@ android {
     defaultConfig {
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
-        versionCode 12
+        versionCode 13
         versionName "${version}"
         buildConfigField 'String', 'VERSION_NAME', "\"${version}\""
     }
@@ -51,19 +50,6 @@ android {
     kotlinOptions {
         jvmTarget = versions.jdk
     }
-
-    dokkaHtml.configure {
-        dokkaSourceSets {
-            named("main") {
-                outputDirectory.set(buildDir.resolve("javadoc"))
-                sourceRoots.setFrom(file("src/main/java"))
-                noAndroidSdkLink.set(false)
-                skipEmptyPackages.set(true)
-                includeNonPublic.set(false)
-            }
-        }
-    }
-
 }
 
 dependencies {

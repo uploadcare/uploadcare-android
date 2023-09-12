@@ -334,7 +334,8 @@ enum class FileType {
 /**
  * Data class that holds result/error for select file request.
  */
-@Parcelize @Suppress("unused")
+@Parcelize
+@Suppress("unused")
 data class UploadcareWidgetResult(val uploadcareFile: UploadcareFile? = null,
                                   val backgroundUploadUUID: UUID? = null,
                                   val exception: UploadcareException? = null) : Parcelable {

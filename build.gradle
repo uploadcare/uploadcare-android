@@ -2,21 +2,21 @@
 
 buildscript {
     def versions = [:]
-    versions.kotlin_version = '1.8.21'
+    versions.kotlin_version = '1.9.10'
     versions.kotlin_coroutines = '1.7.3'
     versions.min_sdk = 22
-    versions.target_sdk = 33
-    versions.compile_sdk = 33
+    versions.target_sdk = 34
+    versions.compile_sdk = 34
     versions.jdk = JavaVersion.VERSION_17
 
-    versions.gradle_version = '8.1.0'
+    versions.gradle_version = '8.1.1'
 
-    versions.androidx_core = "1.10.1"
+    versions.androidx_core = "1.12.0"
     versions.material = "1.9.0"
-    versions.navigation = "2.6.0"
-    versions.lifecycle = "2.6.1"
+    versions.navigation = "2.7.2"
+    versions.lifecycle = "2.6.2"
     versions.constraintlayout = "2.1.4"
-    versions.annotation = '1.6.0'
+    versions.annotation = '1.7.0'
     versions.appcompat = "1.6.1"
     versions.fragment = "1.6.1"
     versions.work = "2.8.1"
@@ -33,8 +33,6 @@ buildscript {
     versions.test_runner = "1.5.2"
     versions.espresso_core = "3.5.1"
 
-    versions.dokka = "1.8.20"
-
     ext.versions = versions
 
     repositories {
@@ -46,7 +44,6 @@ buildscript {
         classpath "com.android.tools.build:gradle:$versions.gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$versions.dokka"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -63,13 +60,6 @@ allprojects {
         mavenLocal() // look into local .m2 cache.
         google()
         mavenCentral()
-    }
-    // TODO: justkarleone 8.08.2023 remove after deleting deprecated code
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile){
-            options.encoding = "UTF-8"
-            options.compilerArgs << "-Xlint:deprecation"
-        }
     }
 }
 

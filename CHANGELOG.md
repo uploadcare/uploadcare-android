@@ -2,6 +2,16 @@
 
 # History
 
+## 3.3.0
+- Library:
+  - Added support for [signing your webhooks](https://uploadcare.com/docs/webhooks/#signed-webhooks) using the `signingSecret` parameter.
+  - Fixed an issue with `datetime` filtering.
+  - Improved the handling of large file uploads.
+- Dependencies:
+  - Update the target SDK version to 34.
+  - Update AGP (Android Gradle Plugin) version to 8.1.1.
+  - Update dependencies.
+
 ## 3.2.0
 - Widget:
     - The methods `UploadcareWidget.selectFile()` and `Fragment.startActivityForResult` have been deprecated.

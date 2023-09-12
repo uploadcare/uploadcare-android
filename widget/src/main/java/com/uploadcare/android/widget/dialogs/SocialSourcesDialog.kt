@@ -37,7 +37,7 @@ class SocialSourcesDialog : DialogFragment() {
         val sources = arguments?.getSupportParcelableArrayList(
             DIALOG_SOURCES,
             SocialSource::class.java
-        ) ?: listOf()
+        )?.filter { it.isSupported() } ?: listOf()
 
         val dialogBuilder = AlertDialog.Builder(requireContext(),
                 R.style.UploadcareWidget_AlertDialogStyle).apply {

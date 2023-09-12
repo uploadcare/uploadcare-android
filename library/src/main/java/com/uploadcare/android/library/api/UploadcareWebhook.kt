@@ -10,10 +10,13 @@ import java.util.*
  * The resource for Webhook.
  */
 @Parcelize
-data class UploadcareWebhook(val id: Int,
-                             val event: String,
-                             @Json(name = "target_url") val targetUrl: URI,
-                             @Json(name = "is_active") val isActive: Boolean,
-                             val project: Int,
-                             val created: Date? = null,
-                             val updated: Date? = null) : Parcelable
+data class UploadcareWebhook(
+    val id: Int,
+    val event: String,
+    @Json(name = "target_url") val targetUrl: URI,
+    @Json(name = "is_active") val isActive: Boolean,
+    val project: Int,
+    val created: Date? = null,
+    val updated: Date? = null,
+    @Json(name = "signing_secret") val signingSecret: String? = null
+) : Parcelable

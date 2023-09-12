@@ -625,6 +625,7 @@ uploadcare.createWebhookAsync(
         context, // Context
         URI.create("YOUR_WEBHOOK_URL"),
         "YOUR_WEBHOOK_EVENT",
+        signingSecret = "YOUR_WEBHOOK_SIGNING_SECRET",
         callback = object : UploadcareWebhookCallback {
             override fun onFailure(e: UploadcareApiException) {
                 // Handle errors.
@@ -642,6 +643,7 @@ uploadcare.createWebhookAsync(
         URI.create("YOUR_WEBHOOK_URL"),
         "YOUR_WEBHOOK_EVENT",
         true, // is webhook active or not.
+        "YOUR_WEBHOOK_SIGNING_SECRET",
         new UploadcareWebhookCallback() {
             @Override
             public void onFailure(@NotNull UploadcareApiException e) {
@@ -662,7 +664,8 @@ Kotlin
 val webhook = uploadcare.createWebhook(
         URI.create("YOUR_WEBHOOK_URL"),
         "YOUR_WEBHOOK_EVENT",
-        true // is webhook active or not.
+        true, // is webhook active or not.
+        "YOUR_WEBHOOK_SIGNING_SECRET"
         )
 ```
 Java
@@ -670,7 +673,8 @@ Java
 UploadcareWebhook webhook = uploadcare.createWebhook(
         URI.create("YOUR_WEBHOOK_URL"),
         "YOUR_WEBHOOK_EVENT",
-        true // is webhook active or not.
+        true, // is webhook active or not.
+        "YOUR_WEBHOOK_SIGNING_SECRET"
         );
 ```
 
@@ -685,6 +689,7 @@ uploadcare.updateWebhookAsync(
         "YOUR_WEBHOOK_UUID",
         URI.create("YOUR_WEBHOOK_URL"),
         "YOUR_WEBHOOK_EVENT",
+        signingSecret = "YOUR_WEBHOOK_SIGNING_SECRET",
         callback = object : UploadcareWebhookCallback {
             override fun onFailure(e: UploadcareApiException) {
                 // Handle errors.
@@ -703,6 +708,7 @@ uploadcare.updateWebhookAsync(
         URI.create("YOUR_WEBHOOK_URL"),
         "YOUR_WEBHOOK_EVENT",
         true, // is webhook active or not.
+        "YOUR_WEBHOOK_SIGNING_SECRET",
         new UploadcareWebhookCallback() {
             @Override
             public void onFailure(@NotNull UploadcareApiException e) {
@@ -724,7 +730,8 @@ val webhook = uploadcare.updateWebhook(
         "YOUR_WEBHOOK_UUID",
         URI.create("YOUR_WEBHOOK_URL"),
         "YOUR_WEBHOOK_EVENT",
-        true // is webhook active or not.
+        true, // is webhook active or not.
+        "YOUR_WEBHOOK_SIGNING_SECRET"
         )
 ```
 Java
@@ -733,7 +740,8 @@ UploadcareWebhook webhook = uploadcare.updateWebhook(
         "YOUR_WEBHOOK_UUID",
         URI.create("YOUR_WEBHOOK_URL"),
         "YOUR_WEBHOOK_EVENT",
-        true // is webhook active or not.
+        true, // is webhook active or not.
+        "YOUR_WEBHOOK_SIGNING_SECRET"
         );
 ```
 

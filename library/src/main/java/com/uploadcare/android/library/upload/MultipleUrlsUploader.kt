@@ -59,6 +59,10 @@ class MultipleUrlsUploader constructor(private val client: UploadcareClient,
                 withContext(Dispatchers.Main) {
                     callback.onSuccess(uploadedFiles)
                 }
+            } catch (e: UploadFailureException) {
+                withContext(Dispatchers.Main) {
+                    callback.onFailure(UploadFailureException(e.message))
+                }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     callback.onFailure(UploadFailureException(e.message))
