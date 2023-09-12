@@ -4,9 +4,9 @@
 
 ## 3.3.0
 - Library:
-  - Add support for "Secure Webhooks" (signingSecret parameter).
-  - Fixed an issue with filtering for datetime.
-  - Improved handling of large file uploads.
+  - Added support for [signing your webhooks](https://uploadcare.com/docs/webhooks/#signed-webhooks) using the `signingSecret` parameter.
+  - Fixed an issue with `datetime` filtering.
+  - Improved the handling of large file uploads.
 - Dependencies:
   - Update the target SDK version to 34
   - Update AGP version to 8.1.1
