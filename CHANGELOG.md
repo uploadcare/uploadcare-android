@@ -8,9 +8,9 @@
   - Fixed an issue with `datetime` filtering.
   - Improved the handling of large file uploads.
 - Dependencies:
-  - Update the target SDK version to 34
-  - Update AGP version to 8.1.1
-  - Update dependencies
+  - Update the target SDK version to 34.
+  - Update AGP (Android Gradle Plugin) version to 8.1.1.
+  - Update dependencies.
 
 ## 3.2.0
 - Widget:
