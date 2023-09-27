@@ -15,7 +15,7 @@ android {
     defaultConfig {
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
-        versionCode 13
+        versionCode 14
         versionName "${version}"
         buildConfigField 'String', 'VERSION_NAME', "\"${version}\""
     }

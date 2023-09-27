@@ -42,7 +42,7 @@ Java
 UploadcareClient uploadcare = new UploadcareClient("YOUR_PUBLIC_KEY", "YOUR_SECRET_KEY");
 ```
 
-## List of files ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/filesList)) ##
+## List of files ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/filesList)) ##
 
 ##### Asynchronous file fetch.
 
@@ -112,7 +112,7 @@ FilesQueryBuilder filesQueryBuilder = uploadcare.getFiles()
 List<UploadcareFile> files = filesQueryBuilder.asList();
 ```
 
-## File info ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/fileInfo)) ##
+## File info ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/fileInfo)) ##
 
 ##### Asynchronous file info fetch.
 
@@ -160,7 +160,7 @@ Java
 UploadcareFile file = uploadcare.getFile("YOUR_FILE_UUID");
 ```
 
-## Store a file ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/storeFile)) ##
+## Store a file ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/storeFile)) ##
 
 ##### Asynchronous file store.
 
@@ -184,7 +184,7 @@ Java
 uploadcare.saveFile("YOUR_FILE_UUID");
 ```
 
-## Batch file store ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/filesStoring)) ##
+## Batch file store ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/filesStoring)) ##
 
 ##### Asynchronous multiple files store.
 
@@ -212,7 +212,7 @@ List<String> fileIds = ... // list of file UUID's
 uploadcare.saveFiles(fileIds);
 ```
 
-## Delete file ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/deleteFile)) ##
+## Delete file ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/deleteFileStorage)) ##
 
 ##### Asynchronous file delete.
 
@@ -236,7 +236,7 @@ Java
 uploadcare.deleteFile("YOUR_FILE_UUID");
 ```
 
-## Batch file delete ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/filesDelete)) ##
+## Batch file delete ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/filesDelete)) ##
 
 ##### Asynchronous multiple files delete.
 
@@ -264,7 +264,7 @@ List<String> fileIds = ... // list of file UUID's
 uploadcare.deleteFiles(fileIds);
 ```
 
-## Copy file to local storage ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/copyFileLocal)) ##
+## Copy file to local storage ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/createLocalCopy)) ##
 
 ##### Asynchronous file copy to local storage.
 
@@ -321,7 +321,7 @@ UploadcareCopyFile copyResult = uploadcare.copyFileLocalStorage(source, true);
 // process result that will have either UploadcareFile or URI depending on source.
 ```
 
-## Copy file to remote storage ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/copyFile)) ##
+## Copy file to remote storage ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/createRemoteCopy)) ##
 
 ##### Asynchronous copy file to remote storage.
 
@@ -385,7 +385,7 @@ UploadcareCopyFile copyResult = uploadcare.copyFileRemoteStorage(source, target,
 // process result that will have either UploadcareFile or URI depending on source.
 ```
 
-## List of groups ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/groupsList)) ##
+## List of groups ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/groupsList)) ##
 
 ##### Asynchronous group list fetch.
 
@@ -451,7 +451,7 @@ GroupsQueryBuilder groupsQueryBuilder = uploadcare.getGroups()
 List<UploadcareGroup> groups = groupsQueryBuilder.asList();
 ```
 
-## Group info ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/groupInfo)) ##
+## Group info ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/groupInfo)) ##
 
 ##### Asynchronous group info fetch.
 
@@ -499,31 +499,7 @@ Java
 UploadcareGroup group = uploadcare.getGroup("YOUR_GROUP_UUID");
 ```
 
-## Store group ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#tag/Group/paths/~1groups~1%3Cuuid%3E~1storage~1/put)) ##
-
-##### Asynchronous group store.
-
-Kotlin
-```kotlin
-uploadcare.storeGroupAsync(context, "YOUR_GROUP_UUID")
-```
-Java
-```java
-uploadcare.storeGroupAsync(context, "YOUR_GROUP_UUID", null); // callback is optional
-```
-
-##### Synchronous group store.
-
-Kotlin
-```kotlin
-uploadcare.storeGroup("YOUR_GROUP_UUID")
-```
-Java
-```java
-uploadcare.storeGroup("YOUR_GROUP_UUID");
-```
-
-## Project info ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/projectInfo)) ##
+## Project info ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/projectInfo)) ##
 
 ##### Asynchronous project info fetch.
 
@@ -569,7 +545,7 @@ Java
 Project project = uploadcare.getProject();
 ```
 
-## List of webhooks ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/webhooksList)) ##
+## List of webhooks ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/webhooksList)) ##
 
 ##### Asynchronous webhook list fetch.
 
@@ -615,7 +591,7 @@ Java
 List<UploadcareWebhook> webhooks = uploadcare.getWebhooks();
 ```
 
-## Create webhook ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/webhookCreate)) ##
+## Create webhook ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/webhookCreate)) ##
 
 ##### Asynchronous webhook create.
 
@@ -624,7 +600,7 @@ Kotlin
 uploadcare.createWebhookAsync(
         context, // Context
         URI.create("YOUR_WEBHOOK_URL"),
-        "YOUR_WEBHOOK_EVENT",
+        EventType.UPLOADED, // Webhook event
         signingSecret = "YOUR_WEBHOOK_SIGNING_SECRET",
         callback = object : UploadcareWebhookCallback {
             override fun onFailure(e: UploadcareApiException) {
@@ -641,7 +617,7 @@ Java
 uploadcare.createWebhookAsync(
         context, // Context
         URI.create("YOUR_WEBHOOK_URL"),
-        "YOUR_WEBHOOK_EVENT",
+        EventType.UPLOADED, // Webhook event
         true, // is webhook active or not.
         "YOUR_WEBHOOK_SIGNING_SECRET",
         new UploadcareWebhookCallback() {
@@ -663,7 +639,7 @@ Kotlin
 ```kotlin
 val webhook = uploadcare.createWebhook(
         URI.create("YOUR_WEBHOOK_URL"),
-        "YOUR_WEBHOOK_EVENT",
+        EventType.UPLOADED, // Webhook event
         true, // is webhook active or not.
         "YOUR_WEBHOOK_SIGNING_SECRET"
         )
@@ -672,13 +648,13 @@ Java
 ```java
 UploadcareWebhook webhook = uploadcare.createWebhook(
         URI.create("YOUR_WEBHOOK_URL"),
-        "YOUR_WEBHOOK_EVENT",
+        EventType.UPLOADED, // Webhook event
         true, // is webhook active or not.
         "YOUR_WEBHOOK_SIGNING_SECRET"
         );
 ```
 
-## Update webhook ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/updateWebhook)) ##
+## Update webhook ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/updateWebhook)) ##
 
 ##### Asynchronous webhook update.
 
@@ -688,7 +664,7 @@ uploadcare.updateWebhookAsync(
         context, // Context
         "YOUR_WEBHOOK_UUID",
         URI.create("YOUR_WEBHOOK_URL"),
-        "YOUR_WEBHOOK_EVENT",
+        EventType.UPLOADED, // Webhook event
         signingSecret = "YOUR_WEBHOOK_SIGNING_SECRET",
         callback = object : UploadcareWebhookCallback {
             override fun onFailure(e: UploadcareApiException) {
@@ -706,7 +682,7 @@ uploadcare.updateWebhookAsync(
         context, // Context
         "YOUR_WEBHOOK_UUID",
         URI.create("YOUR_WEBHOOK_URL"),
-        "YOUR_WEBHOOK_EVENT",
+        EventType.UPLOADED, // Webhook event
         true, // is webhook active or not.
         "YOUR_WEBHOOK_SIGNING_SECRET",
         new UploadcareWebhookCallback() {
@@ -729,7 +705,7 @@ Kotlin
 val webhook = uploadcare.updateWebhook(
         "YOUR_WEBHOOK_UUID",
         URI.create("YOUR_WEBHOOK_URL"),
-        "YOUR_WEBHOOK_EVENT",
+        EventType.UPLOADED, // Webhook event
         true, // is webhook active or not.
         "YOUR_WEBHOOK_SIGNING_SECRET"
         )
@@ -739,13 +715,13 @@ Java
 UploadcareWebhook webhook = uploadcare.updateWebhook(
         "YOUR_WEBHOOK_UUID",
         URI.create("YOUR_WEBHOOK_URL"),
-        "YOUR_WEBHOOK_EVENT",
+        EventType.UPLOADED, // Webhook event
         true, // is webhook active or not.
         "YOUR_WEBHOOK_SIGNING_SECRET"
         );
 ```
 
-## Delete webhook ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/webhookUnsubscribe)) ##
+## Delete webhook ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/webhookUnsubscribe)) ##
 
 ##### Asynchronous webhook delete.
 
@@ -769,7 +745,7 @@ Java
 uploadcare.deleteWebhook(URI.create("YOUR_WEBHOOK_URL"));
 ```
 
-## Convert documents ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/documentConvert)) ##
+## Convert documents ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/documentConvert)) ##
 
 ##### Asynchronous documents convert.
 
@@ -858,7 +834,7 @@ DocumentConverter converter = new DocumentConverter(uploadcare, conversionJobs);
 List<UploadcareFile> result = converter.convert();
 ```
 
-## Convert videos ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.6.0/#operation/videoConvert)) ##
+## Convert videos ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/videoConvert)) ##
 
 ##### Asynchronous videos convert.
 

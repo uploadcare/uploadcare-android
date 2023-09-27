@@ -32,7 +32,7 @@ import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
 /**
- * A helper class for doing API calls to the Uploadcare API. Supports API version 0.6.
+ * A helper class for doing API calls to the Uploadcare API. Supports API version 0.7.
  */
 @Suppress("unused")
 class RequestHelper(private val client: UploadcareClient) {

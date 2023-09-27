@@ -2,6 +2,17 @@
 
 # History
 
+## 3.4.0
+- Library:
+  - Migrated API from v0.6 to v0.7
+  - Removed the `UploadcareClient.storeGroup()` and `UploadcareGroup.store()` methods, as its
+    endpoint has been removed.
+  - Added event types of webhooks.
+  - Removed the sorting methods by file size, as its parameter has been removed from the API query 
+    parameters.
+- Example:
+  - Removed sorting options by file size from `UploadFragment`.
+
 ## 3.3.0
 - Library:
   - Added support for [signing your webhooks](https://uploadcare.com/docs/webhooks/#signed-webhooks) using the `signingSecret` parameter.
