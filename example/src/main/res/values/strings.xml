@@ -52,7 +52,5 @@
     <array name="orders">
         <item>Upload time, Ascending (Default)</item>
         <item>Upload time, Descending</item>
-        <item>File size, Ascending</item>
-        <item>File size, Descending</item>
     </array>
 </resources>

@@ -72,7 +72,7 @@ class RequestHelper(private val client: UploadcareClient) {
         val formattedDate = rfc2822(calendar.time)
 
         requestBuilder.addHeader("Content-Type", contentType ?: JSON_CONTENT_TYPE)
-        requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.6+json")
+        requestBuilder.addHeader("Accept", "application/vnd.uploadcare-v0.7+json")
         requestBuilder.addHeader("Date", formattedDate)
         requestBuilder.addHeader("User-Agent",
                 String.format("javauploadcare-android/%s/%s", BuildConfig.VERSION_NAME,

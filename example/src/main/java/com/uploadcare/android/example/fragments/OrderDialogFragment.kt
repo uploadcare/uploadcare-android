@@ -36,8 +36,6 @@ class OrderDialogFragment : DialogFragment() {
     private fun orderSelected(position: Int) {
         val order: Order = when (position) {
             1 -> Order.UPLOAD_TIME_DESC
-            2 -> Order.SIZE_ASC
-            3 -> Order.SIZE_DESC
             0 -> Order.UPLOAD_TIME_ASC
             else -> Order.UPLOAD_TIME_ASC
         }

@@ -12,7 +12,7 @@ import java.util.*
 @Parcelize
 data class UploadcareWebhook(
     val id: Int,
-    val event: String,
+    val event: EventType,
     @Json(name = "target_url") val targetUrl: URI,
     @Json(name = "is_active") val isActive: Boolean,
     val project: Int,
@@ -20,3 +20,11 @@ data class UploadcareWebhook(
     val updated: Date? = null,
     @Json(name = "signing_secret") val signingSecret: String? = null
 ) : Parcelable
+
+enum class EventType(val value: String) {
+    UPLOADED("file.uploaded"),
+    INFECTED("file.infected"),
+    STORED("file.stored"),
+    DELETED("file.deleted"),
+    INFO_UPDATED("file.info_updated");
+}

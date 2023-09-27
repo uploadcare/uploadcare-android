@@ -68,8 +68,8 @@ class FileIdParameter(private val fileId: String) : UrlParameter {
 }
 
 @Suppress("unused")
-class AddFieldsParameter(private val fields: String):UrlParameter{
-    override fun getParam() = "add_fields"
+class IncludeParameter(private val fields: String) : UrlParameter {
+    override fun getParam() = "include"
 
     override fun getValue() = fields
 }
@@ -77,7 +77,5 @@ class AddFieldsParameter(private val fields: String):UrlParameter{
 @Suppress("unused")
 enum class Order constructor(val rawValue: String) {
     UPLOAD_TIME_ASC("datetime_uploaded"),
-    UPLOAD_TIME_DESC("-datetime_uploaded"),
-    SIZE_ASC("size"),
-    SIZE_DESC("-size")
+    UPLOAD_TIME_DESC("-datetime_uploaded")
 }

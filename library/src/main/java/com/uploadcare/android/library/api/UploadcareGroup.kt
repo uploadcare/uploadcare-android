@@ -18,16 +18,6 @@ data class UploadcareGroup(val id: String,
 
     fun hasFiles() = files != null
 
-    /**
-     * Mark all files in a group as stored. Sync operation.
-     *
-     * @return Updated Group resource instance
-     */
-    fun store(client: UploadcareClient): UploadcareGroup? {
-        client.storeGroup(id)
-        return client.getGroup(id)
-    }
-
     override fun toString(): String {
         val newline = System.getProperty("line.separator")
         return StringBuilder().apply {
