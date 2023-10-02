@@ -9,7 +9,7 @@ buildscript {
     versions.compile_sdk = 34
     versions.jdk = JavaVersion.VERSION_17
 
-    versions.gradle_version = '8.1.1'
+    versions.gradle_version = '8.1.2'
 
     versions.androidx_core = "1.12.0"
     versions.material = "1.9.0"
