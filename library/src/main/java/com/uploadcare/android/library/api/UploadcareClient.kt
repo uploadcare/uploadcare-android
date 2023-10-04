@@ -137,7 +137,7 @@ class UploadcareClient constructor(val publicKey: String,
     }
 
     /**
-     * Requests file data, with Rekognition Info if available.
+     * Requests file data, with Appdata if available.
      *
      * @param fileId Resource UUID
      * @return UploadcareFile resource
@@ -150,7 +150,7 @@ class UploadcareClient constructor(val publicKey: String,
     }
 
     /**
-     * Requests file data, with Rekognition Info if available, Asynchronously.
+     * Requests file data, with Appdata if available, Asynchronously.
      *
      * @param context  Application context. [android.content.Context]
      * @param fileId   Resource UUID
