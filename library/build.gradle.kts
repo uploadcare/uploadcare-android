@@ -1,70 +1,70 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-parcelize'
-    id 'kotlin-kapt'
-    id 'maven-publish'
+    id("com.android.library")
+    id("kotlin-android")
+    id("kotlin-parcelize")
+    id("kotlin-kapt")
+    id("maven-publish")
 }
 
 group = "com.uploadcare.android.library"
 
 android {
-    compileSdkVersion versions.compile_sdk
-    namespace "com.uploadcare.android.library"
+    compileSdk = libs.versions.compileSdk.get().toInt()
+    namespace = "com.uploadcare.android.library"
 
     defaultConfig {
-        minSdkVersion versions.min_sdk
-        targetSdkVersion versions.target_sdk
-        versionCode 14
-        versionName "${version}"
-        buildConfigField 'String', 'VERSION_NAME', "\"${version}\""
+        minSdkPreview = libs.versions.minSdk.get()
+        buildConfigField("String", "VERSION_NAME", "\"${libs.versions.appVersion.get()}\"")
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
-    packagingOptions {
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/DEPENDENCIES'
+    packaging {
+        resources {
+            excludes += "META-INF/LICENSE"
+            excludes += "META-INF/LICENSE.txt"
+            excludes += "META-INF/NOTICE"
+            excludes += "META-INF/NOTICE.txt"
+            excludes += "META-INF/DEPENDENCIES"
+        }
     }
 
     buildFeatures {
         buildConfig = true
     }
 
-    lintOptions {
-        abortOnError false
+    lint {
+        abortOnError = false
     }
 
     compileOptions {
-        sourceCompatibility versions.jdk
-        targetCompatibility versions.jdk
+        val javaVersion = JavaVersion.toVersion(libs.versions.jdk.get())
+        sourceCompatibility(javaVersion)
+        targetCompatibility(javaVersion)
     }
 
     kotlinOptions {
-        jvmTarget = versions.jdk
+        jvmTarget = libs.versions.jdk.get()
     }
 }
 
 dependencies {
-    testImplementation "junit:junit:$versions.junit"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlin_coroutines"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.kotlin_coroutines"
-    implementation "com.squareup.moshi:moshi:$versions.moshi"
-    implementation "com.squareup.moshi:moshi-adapters:$versions.moshi"
-    implementation "com.squareup.moshi:moshi-kotlin:$versions.moshi"
-    implementation "androidx.annotation:annotation:$versions.annotation"
-    implementation "com.squareup.okhttp3:okhttp:$versions.okhttp"
-    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
-    testImplementation "com.squareup.okhttp3:mockwebserver:$versions.okhttp"
+    testImplementation(libs.test.junit)
+    implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlin.coroutines.android)
+    implementation(libs.kotlin.coroutines.core)
+    implementation(libs.moshi.moshi)
+    implementation(libs.moshi.adapters)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.annotation)
+    implementation(libs.okhttp.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+    testImplementation(libs.okhttp.mockwebserver)
 }
 
 // Make sure unit tests always run when we are building the code.
@@ -75,12 +75,12 @@ tasks.named("build") {
 afterEvaluate {
     publishing {
         publications {
-            release(MavenPublication) {
+            create<MavenPublication>("release") {
                 from(components["release"])
 
-                groupId = project.group
+                groupId = project.group.toString()
                 artifactId = "uploadcare-android"
-                version = project.version
+                version = libs.versions.appVersion.get()
 
                 //withBuildIdentifier(), available in newer gradle versions.
 
