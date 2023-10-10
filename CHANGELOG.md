@@ -4,7 +4,7 @@
 
 ## 3.4.0
 - Library:
-  - Migrated API from v0.6 to v0.7
+  - Migrated REST API support from v0.6 to v0.7.
   - Removed the `UploadcareClient.storeGroup()` and `UploadcareGroup.store()` methods, as its
     endpoint has been removed.
   - Added event types of webhooks.
