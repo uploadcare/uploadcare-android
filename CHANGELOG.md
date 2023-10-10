@@ -7,7 +7,7 @@
   - Migrated REST API support from v0.6 to v0.7.
   - Removed the `UploadcareClient.storeGroup()` and `UploadcareGroup.store()` methods, as their
      endpoints have been removed.
-  - Added event types of webhooks.
+  - Added support for new event types of webhooks.
   - Removed the sorting methods by file size, as its parameter has been removed from the API query 
     parameters.
 - Example:
