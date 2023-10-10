@@ -8,8 +8,8 @@
   - Removed the `UploadcareClient.storeGroup()` and `UploadcareGroup.store()` methods, as their
      endpoints have been removed.
   - Added support for new event types of webhooks.
-  - Removed the sorting methods by file size, as its parameter has been removed from the API query 
-    parameters.
+  - Removed sorting methods by file size, as the corresponding parameter has been removed from
+    the API query parameters.
 - Example:
   - Removed sorting options by file size from `UploadFragment`.
 
