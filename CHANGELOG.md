@@ -2,6 +2,17 @@
 
 # History
 
+## 4.0.0
+- Library:
+  - Migrated REST API support from v0.6 to v0.7.
+  - Removed the `UploadcareClient.storeGroup()` and `UploadcareGroup.store()` methods, as their
+    endpoints have been removed.
+  - Added support for new event types of webhooks.
+  - Removed sorting methods by file size, as the corresponding parameter has been removed from
+    the API query parameters.
+- Example:
+  - Removed sorting options by file size from `UploadFragment`.
+
 ## 3.3.0
 - Library:
   - Added support for [signing your webhooks](https://uploadcare.com/docs/webhooks/#signed-webhooks) using the `signingSecret` parameter.

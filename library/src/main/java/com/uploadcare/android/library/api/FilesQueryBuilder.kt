@@ -72,18 +72,6 @@ class FilesQueryBuilder(private val client: UploadcareClient)
     }
 
     /**
-     * Adds a filter for datetime from objects will be returned.
-     * Order {@link Order#SIZE_ASC} will be used.
-     *
-     * @param fromSize File size in bytes.
-     */
-    fun from(fromSize: Long): FilesQueryBuilder {
-        parameters["ordering"] = FilesOrderParameter(Order.SIZE_ASC)
-        parameters["from"] = FilesFromParameter(fromSize)
-        return this
-    }
-
-    /**
      * Adds a filter for datetime to which objects will be returned.
      * Order {@link Order#UPLOAD_TIME_DESC} will be used.
      *
@@ -96,24 +84,12 @@ class FilesQueryBuilder(private val client: UploadcareClient)
     }
 
     /**
-     * Adds a filter for datetime to which objects will be returned.
-     * Order {@link Order#SIZE_DESC} will be used.
-     *
-     * @param toSize File size in bytes.
-     */
-    fun to(toSize: Long): FilesQueryBuilder {
-        parameters["ordering"] = FilesOrderParameter(Order.SIZE_DESC)
-        parameters["from"] = FilesFromParameter(toSize)
-        return this
-    }
-
-    /**
      * Add special fields to the file object in the result.
      *
      * @param fields Example: "rekognition_info"
      */
-    fun addFields(fields: String): FilesQueryBuilder {
-        parameters["add_fields"] = AddFieldsParameter(fields)
+    fun include(fields: String): FilesQueryBuilder {
+        parameters["include"] = IncludeParameter(fields)
         return this
     }
 

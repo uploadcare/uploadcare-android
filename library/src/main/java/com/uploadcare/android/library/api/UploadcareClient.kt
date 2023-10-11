@@ -11,7 +11,7 @@ import com.uploadcare.android.library.data.ObjectMapper
 import com.uploadcare.android.library.data.WebhookOptionsData
 import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.exceptions.UploadcareApiException
-import com.uploadcare.android.library.urls.AddFieldsParameter
+import com.uploadcare.android.library.urls.IncludeParameter
 import com.uploadcare.android.library.urls.Urls
 import okhttp3.Interceptor
 import okhttp3.MultipartBody
@@ -137,31 +137,31 @@ class UploadcareClient constructor(val publicKey: String,
     }
 
     /**
-     * Requests file data, with Rekognition Info if available.
+     * Requests file data, with Appdata if available.
      *
      * @param fileId Resource UUID
      * @return UploadcareFile resource
      */
-    fun getFileWithRekognitionInfo(fileId: String): UploadcareFile {
+    fun getFileWithAppData(fileId: String): UploadcareFile {
         val url = Urls.apiFile(fileId)
         return requestHelper.executeQuery(RequestHelper.REQUEST_GET, url.toString(),
                 true, UploadcareFile::class.java,
-                urlParameters = listOf(AddFieldsParameter("rekognition_info")))
+                urlParameters = listOf(IncludeParameter("appdata")))
     }
 
     /**
-     * Requests file data, with Rekognition Info if available, Asynchronously.
+     * Requests file data, with Appdata if available, Asynchronously.
      *
      * @param context  Application context. [android.content.Context]
      * @param fileId   Resource UUID
      * @param callback callback  [UploadcareFileCallback] with either
      * an UploadcareFile response or a failure exception.
      */
-    fun getFileWithRekognitionInfoAsync(context: Context, fileId: String, callback: UploadcareFileCallback? = null) {
+    fun getFileWithAppDataAsync(context: Context, fileId: String, callback: UploadcareFileCallback? = null) {
         val url = Urls.apiFile(fileId)
         requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_GET, url.toString(), true,
                 UploadcareFile::class.java, callback,
-                urlParameters = listOf(AddFieldsParameter("rekognition_info")))
+                urlParameters = listOf(IncludeParameter("appdata")))
     }
 
     /**
@@ -203,32 +203,6 @@ class UploadcareClient constructor(val publicKey: String,
     }
 
     /**
-     * Mark all files in a group as stored (available on CDN).
-     *
-     * @param groupId Group ID
-     */
-    fun storeGroup(groupId: String) {
-        val requestBody = groupId.encodeUtf8().toRequestBody(RequestHelper.JSON)
-        val url = Urls.apiGroupStorage(groupId)
-        requestHelper.executeCommand(RequestHelper.REQUEST_PUT, url.toString(), true, requestBody, groupId.md5())
-    }
-
-    /**
-     * Mark all files in a group as stored (available on CDN). Asynchronously.
-     *
-     * @param context  Application context. [android.content.Context]
-     * @param groupId  Group ID
-     * @param callback callback  [RequestCallback] with either
-     * an HTTP response or a failure exception.
-     */
-    fun storeGroupAsync(context: Context, groupId: String, callback: RequestCallback? = null) {
-        val requestBody = groupId.encodeUtf8().toRequestBody(RequestHelper.JSON)
-        val url = Urls.apiGroupStorage(groupId)
-        requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_PUT, url.toString(),
-                true, callback, requestBody, groupId.md5())
-    }
-
-    /**
      * Begins to build a request for uploaded files for the current account.
      *
      * @return UploadcareFile resource request builder
@@ -252,7 +226,7 @@ class UploadcareClient constructor(val publicKey: String,
      * @param fileId Resource UUID
      */
     fun deleteFile(fileId: String) {
-        val url = Urls.apiFile(fileId)
+        val url = Urls.apiFileStorage(fileId)
         requestHelper.executeCommand(RequestHelper.REQUEST_DELETE, url.toString(), true)
     }
 
@@ -263,7 +237,7 @@ class UploadcareClient constructor(val publicKey: String,
      * @param fileId  Resource UUID
      */
     fun deleteFileAsync(context: Context, fileId: String) {
-        val url = Urls.apiFile(fileId)
+        val url = Urls.apiFileStorage(fileId)
         requestHelper.executeCommandAsync(context, RequestHelper.REQUEST_DELETE, url.toString(),
                 true)
     }
@@ -787,7 +761,7 @@ class UploadcareClient constructor(val publicKey: String,
      */
     fun createWebhook(
             targetUrl: URI,
-            event: String,
+            event: EventType,
             isActive: Boolean = true,
             signingSecret: String? = null
     ): UploadcareWebhook {
@@ -816,7 +790,7 @@ class UploadcareClient constructor(val publicKey: String,
      */
     fun createWebhookAsync(context: Context,
                            targetUrl: URI,
-                           event: String,
+                           event: EventType,
                            isActive: Boolean = true,
                            signingSecret: String? = null,
                            callback: UploadcareWebhookCallback) {
@@ -846,7 +820,7 @@ class UploadcareClient constructor(val publicKey: String,
      */
     fun updateWebhook(webhookId: Int,
                       targetUrl: URI,
-                      event: String,
+                      event: EventType,
                       isActive: Boolean = true,
                       signingSecret: String? = null
     ): UploadcareWebhook {
@@ -878,7 +852,7 @@ class UploadcareClient constructor(val publicKey: String,
     fun updateWebhookAsync(context: Context,
                            webhookId: Int,
                            targetUrl: URI,
-                           event: String,
+                           event: EventType,
                            isActive: Boolean = true,
                            signingSecret: String? = null,
                            callback: UploadcareWebhookCallback) {
