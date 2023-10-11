@@ -2,7 +2,7 @@
 
 # History
 
-## 4.0.0
+## 4.0.0 — UNRELEASED
 - Library:
   - Migrated REST API support from v0.6 to v0.7.
   - Removed the `UploadcareClient.storeGroup()` and `UploadcareGroup.store()` methods, as their
