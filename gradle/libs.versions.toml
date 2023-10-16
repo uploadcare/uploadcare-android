@@ -26,7 +26,6 @@ testRunner = "1.5.2"
 espressoCore = "3.5.1"
 
 [libraries]
-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "gradleVersion" }
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinVersion" }
 navigation-safe-args-plugin = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navigation" }
 
@@ -49,8 +48,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 
 picasso = { group = "com.squareup.picasso", name = "picasso", version.ref = "picasso" }
 
-retrofit-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+retrofit-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 
 moshi-moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
 moshi-adapters = { group = "com.squareup.moshi", name = "moshi-adapters", version.ref = "moshi" }
@@ -60,10 +59,10 @@ okhttp-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref =
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 okhttp-mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okhttp" }
 
-work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
-work-gcm = { module = "androidx.work:work-gcm", version.ref = "work" }
+work-runtime = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
+work-gcm = { group = "androidx.work", name = "work-gcm", version.ref = "work" }
 
-preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preference" }
+preference-ktx = { group = "androidx.preference", name = "preference-ktx", version.ref = "preference" }
 
 test-runner = { group = "androidx.test", name = "runner", version.ref = "testRunner" }
 test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

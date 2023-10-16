@@ -7,7 +7,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath(libs.gradle)
+        // Required manually provide Android's dependencies here that CodeQL's autobuild works correctly
+        // https://github.com/github/codeql-action/issues/1417#issuecomment-1737158409
+        classpath("com.android.tools.build:gradle:${libs.versions.gradleVersion.get()}")
         classpath(libs.kotlin.plugin)
         classpath(libs.navigation.safe.args.plugin)
         // NOTE: Do not place your application dependencies here; they belong
