@@ -22,13 +22,10 @@ import com.uploadcare.android.widget.controller.FileType
 import com.uploadcare.android.widget.controller.SocialNetwork
 import com.uploadcare.android.widget.controller.UploadcareWidget
 import com.uploadcare.android.widget.data.SocialSource
-import com.uploadcare.android.widget.data.SocialSourcesResponse
+import com.uploadcare.android.widget.data.getSocialSources
 import com.uploadcare.android.widget.utils.SingleLiveEvent
 import com.uploadcare.android.widget.utils.getSupportParcelableArrayList
 import com.uploadcare.android.widget.worker.FileUploadWorker
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -169,25 +166,8 @@ class UploadcareViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     private fun getAvailableNetworks() {
-        progressDialogCommand.postValue(ProgressData(true,
-                getContext().getString(R.string.ucw_action_loading_networks)))
-        UploadcareWidget.getInstance()
-                .socialApi
-                .getSources()
-                .enqueue(object : Callback<SocialSourcesResponse> {
-                    override fun onFailure(call: Call<SocialSourcesResponse>, t: Throwable) {
-                        progressDialogCommand.postValue(ProgressData(false))
-                        closeWidgetCommand.postValue(UploadcareApiException(t))
-                    }
-
-                    override fun onResponse(call: Call<SocialSourcesResponse>,
-                                            response: Response<SocialSourcesResponse>) {
-                        progressDialogCommand.postValue(ProgressData(false))
-                        val data = response.body()
-                        sources = data?.sources
-                        sources?.let { showNetworks(it) } ?: closeWidgetCommand.call()
-                    }
-                })
+        sources = getSocialSources()
+        sources?.let { showNetworks(it) } ?: closeWidgetCommand.call()
     }
 
     private fun showNetworks(sources: List<SocialSource>) {
