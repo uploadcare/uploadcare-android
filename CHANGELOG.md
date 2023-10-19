@@ -14,6 +14,8 @@
   - Removed sorting options by file size from `UploadFragment`.
 - Project:
   - Migrated Gradle builds from Groovy to Kotlin.
+- Widget:
+  - SocialApi doesn't use `GET /sources` method anymore
 
 ## 3.3.0
 - Library:
