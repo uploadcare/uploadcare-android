@@ -12,6 +12,8 @@
     the API query parameters.
 - Example:
   - Removed sorting options by file size from `UploadFragment`.
+- Project:
+  - Migrated Gradle builds from Groovy to Kotlin.
 
 ## 3.3.0
 - Library:
