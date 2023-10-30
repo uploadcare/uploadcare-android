@@ -1,6 +1,12 @@
 package com.uploadcare.android.library.data
 
-internal data class ConvertData(val paths: List<String>, val store: String? = null)
+import com.squareup.moshi.Json
+
+internal data class ConvertData(
+        val paths: List<String>,
+        val store: String? = null,
+        @Json(name = "save_in_group") val saveInGroup: String?
+)
 
 internal data class ConvertResultData(
         val problems: Map<String, String>,
