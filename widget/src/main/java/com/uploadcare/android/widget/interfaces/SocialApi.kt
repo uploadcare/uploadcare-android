@@ -2,14 +2,10 @@ package com.uploadcare.android.widget.interfaces
 
 import com.uploadcare.android.widget.data.ChunkResponse
 import com.uploadcare.android.widget.data.SelectedFile
-import com.uploadcare.android.widget.data.SocialSourcesResponse
 import retrofit2.Call
 import retrofit2.http.*
 
 interface SocialApi {
-
-    @GET("sources")
-    fun getSources(): Call<SocialSourcesResponse>
 
     @GET("{base}/{chunk}/{offset}")
     fun getSourceChunk(@Header("Cookie") authCookie: String,
