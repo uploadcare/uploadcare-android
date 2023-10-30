@@ -6,7 +6,12 @@ fun getSocialSources(): List<SocialSource> = listOf(
     getGooglePhotos(),
     getDropbox(),
     getInstagram(),
-    getOneDrive()
+    getOneDrive(),
+    getVk(),
+    getEvernote(),
+    getBox(),
+    getFlickr(),
+    getHuddle()
 )
 
 private fun getFacebook(): SocialSource = SocialSource(
@@ -86,5 +91,77 @@ private fun getOneDrive(): SocialSource = SocialSource(
         sourceBase = "onedrive/source",
         session = "onedrive/session",
         done = "onedrive/done"
+    )
+)
+
+private fun getVk(): SocialSource = SocialSource(
+    rootChunks = listOf(
+        Chunk(objectType = "", title = "My Albums", pathChunk = "my"),
+        Chunk(objectType = "", title = "Profile Pictures", pathChunk = "page"),
+        Chunk(objectType = "", title = "Photos with Me", pathChunk = "with_me"),
+        Chunk(objectType = "", title = "Saved Photos", pathChunk = "saved"),
+        Chunk(objectType = "", title = "My Friends", pathChunk = "friends"),
+        Chunk(objectType = "", title = "My Documents", pathChunk = "docs")
+    ),
+    name = "vk",
+    urls = Urls(
+        sourceBase = "vk/source",
+        session = "vk/session",
+        done = "vk/done"
+    )
+)
+
+private fun getEvernote(): SocialSource = SocialSource(
+    rootChunks = listOf(
+        Chunk(objectType = "", title = "All Notes", pathChunk = "all_notes"),
+        Chunk(objectType = "", title = "Notebooks", pathChunk = "notebooks"),
+        Chunk(objectType = "", title = "Tags", pathChunk = "tags")
+    ),
+    name = "evernote",
+    urls = Urls(
+        sourceBase = "evernote/source",
+        session = "evernote/session",
+        done = "evernote/done"
+    )
+)
+
+private fun getBox(): SocialSource = SocialSource(
+    rootChunks = listOf(
+        Chunk(objectType = "", title = "My Files", pathChunk = "root")
+    ),
+    name = "box",
+    urls = Urls(
+        sourceBase = "box/source",
+        session = "box/session",
+        done = "box/done"
+    )
+)
+
+private fun getFlickr(): SocialSource = SocialSource(
+    rootChunks = listOf(
+        Chunk(objectType = "", title = "Photo Stream", pathChunk = "photostream"),
+        Chunk(objectType = "", title = "Albums", pathChunk = "albums"),
+        Chunk(objectType = "", title = "Favorites", pathChunk = "favorites"),
+        Chunk(objectType = "", title = "Follows", pathChunk = "follows"),
+        Chunk(objectType = "", title = "My Friends", pathChunk = "friends"),
+        Chunk(objectType = "", title = "My Documents", pathChunk = "docs")
+    ),
+    name = "flickr",
+    urls = Urls(
+        sourceBase = "flickr/source",
+        session = "flickr/session",
+        done = "flickr/done"
+    )
+)
+
+private fun getHuddle(): SocialSource = SocialSource(
+    rootChunks = listOf(
+        Chunk(objectType = "", title = "My Files", pathChunk = "root")
+    ),
+    name = "huddle",
+    urls = Urls(
+        sourceBase = "huddle/source",
+        session = "huddle/session",
+        done = "huddle/done"
     )
 )
