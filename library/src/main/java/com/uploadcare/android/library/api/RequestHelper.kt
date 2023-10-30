@@ -14,6 +14,7 @@ import com.uploadcare.android.library.data.PageData
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import com.uploadcare.android.library.exceptions.UploadcareAuthenticationException
 import com.uploadcare.android.library.exceptions.UploadcareInvalidRequestException
+import com.uploadcare.android.library.exceptions.UploadcareRequestThrottlingException
 import com.uploadcare.android.library.urls.UrlParameter
 import com.uploadcare.android.library.urls.UrlUtils.Companion.trustedBuild
 import com.uploadcare.android.library.urls.Urls
@@ -603,6 +604,9 @@ class RequestHelper(private val client: UploadcareClient) {
             throw UploadcareAuthenticationException("$response")
         } else if (statusCode == 400 || statusCode == 404) {
             throw UploadcareInvalidRequestException("$response")
+        } else if (statusCode == 429) {
+            val retryTimeout = response.header("Retry-After")?.toLong() ?: 0
+            throw UploadcareRequestThrottlingException("$response", retryTimeout)
         } else {
             throw UploadcareApiException(
                     "Unknown exception during an API call, response: $response")

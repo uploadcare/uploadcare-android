@@ -10,13 +10,13 @@
   - Added support for new event types of webhooks.
   - Removed sorting methods by file size, as the corresponding parameter has been removed from
     the API query parameters.
+  - Added react to request throttling (429 code answer)
 - Widget:
   - SocialApi doesn't use `GET /sources` method anymore.
 - Project:
   - Migrated Gradle builds from Groovy to Kotlin.
 - Example:
   - Removed sorting options by file size from `UploadFragment`.
-
 
 ## 3.3.0
 - Library:
