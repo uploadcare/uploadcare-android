@@ -10,7 +10,7 @@
   - Added support for new event types of webhooks.
   - Removed sorting methods by file size, as the corresponding parameter has been removed from
     the API query parameters.
-  - Added support multipage conversion.
+  - Added support for converting multipage into a group of files.
 - Widget:
   - SocialApi doesn't use `GET /sources` method anymore.
 - Project:
