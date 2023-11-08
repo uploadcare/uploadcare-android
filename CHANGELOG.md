@@ -10,6 +10,8 @@
   - Added support for new event types of webhooks.
   - Removed sorting methods by file size, as the corresponding parameter has been removed from
     the API query parameters.
+  - Added support for converting multipage into a group of files.
+  - Added `default_effects` field in `UploadcareFile`.
   - Added react to request throttling (429 code response).
 - Widget:
   - SocialApi doesn't use `GET /sources` method anymore.

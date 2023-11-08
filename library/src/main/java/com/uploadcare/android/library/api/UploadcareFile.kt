@@ -26,7 +26,8 @@ data class UploadcareFile(
     val variations: Map<String, String>? = null,
     val appdata: Appdata? = null,
     @Json(name = "content_info") val contentInfo: ContentInfo? = null,
-    val metadata: Map<String, String>? = null
+    val metadata: Map<String, String>? = null,
+    @Json(name = "default_effects") val defaultEffects: String? = null
 ) : Parcelable {
 
     fun hasOriginalFileUrl() = originalFileUrl != null
