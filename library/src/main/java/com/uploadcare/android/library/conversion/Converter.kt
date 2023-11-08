@@ -24,6 +24,7 @@ abstract class Converter(private val client: UploadcareClient,
                          private val conversionJobs: List<ConversionJob>) {
 
     private var store: String? = null
+    private var saveInGroup: String? = null
 
     private var job: Job? = null
 
@@ -76,12 +77,23 @@ abstract class Converter(private val client: UploadcareClient,
         return this
     }
 
+    /**
+     * Convert a multi-page document into a group of files.
+     *
+     * @param saveInGroup is set true - multi-page documents additionally will be saved as a file group.
+     * is set false - multi-page documents won't be saved as a file group.
+     */
+    fun saveInGroup(saveInGroup: Boolean): Converter {
+        this.saveInGroup = if (saveInGroup) 1.toString() else 0.toString()
+        return this
+    }
+
 
     @Throws(UploadcareApiException::class)
     fun convert(pollingInterval: Long): List<UploadcareFile> {
         val results = ArrayList<UploadcareFile>()
 
-        val convertData = ConvertData(getPaths(), store)
+        val convertData = ConvertData(getPaths(), store, saveInGroup)
         val requestBodyContent = client.objectMapper.toJson(convertData, ConvertData::class.java)
         val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
         val url = getConversionUri()
