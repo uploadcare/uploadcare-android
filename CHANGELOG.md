@@ -12,6 +12,7 @@
     the API query parameters.
   - Added support for converting multipage into a group of files.
   - Added `default_effects` field in `UploadcareFile`.
+  - Added react to request throttling (429 code response).
 - Widget:
   - SocialApi doesn't use `GET /sources` method anymore.
 - Project:

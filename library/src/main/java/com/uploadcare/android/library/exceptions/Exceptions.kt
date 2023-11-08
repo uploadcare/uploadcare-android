@@ -31,4 +31,9 @@ class UploadFailureException : UploadcareApiException {
     constructor(message: String, cause: Throwable) : super(message, cause)
 }
 
+class UploadcareRequestThrottlingException(
+    message: String?,
+    val retryTimeout: Long
+) : UploadcareApiException(message)
+
 internal class UploadPausedException(message: String?): UploadcareApiException(message)
