@@ -350,5 +350,85 @@ class Urls private constructor() {
         fun apiConvertVideoStatus(token: Int): URI {
             return URI.create("$API_BASE/convert/video/status/$token/")
         }
+
+        /**
+         * Creates a URL to the AWS Rekognition execution.
+         *
+         * @see com.uploadcare.android.library.addon.AWSRekognitionAddOn
+         */
+        @JvmStatic
+        fun apiExecuteAWSRekognition(): URI {
+            return URI.create("$API_BASE/addons/aws_rekognition_detect_labels/execute/")
+        }
+
+        /**
+         * Creates a URL to the AWS Rekognition status.
+         *
+         * @see com.uploadcare.android.library.addon.AWSRekognitionAddOn
+         */
+        @JvmStatic
+        fun apiAWSRekognitionStatus(): URI {
+            return URI.create("$API_BASE/addons/aws_rekognition_detect_labels/execute/status/")
+        }
+
+        /**
+         * Creates a URL to the AWS Rekognition Moderation execution.
+         *
+         * @see com.uploadcare.android.library.addon.AWSRekognitionModerationAddOn
+         */
+        @JvmStatic
+        fun apiExecuteAWSRekognitionModeration(): URI {
+            return URI.create("$API_BASE/addons/aws_rekognition_detect_moderation_labels/execute/")
+        }
+
+        /**
+         * Creates a URL to the AWS Rekognition Moderation status.
+         *
+         * @see com.uploadcare.android.library.addon.AWSRekognitionModerationAddOn
+         */
+        @JvmStatic
+        fun apiAWSRekognitionModerationStatus(): URI {
+            return URI.create("$API_BASE/addons/aws_rekognition_detect_moderation_labels/execute/status/")
+        }
+
+        /**
+         * Creates a URL to the ClamAV execution.
+         *
+         * @see com.uploadcare.android.library.addon.ClamAVAddOn
+         */
+        @JvmStatic
+        fun apiExecuteClamAV(): URI {
+            return URI.create("$API_BASE/addons/uc_clamav_virus_scan/execute/")
+        }
+
+        /**
+         * Creates a URL to the ClamAV status.
+         *
+         * @see com.uploadcare.android.library.addon.ClamAVAddOn
+         */
+        @JvmStatic
+        fun apiClamAVStatus(): URI {
+            return URI.create("$API_BASE/addons/uc_clamav_virus_scan/execute/status/")
+        }
+
+        /**
+         * Creates a URL to the Remove.bg execution.
+         *
+         * @see com.uploadcare.android.library.addon.RemoveBgAddOn
+         */
+        @JvmStatic
+        fun apiExecuteRemoveBg(): URI {
+            return URI.create("$API_BASE/addons/remove_bg/execute/")
+        }
+
+        /**
+         * Creates a URL to the Remove.bg status.
+         *
+         * @see com.uploadcare.android.library.addon.RemoveBgAddOn
+         */
+        @JvmStatic
+        fun apiRemoveBgStatus(): URI {
+            return URI.create("$API_BASE/addons/remove_bg/execute/status/")
+        }
     }
 }

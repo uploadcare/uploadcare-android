@@ -13,6 +13,8 @@
   - Added support for converting multipage into a group of files.
   - Added `default_effects` field in `UploadcareFile`.
   - Added react to request throttling (429 code response).
+  - Added support for latest add-ons.
+  - Fixed authorization signature for requests with url parameters.
 - Widget:
   - SocialApi doesn't use `GET /sources` method anymore.
 - Project:

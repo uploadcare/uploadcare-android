@@ -75,6 +75,22 @@ class CdnFragment : Fragment(), MenuProvider {
                 viewModel.convertVideo()
                 true
             }
+            R.id.action_execute_aws_rekognition -> {
+                viewModel.executeAWSRekognitionAddOn()
+                true
+            }
+            R.id.action_execute_aws_rekognition_moderation -> {
+                viewModel.executeAWSRekognitionModerationAddOn()
+                true
+            }
+            R.id.action_execute_clam_av -> {
+                viewModel.executeClamAVAddOn()
+                true
+            }
+            R.id.action_execute_remove_bg -> {
+                viewModel.executeRemoveBgAddOn()
+                true
+            }
             else -> false
         }
 

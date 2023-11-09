@@ -79,3 +79,10 @@ enum class Order constructor(val rawValue: String) {
     UPLOAD_TIME_ASC("datetime_uploaded"),
     UPLOAD_TIME_DESC("-datetime_uploaded")
 }
+
+class RequestIdParameter(private val requestId: String) : UrlParameter {
+
+    override fun getParam() = "request_id"
+
+    override fun getValue() = requestId
+}

@@ -4,6 +4,7 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.uploadcare.android.library.utils.AddOnStatusAdapter
 import com.uploadcare.android.library.utils.EventTypeAdapter
 import com.uploadcare.android.library.utils.AsStringAdapter
 
@@ -44,6 +45,7 @@ class ObjectMapper(val moshi: Moshi) {
                     .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())//rfc2822
                     .add(MoshiAdapter())
                     .add(EventTypeAdapter())
+                    .add(AddOnStatusAdapter)
                     .build()
             )
         }

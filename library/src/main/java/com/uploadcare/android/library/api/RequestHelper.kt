@@ -122,7 +122,7 @@ class RequestHelper(private val client: UploadcareClient) {
             REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
         }
         if (apiHeaders) {
-            setApiHeaders(requestBuilder, url, requestType, requestBodyMD5 = requestBodyMD5,
+            setApiHeaders(requestBuilder, pageUrl.toString(), requestType, requestBodyMD5 = requestBodyMD5,
                     contentType = requestBody?.contentType().toString())
         }
         try {
@@ -162,7 +162,7 @@ class RequestHelper(private val client: UploadcareClient) {
             REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
         }
         if (apiHeaders) {
-            setApiHeaders(requestBuilder, url, requestType, requestBodyMD5 = requestBodyMD5,
+            setApiHeaders(requestBuilder, pageUrl.toString(), requestType, requestBodyMD5 = requestBodyMD5,
                     contentType = requestBody?.contentType().toString())
         }
         try {
@@ -203,7 +203,7 @@ class RequestHelper(private val client: UploadcareClient) {
             REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
         }
         if (apiHeaders) {
-            setApiHeaders(requestBuilder, url, requestType, callback, requestBodyMD5,
+            setApiHeaders(requestBuilder, pageUrl.toString(), requestType, callback, requestBodyMD5,
                     requestBody?.contentType().toString())
         }
         client.httpClient.newCall(requestBuilder.build()).enqueue(object : Callback {
@@ -265,7 +265,7 @@ class RequestHelper(private val client: UploadcareClient) {
             REQUEST_PUT -> requestBody?.let { requestBuilder.put(it) }
         }
         if (apiHeaders) {
-            setApiHeaders(requestBuilder, url, requestType, callback, requestBodyMD5,
+            setApiHeaders(requestBuilder, pageUrl.toString(), requestType, callback, requestBodyMD5,
                     requestBody?.contentType().toString())
         }
         client.httpClient.newCall(requestBuilder.build()).enqueue(object : Callback {
