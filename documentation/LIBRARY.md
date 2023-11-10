@@ -1273,6 +1273,7 @@ addOn.executeAsync("YOUR_FILE_UUID", object : UploadcareFileCallback {
     }
 })
 ```
+
 Java
 ```java
 // Create AWS Rekognition Add-On
@@ -1314,6 +1315,7 @@ if (statusResult.status == AddOnStatus.DONE) {
     // Handle other statuses
 }
 ```
+
 Java
 ```java
 // Create AWS Rekognition Add-On
@@ -1354,6 +1356,7 @@ addOn.executeAsync(object : UploadcareFileCallback {
     }
 })
 ```
+
 Java
 ```java
 // Create AWS Rekognition Add-On
@@ -1394,6 +1397,7 @@ if (statusResult.status == AddOnStatus.DONE) {
     // Handle other statuses
 }
 ```
+
 Java
 ```java
 // Create AWS Rekognition Moderation Add-On
@@ -1434,6 +1438,7 @@ addOn.executeAsync(object : UploadcareFileCallback {
     }
 })
 ```
+
 Java
 ```java
 // Create ClamAV Add-On
@@ -1474,6 +1479,7 @@ if (statusResult.status == AddOnStatus.DONE) {
     // Handle other statuses
 }
 ```
+
 Java
 ```java
 // Create ClamAV Add-On
@@ -1514,6 +1520,7 @@ addOn.executeAsync(object : UploadcareFileCallback {
     }
 })
 ```
+
 Java
 ```java
 // Create Remove.bg Add-On
@@ -1554,6 +1561,7 @@ if (statusResult.status == AddOnStatus.DONE) {
     // Handle other statuses
 }
 ```
+
 Java
 ```java
 // Create Remove.bg Add-On
