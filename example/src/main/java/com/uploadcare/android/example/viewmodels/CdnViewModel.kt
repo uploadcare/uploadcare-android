@@ -2,6 +2,7 @@ package com.uploadcare.android.example.viewmodels
 
 import android.app.Application
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.uploadcare.android.example.R
@@ -98,40 +99,29 @@ class CdnViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun executeAWSRekognitionAddOn() {
-        cancel()
-        showProgressOrResult(true, getContext().getString(R.string.cdn_status_execute_aws_rekognition))
-        uploadcareFile.value?.let { file ->
-            executor = AWSRekognitionAddOn(client).apply {
-                executeAsync(file.uuid, executorCallback)
-            }
-        }
+        executeAddOn(R.string.cdn_status_execute_aws_rekognition, AWSRekognitionAddOn(client))
     }
 
     fun executeAWSRekognitionModerationAddOn() {
-        cancel()
-        showProgressOrResult(true, getContext().getString(R.string.cdn_status_execute_aws_rekognition_moderation))
-        uploadcareFile.value?.let { file ->
-            executor = AWSRekognitionModerationAddOn(client).apply {
-                executeAsync(file.uuid, executorCallback)
-            }
-        }
+        executeAddOn(
+            R.string.cdn_status_execute_aws_rekognition_moderation,
+            AWSRekognitionModerationAddOn(client)
+        )
     }
 
     fun executeClamAVAddOn() {
-        cancel()
-        showProgressOrResult(true, getContext().getString(R.string.cdn_status_execute_clam_av))
-        uploadcareFile.value?.let { file ->
-            executor = ClamAVAddOn(client).apply {
-                executeAsync(file.uuid, executorCallback)
-            }
-        }
+        executeAddOn(R.string.cdn_status_execute_clam_av, ClamAVAddOn(client))
     }
 
     fun executeRemoveBgAddOn() {
+        executeAddOn(R.string.cdn_status_execute_remove_bg, RemoveBgAddOn(client))
+    }
+
+    private fun executeAddOn(@StringRes progressMessageResId: Int, addOnExecutor: AddOnExecutor) {
         cancel()
-        showProgressOrResult(true, getContext().getString(R.string.cdn_status_execute_remove_bg))
+        showProgressOrResult(true, getContext().getString(progressMessageResId))
         uploadcareFile.value?.let { file ->
-            executor = RemoveBgAddOn(client).apply {
+            executor = addOnExecutor.apply {
                 executeAsync(file.uuid, executorCallback)
             }
         }
