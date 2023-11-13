@@ -1263,7 +1263,6 @@ val addOn = AWSRekognitionAddOn(uploadcare)
 
 // Execute
 addOn.executeAsync("YOUR_FILE_UUID", object : UploadcareFileCallback {
-
     override fun onFailure(e: UploadcareApiException) {
         // Handle errors.
     }
@@ -1346,7 +1345,6 @@ val addOn = AWSRekognitionModerationAddOn(uploadcare)
 
 // Execute
 addOn.executeAsync(object : UploadcareFileCallback {
-
     override fun onFailure(e: UploadcareApiException) {
         // Handle errors.
     }
@@ -1428,7 +1426,6 @@ val addOn = ClamAVAddOn(uploadcare)
 
 // Execute
 addOn.executeAsync(object : UploadcareFileCallback {
-
     override fun onFailure(e: UploadcareApiException) {
         // Handle errors.
     }
@@ -1510,7 +1507,6 @@ val addOn = RemoveBgAddOn(uploadcare)
 
 // Execute
 addOn.executeAsync(object : UploadcareFileCallback {
-
     override fun onFailure(e: UploadcareApiException) {
         // Handle errors.
     }

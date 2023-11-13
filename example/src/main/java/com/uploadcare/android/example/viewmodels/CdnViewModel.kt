@@ -31,7 +31,6 @@ class CdnViewModel(application: Application) : AndroidViewModel(application) {
 
     private var executor: AddOnExecutor? = null
     private val executorCallback = object : UploadcareFileCallback {
-
         override fun onFailure(e: UploadcareApiException) {
             showProgressOrResult(false, e.message)
         }
