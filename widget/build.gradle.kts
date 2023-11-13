@@ -27,9 +27,10 @@ android {
             buildConfigField("String", "SOCIAL_API_ENDPOINT", "\"https://social.uploadcare.com/\"")
         }
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             buildConfigField("String", "SOCIAL_API_ENDPOINT", "\"https://social.uploadcare.com/\"")
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            consumerProguardFile("proguard-rules.pro")
         }
     }
 

@@ -13,12 +13,15 @@
   - Added support for converting multipage into a group of files.
   - Added `default_effects` field in `UploadcareFile`.
   - Added react to request throttling (429 code response).
+  - Added rules for Proguard.
 - Widget:
   - SocialApi doesn't use `GET /sources` method anymore.
+  - Added rules for Proguard.
 - Project:
   - Migrated Gradle builds from Groovy to Kotlin.
 - Example:
   - Removed sorting options by file size from `UploadFragment`.
+  - Enable R8 shrinking code for release build.
 
 ## 3.3.0
 - Library:

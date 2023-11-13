@@ -24,6 +24,7 @@ moshi = "1.15.0"
 junit = "4.13.2"
 testRunner = "1.5.2"
 espressoCore = "3.5.1"
+r8 = "8.2.36"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinVersion" }
@@ -67,3 +68,5 @@ preference-ktx = { group = "androidx.preference", name = "preference-ktx", versi
 test-runner = { group = "androidx.test", name = "runner", version.ref = "testRunner" }
 test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 test-junit = { group = "junit", name = "junit", version.ref = "junit" }
+
+tools-r8 = { module = "com.android.tools:r8", version.ref = "r8" }

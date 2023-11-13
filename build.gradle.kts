@@ -3,6 +3,7 @@
 buildscript {
     repositories {
         maven(url = "https://maven.google.com")
+        maven(url = "https://storage.googleapis.com/r8-releases/raw")
         google()
         mavenCentral()
     }
@@ -12,6 +13,10 @@ buildscript {
         classpath("com.android.tools.build:gradle:${libs.versions.gradleVersion.get()}")
         classpath(libs.kotlin.plugin)
         classpath(libs.navigation.safe.args.plugin)
+
+        // Required to support for sealed classes until AGP 8.2
+        // https://issuetracker.google.com/issues/227160052#comment37
+        classpath(libs.tools.r8)
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
