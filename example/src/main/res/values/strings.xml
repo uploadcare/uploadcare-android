@@ -45,9 +45,18 @@
     <string name="cdn_status_conversion_vid">Converting video…</string>
     <string name="cdn_status_sucess">Successfully converted</string>
     <string name="cdn_cancel_conversion">Cancel</string>
+    <string name="cdn_status_execute_aws_rekognition">Executing AWS Rekognition…</string>
+    <string name="cdn_status_execute_aws_rekognition_moderation">Executing AWS Rekognition Moderation…</string>
+    <string name="cdn_status_execute_clam_av">Executing ClamAV…</string>
+    <string name="cdn_status_execute_remove_bg">Executing Remove.bg…</string>
+    <string name="cdn_status_execute_sucess">Successfully executed</string>
 
     <string name="action_convert_document">Convert Document</string>
     <string name="action_convert_video">Convert Video</string>
+    <string name="action_execute_aws_rekognition">Execute AWS Rekognition</string>
+    <string name="action_execute_aws_rekognition_moderation">Execute AWS Rekognition Moderation</string>
+    <string name="action_execute_clam_av">Execute ClamAV</string>
+    <string name="action_execute_remove_bg">Execute Remove.bg</string>
 
     <array name="orders">
         <item>Upload time, Ascending (Default)</item>
