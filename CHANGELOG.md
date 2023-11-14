@@ -13,6 +13,11 @@
   - Added support for converting multipage into a group of files.
   - Added `default_effects` field in `UploadcareFile`.
   - Added react to request throttling (429 code response).
+  - Added support for [object recognition](https://uploadcare.com/docs/intelligence/object-recognition/),
+    [unsafe content detection](https://uploadcare.com/docs/unsafe-content/),
+    [malware protection](https://uploadcare.com/docs/security/malware-protection/),
+    and [background removal](https://uploadcare.com/docs/remove-bg/).
+  - Fixed authorization signature for requests with url parameters.
   - Added rules for Proguard.
 - Widget:
   - SocialApi doesn't use `GET /sources` method anymore.

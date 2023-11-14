@@ -1251,3 +1251,328 @@ List<String> fileIds = ... // list of file UUID's
 
 UploadcareGroup uploadcareGroup = uploadcare.createGroup(fileIds, null);
 ```
+
+## Execute AWS Rekognition ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Add-Ons/operation/awsRekognitionExecute)) ##
+
+##### Asynchronous AWS Rekognition execute.
+
+Kotlin
+```kotlin
+// Create AWS Rekognition Add-On
+val addOn = AWSRekognitionAddOn(uploadcare)
+
+// Execute
+addOn.executeAsync("YOUR_FILE_UUID", object : UploadcareFileCallback {
+    override fun onFailure(e: UploadcareApiException) {
+        // Handle errors.
+    }
+
+    override fun onSuccess(result: UploadcareFile) {
+        // Successfully execute Add-On.
+    }
+})
+```
+
+Java
+```java
+// Create AWS Rekognition Add-On
+AWSRekognitionAddOn addOn = new AWSRekognitionAddOn(uploadcare);
+
+// Execute
+addOn.executeAsync(
+        "YOUR_FILE_UUID",
+        new UploadcareFileCallback() {
+            @Override
+            public void onFailure(@NotNull UploadcareApiException e) {
+                // Handle errors.
+            }
+
+            @Override
+            public void onSuccess(@NonNull UploadcareFile result) {
+                // Successfully execute Add-On.
+            }
+        });
+```
+
+##### Synchronous AWS Rekognition execute.
+
+Kotlin
+```kotlin
+// Create AWS Rekognition Add-On
+val addOn = AWSRekognitionAddOn(uploadcare)
+
+// Execute
+val executeResult = addOn.execute("YOUR_FILE_UUID")
+
+// Check status
+val statusResult = addOn.check(executeResult.requestId)
+
+if (statusResult.status == AddOnStatus.DONE) {
+    // Get file with appdata field
+    uploadcare.getFileWithAppData("YOUR_FILE_UUID")
+} else {
+    // Handle other statuses
+}
+```
+
+Java
+```java
+// Create AWS Rekognition Add-On
+AWSRekognitionAddOn addOn = new AWSRekognitionAddOn(uploadcare);
+
+// Execute
+AddOnExecuteResult executeResult = addOn.execute("YOUR_FILE_UUID");
+
+// Check status
+AddOnStatusResult statusResult = addOn.check(executeResult.getRequestId());
+
+if (statusResult.getStatus() == AddOnStatus.DONE) {
+    // Get file with appdata field
+    uploadcare.getFileWithAppData("YOUR_FILE_UUID");
+} else {
+    // Handle other statuses
+}
+```
+
+## Execute AWS Rekognition Moderation ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Add-Ons/operation/awsRekognitionDetectModerationLabelsExecute)) ##
+
+##### Asynchronous AWS Rekognition Moderation execute.
+
+Kotlin
+```kotlin
+// Create AWS Rekognition Add-On
+val addOn = AWSRekognitionModerationAddOn(uploadcare)
+
+// Execute
+addOn.executeAsync(object : UploadcareFileCallback {
+    override fun onFailure(e: UploadcareApiException) {
+        // Handle errors.
+    }
+
+    override fun onSuccess(result: UploadcareFile) {
+        // Successfully execute Add-On.
+    }
+})
+```
+
+Java
+```java
+// Create AWS Rekognition Add-On
+AWSRekognitionModerationAddOn addOn = new AWSRekognitionModerationAddOn(uploadcare);
+
+// Execute
+addOn.executeAsync(
+        new UploadcareFileCallback() {
+            @Override
+            public void onFailure(@NotNull UploadcareApiException e) {
+                // Handle errors.
+            }
+
+            @Override
+            public void onSuccess(@NonNull UploadcareFile result) {
+                // Successfully execute Add-On.
+            }
+        });
+```
+
+##### Synchronous AWS Rekognition Moderation execute.
+
+Kotlin
+```kotlin
+// Create AWS Rekognition Moderation Add-On
+val addOn = AWSRekognitionModerationAddOn(uploadcare)
+
+// Execute
+val executeResult = addOn.execute("YOUR_FILE_UUID")
+
+// Check status
+val statusResult = addOn.check(executeResult.requestId)
+
+if (statusResult.status == AddOnStatus.DONE) {
+    // Get file with appdata field
+    uploadcare.getFileWithAppData("YOUR_FILE_UUID")
+} else {
+    // Handle other statuses
+}
+```
+
+Java
+```java
+// Create AWS Rekognition Moderation Add-On
+AWSRekognitionModerationAddOn addOn = new AWSRekognitionModerationAddOn(uploadcare);
+
+// Execute
+AddOnExecuteResult executeResult = addOn.execute("YOUR_FILE_UUID");
+
+// Check status
+AddOnStatusResult statusResult = addOn.check(executeResult.getRequestId());
+
+if (statusResult.getStatus() == AddOnStatus.DONE) {
+    // Get file with appdata field
+    uploadcare.getFileWithAppData("YOUR_FILE_UUID");
+} else {
+    // Handle other statuses
+}
+```
+
+## Execute ClamAV ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Add-Ons/operation/ucClamavVirusScanExecute)) ##
+
+##### Asynchronous ClamAV execute.
+
+Kotlin
+```kotlin
+// Create ClamAV Add-On
+val addOn = ClamAVAddOn(uploadcare)
+
+// Execute
+addOn.executeAsync(object : UploadcareFileCallback {
+    override fun onFailure(e: UploadcareApiException) {
+        // Handle errors.
+    }
+
+    override fun onSuccess(result: UploadcareFile) {
+        // Successfully execute Add-On.
+    }
+})
+```
+
+Java
+```java
+// Create ClamAV Add-On
+ClamAVAddOn addOn = new ClamAVAddOn(uploadcare);
+
+// Execute
+addOn.executeAsync(
+        new UploadcareFileCallback() {
+            @Override
+            public void onFailure(@NotNull UploadcareApiException e) {
+                // Handle errors.
+            }
+
+            @Override
+            public void onSuccess(@NonNull UploadcareFile result) {
+                // Successfully execute Add-On.
+            }
+        });
+```
+
+##### Synchronous ClamAV execute.
+
+Kotlin
+```kotlin
+// Create ClamAV Add-On
+val addOn = ClamAVAddOn(uploadcare)
+
+// Execute
+val executeResult = addOn.execute("YOUR_FILE_UUID")
+
+// Check status
+val statusResult = addOn.check(executeResult.requestId)
+
+if (statusResult.status == AddOnStatus.DONE) {
+    // Get file with appdata field
+    uploadcare.getFileWithAppData("YOUR_FILE_UUID")
+} else {
+    // Handle other statuses
+}
+```
+
+Java
+```java
+// Create ClamAV Add-On
+ClamAVAddOn addOn = new ClamAVAddOn(uploadcare);
+
+// Execute
+AddOnExecuteResult executeResult = addOn.execute("YOUR_FILE_UUID");
+
+// Check status
+AddOnStatusResult statusResult = addOn.check(executeResult.getRequestId());
+
+if (statusResult.getStatus() == AddOnStatus.DONE) {
+    // Get file with appdata field
+    uploadcare.getFileWithAppData("YOUR_FILE_UUID")
+} else {
+    // Handle other statuses
+}
+```
+
+## Execute Remove.bg ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Add-Ons/operation/removeBgExecute)) ##
+
+##### Asynchronous Remove.bg execute.
+
+Kotlin
+```kotlin
+// Create Remove.bg Add-On
+val addOn = RemoveBgAddOn(uploadcare)
+
+// Execute
+addOn.executeAsync(object : UploadcareFileCallback {
+    override fun onFailure(e: UploadcareApiException) {
+        // Handle errors.
+    }
+
+    override fun onSuccess(result: UploadcareFile) {
+        // Successfully execute Add-On.
+    }
+})
+```
+
+Java
+```java
+// Create Remove.bg Add-On
+RemoveBgAddOn addOn = new RemoveBgAddOn(uploadcare);
+
+// Execute
+addOn.executeAsync(
+        new UploadcareFileCallback() {
+            @Override
+            public void onFailure(@NotNull UploadcareApiException e) {
+                // Handle errors.
+            }
+
+            @Override
+            public void onSuccess(@NonNull UploadcareFile result) {
+                // Successfully execute Add-On.
+            }
+        });
+```
+
+##### Synchronous Remove.bg execute.
+
+Kotlin
+```kotlin
+// Create Remove.bg Add-On
+val addOn = RemoveBgAddOn(uploadcare)
+
+// Execute
+val executeResult = addOn.execute("YOUR_FILE_UUID")
+
+// Check status
+val statusResult = addOn.check(executeResult.requestId)
+
+if (statusResult.status == AddOnStatus.DONE) {
+    // Get file with appdata field
+    statusResult.result?.let { uploadcare.getFile(it.fileId) }
+} else {
+    // Handle other statuses
+}
+```
+
+Java
+```java
+// Create Remove.bg Add-On
+RemoveBgAddOn addOn = new RemoveBgAddOn(uploadcare);
+
+// Execute
+AddOnExecuteResult executeResult = addOn.execute("YOUR_FILE_UUID");
+
+// Check status
+AddOnStatusResult statusResult = addOn.check(executeResult.getRequestId());
+
+if (statusResult.getStatus() == AddOnStatus.DONE && statusResult.getResult() != null) {
+    // Get file with appdata field
+    uploadcare.getFile(statusResult.getResult().getFileId());
+} else {
+    // Handle other statuses
+}
+```

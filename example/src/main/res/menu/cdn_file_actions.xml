@@ -11,4 +11,24 @@
         android:orderInCategory="100"
         android:title="@string/action_convert_video"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_execute_aws_rekognition"
+        android:orderInCategory="100"
+        android:title="@string/action_execute_aws_rekognition"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_execute_aws_rekognition_moderation"
+        android:orderInCategory="100"
+        android:title="@string/action_execute_aws_rekognition_moderation"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_execute_clam_av"
+        android:orderInCategory="100"
+        android:title="@string/action_execute_clam_av"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_execute_remove_bg"
+        android:orderInCategory="100"
+        android:title="@string/action_execute_remove_bg"
+        app:showAsAction="never" />
 </menu>
