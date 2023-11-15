@@ -18,12 +18,15 @@
     [malware protection](https://uploadcare.com/docs/security/malware-protection/),
     and [background removal](https://uploadcare.com/docs/remove-bg/).
   - Fixed authorization signature for requests with url parameters.
+  - Added Proguard rule to keep DTO classes to avoid issues with network JSON deserialization.
 - Widget:
   - SocialApi doesn't use `GET /sources` method anymore.
+  - Added Proguard rule to keep DTO classes to avoid issues with network JSON deserialization.
 - Project:
   - Migrated Gradle builds from Groovy to Kotlin.
 - Example:
   - Removed sorting options by file size from `UploadFragment`.
+  - Enable R8 shrinking code for release build to enable Proguard's rules.
 
 ## 3.3.0
 - Library:

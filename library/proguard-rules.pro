@@ -15,3 +15,12 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-dontwarn java.lang.invoke.StringConcatFactory
+
+-keep class com.uploadcare.android.library.data.** { *; }
+-keep class com.uploadcare.android.library.api.Project { *; }
+-keep class com.uploadcare.android.library.api.UploadcareCopyFile { *; }
+-keep class com.uploadcare.android.library.api.UploadcareFile { *; }
+-keep class com.uploadcare.android.library.api.UploadcareGroup { *; }
+-keep class com.uploadcare.android.library.api.UploadcareWebhook { *; }
