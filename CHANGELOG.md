@@ -1,15 +1,16 @@
 # Changelog
 
 ## 4.0.0
+
 **Library changes:**
-- Migrated REST API support from v0.6 to v0.7.
+- Migrated REST API support from v0.6 to [v0.7](http://uploadcare.com/api-refs/rest-api/v0.7.0/).
 - Added support for:
   - [Object recognition](https://uploadcare.com/docs/intelligence/object-recognition/),
   - [Unsafe content detection](https://uploadcare.com/docs/unsafe-content/),
   - [Malware protection](https://uploadcare.com/docs/security/malware-protection/),
   - [Background removal](https://uploadcare.com/docs/remove-bg/).
-- Added support for new event types of webhooks.
-- Added support for converting multipage into a group of files.
+- Added support for [new event types](https://uploadcare.com/docs/webhooks/#event-types) for webhooks.
+- Added support for converting [multi-page documents](https://uploadcare.com/docs/transformations/document-conversion/#multipage-conversion) into a group of files.
 - Added `default_effects` field in `UploadcareFile`.
 - Added reaction to request throttling (429 code response).
 - Added Proguard rule to keep DTO classes to avoid issues with network JSON deserialization.
