@@ -1,32 +1,32 @@
 # Changelog
 
-# History
+## 4.0.0
+**Library changes:**
+- Migrated REST API support from v0.6 to v0.7.
+- Added support for:
+  - [Object recognition](https://uploadcare.com/docs/intelligence/object-recognition/),
+  - [Unsafe content detection](https://uploadcare.com/docs/unsafe-content/),
+  - [Malware protection](https://uploadcare.com/docs/security/malware-protection/),
+  - [Background removal](https://uploadcare.com/docs/remove-bg/).
+- Added support for new event types of webhooks.
+- Added support for converting multipage into a group of files.
+- Added `default_effects` field in `UploadcareFile`.
+- Added reaction to request throttling (429 code response).
+- Added Proguard rule to keep DTO classes to avoid issues with network JSON deserialization.
+- Fixed authorization signature for requests with URL parameters.
+- Removed sorting methods by file size, as the corresponding parameter has been removed from the API query parameters.
+- Removed the `UploadcareClient.storeGroup()` and `UploadcareGroup.store()` methods, as their endpoints have been removed.
 
-## 4.0.0 — UNRELEASED
-- Library:
-  - Migrated REST API support from v0.6 to v0.7.
-  - Removed the `UploadcareClient.storeGroup()` and `UploadcareGroup.store()` methods, as their
-    endpoints have been removed.
-  - Added support for new event types of webhooks.
-  - Removed sorting methods by file size, as the corresponding parameter has been removed from
-    the API query parameters.
-  - Added support for converting multipage into a group of files.
-  - Added `default_effects` field in `UploadcareFile`.
-  - Added react to request throttling (429 code response).
-  - Added support for [object recognition](https://uploadcare.com/docs/intelligence/object-recognition/),
-    [unsafe content detection](https://uploadcare.com/docs/unsafe-content/),
-    [malware protection](https://uploadcare.com/docs/security/malware-protection/),
-    and [background removal](https://uploadcare.com/docs/remove-bg/).
-  - Fixed authorization signature for requests with url parameters.
-  - Added Proguard rule to keep DTO classes to avoid issues with network JSON deserialization.
-- Widget:
-  - SocialApi doesn't use `GET /sources` method anymore.
-  - Added Proguard rule to keep DTO classes to avoid issues with network JSON deserialization.
-- Project:
-  - Migrated Gradle builds from Groovy to Kotlin.
-- Example:
-  - Removed sorting options by file size from `UploadFragment`.
-  - Enable R8 shrinking code for release build to enable Proguard's rules.
+**Widget changes:**
+- SocialApi doesn't use `GET /sources` method anymore.
+- Added Proguard rule to keep DTO classes to avoid issues with network JSON deserialization.
+
+**Build changes:**
+- Migrated Gradle builds from Groovy to Kotlin.
+
+**Example app changes:**
+- Removed sorting options by file size from `UploadFragment`.
+- Enabled R8 shrinking code for release build to enable Proguard's rules.
 
 ## 3.3.0
 - Library:

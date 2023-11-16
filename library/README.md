@@ -11,9 +11,9 @@ Supported features:
 - Paginated resources fetching.
 - CDN path builder.
 - File uploading from a file, byte array, URL, and URI.
-- Document and Video Conversion.
-- Secure Delivery.
-- Secure Webhooks.
+- Document and video conversion, all Uploadcare add-ons.
+- Singned uploads and URLs.
+- Secure webhooks.
 - Synchronous and asynchronous operation modes.
 
 [Documentation](https://github.com/uploadcare/uploadcare-android/blob/master/documentation/LIBRARY.md)
