@@ -53,3 +53,7 @@ interface ConversionFilesCallback : BaseListCallback<UploadcareFile>
 interface UploadcareWebhookCallback : BaseCallback<UploadcareWebhook>
 
 interface UploadcareWebhooksCallback : BaseListCallback<UploadcareWebhook>
+
+interface UploadcareMetadataCallback : BaseCallback<Map<String, String>>
+
+interface UploadcareMetadataKeyValueCallback : BaseCallback<String>
