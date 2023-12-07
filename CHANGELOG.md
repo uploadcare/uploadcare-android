@@ -3,6 +3,7 @@
 ## 4.1.0 — UNRELEASED
 **Library changes:**
 - Added file metadata [features](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/File-metadata).
+- Added delete group [method](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Group/operation/deleteGroup).
 
 ## 4.0.0
 

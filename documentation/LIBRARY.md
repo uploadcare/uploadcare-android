@@ -507,6 +507,30 @@ Java
 UploadcareGroup group = uploadcare.getGroup("YOUR_GROUP_UUID");
 ```
 
+## Delete group ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Group/operation/deleteGroup)) ##
+
+##### Asynchronous group delete.
+
+Kotlin
+```kotlin
+uploadcare.deleteGroupAsync(context, "YOUR_GROUP_UUID")
+```
+Java
+```java
+uploadcare.deleteGroupAsync(context, "YOUR_GROUP_UUID");
+```
+
+##### Synchronous group delete.
+
+Kotlin
+```kotlin
+uploadcare.deleteGroup("YOUR_GROUP_UUID")
+```
+Java
+```java
+uploadcare.deleteGroup("YOUR_GROUP_UUID");
+```
+
 ## Project info ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/projectInfo)) ##
 
 ##### Asynchronous project info fetch.

@@ -203,6 +203,36 @@ class UploadcareClient constructor(val publicKey: String,
     }
 
     /**
+     * Delete a file group by its ID.
+     * Note: The operation only removes the group object itself. All the files that were part of
+     * the group are left as is.
+     *
+     * @param groupId Group UUID.
+     */
+    fun deleteGroup(groupId: String) {
+        val url = Urls.apiGroup(groupId)
+        requestHelper.executeCommand(RequestHelper.REQUEST_DELETE, url.toString(), true)
+    }
+
+    /**
+     * Delete a file group by its ID Asynchronously.
+     * Note: The operation only removes the group object itself. All the files that were part of
+     * the group are left as is.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param groupId Group UUID.
+     */
+    fun deleteGroupAsync(context: Context, groupId: String) {
+        val url = Urls.apiGroup(groupId)
+        requestHelper.executeCommandAsync(
+            context = context,
+            requestType = RequestHelper.REQUEST_DELETE,
+            url = url.toString(),
+            apiHeaders = true
+        )
+    }
+
+    /**
      * Begins to build a request for uploaded files for the current account.
      *
      * @return UploadcareFile resource request builder
