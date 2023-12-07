@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.0 — UNRELEASED
+**Library changes:**
+- Added file metadata [features](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/File-metadata).
+
 ## 4.0.0
 
 **Library changes:**
