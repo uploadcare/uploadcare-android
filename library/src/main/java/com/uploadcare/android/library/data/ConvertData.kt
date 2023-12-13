@@ -17,9 +17,9 @@ internal data class ConvertResult(
         val uuid: String,
         val token: Int)
 
-internal data class ConvertStatusData(
+data class ConvertStatusData(
         val status: String,
         val result: ConvertStatusResultData,
         val error: String? = null)
 
-internal data class ConvertStatusResultData(val uuid: String)
+data class ConvertStatusResultData(val uuid: String)
