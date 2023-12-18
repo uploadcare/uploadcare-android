@@ -3,6 +3,10 @@
 ## 4.1.0 — UNRELEASED
 **Library changes:**
 - Added file metadata [features](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/File-metadata).
+- Added delete group [method](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Group/operation/deleteGroup).
+- Added check from URL status [method](https://uploadcare.com/api-refs/upload-api/#tag/Upload/operation/fromURLUploadStatus).
+- Added check document conversion status [method](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Conversion/operation/documentConvert).
+- Added check video conversion status [method](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Conversion/operation/videoConvertStatus).
 
 ## 4.0.0
 

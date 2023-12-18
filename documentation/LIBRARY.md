@@ -11,13 +11,16 @@
 * [Copy file to remote storage](#copy-file-to-remote-storage-api-reference)
 * [List of groups](#list-of-groups-api-reference)
 * [Group info](#group-info-api-reference)
+* [Delete group](#delete-group-api-reference)
 * [Project info](#project-info-api-reference)
 * [List of webhooks](#list-of-webhooks-api-reference)
 * [Create webhook](#create-webhook-api-reference)
 * [Update webhook](#update-webhook-api-reference)
 * [Delete webhook](#delete-webhook-api-reference)
 * [Convert documents](#convert-documents-api-reference)
+* [Check document conversion status](#check-document-conversion-status-api-reference)
 * [Convert videos](#convert-videos-api-reference)
+* [Check video conversion status](#check-video-conversion-status-api-reference)
 * [Content delivery](#content-delivery-reference)
 * [Secure Content delivery](#secure-content-delivery-reference)
 * [Execute AWS Rekognition](#execute-aws-rekognition-api-reference)
@@ -33,8 +36,9 @@
 
 * [Upload Initialization](#upload-initialization)
 * [Upload File](#upload-file-api-reference)
-* [Upload File from URL](#upload-file-from-url-api-reference)
-* [Create file group](#create-file-group-api-reference)
+* [Upload File from URL](#upload-file-url-api-reference)
+* [Check upload File from URL Status](#check-upload-file-from-url-status-api-reference)
+* [Create file group](#create-files-group-api-reference)
 
 ## Initialization
 
@@ -506,6 +510,30 @@ Java
 UploadcareGroup group = uploadcare.getGroup("YOUR_GROUP_UUID");
 ```
 
+## Delete group ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Group/operation/deleteGroup)) ##
+
+##### Asynchronous group delete.
+
+Kotlin
+```kotlin
+uploadcare.deleteGroupAsync(context, "YOUR_GROUP_UUID")
+```
+Java
+```java
+uploadcare.deleteGroupAsync(context, "YOUR_GROUP_UUID");
+```
+
+##### Synchronous group delete.
+
+Kotlin
+```kotlin
+uploadcare.deleteGroup("YOUR_GROUP_UUID")
+```
+Java
+```java
+uploadcare.deleteGroup("YOUR_GROUP_UUID");
+```
+
 ## Project info ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/projectInfo)) ##
 
 ##### Asynchronous project info fetch.
@@ -841,6 +869,57 @@ DocumentConverter converter = new DocumentConverter(uploadcare, conversionJobs);
 List<UploadcareFile> result = converter.convert();
 ```
 
+## Check document conversion status ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Conversion/operation/documentConvertStatus)) ##
+
+##### Asynchronous check document conversion status.
+
+Kotlin
+```kotlin
+uploadcare.getDocumentConversionStatusAsync(
+    context = context,
+    token = 12345678,
+    callback = object : ConversionStatusCallback {
+        override fun onFailure(e: UploadcareApiException) {
+            // Handle errors.
+        }
+
+        override fun onSuccess(result: ConvertStatusData) {
+            // Successfully fetched status.
+        }
+    }
+)
+```
+
+Java
+```java
+uploadcare.getDocumentConversionStatusAsync(
+        context,
+        12345678,
+        new ConversionStatusCallback() {
+            @Override
+            public void onFailure(@NonNull UploadcareApiException e) {
+                // Handle errors.
+            }
+            
+            @Override
+            public void onSuccess(@NonNull ConvertStatusData result) {
+                // Successfully fetched status.
+            }
+        });
+```
+
+##### Synchronous check document conversion status.
+
+Kotlin
+```kotlin
+val status = client.getDocumentConversionStatus(12345678)
+```
+
+Java
+```java
+ConvertStatusData status = uploadcare.getDocumentConversionStatus(12345678);
+```
+
 ## Convert videos ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/videoConvert)) ##
 
 ##### Asynchronous videos convert.
@@ -932,6 +1011,57 @@ VideoConverter converter = new VideoConverter(uploadcare, conversionJobs);
 
 // Convert
 List<UploadcareFile> result = converter.convert();
+```
+
+## Check video conversion status ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Conversion/operation/videoConvertStatus)) ##
+
+##### Asynchronous check video conversion status.
+
+Kotlin
+```kotlin
+uploadcare.getVideoConversionStatusAsync(
+    context = context,
+    token = 12345678,
+    callback = object : ConversionStatusCallback {
+        override fun onFailure(e: UploadcareApiException) {
+            // Handle errors.
+        }
+
+        override fun onSuccess(result: ConvertStatusData) {
+            // Successfully fetched status.
+        }
+    }
+)
+```
+
+Java
+```java
+uploadcare.getVideoConversionStatusAsync(
+        context,
+        12345678,
+        new ConversionStatusCallback() {
+            @Override
+            public void onFailure(@NonNull UploadcareApiException e) {
+                // Handle errors.
+            }
+            
+            @Override
+            public void onSuccess(@NonNull ConvertStatusData result) {
+                // Successfully fetched status.
+            }
+        });
+```
+
+##### Synchronous check video conversion status.
+
+Kotlin
+```kotlin
+val status = client.getVideoConversionStatus(12345678)
+```
+
+Java
+```java
+ConvertStatusData status = uploadcare.getVideoConversionStatus(12345678);
 ```
 
 ## Content delivery ([Reference](https://uploadcare.com/docs/delivery/cdn/)) ##
@@ -1718,6 +1848,56 @@ try {
 } catch (UploadFailureException e) {
     // Handle errors.
 }
+```
+
+## Check upload File from URL Status ([API Reference](https://uploadcare.com/api-refs/upload-api/#tag/Upload/operation/fromURLUploadStatus)) ##
+
+##### Asynchronous check upload file from URL status.
+
+Kotlin
+```kotlin
+uploadcare.getFromUrlStatusAsync(
+    context = context,
+    token = "YOUR_TOKEN",
+    callback = object : UploadFromUrlStatusCallback {
+        override fun onFailure(e: UploadcareApiException) {
+            // Handle errors.
+        }
+
+        override fun onSuccess(result: UploadFromUrlStatusData) {
+            // Successfully fetched status.
+        }
+    })
+```
+
+Java
+```java
+uploadcare.getFromUrlStatusAsync(
+        context,
+        "YOUR_TOKEN",
+        new UploadFromUrlStatusCallback() {
+            @Override
+            public void onFailure(@NonNull UploadcareApiException e) {
+                // Handle errors.
+            }
+            
+            @Override
+            public void onSuccess(@NonNull UploadFromUrlStatusData result) {
+                // Successfully fetched status.
+            }
+        });
+```
+
+##### Synchronous check upload file from URL status.
+
+Kotlin
+```kotlin
+val fromUrlStatus = client.getFromUrlStatus(urlToken)
+```
+
+Java
+```java
+UploadFromUrlStatusData urlStatus = uploadcare.getFromUrlStatus("YOUR_TOKEN");
 ```
 
 ## Create file group ([API Reference](https://uploadcare.com/api-refs/upload-api/#operation/createFilesGroup)) ##

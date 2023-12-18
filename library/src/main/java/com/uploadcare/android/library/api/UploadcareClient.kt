@@ -6,8 +6,10 @@ import com.squareup.moshi.Types
 import com.uploadcare.android.library.BuildConfig
 import com.uploadcare.android.library.api.RequestHelper.Companion.md5
 import com.uploadcare.android.library.callbacks.*
+import com.uploadcare.android.library.data.ConvertStatusData
 import com.uploadcare.android.library.data.CopyOptionsData
 import com.uploadcare.android.library.data.ObjectMapper
+import com.uploadcare.android.library.data.UploadFromUrlStatusData
 import com.uploadcare.android.library.data.WebhookOptionsData
 import com.uploadcare.android.library.exceptions.UploadFailureException
 import com.uploadcare.android.library.exceptions.UploadcareApiException
@@ -200,6 +202,36 @@ class UploadcareClient constructor(val publicKey: String,
         val url = Urls.apiGroup(groupId)
         requestHelper.executeQueryAsync(context, RequestHelper.REQUEST_GET, url.toString(), true,
                 UploadcareGroup::class.java, callback)
+    }
+
+    /**
+     * Delete a file group by its ID.
+     * Note: The operation only removes the group object itself. All the files that were part of
+     * the group are left as is.
+     *
+     * @param groupId Group UUID.
+     */
+    fun deleteGroup(groupId: String) {
+        val url = Urls.apiGroup(groupId)
+        requestHelper.executeCommand(RequestHelper.REQUEST_DELETE, url.toString(), true)
+    }
+
+    /**
+     * Delete a file group by its ID Asynchronously.
+     * Note: The operation only removes the group object itself. All the files that were part of
+     * the group are left as is.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param groupId Group UUID.
+     */
+    fun deleteGroupAsync(context: Context, groupId: String) {
+        val url = Urls.apiGroup(groupId)
+        requestHelper.executeCommandAsync(
+            context = context,
+            requestType = RequestHelper.REQUEST_DELETE,
+            url = url.toString(),
+            apiHeaders = true
+        )
     }
 
     /**
@@ -1090,6 +1122,129 @@ class UploadcareClient constructor(val publicKey: String,
             requestType = RequestHelper.REQUEST_DELETE,
             url = url.toString(),
             apiHeaders = true
+        )
+    }
+
+    /**
+     * Check the status of a task to fetch/upload a file from a URL.
+     *
+     * @param token Token that identifies a request to fetch/upload a file from a URL.
+     */
+    fun getFromUrlStatus(token: String): UploadFromUrlStatusData {
+        val url = Urls.uploadFromUrlStatus(token)
+
+        return requestHelper.executeQuery(
+            requestType = RequestHelper.REQUEST_GET,
+            url = url.toString(),
+            apiHeaders = false,
+            dataClass = UploadFromUrlStatusData::class.java
+        )
+    }
+
+    /**
+     * Check the status of a task to fetch/upload a file from a URL Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param token Token that identifies a request to fetch/upload a file from a URL.
+     * @param callback callback  [UploadFromUrlStatusCallback] with either
+     * a UploadFromUrlStatusData response or a failure exception.
+     */
+    fun getFromUrlStatusAsync(
+        context: Context,
+        token: String,
+        callback: UploadFromUrlStatusCallback
+    ) {
+        val url = Urls.uploadFromUrlStatus(token)
+
+        return requestHelper.executeQueryAsync(
+            context = context,
+            requestType = RequestHelper.REQUEST_GET,
+            url = url.toString(),
+            apiHeaders = false,
+            dataClass = UploadFromUrlStatusData::class.java,
+            callback = callback
+        )
+    }
+
+    /**
+     * Check document conversion job status.
+     *
+     * @param token Job token.
+     */
+    fun getDocumentConversionStatus(token: Int): ConvertStatusData {
+        val url = Urls.apiConvertDocumentStatus(token)
+
+        return requestHelper.executeQuery(
+            requestType = RequestHelper.REQUEST_GET,
+            url = url.toString(),
+            apiHeaders = true,
+            dataClass = ConvertStatusData::class.java
+        )
+    }
+
+    /**
+     * Check document conversion job status Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param token Job token.
+     * @param callback callback  [ConversionStatusCallback] with either
+     * a ConvertStatusData response or a failure exception.
+     */
+    fun getDocumentConversionStatusAsync(
+        context: Context,
+        token: Int,
+        callback: ConversionStatusCallback
+    ) {
+        val url = Urls.apiConvertDocumentStatus(token)
+
+        return requestHelper.executeQueryAsync(
+            context = context,
+            requestType = RequestHelper.REQUEST_GET,
+            url = url.toString(),
+            apiHeaders = true,
+            dataClass = ConvertStatusData::class.java,
+            callback = callback
+        )
+    }
+
+    /**
+     * Check video conversion job status.
+     *
+     * @param token Job token.
+     */
+    fun getVideoConversionStatus(token: Int): ConvertStatusData {
+        val url = Urls.apiConvertVideoStatus(token)
+
+        return requestHelper.executeQuery(
+            requestType = RequestHelper.REQUEST_GET,
+            url = url.toString(),
+            apiHeaders = true,
+            dataClass = ConvertStatusData::class.java
+        )
+    }
+
+    /**
+     * Check video conversion job status Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param token Job token.
+     * @param callback callback  [ConversionStatusCallback] with either
+     * a ConvertStatusData response or a failure exception.
+     */
+    fun getVideoConversionStatusAsync(
+        context: Context,
+        token: Int,
+        callback: ConversionStatusCallback
+    ) {
+        val url = Urls.apiConvertVideoStatus(token)
+
+        return requestHelper.executeQueryAsync(
+            context = context,
+            requestType = RequestHelper.REQUEST_GET,
+            url = url.toString(),
+            apiHeaders = true,
+            dataClass = ConvertStatusData::class.java,
+            callback = callback
         )
     }
 
