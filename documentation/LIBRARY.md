@@ -3,15 +3,14 @@
 * [Initialization](#initialization)
 * [List of files](#list-of-files-api-reference)
 * [File info](#file-info-api-reference)
-* [Store file](#store-file-api-reference)
-* [Batch Store files](#batch-store-files-api-reference)
+* [Store file](#store-a-file-api-reference)
+* [Batch Store files](#batch-file-store-api-reference)
 * [Delete file](#delete-file-api-reference)
-* [Batch Delete files](#batch-delete-files-api-reference)
+* [Batch Delete files](#batch-file-delete-api-reference)
 * [Copy file to local storage](#copy-file-to-local-storage-api-reference)
 * [Copy file to remote storage](#copy-file-to-remote-storage-api-reference)
 * [List of groups](#list-of-groups-api-reference)
 * [Group info](#group-info-api-reference)
-* [Store group](#store-group-api-reference)
 * [Project info](#project-info-api-reference)
 * [List of webhooks](#list-of-webhooks-api-reference)
 * [Create webhook](#create-webhook-api-reference)
@@ -32,10 +31,10 @@
 
 # Library - UPLOAD API Documentation
 
-* [Initialization Upload](#initialization-upload)
+* [Upload Initialization](#upload-initialization)
 * [Upload File](#upload-file-api-reference)
-* [Upload File from URL](#upload-file-url-api-reference)
-* [Create file group](#create-files-group-api-reference)
+* [Upload File from URL](#upload-file-from-url-api-reference)
+* [Create file group](#create-file-group-api-reference)
 
 ## Initialization
 
@@ -999,19 +998,6 @@ URI urlAkamai = Urls.cdn(domain, builder, token, expire);
 URI urlKeyCDN = Urls.cdn(domain, builder, token, expire);
 ```
 
-## Upload initialization
-
-##### Upload API requires just public key. For REST API, specify "YOUR_SECRET_KEY" as well.
-
-Kotlin
-```kotlin
-val uploadcare = UploadcareClient("YOUR_PUBLIC_KEY")
-```
-Java
-```java
-UploadcareClient uploadcare = new UploadcareClient("YOUR_PUBLIC_KEY");
-```
-
 ## Execute AWS Rekognition ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Add-Ons/operation/awsRekognitionExecute)) ##
 
 ##### Asynchronous AWS Rekognition execute.
@@ -1531,6 +1517,18 @@ uploadcare.deleteFileMetadataKey("YOUR_FILE_UUID", "YOUR_METADATA_KEY");
 
 # Library - UPLOAD API Documentation
 
+## Upload initialization
+
+##### Upload API requires just public key. For REST API, specify "YOUR_SECRET_KEY" as well.
+
+Kotlin
+```kotlin
+val uploadcare = UploadcareClient("YOUR_PUBLIC_KEY")
+```
+Java
+```java
+UploadcareClient uploadcare = new UploadcareClient("YOUR_PUBLIC_KEY");
+```
 
 ## Upload File ([API Reference](https://uploadcare.com/api-refs/upload-api/)) ##
 
