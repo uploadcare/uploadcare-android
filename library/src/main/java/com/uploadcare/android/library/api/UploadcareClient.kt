@@ -905,6 +905,194 @@ class UploadcareClient constructor(val publicKey: String,
                 true, callback, body, requestBodyContent.md5())
     }
 
+    /**
+     * Requests file's metadata.
+     *
+     * @param fileId Resource UUID.
+     */
+    fun getFileMetadata(fileId: String): Map<String, String> {
+        val url = Urls.apiFileMetadata(fileId)
+        val mapType = Types.newParameterizedType(
+            Map::class.java,
+            String::class.java,
+            String::class.java
+        )
+
+        return requestHelper.executeQuery(
+            requestType = RequestHelper.REQUEST_GET,
+            url = url.toString(),
+            apiHeaders = true,
+            dataType = mapType
+        )
+    }
+
+    /**
+     * Requests file's metadata Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param fileId Resource UUID.
+     * @param callback callback  [UploadcareMetadataCallback] with either
+     * a Map<String, String> response or a failure exception.
+     */
+    fun getFileMetadataAsync(
+        context: Context,
+        fileId: String,
+        callback: UploadcareMetadataCallback
+    ) {
+        val url = Urls.apiFileMetadata(fileId)
+        val mapType = Types.newParameterizedType(
+            Map::class.java,
+            String::class.java,
+            String::class.java
+        )
+
+        requestHelper.executeQueryAsync(
+            context = context,
+            requestType = RequestHelper.REQUEST_GET,
+            url = url.toString(),
+            apiHeaders = true,
+            dataType = mapType,
+            callback = callback
+        )
+    }
+
+    /**
+     * Requests metadata key's value.
+     *
+     * @param fileId Resource UUID.
+     * @param key Metadata key.
+     */
+    fun getFileMetadataKeyValue(fileId: String, key: String): String {
+        val url = Urls.apiFileMetadataKey(fileId, key)
+
+        return requestHelper.executeQuery(
+            requestType = RequestHelper.REQUEST_GET,
+            url = url.toString(),
+            apiHeaders = true,
+            dataClass = String::class.java
+        )
+    }
+
+    /**
+     * Requests metadata key's value Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param fileId Resource UUID.
+     * @param key Metadata key.
+     * @param callback callback  [UploadcareMetadataKeyValueCallback] with either
+     * a String response or a failure exception.
+     */
+    fun getFileMetadataKeyValueAsync(
+        context: Context,
+        fileId: String,
+        key: String,
+        callback: UploadcareMetadataKeyValueCallback
+    ) {
+        val url = Urls.apiFileMetadataKey(fileId, key)
+
+        requestHelper.executeQueryAsync(
+            context = context,
+            requestType = RequestHelper.REQUEST_GET,
+            url = url.toString(),
+            apiHeaders = true,
+            dataClass = String::class.java,
+            callback = callback
+        )
+    }
+
+    /**
+     * Update metadata key's value.
+     *
+     * @param fileId Resource UUID.
+     * @param key Metadata key. If the key does not exist, it will be created.
+     * @param value Metadata key's value.
+     */
+    fun updateFileMetadataKeyValue(fileId: String, key: String, value: String): String {
+        val url = Urls.apiFileMetadataKey(fileId, key)
+        val requestBodyContent = objectMapper.toJson(value, String::class.java)
+        val requestBody = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+
+        return requestHelper.executeQuery(
+            requestType = RequestHelper.REQUEST_PUT,
+            url = url.toString(),
+            apiHeaders = true,
+            dataClass = String::class.java,
+            requestBody = requestBody,
+            requestBodyMD5 = requestBodyContent.md5()
+        )
+    }
+
+    /**
+     * Update metadata key's value Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param fileId Resource UUID.
+     * @param key Metadata key. If the key does not exist, it will be created.
+     * @param value Metadata key's value.
+     * @param callback callback  [UploadcareMetadataKeyValueCallback] with either
+     * a String response or a failure exception.
+     */
+    fun updateFileMetadataKeyValueAsync(
+        context: Context,
+        fileId: String,
+        key: String,
+        value: String,
+        callback: UploadcareMetadataKeyValueCallback
+    ) {
+        val url = Urls.apiFileMetadataKey(fileId, key)
+        val requestBodyContent = objectMapper.toJson(value, String::class.java)
+        val requestBody = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+
+        requestHelper.executeQueryAsync(
+            context = context,
+            requestType = RequestHelper.REQUEST_PUT,
+            url = url.toString(),
+            apiHeaders = true,
+            dataClass = String::class.java,
+            requestBody = requestBody,
+            requestBodyMD5 = requestBodyContent.md5(),
+            callback = callback
+        )
+    }
+
+    /**
+     * Delete metadata key.
+     *
+     * @param fileId Resource UUID.
+     * @param key Metadata key.
+     */
+    fun deleteFileMetadataKey(fileId: String, key: String) {
+        val url = Urls.apiFileMetadataKey(fileId, key)
+
+        requestHelper.executeCommand(
+            requestType = RequestHelper.REQUEST_DELETE,
+            url = url.toString(),
+            apiHeaders = true
+        )
+    }
+
+    /**
+     * Delete metadata key Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param fileId Resource UUID.
+     * @param key Metadata key.
+     */
+    fun deleteFileMetadataKeyAsync(
+        context: Context,
+        fileId: String,
+        key: String
+    ) {
+        val url = Urls.apiFileMetadataKey(fileId, key)
+
+        requestHelper.executeCommandAsync(
+            context = context,
+            requestType = RequestHelper.REQUEST_DELETE,
+            url = url.toString(),
+            apiHeaders = true
+        )
+    }
+
     internal fun createGroupInternal(fileIds: List<String>,
                                      jsonpCallback: String? = null,
                                      signature: String? = null,

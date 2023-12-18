@@ -430,5 +430,25 @@ class Urls private constructor() {
         fun apiRemoveBgStatus(): URI {
             return URI.create("$API_BASE/addons/remove_bg/execute/status/")
         }
+
+        /**
+         * Creates a URL to the file's metadata.
+         *
+         * @see com.uploadcare.android.library.api.UploadcareClient
+         */
+        @JvmStatic
+        fun apiFileMetadata(fileId: String): URI {
+            return URI.create("$API_BASE/files/$fileId/metadata/")
+        }
+
+        /**
+         * Creates a URL to the file's metadata key.
+         *
+         * @see com.uploadcare.android.library.api.UploadcareClient
+         */
+        @JvmStatic
+        fun apiFileMetadataKey(fileId: String, key: String): URI {
+            return URI.create("$API_BASE/files/$fileId/metadata/$key/")
+        }
     }
 }
