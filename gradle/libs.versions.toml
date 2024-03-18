@@ -24,7 +24,7 @@ moshi = "1.15.0"
 junit = "4.13.2"
 testRunner = "1.5.2"
 espressoCore = "3.5.1"
-r8 = "8.2.36"
+r8 = "8.3.37"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinVersion" }
