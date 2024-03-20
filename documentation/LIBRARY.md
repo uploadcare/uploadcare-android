@@ -1669,7 +1669,6 @@ Kotlin
 val context = ...// Context
 val fileUri = ...//resource representing file (File/Uri/InputStream/ByteArray/String types are supported).
 val uploader = FileUploader(uploadcare, fileUri, context) // Use "MultipleFilesUploader" for multiple files.
-    .store(true)
     // Other upload parameters.
 
 uploader.uploadAsync(object : UploadFileCallback {
@@ -1697,7 +1696,6 @@ Java
 Context context = ...// Context
 Uri fileUri = ...//resource representing file (File/Uri/InputStream/ByteArray/String types are supported).
 Uploader uploader = new FileUploader(uploadcare, fileUri, context) // Use "MultipleFilesUploader" for multiple files.
-    .store(true);
     // Other upload parameters.
 
 uploader.uploadAsync(new UploadFileCallback() {
@@ -1731,7 +1729,6 @@ Kotlin
 val context = ...// Context
 val fileUri = ...//resource representing file (File/Uri/InputStream/ByteArray/String types are supported).
 val uploader = FileUploader(uploadcare, fileUri, context) // Use "MultipleFilesUploader" for multiple files.
-    .store(true)
     // Other upload parameters.
 
 try {
@@ -1746,7 +1743,6 @@ Java
 Context context = ...// Context
 Uri fileUri = ...//resource representing file (File/Uri/InputStream/ByteArray/String types are supported).
 Uploader uploader = new FileUploader(uploadcare, fileUri, context) // Use "MultipleFilesUploader" for multiple files.
-    .store(true);
     // Other upload parameters.
 
 try {
@@ -1765,7 +1761,6 @@ Kotlin
 ```kotlin
 val sourceUrl = "YOU_FILE_URL"
 val uploader = UrlUploader(uploadcare, sourceUrl) // Use "MultipleUrlsUploader" for multiple files.
-    .store(true)
     // Other upload parameters.
 
 uploader.uploadAsync(object : UploadFileCallback {
@@ -1792,7 +1787,6 @@ Java
 ```java
 String sourceUrl = "YOU_FILE_URL";
 Uploader uploader = new UrlUploader(uploadcare, sourceUrl) // Use "MultipleUrlsUploader" for multiple files.
-    .store(true);
     // Other upload parameters.
 
 uploader.uploadAsync(new UploadFileCallback() {
@@ -1825,7 +1819,6 @@ Kotlin
 ```kotlin
 val sourceUrl = "YOU_FILE_URL"
 val uploader = UrlUploader(uploadcare, sourceUrl) // Use "MultipleUrlsUploader" for multiple files.
-    .store(true)
     // Other upload parameters.
 
 try {
@@ -1839,7 +1832,6 @@ Java
 ```java
 String sourceUrl = "YOU_FILE_URL";
 Uploader uploader = new UrlUploader(uploadcare, sourceUrl) // Use "MultipleUrlsUploader" for multiple files.
-    .store(true);
     // Other upload parameters.
 
 try {
