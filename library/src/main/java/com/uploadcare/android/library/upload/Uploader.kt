@@ -14,5 +14,10 @@ interface Uploader {
 
     fun cancel()
 
-    fun store(store: Boolean): Uploader
+    fun store(store: Boolean?): Uploader
+
+    companion object {
+
+        const val DEFAULT_STORE_MODE = "auto"
+    }
 }

@@ -291,9 +291,14 @@ class FileUploader : Uploader {
      * @param store is set true - store the file upon uploading. Requires “automatic file storing”
      *              setting to be enabled.
      *              is set false - do not store file upon uploading.
+     *              is set null - use auto-store setting.
      */
-    override fun store(store: Boolean): FileUploader {
-        this.store = if (store) 1.toString() else 0.toString()
+    override fun store(store: Boolean?): FileUploader {
+        this.store = when (store) {
+            true -> 1.toString()
+            false -> 0.toString()
+            else -> Uploader.DEFAULT_STORE_MODE
+        }
         return this
     }
 
