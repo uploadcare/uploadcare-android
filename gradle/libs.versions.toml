@@ -1,6 +1,6 @@
 [versions]
 appVersion = "4.1.0"
-kotlinVersion = "1.9.21"
+kotlinVersion = "1.9.22"
 kotlinCoroutines = "1.7.3"
 minSdk = "22"
 targetSdk = "34"
