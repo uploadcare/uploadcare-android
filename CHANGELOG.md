@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.2.0 - UNRELEASED
+**Library changes:**
+- Added support for [auto-store setting](https://uploadcare.com/docs/uploads/storage/#defaults).
+
 ## 4.1.0
 **Library changes:**
 - Added file metadata [methods](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/File-metadata).
