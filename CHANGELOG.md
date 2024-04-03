@@ -1,8 +1,8 @@
 # Changelog
 
-## 4.2.0 - UNRELEASED
+## 4.2.0
 **Library changes:**
-- Added support for [auto-store setting](https://uploadcare.com/docs/uploads/storage/#defaults).
+- Improved support for [auto-store setting](https://uploadcare.com/docs/uploads/storage/#defaults).
 
 ## 4.1.0
 **Library changes:**
