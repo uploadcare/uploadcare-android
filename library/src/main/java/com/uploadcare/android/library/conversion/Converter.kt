@@ -5,6 +5,7 @@ import com.uploadcare.android.library.api.RequestHelper.Companion.md5
 import com.uploadcare.android.library.api.UploadcareClient
 import com.uploadcare.android.library.api.UploadcareFile
 import com.uploadcare.android.library.callbacks.ConversionFilesCallback
+import com.uploadcare.android.library.callbacks.ConversionResultDataCallback
 import com.uploadcare.android.library.data.ConvertData
 import com.uploadcare.android.library.data.ConvertResultData
 import com.uploadcare.android.library.data.ConvertStatusData
@@ -26,7 +27,7 @@ abstract class Converter(private val client: UploadcareClient,
     private var store: String? = null
     private var saveInGroup: String? = null
 
-    private var job: Job? = null
+    private val scope = MainScope()
 
     private var isCanceled: Boolean = false
 
@@ -46,7 +47,7 @@ abstract class Converter(private val client: UploadcareClient,
      * @param ConversionFilesCallback that will be called when finished, or when error occurred.
      */
     fun convertAsync(callback: ConversionFilesCallback) {
-        job = GlobalScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             try {
                 val uploadedFiles = convert(UrlUploader.DEFAULT_POLLING_INTERVAL)
                 withContext(Dispatchers.Main) {
@@ -62,8 +63,8 @@ abstract class Converter(private val client: UploadcareClient,
 
     fun cancel() {
         isCanceled = true
-        job?.cancel("canceled", UploadcareApiException("Canceled"))
-        job = null
+        val cause = CancellationException("canceled", UploadcareApiException("Canceled"))
+        scope.coroutineContext.cancelChildren(cause)
     }
 
     /**
@@ -92,19 +93,7 @@ abstract class Converter(private val client: UploadcareClient,
     @Throws(UploadcareApiException::class)
     fun convert(pollingInterval: Long): List<UploadcareFile> {
         val results = ArrayList<UploadcareFile>()
-
-        val convertData = ConvertData(getPaths(), store, saveInGroup)
-        val requestBodyContent = client.objectMapper.toJson(convertData, ConvertData::class.java)
-        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
-        val url = getConversionUri()
-
-        val jobTokens = client.requestHelper.executeQuery(
-                RequestHelper.REQUEST_POST,
-                url.toString(),
-                true,
-                ConvertResultData::class.java,
-                body,
-                requestBodyContent.md5())
+        val jobTokens = convertWithResultData()
 
         if (jobTokens.result.isEmpty()) {
             throw UploadcareApiException("Convert Error: " + jobTokens.problems.toString())
@@ -166,6 +155,48 @@ abstract class Converter(private val client: UploadcareClient,
         }
 
         return results
+    }
+
+    /**
+     * Start conversion process synchronously.
+     *
+     * @return An object containing the problems related to your processing job
+     * and the result for each requested path.
+     */
+    fun convertWithResultData(): ConvertResultData {
+        val convertData = ConvertData(getPaths(), store, saveInGroup)
+        val requestBodyContent = client.objectMapper.toJson(convertData, ConvertData::class.java)
+        val body = requestBodyContent.encodeUtf8().toRequestBody(RequestHelper.JSON)
+        val url = getConversionUri()
+
+        return client.requestHelper.executeQuery(
+            RequestHelper.REQUEST_POST,
+            url.toString(),
+            true,
+            ConvertResultData::class.java,
+            body,
+            requestBodyContent.md5()
+        )
+    }
+
+    /**
+     * Start conversion process asynchronously.
+     *
+     * @param ConversionResultDataCallback that will be called when finished, or when error occurred.
+     */
+    fun convertWithResultDataAsync(callback: ConversionResultDataCallback) {
+        scope.launch(Dispatchers.IO) {
+            try {
+                val file = convertWithResultData()
+                withContext(Dispatchers.Main) {
+                    callback.onSuccess(file)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    callback.onFailure(UploadcareApiException(e.message))
+                }
+            }
+        }
     }
 
     protected abstract fun getConversionUri(): URI
