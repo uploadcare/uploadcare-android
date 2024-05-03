@@ -8,11 +8,11 @@ internal data class ConvertData(
         @Json(name = "save_in_group") val saveInGroup: String?
 )
 
-internal data class ConvertResultData(
+data class ConvertResultData(
         val problems: Map<String, String>,
         val result: List<ConvertResult>)
 
-internal data class ConvertResult(
+data class ConvertResult(
         val originalSource: String? = null,
         val uuid: String,
         val token: Int)

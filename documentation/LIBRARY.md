@@ -869,6 +869,99 @@ DocumentConverter converter = new DocumentConverter(uploadcare, conversionJobs);
 List<UploadcareFile> result = converter.convert();
 ```
 
+##### Asynchronous documents convert with result data.
+
+Kotlin
+```kotlin
+// Create conversion job
+val conversionJob = DocumentConversionJob("YOUR_FILE_UUID").apply {
+    setFormat(DocumentFormat.JPG)
+    // other conversion parameters...
+}
+
+// Create document converter, multiple DocumentConversionJob are supported.
+val converter = DocumentConverter(uploadcare, listOf(conversionJob))
+
+// Convert with result data
+converter.convertWithResultDataAsync(object : ConversionResultDataCallback {
+    override fun onFailure(e: UploadcareApiException) {
+        // Handle errors.
+    }
+
+    override fun onSuccess(result: ConvertResultData) {
+        /* Handle an object containing the problems related to your processing job
+           and the result for each requested path.
+        */
+    }
+})
+```
+
+Java
+```java
+// Create conversion job
+DocumentConversionJob conversionJob = new DocumentConversionJob("YOUR_FILE_UUID")
+    .setFormat(DocumentFormat.JPG);
+    // other conversion parameters...
+
+// Multiple DocumentConversionJob are supported.
+List<DocumentConversionJob> conversionJobs = new ArrayList();
+conversionJobs.add(conversionJob);
+
+// Create document converter
+DocumentConverter converter = new DocumentConverter(uploadcare, conversionJobs);
+
+// Convert with result data
+converter.convertWithResultDataAsync(
+        new ConversionResultDataCallback() {
+            @Override
+            public void onFailure(@NotNull UploadcareApiException e) {
+                // Handle errors.
+            }
+
+            @Override
+            public void onSuccess(@NonNull ConvertResultData result) {
+                /* Handle an object containing the problems related to your processing job
+                   and the result for each requested path.
+                */
+            }
+        });
+```
+
+##### Synchronous documents convert with result data.
+
+Kotlin
+```kotlin
+// Create conversion job
+val conversionJob = DocumentConversionJob("YOUR_FILE_UUID").apply {
+    setFormat(DocumentFormat.JPG)
+    // other conversion parameters...
+}
+
+// Create document converter, multiple DocumentConversionJob are supported.
+val converter = DocumentConverter(uploadcare, listOf(conversionJob))
+
+// Convert with result data
+val result: ConvertResultData = converter.convertWithResultData()
+```
+
+Java
+```java
+// Create conversion job
+DocumentConversionJob conversionJob = new DocumentConversionJob("YOUR_FILE_UUID")
+    .setFormat(DocumentFormat.JPG);
+    // other conversion parameters...
+
+// Multiple DocumentConversionJob are supported.
+List<DocumentConversionJob> conversionJobs = new ArrayList();
+conversionJobs.add(conversionJob);
+
+// Create document converter
+DocumentConverter converter = new DocumentConverter(uploadcare, conversionJobs);
+
+// Convert with result data
+ConvertResultData result = converter.convertWithResultData();
+```
+
 ## Check document conversion status ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Conversion/operation/documentConvertStatus)) ##
 
 ##### Asynchronous check document conversion status.
@@ -1011,6 +1104,103 @@ VideoConverter converter = new VideoConverter(uploadcare, conversionJobs);
 
 // Convert
 List<UploadcareFile> result = converter.convert();
+```
+
+##### Asynchronous videos convert with result data.
+
+Kotlin
+```kotlin
+// Create conversion job
+val conversionJob = VideoConversionJob("YOUR_FILE_UUID").apply {
+    setFormat(VideoFormat.MP4)
+    quality(VideoQuality.NORMAL)
+    thumbnails(2)
+    // other conversion parameters...
+}
+
+// Create video converter, multiple VideoConversionJob are supported.
+val converter = VideoConverter(uploadcare, listOf(conversionJob))
+
+// Convert with result data
+converter.convertWithResultDataAsync(object : ConversionResultDataCallback {
+    override fun onFailure(e: UploadcareApiException) {
+        // Handle errors.
+    }
+
+    override fun onSuccess(result: ConvertResultData) {
+        /* Handle an object containing the problems related to your processing job
+           and the result for each requested path.
+        */
+    }
+})
+```
+
+Java
+```java
+// Create conversion job
+VideoConversionJob conversionJob = new VideoConversionJob("YOUR_FILE_UUID")
+    .setFormat(DocumentFormat.JPG);
+    // other conversion parameters...
+
+// Multiple VideoConversionJob are supported.
+List<VideoConversionJob> conversionJobs = new ArrayList();
+conversionJobs.add(conversionJob);
+
+// Create document converter
+VideoConverter converter = new VideoConverter(uploadcare, conversionJobs);
+
+// Convert with result data
+converter.convertAsync(
+        new ConversionResultDataCallback() {
+            @Override
+            public void onFailure(@NotNull UploadcareApiException e) {
+                // Handle errors.
+            }
+
+            @Override
+            public void onSuccess(@NonNull ConvertResultData result) {
+                /* Handle an object containing the problems related to your processing job
+                   and the result for each requested path.
+                */
+            }
+        });
+```
+
+##### Synchronous videos convert with result data.
+
+Kotlin
+```kotlin
+// Create conversion job
+val conversionJob = VideoConversionJob("YOUR_FILE_UUID").apply {
+    setFormat(VideoFormat.MP4)
+    quality(VideoQuality.NORMAL)
+    thumbnails(2)
+    // other conversion parameters...
+}
+
+// Create video converter, multiple VideoConversionJob are supported.
+val converter = VideoConverter(uploadcare, listOf(conversionJob))
+
+// Convert with result data
+val result: ConvertResultData = converter.convertWithResultData()
+```
+
+Java
+```java
+// Create conversion job
+VideoConversionJob conversionJob = new VideoConversionJob("YOUR_FILE_UUID")
+    .setFormat(DocumentFormat.JPG);
+    // other conversion parameters...
+
+// Multiple VideoConversionJob are supported.
+List<VideoConversionJob> conversionJobs = new ArrayList();
+conversionJobs.add(conversionJob);
+
+// Create document converter
+VideoConverter converter = new VideoConverter(uploadcare, conversionJobs);
+
+// Convert with result data
+ConvertResultData result = converter.convertWithResultData();
 ```
 
 ## Check video conversion status ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Conversion/operation/videoConvertStatus)) ##
