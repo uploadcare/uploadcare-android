@@ -25,5 +25,5 @@ The latest stable version is available at jCenter.
 To include it in your Android project, add this line to the 'gradle.build' file:
 
 ```
-implementation 'com.uploadcare.android.library:uploadcare-android:4.1.0'
+implementation 'com.uploadcare.android.library:uploadcare-android:4.3.0'
 ```
