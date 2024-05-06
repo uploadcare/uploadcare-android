@@ -1,9 +1,12 @@
 # Changelog
 
+## 4.3.0
+**Library changes:**
+- Added convert methods with result data
+
 ## 4.2.0
 **Library changes:**
 - Improved support for [auto-store setting](https://uploadcare.com/docs/uploads/storage/#defaults).
-- Added convert methods with result data
 
 ## 4.1.0
 **Library changes:**
