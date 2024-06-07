@@ -3,6 +3,7 @@
 ## 4.3.0
 **Library changes:**
 - Added convert methods with result data
+- Updated Proguard's rules to keep public classes
 
 ## 4.2.0
 **Library changes:**
