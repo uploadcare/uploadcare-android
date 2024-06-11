@@ -16,7 +16,7 @@
 #   public *;
 #}
 
--keep class com.uploadcare.android.widget.data.** { *; }
+-keep class com.uploadcare.android.widget.** { *; }
 
 # Keep inherited services.
 -if interface * { @retrofit2.http.* <methods>; }
