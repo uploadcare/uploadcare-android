@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.3.1
+**Changes:**
+* bugfix: UploadcareClient class visibility
+
 ## 4.3.0
 **Library changes:**
 - Added convert methods with result data
