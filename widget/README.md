@@ -13,9 +13,9 @@ Supported features:
 
 [Documentation](https://github.com/uploadcare/uploadcare-android/blob/master/documentation/WIDGET.md)
 
-## jCenter
+## Maven Central
 
-The latest stable version is available from jCenter.
+The latest stable version is available at Maven Central.
 
 To include it in your Android project, add this line to the 'gradle.build' file:
 

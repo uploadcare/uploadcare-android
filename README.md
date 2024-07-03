@@ -1,5 +1,5 @@
 # Android integration for Uploadcare
-[![build](https://travis-ci.com/uploadcare/uploadcare-android.svg?branch=master)](https://travis-ci.com/uploadcare/uploadcare-android)
+[![build](https://github.com/uploadcare/uploadcare-android/actions/workflows/deploy-tagged.yml/badge.svg)](https://github.com/uploadcare/uploadcare-android/actions/workflows/deploy-tagged.yml)
 
 Uploadcare Android integration handles uploads and further operations with files by wrapping Upload and REST APIs.
 
@@ -50,5 +50,5 @@ Supported features:
 
 * Gradle 7.6
 * JDK 11
-* Android SDK 30
+* Android SDK 34
 
