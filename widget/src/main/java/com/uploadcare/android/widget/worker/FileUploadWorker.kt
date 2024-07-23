@@ -3,6 +3,7 @@ package com.uploadcare.android.widget.worker
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -99,7 +100,15 @@ class FileUploadWorker(appContext: Context,
     private fun createForegroundInfo(notificationBuilder: NotificationCompat.Builder)
             : ForegroundInfo {
         //Notification ID
-        return ForegroundInfo(NOTIFICATION_ID, notificationBuilder.build())
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ForegroundInfo(
+                NOTIFICATION_ID,
+                notificationBuilder.build(),
+                FOREGROUND_SERVICE_TYPE_DATA_SYNC
+            )
+        } else {
+            ForegroundInfo(NOTIFICATION_ID, notificationBuilder.build())
+        }
     }
 
     private fun updateNotificationProgress(content: String, progress: Int) {
