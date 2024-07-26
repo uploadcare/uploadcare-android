@@ -50,5 +50,5 @@ Supported features:
 
 * Gradle 7.6
 * JDK 11
-* Android SDK 34
+* Android SDK 22
 
