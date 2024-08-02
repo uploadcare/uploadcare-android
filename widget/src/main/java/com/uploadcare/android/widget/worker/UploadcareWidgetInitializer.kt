@@ -7,8 +7,6 @@ import android.content.pm.ProviderInfo
 import android.database.Cursor
 import android.net.Uri
 import androidx.annotation.RestrictTo
-import androidx.work.Configuration
-import androidx.work.WorkManager
 import com.uploadcare.android.widget.controller.UploadcareWidget
 
 /**
@@ -18,18 +16,11 @@ import com.uploadcare.android.widget.controller.UploadcareWidget
  * @hide
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-class UploadcareWorkManagerInitializer : ContentProvider() {
+class UploadcareWidgetInitializer : ContentProvider() {
 
     override fun onCreate(): Boolean {
         //Initialize UploadcareWidget.
         UploadcareWidget.init(context!!)
-        // provide custom configuration
-        val workManagerConfig = Configuration.Builder()
-                .setMinimumLoggingLevel(android.util.Log.INFO)
-                .build()
-
-        // initialize WorkManager
-        WorkManager.initialize(context!!, workManagerConfig)
 
         return true
     }
