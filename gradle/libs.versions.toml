@@ -1,5 +1,5 @@
 [versions]
-appVersion = "4.3.1"
+appVersion = "4.3.2"
 kotlinVersion = "2.0.10"
 kotlinCoroutines = "1.8.1"
 minSdk = "22"

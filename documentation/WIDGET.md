@@ -12,6 +12,17 @@
 </resources>
 ```
 
+#### If your app targets Android 14 (API level 34) or higher you must specify a foreground service type for all long-running workers.
+
+Declare your worker's foreground service type with `dataSync` foreground service type in your app's manifest to support our worker:
+
+```xml
+<service
+    android:name="androidx.work.impl.foreground.SystemForegroundService"
+    android:foregroundServiceType="dataSync|your_type"
+    tools:node="replace" />
+```
+
 ##### Select and upload file to Uploadcare from any available social network/camera/local file from Activity/Fragment.
 
 Kotlin

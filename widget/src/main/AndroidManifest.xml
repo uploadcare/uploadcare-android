@@ -3,6 +3,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
         android:allowBackup="true"
@@ -24,15 +25,14 @@
         </provider>
 
         <provider
-            android:name="androidx.work.impl.WorkManagerInitializer"
-            android:authorities="${applicationId}.workmanager-init"
-            tools:node="remove"
-            tools:ignore="ExportedContentProvider" />
-
-        <provider
-            android:name=".worker.UploadcareWorkManagerInitializer"
-            android:authorities="${applicationId}.UploadcareWorkManagerInitializer"
+            android:name=".worker.UploadcareWidgetInitializer"
+            android:authorities="${applicationId}.UploadcareWidgetInitializer"
             android:exported="false" />
+
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:foregroundServiceType="dataSync"
+            tools:node="merge" />
     </application>
 
 </manifest>
