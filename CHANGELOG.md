@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.3.2
+**Widget changes:**
+- Remove custom worker initializer to not to force apps to remove the default one in manifest, or to avoid crashes when the app has its own custom initializer
+- Add foregroundServiceType to support Android 14 and newer
+
 ## 4.3.1
 **Changes:**
 * bugfix: UploadcareClient class visibility
