@@ -318,6 +318,18 @@ class Urls private constructor() {
         }
 
         /**
+         * Allows you to determine the document format and possible conversion formats.
+         *
+         * @param fileId File UUID.
+         *
+         * @see com.uploadcare.android.library.api.UploadcareClient
+         */
+        @JvmStatic
+        fun apiDocumentConversionInfo(fileId: String): URI {
+            return URI.create("$API_BASE/convert/document/$fileId/")
+        }
+
+        /**
          * Creates a URL to the document conversion status.
          *
          * @param token Token, received after a Convert Document request.
