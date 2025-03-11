@@ -780,6 +780,57 @@ Java
 uploadcare.deleteWebhook(URI.create("YOUR_WEBHOOK_URL"));
 ```
 
+## Document info ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#tag/Conversion/operation/documentConvertInfo)) ##
+
+##### Asynchronous document info fetch.
+
+Kotlin
+```kotlin
+uploadcare.getDocumentConversionInfoAsync(
+    context,
+    "YOUR_FILE_UUID",
+    object : ConversionInfoCallback {
+        override fun onFailure(e: UploadcareApiException) {
+            // Handle errors.
+        }
+
+        override fun onSuccess(result: DocumentInfo) {
+            // Successfully fetched DocumentInfo.
+        }
+    },
+)
+```
+
+Java
+```java
+uploadcare.getDocumentConversionInfoAsync(
+    context,
+    "YOUR_FILE_UUID",
+    new ConversionInfoCallback() {
+        @Override
+        public void onFailure(@NotNull UploadcareApiException e) {
+            // Handle errors.
+        }
+        
+        @Override
+        public void onSuccess(@NonNull DocumentInfo result) {
+            // Successfully fetched DocumentInfo.
+        }
+    });
+```
+
+##### Synchronous document info fetch.
+
+Kotlin
+```kotlin
+val documentInfo = uploadcare.getDocumentConversionInfo("YOUR_FILE_UUID")
+```
+
+Java
+```java
+DocumentInfo documentInfo = uploadcare.getDocumentConversionInfo("YOUR_FILE_UUID");
+```
+
 ## Convert documents ([API Reference](https://uploadcare.com/api-refs/rest-api/v0.7.0/#operation/documentConvert)) ##
 
 ##### Asynchronous documents convert.

@@ -8,6 +8,7 @@ import com.uploadcare.android.library.api.RequestHelper.Companion.md5
 import com.uploadcare.android.library.callbacks.*
 import com.uploadcare.android.library.data.ConvertStatusData
 import com.uploadcare.android.library.data.CopyOptionsData
+import com.uploadcare.android.library.data.DocumentInfo
 import com.uploadcare.android.library.data.ObjectMapper
 import com.uploadcare.android.library.data.UploadFromUrlStatusData
 import com.uploadcare.android.library.data.WebhookOptionsData
@@ -1162,6 +1163,48 @@ class UploadcareClient constructor(val publicKey: String,
             url = url.toString(),
             apiHeaders = false,
             dataClass = UploadFromUrlStatusData::class.java,
+            callback = callback
+        )
+    }
+
+    /**
+     * The method allows you to determine the document format and possible conversion formats.
+     *
+     * @param fileId Resource UUID.
+     * @return DocumentInfo or throws a failure exception.
+     */
+    fun getDocumentConversionInfo(fileId: String): DocumentInfo {
+        val url = Urls.apiDocumentConversionInfo(fileId)
+
+        return requestHelper.executeQuery(
+            requestType = RequestHelper.REQUEST_GET,
+            url = url.toString(),
+            apiHeaders = true,
+            dataClass = DocumentInfo::class.java
+        )
+    }
+
+    /**
+     * Get document format and possible conversion formats Asynchronously.
+     *
+     * @param context  Application context. [android.content.Context]
+     * @param fileId Resource UUID.
+     * @param callback callback [ConversionInfoCallback] with either
+     * a DocumentInfo response or a failure exception.
+     */
+    fun getDocumentConversionInfoAsync(
+        context: Context,
+        fileId: String,
+        callback: ConversionInfoCallback,
+    ) {
+        val url = Urls.apiDocumentConversionInfo(fileId)
+
+        return requestHelper.executeQueryAsync(
+            context = context,
+            requestType = RequestHelper.REQUEST_GET,
+            url = url.toString(),
+            apiHeaders = true,
+            dataClass = DocumentInfo::class.java,
             callback = callback
         )
     }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import com.uploadcare.android.library.api.*
 import com.uploadcare.android.library.data.ConvertResultData
 import com.uploadcare.android.library.data.ConvertStatusData
+import com.uploadcare.android.library.data.DocumentInfo
 import com.uploadcare.android.library.data.UploadFromUrlStatusData
 import com.uploadcare.android.library.exceptions.UploadcareApiException
 import okhttp3.Response
@@ -62,6 +63,8 @@ interface UploadcareMetadataCallback : BaseCallback<Map<String, String>>
 interface UploadcareMetadataKeyValueCallback : BaseCallback<String>
 
 interface UploadFromUrlStatusCallback : BaseCallback<UploadFromUrlStatusData>
+
+interface ConversionInfoCallback: BaseCallback<DocumentInfo>
 
 interface ConversionStatusCallback : BaseCallback<ConvertStatusData>
 
