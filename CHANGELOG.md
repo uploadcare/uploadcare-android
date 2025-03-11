@@ -1,7 +1,7 @@
 # Changelog
 
 ## 4.4.0
-**Widget changes:**
+**Library changes:**
 - Added conversion document info method
 
 ## 4.3.2
