@@ -20,5 +20,5 @@ The latest stable version is available at Maven Central.
 To include it in your Android project, add this line to the 'gradle.build' file:
 
 ```
-implementation 'com.uploadcare.android.widget:uploadcare-android-widget:4.3.2'
+implementation 'com.uploadcare.android.widget:uploadcare-android-widget:4.4.0'
 ```
