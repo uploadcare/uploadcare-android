@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.0
+**Widget changes:**
+- Added conversion document info method
+
 ## 4.3.2
 **Widget changes:**
 - Remove custom worker initializer to avoid forcing apps to remove the default one in the manifest or to avoid crashes when the app has its own custom initializer
