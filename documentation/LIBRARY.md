@@ -1948,9 +1948,9 @@ uploader.uploadAsync(new UploadFileCallback() {
 
     @Override
     public void onProgressUpdate(
-                        Long bytesWritten,
-                        Long contentLength,
-                        Double progress) {
+                        long bytesWritten,
+                        long contentLength,
+                        double progress) {
         // Upload progress info.
     }
 
@@ -1988,7 +1988,7 @@ Uploader uploader = new FileUploader(uploadcare, fileUri, context) // Use "Multi
     // Other upload parameters.
 
 try {
-    UploadcareFile file = uploader.upload();
+    UploadcareFile file = uploader.upload(null);
     // Successfully uploaded file to Uploadcare.
 } catch (UploadFailureException e) {
     // Handle errors.
@@ -2039,9 +2039,9 @@ uploader.uploadAsync(new UploadFileCallback() {
 
     @Override
     public void onProgressUpdate(
-                        Long bytesWritten,
-                        Long contentLength,
-                        Double progress) {
+                        long bytesWritten,
+                        long contentLength,
+                        double progress) {
         // Upload progress info.
     }
 
@@ -2077,7 +2077,7 @@ Uploader uploader = new UrlUploader(uploadcare, sourceUrl) // Use "MultipleUrlsU
     // Other upload parameters.
 
 try {
-    UploadcareFile file = uploader.upload();
+    UploadcareFile file = uploader.upload(null);
     // Successfully uploaded file to Uploadcare.
 } catch (UploadFailureException e) {
     // Handle errors.
